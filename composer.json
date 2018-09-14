@@ -1,0 +1,52 @@
+{
+  "name": "glhd/aire",
+  "description": "Modern Laravel form builder. Remembers old input, retrieves error messages and comes with beautiful Tailwind-based markup out of the box.",
+  "keywords": [
+    "laravel",
+    "forms",
+    "tailwind",
+    "aire"
+  ],
+  "authors": [
+    {
+      "name": "Chris Morrell",
+      "homepage": "http://www.cmorrell.com"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0",
+    "illuminate/support": "5.5.*|5.6.*|5.7.*",
+    "illuminate/view": "5.5.*|5.6.*|5.7.*"
+  },
+  "require-dev": {
+    "orchestra/testbench": "~3.0",
+    "phpunit/phpunit": "^7.3",
+    "mockery/mockery": "^1.1",
+    "php-coveralls/php-coveralls": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Galahad\\Aire\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ],
+    "psr-4": {
+      "Galahad\\Aire\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Galahad\\Aire\\AireServiceProvider"
+      ],
+      "aliases": {
+        "Aire": "Galahad\\Aire\\Facades\\Aire"
+      }
+    }
+  }
+}
