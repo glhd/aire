@@ -1,18 +1,12 @@
 <?php
 
-namespace Galahad\Aire;
+namespace Galahad\Aire\Support;
 
+use Galahad\Aire\Aire;
 use Illuminate\Support\ServiceProvider;
 
 class AireServiceProvider extends ServiceProvider
 {
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = true;
-	
 	/**
 	 * Perform post-registration booting of services.
 	 *
@@ -20,6 +14,8 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		require_once __DIR__.'/helpers.php';
+		
 		$this->bootViews();
 	}
 	
@@ -36,26 +32,13 @@ class AireServiceProvider extends ServiceProvider
 	}
 	
 	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return [
-			Aire::class,
-			'galahad.aire',
-		];
-	}
-	
-	/**
 	 * Boot our views
 	 *
 	 * @return $this
 	 */
 	protected function bootViews() : self
 	{
-		$path = __DIR__.'/../views';
+		$path = __DIR__.'/../../views';
 		
 		$this->loadViewsFrom($path, 'aire');
 		

@@ -2,8 +2,8 @@
 
 namespace Galahad\Aire\Tests;
 
-use Galahad\Aire\AireServiceProvider;
-use Galahad\Aire\Facades\Aire;
+use Galahad\Aire\Support\AireServiceProvider;
+use Galahad\Aire\Support\Facades\Aire;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -20,5 +20,19 @@ abstract class TestCase extends Orchestra
 		return [
 			'Aire' => Aire::class,
 		];
+	}
+	
+	protected function assertHTML($expected, $actual)
+	{
+		$this->assertEquals(
+			$this->normalizeHTML($expected),
+			$this->normalizeHTML($actual)
+		);
+	}
+	
+	protected function normalizeHTML($html)
+	{
+		$trimmed = trim((string) $html);
+		return preg_replace('/\s*\n\s*/m', ' ', $trimmed);
 	}
 }

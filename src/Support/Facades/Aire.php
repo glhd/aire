@@ -1,11 +1,11 @@
 <?php
 
-namespace Galahad\Aire\Facades;
+namespace Galahad\Aire\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Galahad\Aire\Form open()
+ * @method static \Galahad\Aire\Elements\Form open()
  */
 class Aire extends Facade
 {
