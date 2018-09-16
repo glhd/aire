@@ -1,18 +1,15 @@
 <?php
 
-namespace Galahad\Aire\Tests\Feature;
+namespace Galahad\Aire\Tests\Unit;
 
-use Galahad\Aire\Elements\Form;
 use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Tests\TestCase;
 
-class AireTest extends TestCase
+class FormTest extends TestCase
 {
-	public function test_opening_a_form_generates_a_form_tag()
+	public function test_forms_are_post_by_default()
 	{
 		$form = Aire::open();
-		
-		$this->assertInstanceOf(Form::class, $form);
 		
 		$expected = '<form method="POST">
 			</form>';

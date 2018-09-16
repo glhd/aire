@@ -7,7 +7,8 @@ use Illuminate\Contracts\Support\Htmlable;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes;
+	use HasGlobalAttributes,
+		HasAriaAttributes;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
@@ -37,6 +38,17 @@ abstract class Element implements Htmlable
 	public function __construct(Aire $aire)
 	{
 		$this->aire = $aire;
+	}
+	
+	public function data($key, $value)
+	{
+		if (null === $value && isset($this->attributes["data-{$key}"])) {
+			unset($this->attributes["data-{$key}"]);
+		} else {
+			$this->attributes["data-{$key}"] = $value;
+		}
+		
+		return $this;
 	}
 	
 	public function toHtml()

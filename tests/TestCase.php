@@ -33,6 +33,13 @@ abstract class TestCase extends Orchestra
 	protected function normalizeHTML($html)
 	{
 		$trimmed = trim((string) $html);
-		return preg_replace('/\s*\n\s*/m', ' ', $trimmed);
+		
+		// Remove excess whitespace
+		$normalized = preg_replace('/\s*\n\s*/m', ' ', $trimmed);
+		
+		// Remove trailing space in attribute list
+		$normalized = str_replace(' >', '>', $normalized);
+		
+		return $normalized;
 	}
 }
