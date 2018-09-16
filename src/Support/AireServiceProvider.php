@@ -3,10 +3,23 @@
 namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class AireServiceProvider extends ServiceProvider
 {
+	protected $config_path;
+	
+	protected $view_directory;
+	
+	public function __construct(Application $app)
+	{
+		parent::__construct($app);
+		
+		$this->config_path = __DIR__.'/../../config/aire.php';
+		$this->view_directory = __DIR__.'/../../views';
+	}
+	
 	/**
 	 * Perform post-registration booting of services.
 	 *
@@ -16,6 +29,7 @@ class AireServiceProvider extends ServiceProvider
 	{
 		require_once __DIR__.'/helpers.php';
 		
+		$this->bootConfig();
 		$this->bootViews();
 	}
 	
@@ -26,6 +40,8 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
+		$this->mergeConfigFrom($this->config_path, 'aire');
+		
 		$this->app->singleton('galahad.aire', function($app) {
 			return new Aire($app['view']);
 		});
@@ -38,13 +54,22 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected function bootViews() : self
 	{
-		$path = __DIR__.'/../../views';
-		
-		$this->loadViewsFrom($path, 'aire');
+		$this->loadViewsFrom($this->view_directory, 'aire');
 		
 		if (method_exists($this->app, 'resourcePath')) {
 			$this->publishes([
-				$path => $this->app->resourcePath('views/vendor/aire'),
+				$this->view_directory => $this->app->resourcePath('views/vendor/aire'),
+			]);
+		}
+		
+		return $this;
+	}
+	
+	protected function bootConfig() : self
+	{
+		if (method_exists($this->app, 'configPath')) {
+			$this->publishes([
+				$this->config_path => $this->app->configPath('aire.php'),
 			]);
 		}
 		

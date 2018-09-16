@@ -4,7 +4,9 @@ namespace Galahad\Aire;
 
 use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Form;
+use Galahad\Aire\Elements\Input;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
 class Aire
@@ -20,13 +22,19 @@ class Aire
 	protected $form;
 	
 	/**
+	 * @var array
+	 */
+	protected $config;
+	
+	/**
 	 * Aire constructor.
 	 *
 	 * @param \Illuminate\View\Factory $factory
 	 */
-	public function __construct(Factory $factory)
+	public function __construct(Factory $factory, array $config = [])
 	{
 		$this->factory = $factory;
+		$this->config = $config;
 	}
 	
 	/**
@@ -54,6 +62,16 @@ class Aire
 	public function button(string $label) : Button
 	{
 		return new Button($label, $this);
+	}
+	
+	public function input() : Input
+	{
+		return new Input($this);
+	}
+	
+	public function config($key, $default = null)
+	{
+		return Arr::get($this->config, $key, $default);
 	}
 	
 	/**

@@ -38,7 +38,7 @@ abstract class TestCase extends Orchestra
 		$normalized = preg_replace('/\s*\n\s*/m', ' ', $trimmed);
 		
 		// Remove trailing space in attribute list
-		$normalized = str_replace(' >', '>', $normalized);
+		$normalized = str_replace([' >', ' />'], ['>', '/>'], $normalized);
 		
 		return $normalized;
 	}
