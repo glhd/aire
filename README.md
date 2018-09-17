@@ -16,7 +16,7 @@
 
 # Aire
 
-Aire is a modern Laravel form builder.
+Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)).
 
 ## Considerations
 
