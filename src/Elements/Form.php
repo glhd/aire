@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Illuminate\Support\HtmlString;
 
 class Form extends Element
 {
@@ -33,7 +34,7 @@ class Form extends Element
 	
 	public function close() : self
 	{
-		$this->data['fields'] = trim(ob_get_clean());
+		$this->data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
 		
 		return $this;
@@ -88,7 +89,7 @@ class Form extends Element
 	public function __toString()
 	{
 		if ($this->opened) {
-			$this->close();
+			return '';
 		}
 		
 		return parent::__toString();

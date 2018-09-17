@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
-$json = file_get_contents(__DIR__.'/data/completions.json');
+$json = file_get_contents(__DIR__.'/../data/completions.json');
 $data = json_decode($json, true);
 
 $tags = collect($data['tags']);

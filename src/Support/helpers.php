@@ -1,7 +1,15 @@
 <?php
 
+use Galahad\Aire\Aire;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+
+if (!function_exists('aire')) {
+	function aire() : Aire
+	{
+		return app('galahad.aire');
+	}
+}
 
 if (!function_exists('aire_attributes')) {
 	function aire_attributes(array $attributes, array $exclude = [])
