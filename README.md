@@ -18,7 +18,7 @@
 
 Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)).
 
-## Considerations
+## Considerations/Inspiration
 
   - Form controls should take sizing config
   - 'Read-only plain text' http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text
@@ -28,6 +28,10 @@ Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)).
   - Custom select support?
   - File inputs?
   - Should client-side validation be included?
+  - https://github.com/netojose/laravel-bootstrap-4-forms
+  - https://tailwindcss.com/docs/examples/forms/
+  - https://github.com/glhd/forms
+  - https://github.com/glhd/bootforms
 
 ## Components
 
