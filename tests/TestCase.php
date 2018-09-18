@@ -77,6 +77,8 @@ abstract class TestCase extends Orchestra
 	
 	protected function assertSelectorClassNames($html, string $selector, $class_names)
 	{
+		$class_names = (array) $class_names;
+		
 		$actual = $this->crawl($html)
 			->filter($selector)
 			->attr('class');
@@ -85,6 +87,12 @@ abstract class TestCase extends Orchestra
 		
 		$actual_class_names = explode(' ', $actual);
 		
-		$this->assertArraySubset($class_names, $actual_class_names);
+		$intersection = array_intersect($actual_class_names, $class_names);
+		
+		$this->assertCount(
+			count($intersection),
+			$class_names,
+			"Selector '$selector' should have all the classes '".implode(' ', $class_names)."'"
+		);
 	}
 }
