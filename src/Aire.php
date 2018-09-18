@@ -70,12 +70,12 @@ class Aire
 	
 	public function button(string $label) : Button
 	{
-		return new Button($label, $this);
+		return $this->element(Button::class, func_get_args());
 	}
 	
-	public function input() : Input
+	public function input($name = null, $label = null) : Input
 	{
-		return new Input($this);
+		return $this->element(Input::class, func_get_args());
 	}
 	
 	public function config($key, $default = null)
@@ -107,5 +107,10 @@ class Aire
 	protected function make($view, array $data = [], array $merge_data = []) : View
 	{
 		return $this->factory->make("aire::{$view}", $data, $merge_data);
+	}
+	
+	protected function element($class_name, array $args)
+	{
+		return new $class_name($this, ...$args);
 	}
 }

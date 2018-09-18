@@ -4,6 +4,9 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 
+/**
+ * @mixin \Galahad\Aire\Elements\Group
+ */
 abstract class GroupableElement extends Element
 {
 	protected $grouped = true;
@@ -15,7 +18,7 @@ abstract class GroupableElement extends Element
 		parent::__construct($aire);
 		
 		$this->grouped = $aire->config('group_by_default', true);
-		$this->group = new Group($this, $aire);
+		$this->group = new Group($aire, $this);
 	}
 	
 	public function grouped() : self
@@ -42,5 +45,10 @@ abstract class GroupableElement extends Element
 	public function renderInsideElement()
 	{
 		return parent::__toString();
+	}
+	
+	public function __call($name, $arguments)
+	{
+		$this->group->$name(...$arguments);
 	}
 }

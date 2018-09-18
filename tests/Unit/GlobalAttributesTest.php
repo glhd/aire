@@ -2,14 +2,13 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
-use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Tests\TestCase;
 
 class GlobalAttributesTest extends TestCase
 {
 	public function test_the_accesskey_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->accessKey('foo');
 		
@@ -18,7 +17,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_class_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->class('foo');
 		
@@ -27,7 +26,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_contenteditable_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->contentEditable();
 		
@@ -40,7 +39,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_contextmenu_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->contextMenu('foo');
 		
@@ -49,7 +48,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_dir_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->dir('foo');
 		
@@ -58,7 +57,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_draggable_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->draggable('foo');
 		
@@ -67,7 +66,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_dropzone_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->dropZone('foo');
 		
@@ -76,7 +75,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_hidden_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->hidden('foo');
 		
@@ -85,7 +84,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_id_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->id('foo');
 		
@@ -94,7 +93,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_lang_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->lang('foo');
 		
@@ -103,7 +102,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_role_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->role('foo');
 		
@@ -112,7 +111,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_spellcheck_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->spellCheck();
 		
@@ -125,7 +124,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_style_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->style('foo');
 		
@@ -134,7 +133,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_tabindex_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->tabIndex('foo');
 		
@@ -143,7 +142,7 @@ class GlobalAttributesTest extends TestCase
 	
 	public function test_the_title_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->title('foo');
 		

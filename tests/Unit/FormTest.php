@@ -9,7 +9,7 @@ class FormTest extends TestCase
 {
 	public function test_forms_are_post_by_default()
 	{
-		$form = Aire::open()->close();
+		$form = $this->aire()->open()->close();
 		
 		$this->assertSelectorExists($form, 'form');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
@@ -21,7 +21,7 @@ class FormTest extends TestCase
 		
 		$this->withSession(['_token' => $token]);
 		
-		$form = Aire::open()->close();
+		$form = $this->aire()->open()->close();
 		
 		$this->assertSelectorExists($form, 'input[name="_token"]');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
@@ -33,7 +33,7 @@ class FormTest extends TestCase
 		
 		$this->withSession(['_token' => $token]);
 		
-		$form = Aire::open()->get()->close();
+		$form = $this->aire()->open()->get()->close();
 		
 		$this->assertSelectorDoesNotExist($form, 'input[name="_token"]');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'GET');
@@ -41,7 +41,7 @@ class FormTest extends TestCase
 	
 	public function test_hidden_method_field_is_added_for_put_forms()
 	{
-		$form = Aire::open()->put()->close();
+		$form = $this->aire()->open()->put()->close();
 		
 		$this->assertSelectorExists($form, 'input[name="_method"]');
 		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'PUT');
@@ -50,7 +50,7 @@ class FormTest extends TestCase
 	
 	public function test_hidden_method_field_is_added_for_patch_forms()
 	{
-		$form = Aire::open()->patch()->close();
+		$form = $this->aire()->open()->patch()->close();
 		
 		$this->assertSelectorExists($form, 'input[name="_method"]');
 		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'PATCH');
@@ -59,7 +59,7 @@ class FormTest extends TestCase
 	
 	public function test_hidden_method_field_is_added_for_delete_forms()
 	{
-		$form = Aire::open()->delete()->close();
+		$form = $this->aire()->open()->delete()->close();
 		
 		$this->assertSelectorExists($form, 'input[name="_method"]');
 		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'DELETE');

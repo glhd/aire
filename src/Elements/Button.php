@@ -8,7 +8,7 @@ class Button extends Element
 {
 	protected $view = 'button';
 	
-	public function __construct(string $label, Aire $aire)
+	public function __construct(Aire $aire, string $label)
 	{
 		parent::__construct($aire);
 		

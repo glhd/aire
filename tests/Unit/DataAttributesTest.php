@@ -2,14 +2,13 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
-use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Tests\TestCase;
 
 class DataAttributesTest extends TestCase
 {
 	public function test_data_attributes_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->data('foo', 'bar');
 		
@@ -18,7 +17,7 @@ class DataAttributesTest extends TestCase
 	
 	public function test_data_attributes_can_be_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->data('foo', 'bar');
 		$form->data('foo', null);

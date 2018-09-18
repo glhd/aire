@@ -2,8 +2,9 @@
 
 namespace Galahad\Aire\Tests;
 
+use Galahad\Aire\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
-use Galahad\Aire\Support\Facades\Aire;
+use Galahad\Aire\Support\Facades\Aire as AireFacade;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -19,8 +20,13 @@ abstract class TestCase extends Orchestra
 	protected function getPackageAliases($app)
 	{
 		return [
-			'Aire' => Aire::class,
+			'Aire' => AireFacade::class,
 		];
+	}
+	
+	protected function aire() : Aire
+	{
+		return $this->app['galahad.aire'];
 	}
 	
 	protected function crawl($html) : Crawler

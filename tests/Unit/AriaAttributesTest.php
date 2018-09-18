@@ -2,14 +2,13 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
-use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Tests\TestCase;
 
 class AriaAttributesTest extends TestCase
 {
 	public function test_that_activedescendant_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaActiveDescendant('foo');
 		
@@ -18,7 +17,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_atomic_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaAtomic();
 		
@@ -31,7 +30,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_busy_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaBusy();
 		
@@ -44,7 +43,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_controls_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaControls('foo');
 		
@@ -53,7 +52,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_describedby_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaDescribedBy('foo');
 		
@@ -62,7 +61,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_disabled_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaDisabled('foo');
 		
@@ -71,7 +70,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_dropeffect_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaDropEffect('foo');
 		
@@ -80,7 +79,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_flowto_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaFlowTo('foo');
 		
@@ -89,7 +88,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_grabbed_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaGrabbed('foo');
 		
@@ -98,7 +97,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_haspopup_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaHasPopup();
 		
@@ -111,7 +110,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_hidden_can_be_set_and_unset()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaHidden();
 		
@@ -124,7 +123,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_invalid_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaInvalid('foo');
 		
@@ -133,7 +132,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_label_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaLabel('foo');
 		
@@ -142,7 +141,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_labelledby_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaLabelledBy('foo');
 		
@@ -151,7 +150,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_live_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaLive('foo');
 		
@@ -160,7 +159,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_owns_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaOwns('foo');
 		
@@ -169,7 +168,7 @@ class AriaAttributesTest extends TestCase
 	
 	public function test_that_relevant_can_be_set()
 	{
-		$form = Aire::open();
+		$form = $this->aire()->open();
 		
 		$form->ariaRelevant('foo');
 		

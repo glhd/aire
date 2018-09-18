@@ -14,7 +14,7 @@ class Group extends Element
 	 */
 	protected $element;
 	
-	public function __construct(GroupableElement $element, Aire $aire)
+	public function __construct(Aire $aire, GroupableElement $element)
 	{
 		parent::__construct($aire);
 		
