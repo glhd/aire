@@ -8,7 +8,7 @@ abstract class GroupableElement extends Element
 {
 	protected $grouped = true;
 	
-	protected $group;
+	public $group;
 	
 	public function __construct(Aire $aire)
 	{

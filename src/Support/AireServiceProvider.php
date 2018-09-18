@@ -43,7 +43,11 @@ class AireServiceProvider extends ServiceProvider
 		$this->mergeConfigFrom($this->config_path, 'aire');
 		
 		$this->app->singleton('galahad.aire', function($app) {
-			return new Aire($app['view']);
+			return new Aire(
+				$app['view'],
+				$app['url'],
+				$app['config']['aire'] ?? []
+			);
 		});
 	}
 	

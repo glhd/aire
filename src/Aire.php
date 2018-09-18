@@ -6,6 +6,7 @@ use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Form;
 use Galahad\Aire\Elements\Input;
 use Illuminate\Contracts\View\View;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
@@ -27,14 +28,22 @@ class Aire
 	protected $config;
 	
 	/**
+	 * @var \Illuminate\Routing\UrlGenerator
+	 */
+	protected $url;
+	
+	/**
 	 * Aire constructor.
 	 *
 	 * @param \Illuminate\View\Factory $factory
+	 * @param \Illuminate\Routing\UrlGenerator $url
+	 * @param array $config
 	 */
-	public function __construct(Factory $factory, array $config = [])
+	public function __construct(Factory $factory, UrlGenerator $url, array $config = [])
 	{
 		$this->factory = $factory;
 		$this->config = $config;
+		$this->url = $url;
 	}
 	
 	/**
@@ -44,7 +53,7 @@ class Aire
 	 */
 	public function open() : Form
 	{
-		$this->form = (new Form($this))->open();
+		$this->form = (new Form($this, $this->url))->open();
 		
 		return $this->form;
 	}

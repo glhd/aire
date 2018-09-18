@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\HtmlString;
 
 class Form extends Element
@@ -15,13 +16,20 @@ class Form extends Element
 	
 	protected $opened = false;
 	
-	public function __construct(Aire $aire)
+	/**
+	 * @var \Illuminate\Routing\UrlGenerator
+	 */
+	protected $url;
+	
+	public function __construct(Aire $aire, UrlGenerator $url)
 	{
 		parent::__construct($aire);
 		
 		if ($session = app('session')) {
 			$this->data['token'] = $session->token();
 		}
+		
+		$this->url = $url;
 	}
 	
 	public function open() : self
@@ -36,6 +44,22 @@ class Form extends Element
 	{
 		$this->data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
+		
+		return $this;
+	}
+	
+	public function action(string $action) : self
+	{
+		$this->data['action'] = $action;
+		
+		return $this;
+	}
+	
+	public function route(string $route, array $parameters = [], bool $absolute = true) : self
+	{
+		$action = $this->url->route($route, $parameters, $absolute);
+		
+		$this->action($action);
 		
 		return $this;
 	}
