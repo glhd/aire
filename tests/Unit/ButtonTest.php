@@ -11,11 +11,8 @@ class ButtonTest extends TestCase
 	{
 		$button = Aire::button('Testing');
 		
-		$expected = '<button>
-				Testing
-			</button>';
-		
-		$this->assertHTML($expected, $button);
+		$this->assertSelectorExists($button, 'button');
+		$this->assertSelectorText($button, 'button', 'Testing');
 	}
 	
 	public function test_the_label_can_be_changed()
@@ -24,10 +21,6 @@ class ButtonTest extends TestCase
 		
 		$button->label('Foo');
 		
-		$expected = '<button>
-				Foo
-			</button>';
-		
-		$this->assertHTML($expected, $button);
+		$this->assertSelectorText($button, 'button', 'Foo');
 	}
 }

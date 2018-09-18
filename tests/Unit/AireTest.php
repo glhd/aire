@@ -18,9 +18,7 @@ class AireTest extends TestCase
 		
 		$this->assertSame($form, $closed);
 		
-		$expected = '<form method="POST">
-			</form>';
-		
-		$this->assertHTML($expected, $closed);
+		$this->assertSelectorExists($form, 'form');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 }

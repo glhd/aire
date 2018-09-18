@@ -5,6 +5,7 @@ namespace Galahad\Aire\Tests;
 use Galahad\Aire\Support\AireServiceProvider;
 use Galahad\Aire\Support\Facades\Aire;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Symfony\Component\DomCrawler\Crawler;
 
 abstract class TestCase extends Orchestra
 {
@@ -22,24 +23,68 @@ abstract class TestCase extends Orchestra
 		];
 	}
 	
-	protected function assertHTML($expected, $actual)
+	protected function crawl($html) : Crawler
 	{
-		$this->assertEquals(
-			$this->normalizeHTML($expected),
-			$this->normalizeHTML($actual)
-		);
+		return $html instanceof Crawler
+			? $html
+			: new Crawler((string) $html);
 	}
 	
-	protected function normalizeHTML($html)
+	protected function assertSelectorExists($html, $selector)
 	{
-		$trimmed = trim((string) $html);
+		$count = $this->crawl($html)
+			->filter($selector)
+			->count();
 		
-		// Remove excess whitespace
-		$normalized = preg_replace('/\s*\n\s*/m', ' ', $trimmed);
+		$this->assertGreaterThan(0, $count);
+	}
+	
+	protected function assertSelectorDoesNotExist($html, $selector)
+	{
+		return $this->assertSelectorCount($html, $selector, 0);
+	}
+	
+	protected function assertSelectorCount($html, string $selector, int $count)
+	{
+		$count = $this->crawl($html)
+			->filter($selector)
+			->count();
 		
-		// Remove trailing space in attribute list
-		$normalized = str_replace([' >', ' />'], ['>', '/>'], $normalized);
+		$this->assertEquals($count, $count);
+	}
+	
+	protected function assertSelectorText($html, string $selector, string $text)
+	{
+		$actual = $this->crawl($html)
+			->filter($selector)
+			->text();
 		
-		return $normalized;
+		$this->assertEquals($text, trim($actual));
+	}
+	
+	protected function assertSelectorAttribute($html, string $selector, string $attribute, string $value = null)
+	{
+		$actual = $this->crawl($html)
+			->filter($selector)
+			->attr($attribute);
+		
+		$this->assertNotNull($actual, "Selector '$selector' should have attribute '$attribute'");
+		
+		if ($value) {
+			$this->assertEquals($value, $actual, "Selector '$selector' should have a '$attribute' with value'$value'");
+		}
+	}
+	
+	protected function assertSelectorClassNames($html, string $selector, $class_names)
+	{
+		$actual = $this->crawl($html)
+			->filter($selector)
+			->attr('class');
+		
+		$this->assertNotNull($actual, "Selector '$selector' should have a class attribute");
+		
+		$actual_class_names = explode(' ', $actual);
+		
+		$this->assertArraySubset($class_names, $actual_class_names);
 	}
 }

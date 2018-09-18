@@ -9,12 +9,10 @@ class FormTest extends TestCase
 {
 	public function test_forms_are_post_by_default()
 	{
-		$form = Aire::open();
+		$form = Aire::open()->close();
 		
-		$expected = '<form method="POST">
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorExists($form, 'form');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
 	public function test_csrf_token_is_included_if_session_is_set_and_method_is_not_get()
@@ -23,13 +21,10 @@ class FormTest extends TestCase
 		
 		$this->withSession(['_token' => $token]);
 		
-		$form = Aire::open();
+		$form = Aire::open()->close();
 		
-		$expected = '<form method="POST">
-				<input type="hidden" name="_token" value="'.$token.'" />
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorExists($form, 'input[name="_token"]');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
 	public function test_csrf_token_is_not_included_if_session_is_set_but_method_is_get()
@@ -38,44 +33,36 @@ class FormTest extends TestCase
 		
 		$this->withSession(['_token' => $token]);
 		
-		$form = Aire::open()->get();
+		$form = Aire::open()->get()->close();
 		
-		$expected = '<form method="GET">
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorDoesNotExist($form, 'input[name="_token"]');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'GET');
 	}
 	
 	public function test_hidden_method_field_is_added_for_put_forms()
 	{
-		$form = Aire::open()->put();
+		$form = Aire::open()->put()->close();
 		
-		$expected = '<form method="POST">
-				<input type="hidden" name="_method" value="PUT" />
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorExists($form, 'input[name="_method"]');
+		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'PUT');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
 	public function test_hidden_method_field_is_added_for_patch_forms()
 	{
-		$form = Aire::open()->patch();
+		$form = Aire::open()->patch()->close();
 		
-		$expected = '<form method="POST">
-				<input type="hidden" name="_method" value="PATCH" />
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorExists($form, 'input[name="_method"]');
+		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'PATCH');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
 	public function test_hidden_method_field_is_added_for_delete_forms()
 	{
-		$form = Aire::open()->delete();
+		$form = Aire::open()->delete()->close();
 		
-		$expected = '<form method="POST">
-				<input type="hidden" name="_method" value="DELETE" />
-			</form>';
-		
-		$this->assertHTML($expected, $form);
+		$this->assertSelectorExists($form, 'input[name="_method"]');
+		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'DELETE');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 }

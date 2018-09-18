@@ -11,10 +11,6 @@ class GroupTest extends TestCase
 	{
 		$input = Aire::input();
 		
-		$expected = '<div>
-				<input type="text" />
-			</div>';
-		
-		$this->assertHTML($expected, $input);
+		$this->assertSelectorExists($input, 'div > input[type="text"]');
 	}
 }
