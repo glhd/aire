@@ -18,11 +18,22 @@ class Defaults
 	 */
 	protected $bound_data = [];
 	
+	/**
+	 * Defaults constructor.
+	 *
+	 * @param \Illuminate\Session\Store $session
+	 */
 	public function __construct(Store $session)
 	{
 		$this->session = $session;
 	}
 	
+	/**
+	 * Bind data to the form defaults
+	 *
+	 * @param \Illuminate\Database\Eloquent\Model|object|array $bound_data
+	 * @return \Galahad\Aire\Value\Defaults
+	 */
 	public function bind($bound_data) : self
 	{
 		$bound_data_is_array = $bound_data instanceof ArrayAccess || is_array($bound_data);
@@ -37,6 +48,13 @@ class Defaults
 		return $this;
 	}
 	
+	/**
+	 * Get the bound value
+	 *
+	 * @param string $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	public function get($key, $default = null)
 	{
 		if ($this->session->hasOldInput($key)) {

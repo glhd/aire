@@ -35,6 +35,20 @@ class DataBindingTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
 	}
+	
+	public function test_setting_a_fields_name_binds_value() : void
+	{
+		$input = $this->aire()
+			->form()
+			->bind(['foo' => 'bar'])
+			->input();
+		
+		$this->assertSelectorAttributeMissing($input, 'input', 'value');
+		
+		$input->name('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
+	}
 }
 
 class ModelStub extends Model

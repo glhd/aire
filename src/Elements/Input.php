@@ -13,11 +13,4 @@ class Input extends GroupableElement
 	protected $attributes = [
 		'type' => 'text',
 	];
-	
-	public function name($name) : self
-	{
-		$this->attributes['name'] = $name;
-		
-		return $this;
-	}
 }

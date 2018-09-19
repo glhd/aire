@@ -52,6 +52,11 @@ class Form extends Element
 		return $this;
 	}
 	
+	public function getDefaultValue($name, $fallback = null)
+	{
+		return $this->defaults->get($name, $fallback = null);
+	}
+	
 	public function open() : self
 	{
 		ob_start();

@@ -35,6 +35,16 @@ class Aire
 	protected $config;
 	
 	/**
+	 * @var string
+	 */
+	protected $view_namespace = 'aire';
+	
+	/**
+	 * @var string
+	 */
+	protected $view_prefix;
+	
+	/**
 	 * Aire constructor.
 	 *
 	 * @param \Illuminate\View\Factory $factory
@@ -48,6 +58,35 @@ class Aire
 		$this->config = $config;
 	}
 	
+	/**
+	 * Set where Aire looks for view files
+	 *
+	 * This is mostly useful for third-party themes. By utilizing package
+	 * auto-discovery, a theme can call this from its service provider's
+	 * boot() method to automatically set the Aire theme.
+	 *
+	 * If you want to override the default Aire views, just publish
+	 * the views to your vendor directory with `artisan publish`
+	 *
+	 * @param string|null $namespace
+	 * @param string|null $prefix
+	 * @return \Galahad\Aire\Aire
+	 */
+	public function setTheme($namespace = null, $prefix = null) : self
+	{
+		$this->view_namespace = $namespace;
+		$this->view_prefix = $prefix;
+		
+		return $this;
+	}
+	
+	/**
+	 * Instantiate a new Form
+	 *
+	 * @param string $action
+	 * @param \Illuminate\Database\Eloquent\Model|object|array $bound_data
+	 * @return \Galahad\Aire\Elements\Form
+	 */
 	public function form($action = null, $bound_data = null) : Form
 	{
 		$this->form = $this->app->make(Form::class);
@@ -77,7 +116,14 @@ class Aire
 		return $this->form;
 	}
 	
-	public function config($key, $default = null)
+	/**
+	 * Get a configuration value
+	 *
+	 * @param string $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function config(string $key, $default = null)
 	{
 		return Arr::get($this->config, $key, $default);
 	}
@@ -95,6 +141,13 @@ class Aire
 		return $this->make($view, $data, $merge_data)->render();
 	}
 	
+	/**
+	 * Defer to the Form object for all other method calls
+	 *
+	 * @param string $method_name
+	 * @param array $arguments
+	 * @return Form
+	 */
 	public function __call($method_name, $arguments)
 	{
 		$form = $this->form ?? $this->form();
@@ -118,6 +171,14 @@ class Aire
 	 */
 	protected function make($view, array $data = [], array $merge_data = []) : View
 	{
-		return $this->factory->make("aire::{$view}", $data, $merge_data);
+		if ($this->view_prefix) {
+			$view = "{$this->view_prefix}.{$view}";
+		}
+		
+		if ($this->view_namespace) {
+			$view = "{$this->view_namespace}::{$view}";
+		}
+		
+		return $this->factory->make($view, $data, $merge_data);
 	}
 }
