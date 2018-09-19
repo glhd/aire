@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements;
 
+use BadMethodCallException;
 use Galahad\Aire\Aire;
 
 /**
@@ -9,9 +10,9 @@ use Galahad\Aire\Aire;
  */
 abstract class GroupableElement extends Element
 {
-	protected $grouped = true;
-	
 	public $group;
+	
+	protected $grouped = true;
 	
 	public function __construct(Aire $aire)
 	{
@@ -47,8 +48,18 @@ abstract class GroupableElement extends Element
 		return parent::__toString();
 	}
 	
-	public function __call($name, $arguments)
+	public function __call($method_name, $arguments)
 	{
-		$this->group->$name(...$arguments);
+		if ($this->grouped && method_exists($this->group, $method_name)) {
+			$this->group->$method_name(...$arguments);
+			
+			return $this;
+		}
+		
+		throw new BadMethodCallException(sprintf(
+			'Method %s::%s does not exist on the element or Group.',
+			class_basename(static::class),
+			$method_name
+		));
 	}
 }

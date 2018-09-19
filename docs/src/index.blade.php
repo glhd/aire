@@ -15,11 +15,11 @@
 
 	<div class="container mx-auto my-8">
 
-		{{ aire()->open() }}
+		{{ Aire::open() }}
 		
-		{{ aire()->input() }}
+		{{ Aire::input()->label('Demo Input') }}
 		
-		{{ aire()->close() }}
+		{{ Aire::close() }}
 	
 	</div>
 

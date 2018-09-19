@@ -27,15 +27,15 @@ if (isset($config['type']) && 'boolean' === $config['type']):
 $code = <<<ENDOFCODE
 public function test_the_{$snake}_can_be_set_and_unset()
 {
-	\$form = Aire::open();
+	\$form = \$this->aire()->form();
 	
 	\$form->$method();
 	
-	\$this->assertContains('$attribute', (string) \$form);
+	\$this->assertSelectorAttribute(\$form, 'form', '$attribute');
 	
 	\$form->$method(false);
 	
-	\$this->assertNotContains('$attribute', (string) \$form);
+	\$this->assertSelectorAttributeMissing(\$form, 'form', '$attribute');
 }
 ENDOFCODE;
 
@@ -44,11 +44,12 @@ else:
 $code = <<<ENDOFCODE
 public function test_the_{$snake}_can_be_set()
 {
-	\$form = Aire::open();
+	\$form = \$this->aire()->form();
 	
-	\$form->$method('foo');
+	\$value = str_random();
+	\$form->$method(\$value);
 	
-	\$this->assertContains('$attribute="foo"', (string) \$form);
+	\$this->assertSelectorAttribute(\$form, 'form', '$attribute', \$value);
 }
 ENDOFCODE;
 

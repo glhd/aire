@@ -42,6 +42,10 @@ class Form extends Element
 	
 	public function close() : self
 	{
+		if (!$this->opened) {
+			throw new \BadMethodCallException('Trying to close a form that hasn\'t been opened.');
+		}
+		
 		$this->data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
 		

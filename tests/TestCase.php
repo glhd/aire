@@ -81,6 +81,15 @@ abstract class TestCase extends Orchestra
 		}
 	}
 	
+	protected function assertSelectorAttributeMissing($html, string $selector, string $attribute)
+	{
+		$actual = $this->crawl($html)
+			->filter($selector)
+			->attr($attribute);
+		
+		$this->assertNull($actual, "Selector '$selector' should not have attribute '$attribute'");
+	}
+	
 	protected function assertSelectorClassNames($html, string $selector, $class_names)
 	{
 		$class_names = (array) $class_names;

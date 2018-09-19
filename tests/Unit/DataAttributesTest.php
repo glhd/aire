@@ -12,6 +12,8 @@ class DataAttributesTest extends TestCase
 		
 		$form->data('foo', 'bar');
 		
+		$form->close();
+		
 		$this->assertContains('data-foo="bar"', (string) $form);
 	}
 	
@@ -21,6 +23,8 @@ class DataAttributesTest extends TestCase
 		
 		$form->data('foo', 'bar');
 		$form->data('foo', null);
+		
+		$form->close();
 		
 		$this->assertNotContains('data-foo="bar"', (string) $form);
 	}

@@ -8,170 +8,183 @@ class AriaAttributesTest extends TestCase
 {
 	public function test_that_activedescendant_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaActiveDescendant('foo');
+		$value = str_random();
+		$form->ariaActivedescendant($value);
 		
-		$this->assertContains('aria-activedescendant="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-activedescendant', $value);
 	}
 	
 	public function test_that_atomic_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->ariaAtomic();
 		
-		$this->assertContains('aria-atomic', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-atomic');
 		
 		$form->ariaAtomic(false);
 		
-		$this->assertNotContains('aria-atomic', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'aria-atomic');
 	}
 	
 	public function test_that_busy_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->ariaBusy();
 		
-		$this->assertContains('aria-busy', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-busy');
 		
 		$form->ariaBusy(false);
 		
-		$this->assertNotContains('aria-busy', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'aria-busy');
 	}
 	
 	public function test_that_controls_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaControls('foo');
+		$value = str_random();
+		$form->ariaControls($value);
 		
-		$this->assertContains('aria-controls="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-controls', $value);
 	}
 	
 	public function test_that_describedby_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaDescribedBy('foo');
+		$value = str_random();
+		$form->ariaDescribedby($value);
 		
-		$this->assertContains('aria-describedby="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-describedby', $value);
 	}
 	
 	public function test_that_disabled_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaDisabled('foo');
+		$value = str_random();
+		$form->ariaDisabled($value);
 		
-		$this->assertContains('aria-disabled="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-disabled', $value);
 	}
 	
 	public function test_that_dropeffect_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaDropEffect('foo');
+		$value = str_random();
+		$form->ariaDropeffect($value);
 		
-		$this->assertContains('aria-dropeffect="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-dropeffect', $value);
 	}
 	
 	public function test_that_flowto_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaFlowTo('foo');
+		$value = str_random();
+		$form->ariaFlowto($value);
 		
-		$this->assertContains('aria-flowto="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-flowto', $value);
 	}
 	
 	public function test_that_grabbed_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaGrabbed('foo');
+		$value = str_random();
+		$form->ariaGrabbed($value);
 		
-		$this->assertContains('aria-grabbed="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-grabbed', $value);
 	}
 	
 	public function test_that_haspopup_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaHasPopup();
+		$form->ariaHaspopup();
 		
-		$this->assertContains('aria-haspopup', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-haspopup');
 		
-		$form->ariaHasPopup(false);
+		$form->ariaHaspopup(false);
 		
-		$this->assertNotContains('aria-haspopup', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'aria-haspopup');
 	}
 	
 	public function test_that_hidden_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->ariaHidden();
 		
-		$this->assertContains('aria-hidden', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-hidden');
 		
 		$form->ariaHidden(false);
 		
-		$this->assertNotContains('aria-hidden', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'aria-hidden');
 	}
 	
 	public function test_that_invalid_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaInvalid('foo');
+		$value = str_random();
+		$form->ariaInvalid($value);
 		
-		$this->assertContains('aria-invalid="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-invalid', $value);
 	}
 	
 	public function test_that_label_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaLabel('foo');
+		$value = str_random();
+		$form->ariaLabel($value);
 		
-		$this->assertContains('aria-label="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-label', $value);
 	}
 	
 	public function test_that_labelledby_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaLabelledBy('foo');
+		$value = str_random();
+		$form->ariaLabelledby($value);
 		
-		$this->assertContains('aria-labelledby="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-labelledby', $value);
 	}
 	
 	public function test_that_live_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaLive('foo');
+		$value = str_random();
+		$form->ariaLive($value);
 		
-		$this->assertContains('aria-live="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-live', $value);
 	}
 	
 	public function test_that_owns_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaOwns('foo');
+		$value = str_random();
+		$form->ariaOwns($value);
 		
-		$this->assertContains('aria-owns="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-owns', $value);
 	}
 	
 	public function test_that_relevant_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->ariaRelevant('foo');
+		$value = str_random();
+		$form->ariaRelevant($value);
 		
-		$this->assertContains('aria-relevant="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'aria-relevant', $value);
 	}
 }

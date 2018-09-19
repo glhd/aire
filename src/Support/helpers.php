@@ -19,7 +19,7 @@ if (!function_exists('aire_attributes')) {
 				return !in_array($name, $exclude, false);
 			})
 			->filter(function($value) {
-				return false !== $value;
+				return false !== $value && null !== $value;
 			})
 			->map(function($value) {
 				return is_array($value)

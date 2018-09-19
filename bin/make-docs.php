@@ -2,11 +2,10 @@
 <?php
 
 use Galahad\Aire\Support\AireServiceProvider;
-use Galahad\Aire\Support\Facades\Aire;
-use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
@@ -15,11 +14,17 @@ use Illuminate\View\FileViewFinder;
 
 $base_path = dirname(__DIR__);
 
-include_once "$base_path/vendor/autoload.php";
+require_once "$base_path/vendor/autoload.php";
+
+// Provide global facade to templates
+class Aire extends Galahad\Aire\Support\Facades\Aire
+{
+}
 
 $app = new Application($base_path);
 Application::setInstance($app);
 $app->instance('session', false);
+$app->instance('request', Request::create('/'));
 
 $config = new Illuminate\Config\Repository();
 $app->instance('config', $config);

@@ -4,11 +4,17 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Str;
 
 abstract class Element implements Htmlable
 {
 	use HasGlobalAttributes,
 		HasAriaAttributes;
+	
+	/**
+	 * @var int
+	 */
+	protected static $id_suffix = 0;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
@@ -38,6 +44,12 @@ abstract class Element implements Htmlable
 	public function __construct(Aire $aire)
 	{
 		$this->aire = $aire;
+		
+		if ($aire->config('generate_missing_ids', true)) {
+			$element_identifier = Str::snake(class_basename(static::class));
+			$this->attributes['id'] = sprintf('aire_%s_%d', $element_identifier, self::$id_suffix);
+			self::$id_suffix++;
+		}
 	}
 	
 	public function data($key, $value)
@@ -49,6 +61,11 @@ abstract class Element implements Htmlable
 		}
 		
 		return $this;
+	}
+	
+	public function getAttribute($name, $default = null)
+	{
+		return $this->attributes[$name] ?? $default;
 	}
 	
 	public function toHtml()

@@ -8,144 +8,157 @@ class GlobalAttributesTest extends TestCase
 {
 	public function test_the_accesskey_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->accessKey('foo');
+		$value = str_random();
+		$form->accessKey($value);
 		
-		$this->assertContains('accesskey="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'accesskey', $value);
 	}
 	
 	public function test_the_class_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->class('foo');
+		$value = str_random();
+		$form->class($value);
 		
-		$this->assertContains('class="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'class', $value);
 	}
 	
 	public function test_the_contenteditable_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->contentEditable();
 		
-		$this->assertContains('contenteditable', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'contenteditable');
 		
 		$form->contentEditable(false);
 		
-		$this->assertNotContains('contenteditable', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'contenteditable');
 	}
 	
 	public function test_the_contextmenu_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->contextMenu('foo');
+		$value = str_random();
+		$form->contextMenu($value);
 		
-		$this->assertContains('contextmenu="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'contextmenu', $value);
 	}
 	
 	public function test_the_dir_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->dir('foo');
+		$value = str_random();
+		$form->dir($value);
 		
-		$this->assertContains('dir="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'dir', $value);
 	}
 	
 	public function test_the_draggable_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->draggable('foo');
+		$value = str_random();
+		$form->draggable($value);
 		
-		$this->assertContains('draggable="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'draggable', $value);
 	}
 	
 	public function test_the_dropzone_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->dropZone('foo');
+		$value = str_random();
+		$form->dropZone($value);
 		
-		$this->assertContains('dropzone="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'dropzone', $value);
 	}
 	
 	public function test_the_hidden_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->hidden('foo');
+		$value = str_random();
+		$form->hidden($value);
 		
-		$this->assertContains('hidden="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'hidden', $value);
 	}
 	
 	public function test_the_id_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->id('foo');
+		$value = str_random();
+		$form->id($value);
 		
-		$this->assertContains('id="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'id', $value);
 	}
 	
 	public function test_the_lang_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->lang('foo');
+		$value = str_random();
+		$form->lang($value);
 		
-		$this->assertContains('lang="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'lang', $value);
 	}
 	
 	public function test_the_role_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->role('foo');
+		$value = str_random();
+		$form->role($value);
 		
-		$this->assertContains('role="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'role', $value);
 	}
 	
 	public function test_the_spellcheck_can_be_set_and_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->spellCheck();
 		
-		$this->assertContains('spellcheck', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'spellcheck');
 		
 		$form->spellCheck(false);
 		
-		$this->assertNotContains('spellcheck', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'spellcheck');
 	}
 	
 	public function test_the_style_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->style('foo');
+		$value = str_random();
+		$form->style($value);
 		
-		$this->assertContains('style="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'style', $value);
 	}
 	
 	public function test_the_tabindex_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->tabIndex('foo');
+		$value = str_random();
+		$form->tabIndex($value);
 		
-		$this->assertContains('tabindex="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'tabindex', $value);
 	}
 	
 	public function test_the_title_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
-		$form->title('foo');
+		$value = str_random();
+		$form->title($value);
 		
-		$this->assertContains('title="foo"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'title', $value);
 	}
 }

@@ -16,8 +16,14 @@ class GroupTest extends TestCase
 	
 	public function test_a_group_can_have_a_label() : void
 	{
-		$input = $this->aire()->input()->label('Foo Input');
+		$input = $this->aire()
+			->input('foo')
+			// ->id('bar')
+			->label('Foo Input');
+		
+		dd((string) $input);
 		
 		$this->assertSelectorText($input, 'div > label', 'Foo Input');
+		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
 	}
 }

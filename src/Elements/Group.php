@@ -31,6 +31,9 @@ class Group extends Element
 	protected function viewData()
 	{
 		return array_merge(parent::viewData(), [
+			'label_attributes' => [
+				'for' => $this->element->getAttribute('id'), // TODO: Label probably needs to be its own element
+			],
 			'element' => new HtmlString($this->element->renderInsideElement()),
 		]);
 	}
