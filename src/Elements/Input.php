@@ -2,13 +2,11 @@
 
 namespace Galahad\Aire\Elements;
 
-use Galahad\Aire\Value\HasValue;
+use Galahad\Aire\Elements\Concerns\Groupable;
 
-class Input extends GroupableElement
+class Input extends \Galahad\Aire\DTD\Input
 {
-	use HasValue;
-	
-	protected $view = 'input';
+	use Groupable;
 	
 	protected $attributes = [
 		'type' => 'text',

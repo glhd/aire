@@ -16,5 +16,9 @@ abstract class FormElement extends Element
 		parent::__construct($aire);
 		
 		$this->form = $form;
+		
+		if (method_exists($this, 'initGroup')) {
+			$this->initGroup();
+		}
 	}
 }

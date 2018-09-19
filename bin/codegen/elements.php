@@ -1,12 +1,19 @@
 <?php
 
-$write = '--write' === strtolower($argv[1] ?? '');
+$write = '--write' === strtolower($argv[2] ?? '');
 
 $tag_whitelist = [
 	'button',
 	'form',
 	'input',
 	'label',
+	'select',
+	'textarea',
+];
+
+$form_element_tags = [
+	'button',
+	'input',
 	'select',
 	'textarea',
 ];
@@ -33,10 +40,14 @@ foreach ($tags as $tag => $tag_config) {
 		ob_start();
 	}
 	
+	$parent = in_array($tag, $form_element_tags)
+		? 'FormElement'
+		: 'Element';
+	
 	echo "<?php\n\n";
 	
 	echo "/**\n";
-	echo " * Portions of this code has been generated using Atom autocompletion data.\n";
+	echo " * Portions of this code have been generated using Atom autocompletion data.\n";
 	echo " *\n";
 	echo " * @see https://github.com/atom/autocomplete-html\n";
 	echo " *\n";
@@ -46,9 +57,13 @@ foreach ($tags as $tag => $tag_config) {
 	
 	echo "namespace Galahad\Aire\DTD;\n\n";
 	
+	echo "use Galahad\Aire\Elements\\$parent;\n";
+	
 	if (isset($attribute_config['value'])) {
-		echo "use Galahad\Aire\Value\HasValue;\n\n";
+		echo "use Galahad\Aire\Value\HasValue;\n";
 	}
+	
+	echo "\n";
 	
 	$class_name = studly_case($tag);
 	
@@ -61,7 +76,7 @@ foreach ($tags as $tag => $tag_config) {
 		echo " */\n";
 	}
 	
-	echo "class $class_name extends FormElement\n";
+	echo "class $class_name extends $parent\n";
 	echo "{\n";
 	
 	if (isset($attribute_config['value'])) {
@@ -86,9 +101,10 @@ foreach ($tags as $tag => $tag_config) {
 		
 		if (isset($config['attribOption'])) {
 			echo "\t * Possible values:\n";
+			echo "\t *\n";
 			
 			foreach ($config['attribOption'] as $value) {
-				echo "\t *  - $value\n";
+				echo "\t *  - '$value'\n";
 			}
 			
 			echo "\t *\n";
@@ -100,7 +116,7 @@ foreach ($tags as $tag => $tag_config) {
 			echo "\t * @return self\n";
 			echo "\t */\n";
 			
-			echo "\tpublic function $method(\$$attribute_param = true)\n";
+			echo "\tpublic function $method(\$$attribute_param = true) : self\n";
 			echo "\t{\n";
 			echo "\t\t\$this->attributes['$attribute'] = \$$attribute_param;\n\n";
 			echo "\t\treturn \$this;\n";
@@ -112,7 +128,7 @@ foreach ($tags as $tag => $tag_config) {
 			echo "\t * @return self\n";
 			echo "\t */\n";
 			
-			echo "\tpublic function $method(\$value = null)\n";
+			echo "\tpublic function $method(\$value = null) : self\n";
 			echo "\t{\n";
 			echo "\t\t\$this->attributes['$attribute'] = \$value;\n\n";
 			echo "\t\treturn \$this;\n";

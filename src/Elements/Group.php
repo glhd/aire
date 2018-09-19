@@ -19,7 +19,7 @@ class Group extends FormElement
 	
 	protected $view = 'group';
 	
-	public function __construct(Aire $aire, Form $form, GroupableElement $element)
+	public function __construct(Aire $aire, Form $form, FormElement $element)
 	{
 		parent::__construct($aire, $form);
 		

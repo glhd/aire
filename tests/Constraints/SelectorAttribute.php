@@ -28,7 +28,7 @@ class SelectorAttribute extends CrawlerConstraint
 		$this->value = $value;
 	}
 	
-	public function toString(): string
+	public function toString() : string
 	{
 		$description = "selector '{$this->selector}' has the attribute '{$this->value}'";
 		
@@ -39,14 +39,15 @@ class SelectorAttribute extends CrawlerConstraint
 		return $description;
 	}
 	
-	protected function matches($html): bool
+	protected function matches($html) : bool
 	{
 		$attribute = $this->crawl($html)
 			->filter($this->selector)
 			->attr($this->attribute);
 		
-		if (null !== $attribute && null === $this->value) {
-			return true;
+		// If value is null, we're just checking for existence
+		if (null === $this->value) {
+			return null !== $attribute;
 		}
 		
 		return $attribute === $this->value;

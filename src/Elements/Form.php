@@ -9,11 +9,9 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
 
-class Form extends Element
+class Form extends \Galahad\Aire\DTD\Form
 {
 	use CreatesElements;
-	
-	protected $view = 'form';
 	
 	protected $attributes = [
 		'action' => '',
@@ -73,13 +71,6 @@ class Form extends Element
 		
 		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
-		
-		return $this;
-	}
-	
-	public function action(string $action) : self
-	{
-		$this->attributes['action'] = $action;
 		
 		return $this;
 	}

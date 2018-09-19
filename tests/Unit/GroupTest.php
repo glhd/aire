@@ -25,13 +25,16 @@ class GroupTest extends TestCase
 		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
 	}
 	
-	public function test_a_labelled_group_generates_an_element_id() : void
+	public function test_setting_the_id_on_a_labelled_group_input_sets_for_tag_on_label() : void
 	{
 		$input = $this->aire()
-			->input('foo')
+			->input()
 			->label('Foo Input');
 		
-		$this->assertSelectorAttribute($input, 'div > label', 'for');
-		$this->assertSelectorAttribute($input, 'div > input', 'id');
+		$this->assertSelectorAttributeMissing($input, 'div > label', 'for');
+		
+		$input->id('bar');
+		
+		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
 	}
 }

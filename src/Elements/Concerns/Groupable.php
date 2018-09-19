@@ -1,26 +1,18 @@
 <?php
 
-namespace Galahad\Aire\Elements;
+namespace Galahad\Aire\Elements\Concerns;
 
 use BadMethodCallException;
-use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Group;
 
 /**
  * @mixin \Galahad\Aire\Elements\Group
  */
-abstract class GroupableElement extends FormElement
+trait Groupable
 {
 	public $group;
 	
 	protected $grouped = true;
-	
-	public function __construct(Aire $aire, Form $form = null)
-	{
-		parent::__construct($aire, $form);
-		
-		$this->grouped = $aire->config('group_by_default', true);
-		$this->group = new Group($aire, $form, $this);
-	}
 	
 	public function id($value)
 	{
@@ -70,5 +62,11 @@ abstract class GroupableElement extends FormElement
 			class_basename(static::class),
 			$method_name
 		));
+	}
+	
+	protected function initGroup()
+	{
+		$this->grouped = $this->aire->config('group_by_default', true);
+		$this->group = new Group($this->aire, $this->form, $this);
 	}
 }
