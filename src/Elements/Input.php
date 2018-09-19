@@ -6,6 +6,8 @@ use Galahad\Aire\Aire;
 
 class Input extends GroupableElement
 {
+	use HasValue;
+	
 	protected $view = 'input';
 	
 	protected $attributes = [

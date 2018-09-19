@@ -34,7 +34,7 @@ abstract class Element implements Htmlable
 	/**
 	 * @var array
 	 */
-	protected $data = [];
+	protected $view_data = [];
 	
 	/**
 	 * @var array
@@ -98,7 +98,7 @@ abstract class Element implements Htmlable
 	{
 		$attributes = $this->getAttributes();
 		
-		return array_merge($this->data, $attributes, compact('attributes'));
+		return array_merge($this->view_data, $attributes, compact('attributes'));
 	}
 	
 	protected function generateId() : string

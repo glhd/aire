@@ -17,7 +17,7 @@ class Label extends Element
 	{
 		parent::__construct($aire);
 		
-		$this->data['text'] = $text;
+		$this->view_data['text'] = $text;
 		$this->element = $for;
 	}
 	

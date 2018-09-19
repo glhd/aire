@@ -6,6 +6,8 @@ use Galahad\Aire\Aire;
 
 class Button extends Element
 {
+	use HasValue;
+	
 	protected $view = 'button';
 	
 	public function __construct(Aire $aire, string $label)
@@ -17,7 +19,7 @@ class Button extends Element
 	
 	public function label(string $label) : self
 	{
-		$this->data['label'] = $label;
+		$this->view_data['label'] = $label;
 		
 		return $this;
 	}

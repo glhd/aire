@@ -26,10 +26,15 @@ class Form extends Element
 		parent::__construct($aire);
 		
 		if ($session = app('session')) {
-			$this->data['_token'] = $session->token();
+			$this->view_data['_token'] = $session->token();
 		}
 		
 		$this->url = $url;
+	}
+	
+	public function bind($bound_data) : self
+	{
+		
 	}
 	
 	public function open() : self
@@ -46,7 +51,7 @@ class Form extends Element
 			throw new \BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
-		$this->data['fields'] = new HtmlString(trim(ob_get_clean()));
+		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
 		
 		return $this;
@@ -54,7 +59,7 @@ class Form extends Element
 	
 	public function action(string $action) : self
 	{
-		$this->data['action'] = $action;
+		$this->view_data['action'] = $action;
 		
 		return $this;
 	}
@@ -71,7 +76,7 @@ class Form extends Element
 	public function get() : self
 	{
 		$this->attributes['method'] = 'GET';
-		unset($this->data['_method']);
+		unset($this->view_data['_method']);
 		
 		return $this;
 	}
@@ -79,7 +84,7 @@ class Form extends Element
 	public function post() : self
 	{
 		$this->attributes['method'] = 'POST';
-		unset($this->data['_method']);
+		unset($this->view_data['_method']);
 		
 		return $this;
 	}
@@ -87,7 +92,7 @@ class Form extends Element
 	public function put() : self
 	{
 		$this->attributes['method'] = 'POST';
-		$this->data['_method'] = 'PUT';
+		$this->view_data['_method'] = 'PUT';
 		
 		return $this;
 	}
@@ -95,7 +100,7 @@ class Form extends Element
 	public function patch() : self
 	{
 		$this->attributes['method'] = 'POST';
-		$this->data['_method'] = 'PATCH';
+		$this->view_data['_method'] = 'PATCH';
 		
 		return $this;
 	}
@@ -103,7 +108,7 @@ class Form extends Element
 	public function delete() : self
 	{
 		$this->attributes['method'] = 'POST';
-		$this->data['_method'] = 'DELETE';
+		$this->view_data['_method'] = 'DELETE';
 		
 		return $this;
 	}
