@@ -42,7 +42,7 @@ abstract class TestCase extends Orchestra
 			->filter($selector)
 			->count();
 		
-		$this->assertGreaterThan(0, $count);
+		$this->assertGreaterThan(0, $count, "Selector '$selector' should exist");
 	}
 	
 	protected function assertSelectorDoesNotExist($html, $selector)

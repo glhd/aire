@@ -48,7 +48,7 @@ class Aire
 	
 	public function form() : Form
 	{
-		$this->form = $this->form ?? new Form($this, $this->url);
+		$this->form = new Form($this, $this->url);
 		
 		return $this->form;
 	}
@@ -72,7 +72,7 @@ class Aire
 	 */
 	public function close() : Form
 	{
-		return $this->form()->close();
+		return $this->form->close();
 	}
 	
 	public function button(string $label) : Button

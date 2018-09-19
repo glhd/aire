@@ -18,12 +18,20 @@ class GroupTest extends TestCase
 	{
 		$input = $this->aire()
 			->input('foo')
-			// ->id('bar')
+			->id('bar')
 			->label('Foo Input');
-		
-		dd((string) $input);
 		
 		$this->assertSelectorText($input, 'div > label', 'Foo Input');
 		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
+	}
+	
+	public function test_a_labelled_group_generates_an_element_id() : void
+	{
+		$input = $this->aire()
+			->input('foo')
+			->label('Foo Input');
+		
+		$this->assertSelectorAttribute($input, 'div > label', 'for');
+		$this->assertSelectorAttribute($input, 'div > input', 'id');
 	}
 }

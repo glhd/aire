@@ -8,24 +8,20 @@ class DataAttributesTest extends TestCase
 {
 	public function test_data_attributes_can_be_set()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->data('foo', 'bar');
 		
-		$form->close();
-		
-		$this->assertContains('data-foo="bar"', (string) $form);
+		$this->assertSelectorAttribute($form, 'form', 'data-foo', 'bar');
 	}
 	
 	public function test_data_attributes_can_be_unset()
 	{
-		$form = $this->aire()->open();
+		$form = $this->aire()->form();
 		
 		$form->data('foo', 'bar');
 		$form->data('foo', null);
 		
-		$form->close();
-		
-		$this->assertNotContains('data-foo="bar"', (string) $form);
+		$this->assertSelectorAttributeMissing($form, 'form', 'data-foo');
 	}
 }

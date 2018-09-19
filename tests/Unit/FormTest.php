@@ -21,7 +21,7 @@ class FormTest extends TestCase
 		
 		$this->withSession(['_token' => $token]);
 		
-		$form = $this->aire()->open()->close();
+		$form = $this->aire()->form();
 		
 		$this->assertSelectorExists($form, 'input[name="_token"]');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');

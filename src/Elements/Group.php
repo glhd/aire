@@ -23,7 +23,7 @@ class Group extends Element
 	
 	public function label(string $label) : self
 	{
-		$this->data['label'] = $label;
+		$this->data['label'] = new Label($this->aire, $this->element, $label);
 		
 		return $this;
 	}
@@ -31,9 +31,6 @@ class Group extends Element
 	protected function viewData()
 	{
 		return array_merge(parent::viewData(), [
-			'label_attributes' => [
-				'for' => $this->element->getAttribute('id'), // TODO: Label probably needs to be its own element
-			],
 			'element' => new HtmlString($this->element->renderInsideElement()),
 		]);
 	}

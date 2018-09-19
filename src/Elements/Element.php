@@ -44,12 +44,6 @@ abstract class Element implements Htmlable
 	public function __construct(Aire $aire)
 	{
 		$this->aire = $aire;
-		
-		if ($aire->config('generate_missing_ids', true)) {
-			$element_identifier = Str::snake(class_basename(static::class));
-			$this->attributes['id'] = sprintf('aire_%s_%d', $element_identifier, self::$id_suffix);
-			self::$id_suffix++;
-		}
 	}
 	
 	public function data($key, $value)
@@ -63,9 +57,27 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
+	public function getId()
+	{
+		if ($id = $this->getAttribute('id')) {
+			return $id;
+		}
+		
+		return $this->aire->config('generate_missing_ids', true)
+			? $this->generateId()
+			: null;
+	}
+	
 	public function getAttribute($name, $default = null)
 	{
-		return $this->attributes[$name] ?? $default;
+		$attributes = $this->getAttributes();
+		
+		return $attributes[$name] ?? $default;
+	}
+	
+	public function getAttributes() : array
+	{
+		return $this->attributes;
 	}
 	
 	public function toHtml()
@@ -84,8 +96,19 @@ abstract class Element implements Htmlable
 	
 	protected function viewData()
 	{
-		return array_merge($this->data, $this->attributes, [
-			'attributes' => $this->attributes,
-		]);
+		$attributes = $this->getAttributes();
+		
+		return array_merge($this->data, $attributes, compact('attributes'));
+	}
+	
+	protected function generateId() : string
+	{
+		$element_identifier = Str::snake(class_basename(static::class));
+		$id = sprintf('aire_%s_%d', $element_identifier, self::$id_suffix);
+		self::$id_suffix++;
+		
+		$this->id($id);
+		
+		return $id;
 	}
 }

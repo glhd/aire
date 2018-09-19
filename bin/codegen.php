@@ -15,8 +15,6 @@ $global_attributes = $attributes->filter(function($attribute) {
 	return 0 !== stripos($attribute, 'on');
 });
 
-// TODO: data-*
-
 foreach($global_attributes as $attribute => $config):
 
 $snake = str_replace('-', '_', $attribute);

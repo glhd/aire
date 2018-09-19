@@ -26,7 +26,7 @@ class Form extends Element
 		parent::__construct($aire);
 		
 		if ($session = app('session')) {
-			$this->data['token'] = $session->token();
+			$this->data['_token'] = $session->token();
 		}
 		
 		$this->url = $url;
@@ -71,6 +71,7 @@ class Form extends Element
 	public function get() : self
 	{
 		$this->attributes['method'] = 'GET';
+		unset($this->data['_method']);
 		
 		return $this;
 	}
@@ -78,40 +79,33 @@ class Form extends Element
 	public function post() : self
 	{
 		$this->attributes['method'] = 'POST';
+		unset($this->data['_method']);
 		
 		return $this;
 	}
 	
 	public function put() : self
 	{
-		$this->attributes['method'] = 'PUT';
+		$this->attributes['method'] = 'POST';
+		$this->data['_method'] = 'PUT';
 		
 		return $this;
 	}
 	
 	public function patch() : self
 	{
-		$this->attributes['method'] = 'PATCH';
+		$this->attributes['method'] = 'POST';
+		$this->data['_method'] = 'PATCH';
 		
 		return $this;
 	}
 	
 	public function delete() : self
 	{
-		$this->attributes['method'] = 'DELETE';
+		$this->attributes['method'] = 'POST';
+		$this->data['_method'] = 'DELETE';
 		
 		return $this;
-	}
-	
-	protected function viewData()
-	{
-		$data = parent::viewData();
-		
-		if ('GET' !== $data['method']) {
-			$data['attributes']['method'] = 'POST';
-		}
-		
-		return $data;
 	}
 	
 	public function __toString()
