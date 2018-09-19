@@ -2,10 +2,8 @@
 
 namespace Galahad\Aire;
 
-use Galahad\Aire\Elements\Button;
+use BadMethodCallException;
 use Galahad\Aire\Elements\Form;
-use Galahad\Aire\Elements\Input;
-use Galahad\Aire\Elements\Label;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
@@ -95,6 +93,17 @@ class Aire
 	public function render($view, array $data = [], array $merge_data = []) : string
 	{
 		return $this->make($view, $data, $merge_data)->render();
+	}
+	
+	public function __call($method_name, $arguments)
+	{
+		if (!method_exists($this->form, $method_name)) {
+			throw new BadMethodCallException(sprintf(
+				'Method %s::%s does not exist.', static::class, $method_name
+			));
+		}
+		
+		return $this->form->$method_name(...$arguments);
 	}
 	
 	/**

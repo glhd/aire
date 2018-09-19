@@ -2,17 +2,15 @@
 
 namespace Galahad\Aire\Elements;
 
-use Galahad\Aire\Aire;
-
 class Label extends Element
 {
 	protected $view = 'label';
 	
-	public function __construct(Aire $aire, string $text)
+	public function text($text) : self
 	{
-		parent::__construct($aire);
-		
 		$this->view_data['text'] = $text;
+		
+		return $this;
 	}
 	
 	public function for($id) : self

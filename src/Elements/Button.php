@@ -2,21 +2,13 @@
 
 namespace Galahad\Aire\Elements;
 
-use Galahad\Aire\Aire;
 use Galahad\Aire\Value\HasValue;
 
-class Button extends Element
+class Button extends FormElement
 {
 	use HasValue;
 	
 	protected $view = 'button';
-	
-	public function __construct(Aire $aire, Form $form = null, string $label)
-	{
-		parent::__construct($aire, $form);
-		
-		$this->label($label);
-	}
 	
 	public function label(string $label) : self
 	{

@@ -8,7 +8,7 @@ use Galahad\Aire\Aire;
 /**
  * @mixin \Galahad\Aire\Elements\Group
  */
-abstract class GroupableElement extends Element
+abstract class GroupableElement extends FormElement
 {
 	public $group;
 	
