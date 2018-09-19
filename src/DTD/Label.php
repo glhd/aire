@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
@@ -45,9 +44,9 @@ class Label extends Element
 	 * Set the 'for' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function for($value = null) : self
+	public function for($value = null) : Element
 	{
 		$this->attributes['for'] = $value;
 
@@ -58,9 +57,9 @@ class Label extends Element
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function form($value = null) : self
+	public function form($value = null) : Element
 	{
 		$this->attributes['form'] = $value;
 

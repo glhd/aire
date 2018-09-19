@@ -25,14 +25,12 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
 namespace Galahad\Aire\DTD;
 
 use Galahad\Aire\Elements\FormElement;
-use Galahad\Aire\Value\HasValue;
 
 /**
  * Used to create interactive controls for web-based forms in order to
@@ -41,8 +39,6 @@ use Galahad\Aire\Value\HasValue;
  */
 class Input extends FormElement
 {
-	use HasValue;
-
 	protected $view = 'input';
 
 	/**
@@ -78,9 +74,9 @@ class Input extends FormElement
 	 *  - 'image/x-portablebitmap'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function accept($value = null) : self
+	public function accept($value = null) : FormElement
 	{
 		$this->attributes['accept'] = $value;
 
@@ -91,9 +87,9 @@ class Input extends FormElement
 	 * Set the 'alt' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function alt($value = null) : self
+	public function alt($value = null) : FormElement
 	{
 		$this->attributes['alt'] = $value;
 
@@ -169,9 +165,9 @@ class Input extends FormElement
 	 *  - 'work'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function autoComplete($value = null) : self
+	public function autoComplete($value = null) : FormElement
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -182,9 +178,9 @@ class Input extends FormElement
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
-	 * @return self
+	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : FormElement
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -195,9 +191,9 @@ class Input extends FormElement
 	 * Set the 'checked' flag
 	 *
 	 * @param bool $checked
-	 * @return self
+	 * @return $this
 	 */
-	public function checked(?bool $checked = true) : self
+	public function checked(?bool $checked = true) : FormElement
 	{
 		$this->attributes['checked'] = $checked;
 		
@@ -208,9 +204,9 @@ class Input extends FormElement
 	 * Set the 'dirname' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function dirName($value = null) : self
+	public function dirName($value = null) : FormElement
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -221,9 +217,9 @@ class Input extends FormElement
 	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
-	 * @return self
+	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : self
+	public function disabled(?bool $disabled = true) : FormElement
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -234,9 +230,9 @@ class Input extends FormElement
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function form($value = null) : self
+	public function form($value = null) : FormElement
 	{
 		$this->attributes['form'] = $value;
 
@@ -247,9 +243,9 @@ class Input extends FormElement
 	 * Set the 'formaction' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formAction($value = null) : self
+	public function formAction($value = null) : FormElement
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -266,9 +262,9 @@ class Input extends FormElement
 	 *  - 'text/plain'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formEncType($value = null) : self
+	public function formEncType($value = null) : FormElement
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -284,9 +280,9 @@ class Input extends FormElement
 	 *  - 'post'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formMethod($value = null) : self
+	public function formMethod($value = null) : FormElement
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -297,9 +293,9 @@ class Input extends FormElement
 	 * Set the 'formnovalidate' flag
 	 *
 	 * @param bool $form_no_validate
-	 * @return self
+	 * @return $this
 	 */
-	public function formNoValidate(?bool $form_no_validate = true) : self
+	public function formNoValidate(?bool $form_no_validate = true) : FormElement
 	{
 		$this->attributes['formnovalidate'] = $form_no_validate;
 		
@@ -317,9 +313,9 @@ class Input extends FormElement
 	 *  - '_top'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formTarget($value = null) : self
+	public function formTarget($value = null) : FormElement
 	{
 		$this->attributes['formtarget'] = $value;
 
@@ -330,9 +326,9 @@ class Input extends FormElement
 	 * Set the 'height' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function height($value = null) : self
+	public function height($value = null) : FormElement
 	{
 		$this->attributes['height'] = $value;
 
@@ -343,9 +339,9 @@ class Input extends FormElement
 	 * Set the 'list' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function list($value = null) : self
+	public function list($value = null) : FormElement
 	{
 		$this->attributes['list'] = $value;
 
@@ -356,9 +352,9 @@ class Input extends FormElement
 	 * Set the 'max' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function max($value = null) : self
+	public function max($value = null) : FormElement
 	{
 		$this->attributes['max'] = $value;
 
@@ -369,9 +365,9 @@ class Input extends FormElement
 	 * Set the 'maxlength' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function maxLength($value = null) : self
+	public function maxLength($value = null) : FormElement
 	{
 		$this->attributes['maxlength'] = $value;
 
@@ -382,9 +378,9 @@ class Input extends FormElement
 	 * Set the 'min' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function min($value = null) : self
+	public function min($value = null) : FormElement
 	{
 		$this->attributes['min'] = $value;
 
@@ -395,9 +391,9 @@ class Input extends FormElement
 	 * Set the 'multiple' flag
 	 *
 	 * @param bool $multiple
-	 * @return self
+	 * @return $this
 	 */
-	public function multiple(?bool $multiple = true) : self
+	public function multiple(?bool $multiple = true) : FormElement
 	{
 		$this->attributes['multiple'] = $multiple;
 		
@@ -405,12 +401,25 @@ class Input extends FormElement
 	}
 
 	/**
+	 * Set the 'name' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function name($value = null) : FormElement
+	{
+		$this->attributes['name'] = $value;
+
+		return $this;
+	}
+
+	/**
 	 * Set the 'pattern' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function pattern($value = null) : self
+	public function pattern($value = null) : FormElement
 	{
 		$this->attributes['pattern'] = $value;
 
@@ -421,9 +430,9 @@ class Input extends FormElement
 	 * Set the 'placeholder' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function placeholder($value = null) : self
+	public function placeholder($value = null) : FormElement
 	{
 		$this->attributes['placeholder'] = $value;
 
@@ -434,9 +443,9 @@ class Input extends FormElement
 	 * Set the 'readonly' flag
 	 *
 	 * @param bool $read_only
-	 * @return self
+	 * @return $this
 	 */
-	public function readOnly(?bool $read_only = true) : self
+	public function readOnly(?bool $read_only = true) : FormElement
 	{
 		$this->attributes['readonly'] = $read_only;
 		
@@ -447,9 +456,9 @@ class Input extends FormElement
 	 * Set the 'required' flag
 	 *
 	 * @param bool $required
-	 * @return self
+	 * @return $this
 	 */
-	public function required(?bool $required = true) : self
+	public function required(?bool $required = true) : FormElement
 	{
 		$this->attributes['required'] = $required;
 		
@@ -460,9 +469,9 @@ class Input extends FormElement
 	 * Set the 'size' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function size($value = null) : self
+	public function size($value = null) : FormElement
 	{
 		$this->attributes['size'] = $value;
 
@@ -473,9 +482,9 @@ class Input extends FormElement
 	 * Set the 'src' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function src($value = null) : self
+	public function src($value = null) : FormElement
 	{
 		$this->attributes['src'] = $value;
 
@@ -486,9 +495,9 @@ class Input extends FormElement
 	 * Set the 'step' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function step($value = null) : self
+	public function step($value = null) : FormElement
 	{
 		$this->attributes['step'] = $value;
 
@@ -525,11 +534,24 @@ class Input extends FormElement
 	 *  - 'week'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function type($value = null) : self
+	public function type($value = null) : FormElement
 	{
 		$this->attributes['type'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Set the 'value' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function value($value = null) : FormElement
+	{
+		$this->attributes['value'] = $value;
 
 		return $this;
 	}
@@ -538,9 +560,9 @@ class Input extends FormElement
 	 * Set the 'width' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function width($value = null) : self
+	public function width($value = null) : FormElement
 	{
 		$this->attributes['width'] = $value;
 

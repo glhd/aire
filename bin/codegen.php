@@ -48,7 +48,7 @@ $attribute_methods = [
 	'readonly' => 'readOnly',
 ];
 
-$license = file_get_contents(__DIR__.'/../data/LICENSE.md');
+$license = trim(file_get_contents(__DIR__.'/../data/LICENSE.md'));
 $license_docblock = str_replace(["\r\n", "\r", "\n"], "\n * ", $license);
 
 $json = file_get_contents(__DIR__.'/../data/completions.json');
@@ -108,7 +108,7 @@ $tags = collect($data['tags'])
 		return $config;
 	});
 
-function print_setter($attribute, $attribute_config) {
+function print_setter($attribute, $attribute_config, $parent = 'Element') {
 	$is_flag = isset($attribute_config['type']) && 'flag' === $attribute_config['type'];
 	$is_bool = isset($attribute_config['type']) && 'boolean' === $attribute_config['type'];
 	$method = $attribute_config['spellings']->camel;
@@ -139,10 +139,10 @@ function print_setter($attribute, $attribute_config) {
 	if ($is_flag || $is_bool) {
 		
 		echo "\t * @param bool \$$attribute_param\n";
-		echo "\t * @return self\n";
+		echo "\t * @return \$this\n";
 		echo "\t */\n";
 		
-		echo "\tpublic function $method(?bool \$$attribute_param = true) : self\n";
+		echo "\tpublic function $method(?bool \$$attribute_param = true) : $parent\n";
 		echo "\t{\n";
 		
 		if ($is_flag) {
@@ -164,14 +164,98 @@ function print_setter($attribute, $attribute_config) {
 	} else {
 		
 		echo "\t * @param string \$value\n";
-		echo "\t * @return self\n";
+		echo "\t * @return \$this\n";
 		echo "\t */\n";
 		
-		echo "\tpublic function $method(\$value = null) : self\n";
+		echo "\tpublic function $method(\$value = null) : $parent\n";
 		echo "\t{\n";
 		echo "\t\t\$this->attributes['$attribute'] = \$value;\n\n";
 		echo "\t\treturn \$this;\n";
 		echo "\t}\n\n";
+		
+	}
+}
+
+function print_setter_test($attribute, $attribute_config, $tag = 'form') {
+	$class_name = studly_case($tag);
+	$is_flag = isset($attribute_config['type']) && 'flag' === $attribute_config['type'];
+	$is_bool = isset($attribute_config['type']) && 'boolean' === $attribute_config['type'];
+	$test_name = $attribute_config['spellings']->snake;
+	$method = $attribute_config['spellings']->camel;
+	
+	if ($is_flag) {
+		
+		echo "\tpublic function test_{$test_name}_flag_can_be_set_on_and_off() : void\n";
+		echo "\t{\n";
+		
+	} else if ($is_bool) {
+		
+		echo "\tpublic function test_{$test_name}_boolean_can_be_set_to_true_and_false_and_be_unset() : void\n";
+		echo "\t{\n";
+		
+	} else {
+		
+		echo "\tpublic function test_{$test_name}_attribute_can_be_set_and_unset() : void\n";
+		echo "\t{\n";
+		
+	}
+	
+	$target = '$form';
+	echo "\t\t\$form = \$this->aire()->form();\n";
+	echo "\t\t\n";
+	
+	if ('Form' !== $class_name) {
+		$target = '$'.strtolower($class_name);
+		echo "\t\t$target = is_subclass_of($class_name::class, FormElement::class)\n";
+		echo "\t\t\t? new $class_name(\$this->aire(), \$form)\n";
+		echo "\t\t\t: new $class_name(\$this->aire());\n";
+		echo "\t\t\n";
+	}
+	
+	if ($is_flag) {
+		
+		echo "\t\t$target->$method();\n";
+		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute');\n";
+		echo "\t\t\n";
+		echo "\t\t$target->$method(false);\n";
+		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
+		echo "\t}\n";
+		echo "\t\n";
+		
+	} else if ($is_bool) {
+		
+		echo "\t\t$target->$method();\n";
+		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', 'true');\n";
+		echo "\t\t\n";
+		echo "\t\t$target->$method(false);\n";
+		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', 'false');\n";
+		echo "\t\t\n";
+		echo "\t\t$target->$method(null);\n";
+		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
+		echo "\t}\n";
+		echo "\t\n";
+		
+	} else {
+		
+		if (isset($attribute_config['attribOption'])) {
+			foreach ($attribute_config['attribOption'] as $value) {
+				$value = addslashes($value);
+				echo "\t\t$target->$method('$value');\n";
+				echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', '$value');\n";
+				echo "\t\t\n";
+			}
+		} else {
+			echo "\t\t\$value = str_random();\n";
+			echo "\t\t\n";
+			echo "\t\t$target->$method(\$value);\n";
+			echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', \$value);\n";
+			echo "\t\t\n";
+		}
+		
+		echo "\t\t$target->$method(null);\n";
+		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
+		echo "\t}\n";
+		echo "\t\n";
 		
 	}
 }

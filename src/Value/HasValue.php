@@ -2,6 +2,8 @@
 
 namespace Galahad\Aire\Value;
 
+use Galahad\Aire\Elements\FormElement;
+
 trait HasValue
 {
 	/**
@@ -10,7 +12,7 @@ trait HasValue
 	 * @param $value
 	 * @return $this
 	 */
-	public function value($value) : self
+	public function value($value = null) : FormElement
 	{
 		$this->attributes['value'] = $value;
 		
@@ -29,12 +31,12 @@ trait HasValue
 	/**
 	 * Re-set the default value when setting name
 	 *
-	 * @param string $name
+	 * @param string $value
 	 * @return $this
 	 */
-	public function name($name) : self
+	public function name($value = null) : FormElement
 	{
-		$this->attributes['name'] = $name;
+		$this->attributes['name'] = $value;
 		
 		if (null === $this->getAttribute('value')) {
 			$default = $this->getDefaultValue();

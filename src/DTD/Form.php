@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
@@ -46,9 +45,9 @@ class Form extends Element
 	 * Set the 'accept-charset' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function acceptCharset($value = null) : self
+	public function acceptCharset($value = null) : Element
 	{
 		$this->attributes['accept-charset'] = $value;
 
@@ -59,9 +58,9 @@ class Form extends Element
 	 * Set the 'action' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function action($value = null) : self
+	public function action($value = null) : Element
 	{
 		$this->attributes['action'] = $value;
 
@@ -137,9 +136,9 @@ class Form extends Element
 	 *  - 'work'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function autoComplete($value = null) : self
+	public function autoComplete($value = null) : Element
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -156,9 +155,9 @@ class Form extends Element
 	 *  - 'text/plain'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function encType($value = null) : self
+	public function encType($value = null) : Element
 	{
 		$this->attributes['enctype'] = $value;
 
@@ -174,11 +173,24 @@ class Form extends Element
 	 *  - 'post'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function method($value = null) : self
+	public function method($value = null) : Element
 	{
 		$this->attributes['method'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Set the 'name' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function name($value = null) : Element
+	{
+		$this->attributes['name'] = $value;
 
 		return $this;
 	}
@@ -187,9 +199,9 @@ class Form extends Element
 	 * Set the 'novalidate' flag
 	 *
 	 * @param bool $no_validate
-	 * @return self
+	 * @return $this
 	 */
-	public function noValidate(?bool $no_validate = true) : self
+	public function noValidate(?bool $no_validate = true) : Element
 	{
 		$this->attributes['novalidate'] = $no_validate;
 		
@@ -207,9 +219,9 @@ class Form extends Element
 	 *  - '_top'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function target($value = null) : self
+	public function target($value = null) : Element
 	{
 		$this->attributes['target'] = $value;
 

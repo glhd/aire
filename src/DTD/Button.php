@@ -25,14 +25,12 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
 namespace Galahad\Aire\DTD;
 
 use Galahad\Aire\Elements\FormElement;
-use Galahad\Aire\Value\HasValue;
 
 /**
  * Represents a clickable button, which can be used in forms, or anywhere
@@ -41,17 +39,15 @@ use Galahad\Aire\Value\HasValue;
  */
 class Button extends FormElement
 {
-	use HasValue;
-
 	protected $view = 'button';
 
 	/**
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
-	 * @return self
+	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : FormElement
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -62,9 +58,9 @@ class Button extends FormElement
 	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
-	 * @return self
+	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : self
+	public function disabled(?bool $disabled = true) : FormElement
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -75,9 +71,9 @@ class Button extends FormElement
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function form($value = null) : self
+	public function form($value = null) : FormElement
 	{
 		$this->attributes['form'] = $value;
 
@@ -88,9 +84,9 @@ class Button extends FormElement
 	 * Set the 'formaction' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formAction($value = null) : self
+	public function formAction($value = null) : FormElement
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -107,9 +103,9 @@ class Button extends FormElement
 	 *  - 'text/plain'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formEncType($value = null) : self
+	public function formEncType($value = null) : FormElement
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -125,9 +121,9 @@ class Button extends FormElement
 	 *  - 'post'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formMethod($value = null) : self
+	public function formMethod($value = null) : FormElement
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -138,9 +134,9 @@ class Button extends FormElement
 	 * Set the 'formnovalidate' flag
 	 *
 	 * @param bool $form_no_validate
-	 * @return self
+	 * @return $this
 	 */
-	public function formNoValidate(?bool $form_no_validate = true) : self
+	public function formNoValidate(?bool $form_no_validate = true) : FormElement
 	{
 		$this->attributes['formnovalidate'] = $form_no_validate;
 		
@@ -158,11 +154,24 @@ class Button extends FormElement
 	 *  - '_top'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function formTarget($value = null) : self
+	public function formTarget($value = null) : FormElement
 	{
 		$this->attributes['formtarget'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Set the 'name' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function name($value = null) : FormElement
+	{
+		$this->attributes['name'] = $value;
 
 		return $this;
 	}
@@ -177,11 +186,24 @@ class Button extends FormElement
 	 *  - 'submit'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function type($value = null) : self
+	public function type($value = null) : FormElement
 	{
 		$this->attributes['type'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Set the 'value' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function value($value = null) : FormElement
+	{
+		$this->attributes['value'] = $value;
 
 		return $this;
 	}

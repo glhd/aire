@@ -28,56 +28,46 @@
  *
  */
 
-namespace Galahad\Aire\DTD;
+namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\FormElement;
+use Galahad\Aire\DTD\Label;
+use Galahad\Aire\Tests\TestCase;
 
-/**
- * Used to group several controls as well as labels (label) within a web
- * form.
- *
- */
-class Fieldset extends Element
+class LabelTest extends TestCase
 {
-	protected $view = 'fieldset';
-
-	/**
-	 * Set the 'disabled' flag
-	 *
-	 * @param bool $disabled
-	 * @return $this
-	 */
-	public function disabled(?bool $disabled = true) : Element
+	public function test_for_attribute_can_be_set_and_unset() : void
 	{
-		$this->attributes['disabled'] = $disabled;
+		$form = $this->aire()->form();
 		
-		return $this;
+		$label = is_subclass_of(Label::class, FormElement::class)
+			? new Label($this->aire(), $form)
+			: new Label($this->aire());
+		
+		$value = str_random();
+		
+		$label->for($value);
+		$this->assertSelectorAttribute($label, 'label', 'for', $value);
+		
+		$label->for(null);
+		$this->assertSelectorAttributeMissing($label, 'label', 'for');
 	}
-
-	/**
-	 * Set the 'form' attribute
-	 *
-	 * @param string $value
-	 * @return $this
-	 */
-	public function form($value = null) : Element
+	
+	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$this->attributes['form'] = $value;
-
-		return $this;
+		$form = $this->aire()->form();
+		
+		$label = is_subclass_of(Label::class, FormElement::class)
+			? new Label($this->aire(), $form)
+			: new Label($this->aire());
+		
+		$value = str_random();
+		
+		$label->form($value);
+		$this->assertSelectorAttribute($label, 'label', 'form', $value);
+		
+		$label->form(null);
+		$this->assertSelectorAttributeMissing($label, 'label', 'form');
 	}
-
-	/**
-	 * Set the 'name' attribute
-	 *
-	 * @param string $value
-	 * @return $this
-	 */
-	public function name($value = null) : Element
-	{
-		$this->attributes['name'] = $value;
-
-		return $this;
-	}
-
+	
 }

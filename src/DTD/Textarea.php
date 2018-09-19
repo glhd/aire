@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
@@ -45,9 +44,9 @@ class Textarea extends FormElement
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
-	 * @return self
+	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : FormElement
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -58,9 +57,9 @@ class Textarea extends FormElement
 	 * Set the 'cols' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function cols($value = null) : self
+	public function cols($value = null) : FormElement
 	{
 		$this->attributes['cols'] = $value;
 
@@ -71,9 +70,9 @@ class Textarea extends FormElement
 	 * Set the 'dirname' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function dirName($value = null) : self
+	public function dirName($value = null) : FormElement
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -84,9 +83,9 @@ class Textarea extends FormElement
 	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
-	 * @return self
+	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : self
+	public function disabled(?bool $disabled = true) : FormElement
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -97,9 +96,9 @@ class Textarea extends FormElement
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function form($value = null) : self
+	public function form($value = null) : FormElement
 	{
 		$this->attributes['form'] = $value;
 
@@ -110,9 +109,9 @@ class Textarea extends FormElement
 	 * Set the 'label' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function label($value = null) : self
+	public function label($value = null) : FormElement
 	{
 		$this->attributes['label'] = $value;
 
@@ -123,11 +122,24 @@ class Textarea extends FormElement
 	 * Set the 'maxlength' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function maxLength($value = null) : self
+	public function maxLength($value = null) : FormElement
 	{
 		$this->attributes['maxlength'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Set the 'name' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function name($value = null) : FormElement
+	{
+		$this->attributes['name'] = $value;
 
 		return $this;
 	}
@@ -136,9 +148,9 @@ class Textarea extends FormElement
 	 * Set the 'placeholder' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function placeholder($value = null) : self
+	public function placeholder($value = null) : FormElement
 	{
 		$this->attributes['placeholder'] = $value;
 
@@ -149,9 +161,9 @@ class Textarea extends FormElement
 	 * Set the 'readonly' flag
 	 *
 	 * @param bool $read_only
-	 * @return self
+	 * @return $this
 	 */
-	public function readOnly(?bool $read_only = true) : self
+	public function readOnly(?bool $read_only = true) : FormElement
 	{
 		$this->attributes['readonly'] = $read_only;
 		
@@ -162,9 +174,9 @@ class Textarea extends FormElement
 	 * Set the 'required' flag
 	 *
 	 * @param bool $required
-	 * @return self
+	 * @return $this
 	 */
-	public function required(?bool $required = true) : self
+	public function required(?bool $required = true) : FormElement
 	{
 		$this->attributes['required'] = $required;
 		
@@ -175,9 +187,9 @@ class Textarea extends FormElement
 	 * Set the 'rows' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function rows($value = null) : self
+	public function rows($value = null) : FormElement
 	{
 		$this->attributes['rows'] = $value;
 
@@ -193,9 +205,9 @@ class Textarea extends FormElement
 	 *  - 'soft'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function wrap($value = null) : self
+	public function wrap($value = null) : FormElement
 	{
 		$this->attributes['wrap'] = $value;
 

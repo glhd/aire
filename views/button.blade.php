@@ -1,5 +1,5 @@
 <button {{ aire_attributes($attributes) }}>
 
-	{{ $label }}
+	{{ $label ?? null }}
 	
 </button>

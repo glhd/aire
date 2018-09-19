@@ -23,9 +23,9 @@ foreach ($tags as $tag => $config) {
 	
 	echo "use Galahad\Aire\Elements\\$parent;\n";
 	
-	if (isset($config['attributes']['value'])) {
-		echo "use Galahad\Aire\Value\HasValue;\n";
-	}
+	// if (isset($config['attributes']['value'])) {
+	// 	echo "use Galahad\Aire\Value\HasValue;\n";
+	// }
 	
 	echo "\n";
 	
@@ -43,9 +43,9 @@ foreach ($tags as $tag => $config) {
 	echo "class $class_name extends $parent\n";
 	echo "{\n";
 	
-	if (isset($config['attributes']['value'])) {
-		echo "\tuse HasValue;\n\n";
-	}
+	// if (isset($config['attributes']['value'])) {
+	// 	echo "\tuse HasValue;\n\n";
+	// }
 	
 	$view = snake_case($tag, '-');
 	
@@ -53,11 +53,11 @@ foreach ($tags as $tag => $config) {
 	
 	if (isset($config['attributes'])) {
 		foreach ($config['attributes'] as $attribute => $attribute_config) {
-			if ('value' === $attribute || 'name' === $attribute) {
-				continue;
-			}
+			// if ('value' === $attribute || 'name' === $attribute) {
+			// 	continue;
+			// }
 			
-			print_setter($attribute, $attribute_config);
+			print_setter($attribute, $attribute_config, $config['parent']);
 		}
 	}
 	

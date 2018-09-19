@@ -17,6 +17,8 @@ echo " */\n\n";
 
 echo "namespace Galahad\Aire\DTD\Concerns;\n\n";
 
+echo "use Galahad\Aire\Elements\Element;\n\n";
+
 echo "trait HasGlobalAttributes\n";
 echo "{\n";
 

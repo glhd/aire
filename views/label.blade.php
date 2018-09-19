@@ -1,3 +1,3 @@
 <label {{ aire_attributes($attributes) }}>
-	{{ $text }}
+	{{ $text ?? null }}
 </label>

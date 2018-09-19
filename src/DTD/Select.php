@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
@@ -45,9 +44,9 @@ class Select extends FormElement
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
-	 * @return self
+	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : FormElement
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -58,9 +57,9 @@ class Select extends FormElement
 	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
-	 * @return self
+	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : self
+	public function disabled(?bool $disabled = true) : FormElement
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -71,9 +70,9 @@ class Select extends FormElement
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function form($value = null) : self
+	public function form($value = null) : FormElement
 	{
 		$this->attributes['form'] = $value;
 
@@ -84,9 +83,9 @@ class Select extends FormElement
 	 * Set the 'multiple' flag
 	 *
 	 * @param bool $multiple
-	 * @return self
+	 * @return $this
 	 */
-	public function multiple(?bool $multiple = true) : self
+	public function multiple(?bool $multiple = true) : FormElement
 	{
 		$this->attributes['multiple'] = $multiple;
 		
@@ -94,12 +93,25 @@ class Select extends FormElement
 	}
 
 	/**
+	 * Set the 'name' attribute
+	 *
+	 * @param string $value
+	 * @return $this
+	 */
+	public function name($value = null) : FormElement
+	{
+		$this->attributes['name'] = $value;
+
+		return $this;
+	}
+
+	/**
 	 * Set the 'required' flag
 	 *
 	 * @param bool $required
-	 * @return self
+	 * @return $this
 	 */
-	public function required(?bool $required = true) : self
+	public function required(?bool $required = true) : FormElement
 	{
 		$this->attributes['required'] = $required;
 		
@@ -110,9 +122,9 @@ class Select extends FormElement
 	 * Set the 'size' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function size($value = null) : self
+	public function size($value = null) : FormElement
 	{
 		$this->attributes['size'] = $value;
 

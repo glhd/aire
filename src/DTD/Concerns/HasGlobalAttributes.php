@@ -25,11 +25,12 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
  *
  */
 
 namespace Galahad\Aire\DTD\Concerns;
+
+use Galahad\Aire\Elements\Element;
 
 trait HasGlobalAttributes
 {
@@ -37,9 +38,9 @@ trait HasGlobalAttributes
 	 * Set the 'accesskey' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function accessKey($value = null) : self
+	public function accessKey($value = null) : Element
 	{
 		$this->attributes['accesskey'] = $value;
 
@@ -50,9 +51,9 @@ trait HasGlobalAttributes
 	 * Set the 'class' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function class($value = null) : self
+	public function class($value = null) : Element
 	{
 		$this->attributes['class'] = $value;
 
@@ -63,9 +64,9 @@ trait HasGlobalAttributes
 	 * Set the 'contenteditable' boolean attribute
 	 *
 	 * @param bool $content_editable
-	 * @return self
+	 * @return $this
 	 */
-	public function contentEditable(?bool $content_editable = true) : self
+	public function contentEditable(?bool $content_editable = true) : Element
 	{
 		if (null === $content_editable) {
 			$this->attributes['contenteditable'] = null;
@@ -82,9 +83,9 @@ trait HasGlobalAttributes
 	 * Set the 'contextmenu' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function contextMenu($value = null) : self
+	public function contextMenu($value = null) : Element
 	{
 		$this->attributes['contextmenu'] = $value;
 
@@ -100,9 +101,9 @@ trait HasGlobalAttributes
 	 *  - 'rtl'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function dir($value = null) : self
+	public function dir($value = null) : Element
 	{
 		$this->attributes['dir'] = $value;
 
@@ -119,9 +120,9 @@ trait HasGlobalAttributes
 	 *  - 'true'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function draggable($value = null) : self
+	public function draggable($value = null) : Element
 	{
 		$this->attributes['draggable'] = $value;
 
@@ -138,9 +139,9 @@ trait HasGlobalAttributes
 	 *  - 'link'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function dropZone($value = null) : self
+	public function dropZone($value = null) : Element
 	{
 		$this->attributes['dropzone'] = $value;
 
@@ -151,9 +152,9 @@ trait HasGlobalAttributes
 	 * Set the 'hidden' flag
 	 *
 	 * @param bool $hidden
-	 * @return self
+	 * @return $this
 	 */
-	public function hidden(?bool $hidden = true) : self
+	public function hidden(?bool $hidden = true) : Element
 	{
 		$this->attributes['hidden'] = $hidden;
 		
@@ -164,9 +165,9 @@ trait HasGlobalAttributes
 	 * Set the 'id' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function id($value = null) : self
+	public function id($value = null) : Element
 	{
 		$this->attributes['id'] = $value;
 
@@ -325,9 +326,9 @@ trait HasGlobalAttributes
 	 *  - 'zu'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function lang($value = null) : self
+	public function lang($value = null) : Element
 	{
 		$this->attributes['lang'] = $value;
 
@@ -402,9 +403,9 @@ trait HasGlobalAttributes
 	 *  - 'treeitem'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function role($value = null) : self
+	public function role($value = null) : Element
 	{
 		$this->attributes['role'] = $value;
 
@@ -415,9 +416,9 @@ trait HasGlobalAttributes
 	 * Set the 'spellcheck' boolean attribute
 	 *
 	 * @param bool $spell_check
-	 * @return self
+	 * @return $this
 	 */
-	public function spellCheck(?bool $spell_check = true) : self
+	public function spellCheck(?bool $spell_check = true) : Element
 	{
 		if (null === $spell_check) {
 			$this->attributes['spellcheck'] = null;
@@ -434,9 +435,9 @@ trait HasGlobalAttributes
 	 * Set the 'style' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function style($value = null) : self
+	public function style($value = null) : Element
 	{
 		$this->attributes['style'] = $value;
 
@@ -447,9 +448,9 @@ trait HasGlobalAttributes
 	 * Set the 'tabindex' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function tabIndex($value = null) : self
+	public function tabIndex($value = null) : Element
 	{
 		$this->attributes['tabindex'] = $value;
 
@@ -460,9 +461,9 @@ trait HasGlobalAttributes
 	 * Set the 'title' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function title($value = null) : self
+	public function title($value = null) : Element
 	{
 		$this->attributes['title'] = $value;
 
@@ -473,9 +474,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-activedescendant' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaActiveDescendant($value = null) : self
+	public function ariaActiveDescendant($value = null) : Element
 	{
 		$this->attributes['aria-activedescendant'] = $value;
 
@@ -491,9 +492,9 @@ trait HasGlobalAttributes
 	 *  - 'false'
 	 *
 	 * @param bool $aria_atomic
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaAtomic(?bool $aria_atomic = true) : self
+	public function ariaAtomic(?bool $aria_atomic = true) : Element
 	{
 		if (null === $aria_atomic) {
 			$this->attributes['aria-atomic'] = null;
@@ -510,9 +511,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-busy' boolean attribute
 	 *
 	 * @param bool $aria_busy
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaBusy(?bool $aria_busy = true) : self
+	public function ariaBusy(?bool $aria_busy = true) : Element
 	{
 		if (null === $aria_busy) {
 			$this->attributes['aria-busy'] = null;
@@ -529,9 +530,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-controls' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaControls($value = null) : self
+	public function ariaControls($value = null) : Element
 	{
 		$this->attributes['aria-controls'] = $value;
 
@@ -542,9 +543,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-describedby' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaDescribedBy($value = null) : self
+	public function ariaDescribedBy($value = null) : Element
 	{
 		$this->attributes['aria-describedby'] = $value;
 
@@ -560,9 +561,9 @@ trait HasGlobalAttributes
 	 *  - 'false'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaDisabled($value = null) : self
+	public function ariaDisabled($value = null) : Element
 	{
 		$this->attributes['aria-disabled'] = $value;
 
@@ -582,9 +583,9 @@ trait HasGlobalAttributes
 	 *  - 'none'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaDropEffect($value = null) : self
+	public function ariaDropEffect($value = null) : Element
 	{
 		$this->attributes['aria-dropeffect'] = $value;
 
@@ -595,9 +596,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-flowto' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaFlowTo($value = null) : self
+	public function ariaFlowTo($value = null) : Element
 	{
 		$this->attributes['aria-flowto'] = $value;
 
@@ -614,9 +615,9 @@ trait HasGlobalAttributes
 	 *  - 'undefined'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaGrabbed($value = null) : self
+	public function ariaGrabbed($value = null) : Element
 	{
 		$this->attributes['aria-grabbed'] = $value;
 
@@ -632,9 +633,9 @@ trait HasGlobalAttributes
 	 *  - 'false'
 	 *
 	 * @param bool $aria_has_popup
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaHasPopup(?bool $aria_has_popup = true) : self
+	public function ariaHasPopup(?bool $aria_has_popup = true) : Element
 	{
 		if (null === $aria_has_popup) {
 			$this->attributes['aria-haspopup'] = null;
@@ -656,9 +657,9 @@ trait HasGlobalAttributes
 	 *  - 'false'
 	 *
 	 * @param bool $aria_hidden
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaHidden(?bool $aria_hidden = true) : self
+	public function ariaHidden(?bool $aria_hidden = true) : Element
 	{
 		if (null === $aria_hidden) {
 			$this->attributes['aria-hidden'] = null;
@@ -682,9 +683,9 @@ trait HasGlobalAttributes
 	 *  - 'true'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaInvalid($value = null) : self
+	public function ariaInvalid($value = null) : Element
 	{
 		$this->attributes['aria-invalid'] = $value;
 
@@ -695,9 +696,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-label' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaLabel($value = null) : self
+	public function ariaLabel($value = null) : Element
 	{
 		$this->attributes['aria-label'] = $value;
 
@@ -708,9 +709,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-labelledby' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaLabelledBy($value = null) : self
+	public function ariaLabelledBy($value = null) : Element
 	{
 		$this->attributes['aria-labelledby'] = $value;
 
@@ -727,9 +728,9 @@ trait HasGlobalAttributes
 	 *  - 'assertive'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaLive($value = null) : self
+	public function ariaLive($value = null) : Element
 	{
 		$this->attributes['aria-live'] = $value;
 
@@ -740,9 +741,9 @@ trait HasGlobalAttributes
 	 * Set the 'aria-owns' attribute
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaOwns($value = null) : self
+	public function ariaOwns($value = null) : Element
 	{
 		$this->attributes['aria-owns'] = $value;
 
@@ -761,9 +762,9 @@ trait HasGlobalAttributes
 	 *  - 'additions text'
 	 *
 	 * @param string $value
-	 * @return self
+	 * @return $this
 	 */
-	public function ariaRelevant($value = null) : self
+	public function ariaRelevant($value = null) : Element
 	{
 		$this->attributes['aria-relevant'] = $value;
 
