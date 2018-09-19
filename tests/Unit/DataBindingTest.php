@@ -17,6 +17,24 @@ class DataBindingTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
 	}
+	
+	public function test_an_array_can_be_bound_to_the_form() : void
+	{
+		$this->aire()->form()->bind(['foo' => 'bar']);
+		
+		$input = $this->aire()->input('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
+	}
+	
+	public function test_an_object_can_be_bound_to_the_form() : void
+	{
+		$this->aire()->form()->bind((object) ['foo' => 'bar']);
+		
+		$input = $this->aire()->input('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
+	}
 }
 
 class ModelStub extends Model
