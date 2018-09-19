@@ -48,12 +48,12 @@ class Button extends FormElement
 	/**
 	 * Set the 'autofocus' flag
 	 *
-	 * @param bool $autofocus
+	 * @param bool $auto_focus
 	 * @return self
 	 */
-	public function autofocus(?bool $autofocus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
-		$this->attributes['autofocus'] = $autofocus;
+		$this->attributes['autofocus'] = $auto_focus;
 		
 		return $this;
 	}
@@ -90,7 +90,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formaction($value = null) : self
+	public function formAction($value = null) : self
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -109,7 +109,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formenctype($value = null) : self
+	public function formEncType($value = null) : self
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -127,7 +127,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formmethod($value = null) : self
+	public function formMethod($value = null) : self
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -137,12 +137,12 @@ class Button extends FormElement
 	/**
 	 * Set the 'formnovalidate' flag
 	 *
-	 * @param bool $formnovalidate
+	 * @param bool $form_no_validate
 	 * @return self
 	 */
-	public function formnovalidate(?bool $formnovalidate = true) : self
+	public function formNoValidate(?bool $form_no_validate = true) : self
 	{
-		$this->attributes['formnovalidate'] = $formnovalidate;
+		$this->attributes['formnovalidate'] = $form_no_validate;
 		
 		return $this;
 	}
@@ -160,7 +160,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formtarget($value = null) : self
+	public function formTarget($value = null) : self
 	{
 		$this->attributes['formtarget'] = $value;
 

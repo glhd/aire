@@ -139,7 +139,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return self
 	 */
-	public function autocomplete($value = null) : self
+	public function autoComplete($value = null) : self
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -158,7 +158,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return self
 	 */
-	public function enctype($value = null) : self
+	public function encType($value = null) : self
 	{
 		$this->attributes['enctype'] = $value;
 
@@ -186,12 +186,12 @@ class Form extends Element
 	/**
 	 * Set the 'novalidate' flag
 	 *
-	 * @param bool $novalidate
+	 * @param bool $no_validate
 	 * @return self
 	 */
-	public function novalidate(?bool $novalidate = true) : self
+	public function noValidate(?bool $no_validate = true) : self
 	{
-		$this->attributes['novalidate'] = $novalidate;
+		$this->attributes['novalidate'] = $no_validate;
 		
 		return $this;
 	}

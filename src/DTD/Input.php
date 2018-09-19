@@ -171,7 +171,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function autocomplete($value = null) : self
+	public function autoComplete($value = null) : self
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -181,12 +181,12 @@ class Input extends FormElement
 	/**
 	 * Set the 'autofocus' flag
 	 *
-	 * @param bool $autofocus
+	 * @param bool $auto_focus
 	 * @return self
 	 */
-	public function autofocus(?bool $autofocus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
-		$this->attributes['autofocus'] = $autofocus;
+		$this->attributes['autofocus'] = $auto_focus;
 		
 		return $this;
 	}
@@ -210,7 +210,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function dirname($value = null) : self
+	public function dirName($value = null) : self
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -249,7 +249,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formaction($value = null) : self
+	public function formAction($value = null) : self
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -268,7 +268,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formenctype($value = null) : self
+	public function formEncType($value = null) : self
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -286,7 +286,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formmethod($value = null) : self
+	public function formMethod($value = null) : self
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -296,12 +296,12 @@ class Input extends FormElement
 	/**
 	 * Set the 'formnovalidate' flag
 	 *
-	 * @param bool $formnovalidate
+	 * @param bool $form_no_validate
 	 * @return self
 	 */
-	public function formnovalidate(?bool $formnovalidate = true) : self
+	public function formNoValidate(?bool $form_no_validate = true) : self
 	{
-		$this->attributes['formnovalidate'] = $formnovalidate;
+		$this->attributes['formnovalidate'] = $form_no_validate;
 		
 		return $this;
 	}
@@ -319,7 +319,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function formtarget($value = null) : self
+	public function formTarget($value = null) : self
 	{
 		$this->attributes['formtarget'] = $value;
 
@@ -433,12 +433,12 @@ class Input extends FormElement
 	/**
 	 * Set the 'readonly' flag
 	 *
-	 * @param bool $readonly
+	 * @param bool $read_only
 	 * @return self
 	 */
-	public function readonly(?bool $readonly = true) : self
+	public function readOnly(?bool $read_only = true) : self
 	{
-		$this->attributes['readonly'] = $readonly;
+		$this->attributes['readonly'] = $read_only;
 		
 		return $this;
 	}

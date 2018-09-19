@@ -44,12 +44,12 @@ class Select extends FormElement
 	/**
 	 * Set the 'autofocus' flag
 	 *
-	 * @param bool $autofocus
+	 * @param bool $auto_focus
 	 * @return self
 	 */
-	public function autofocus(?bool $autofocus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
-		$this->attributes['autofocus'] = $autofocus;
+		$this->attributes['autofocus'] = $auto_focus;
 		
 		return $this;
 	}

@@ -44,12 +44,12 @@ class Textarea extends FormElement
 	/**
 	 * Set the 'autofocus' flag
 	 *
-	 * @param bool $autofocus
+	 * @param bool $auto_focus
 	 * @return self
 	 */
-	public function autofocus(?bool $autofocus = true) : self
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
-		$this->attributes['autofocus'] = $autofocus;
+		$this->attributes['autofocus'] = $auto_focus;
 		
 		return $this;
 	}
@@ -73,7 +73,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function dirname($value = null) : self
+	public function dirName($value = null) : self
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -148,12 +148,12 @@ class Textarea extends FormElement
 	/**
 	 * Set the 'readonly' flag
 	 *
-	 * @param bool $readonly
+	 * @param bool $read_only
 	 * @return self
 	 */
-	public function readonly(?bool $readonly = true) : self
+	public function readOnly(?bool $read_only = true) : self
 	{
-		$this->attributes['readonly'] = $readonly;
+		$this->attributes['readonly'] = $read_only;
 		
 		return $this;
 	}

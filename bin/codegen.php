@@ -34,7 +34,18 @@ $attribute_methods = [
 	'aria-flowto' => 'ariaFlowTo',
 	'aria-haspopup' => 'ariaHasPopup',
 	'aria-labelledby' => 'ariaLabelledBy',
+	'autocomplete' => 'autoComplete',
+	'autofocus' => 'autoFocus',
+	'dirname' => 'dirName',
+	'enctype' => 'encType',
+	'formaction' => 'formAction',
+	'formenctype' => 'formEncType',
+	'formmethod' => 'formMethod',
+	'formnovalidate' => 'formNoValidate',
+	'formtarget' => 'formTarget',
 	'maxlength' => 'maxLength',
+	'novalidate' => 'noValidate',
+	'readonly' => 'readOnly',
 ];
 
 $license = file_get_contents(__DIR__.'/../data/LICENSE.md');
