@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Label;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class LabelTest extends TestCase
 {
 	public function test_for_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$label = is_subclass_of(Label::class, FormElement::class)
-			? new Label($this->aire(), $form)
-			: new Label($this->aire());
+		$label = new Label($this->aire());
 		
 		$value = str_random();
 		
@@ -55,11 +50,7 @@ class LabelTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$label = is_subclass_of(Label::class, FormElement::class)
-			? new Label($this->aire(), $form)
-			: new Label($this->aire());
+		$label = new Label($this->aire());
 		
 		$value = str_random();
 		

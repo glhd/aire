@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Textarea;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class TextareaTest extends TestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$textarea->autoFocus();
 		$this->assertSelectorAttribute($textarea, 'textarea', 'autofocus');
@@ -53,11 +48,7 @@ class TextareaTest extends TestCase
 	
 	public function test_cols_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -70,11 +61,7 @@ class TextareaTest extends TestCase
 	
 	public function test_dir_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -87,11 +74,7 @@ class TextareaTest extends TestCase
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$textarea->disabled();
 		$this->assertSelectorAttribute($textarea, 'textarea', 'disabled');
@@ -102,11 +85,7 @@ class TextareaTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -119,11 +98,7 @@ class TextareaTest extends TestCase
 	
 	public function test_label_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -136,11 +111,7 @@ class TextareaTest extends TestCase
 	
 	public function test_max_length_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -153,11 +124,7 @@ class TextareaTest extends TestCase
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -170,11 +137,7 @@ class TextareaTest extends TestCase
 	
 	public function test_placeholder_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -187,11 +150,7 @@ class TextareaTest extends TestCase
 	
 	public function test_read_only_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$textarea->readOnly();
 		$this->assertSelectorAttribute($textarea, 'textarea', 'readonly');
@@ -202,11 +161,7 @@ class TextareaTest extends TestCase
 	
 	public function test_required_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$textarea->required();
 		$this->assertSelectorAttribute($textarea, 'textarea', 'required');
@@ -217,11 +172,7 @@ class TextareaTest extends TestCase
 	
 	public function test_rows_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -234,11 +185,7 @@ class TextareaTest extends TestCase
 	
 	public function test_wrap_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$textarea = is_subclass_of(Textarea::class, FormElement::class)
-			? new Textarea($this->aire(), $form)
-			: new Textarea($this->aire());
+		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
 		$textarea->wrap('hard');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'wrap', 'hard');

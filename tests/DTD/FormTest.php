@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Form;
 use Galahad\Aire\Tests\TestCase;
 

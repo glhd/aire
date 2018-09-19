@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Button;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class ButtonTest extends TestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->autoFocus();
 		$this->assertSelectorAttribute($button, 'button', 'autofocus');
@@ -53,11 +48,7 @@ class ButtonTest extends TestCase
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->disabled();
 		$this->assertSelectorAttribute($button, 'button', 'disabled');
@@ -68,11 +59,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -85,11 +72,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_action_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -102,11 +85,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_enc_type_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->formEncType('application/x-www-form-urlencoded');
 		$this->assertSelectorAttribute($button, 'button', 'formenctype', 'application/x-www-form-urlencoded');
@@ -123,11 +102,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_method_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->formMethod('get');
 		$this->assertSelectorAttribute($button, 'button', 'formmethod', 'get');
@@ -141,11 +116,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_no_validate_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->formNoValidate();
 		$this->assertSelectorAttribute($button, 'button', 'formnovalidate');
@@ -156,11 +127,7 @@ class ButtonTest extends TestCase
 	
 	public function test_form_target_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->formTarget('_blank');
 		$this->assertSelectorAttribute($button, 'button', 'formtarget', '_blank');
@@ -180,11 +147,7 @@ class ButtonTest extends TestCase
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -197,11 +160,7 @@ class ButtonTest extends TestCase
 	
 	public function test_type_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$button->type('button');
 		$this->assertSelectorAttribute($button, 'button', 'type', 'button');
@@ -218,11 +177,7 @@ class ButtonTest extends TestCase
 	
 	public function test_value_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$button = is_subclass_of(Button::class, FormElement::class)
-			? new Button($this->aire(), $form)
-			: new Button($this->aire());
+		$button = new Button($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		

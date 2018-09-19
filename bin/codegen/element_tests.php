@@ -25,7 +25,6 @@ foreach ($tags as $tag => $config) {
 	
 	$class_name = studly_case($tag);
 	
-	echo "use Galahad\Aire\Elements\FormElement;\n";
 	echo "use Galahad\\Aire\\DTD\\$class_name;\n";
 	echo "use Galahad\Aire\Tests\TestCase;\n\n";
 	

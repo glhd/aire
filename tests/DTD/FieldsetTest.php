@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Fieldset;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class FieldsetTest extends TestCase
 {
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$fieldset = is_subclass_of(Fieldset::class, FormElement::class)
-			? new Fieldset($this->aire(), $form)
-			: new Fieldset($this->aire());
+		$fieldset = new Fieldset($this->aire());
 		
 		$fieldset->disabled();
 		$this->assertSelectorAttribute($fieldset, 'fieldset', 'disabled');
@@ -53,11 +48,7 @@ class FieldsetTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$fieldset = is_subclass_of(Fieldset::class, FormElement::class)
-			? new Fieldset($this->aire(), $form)
-			: new Fieldset($this->aire());
+		$fieldset = new Fieldset($this->aire());
 		
 		$value = str_random();
 		
@@ -70,11 +61,7 @@ class FieldsetTest extends TestCase
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$fieldset = is_subclass_of(Fieldset::class, FormElement::class)
-			? new Fieldset($this->aire(), $form)
-			: new Fieldset($this->aire());
+		$fieldset = new Fieldset($this->aire());
 		
 		$value = str_random();
 		

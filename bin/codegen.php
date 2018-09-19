@@ -201,16 +201,20 @@ function print_setter_test($attribute, $attribute_config, $tag = 'form') {
 	}
 	
 	$target = '$form';
-	echo "\t\t\$form = \$this->aire()->form();\n";
-	echo "\t\t\n";
 	
 	if ('Form' !== $class_name) {
 		$target = '$'.strtolower($class_name);
-		echo "\t\t$target = is_subclass_of($class_name::class, FormElement::class)\n";
-		echo "\t\t\t? new $class_name(\$this->aire(), \$form)\n";
-		echo "\t\t\t: new $class_name(\$this->aire());\n";
-		echo "\t\t\n";
+		
+		if (is_subclass_of("\\Galahad\\Aire\\DTD\\{$class_name}", \Galahad\Aire\Elements\FormElement::class)) {
+			echo "\t\t$target = new $class_name(\$this->aire(), \$this->aire()->form());\n";
+		} else {
+			echo "\t\t$target = new $class_name(\$this->aire());\n";
+		}
+	} else {
+		echo "\t\t\$form = \$this->aire()->form();\n";
 	}
+	
+	echo "\t\t\n";
 	
 	if ($is_flag) {
 		

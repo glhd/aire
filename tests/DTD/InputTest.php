@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Input;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class InputTest extends TestCase
 {
 	public function test_accept_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->accept('text/html');
 		$this->assertSelectorAttribute($input, 'input', 'accept', 'text/html');
@@ -128,11 +123,7 @@ class InputTest extends TestCase
 	
 	public function test_alt_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -145,11 +136,7 @@ class InputTest extends TestCase
 	
 	public function test_auto_complete_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->autoComplete('additional-name');
 		$this->assertSelectorAttribute($input, 'input', 'autocomplete', 'additional-name');
@@ -343,11 +330,7 @@ class InputTest extends TestCase
 	
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->autoFocus();
 		$this->assertSelectorAttribute($input, 'input', 'autofocus');
@@ -358,11 +341,7 @@ class InputTest extends TestCase
 	
 	public function test_checked_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->checked();
 		$this->assertSelectorAttribute($input, 'input', 'checked');
@@ -373,11 +352,7 @@ class InputTest extends TestCase
 	
 	public function test_dir_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -390,11 +365,7 @@ class InputTest extends TestCase
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->disabled();
 		$this->assertSelectorAttribute($input, 'input', 'disabled');
@@ -405,11 +376,7 @@ class InputTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -422,11 +389,7 @@ class InputTest extends TestCase
 	
 	public function test_form_action_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -439,11 +402,7 @@ class InputTest extends TestCase
 	
 	public function test_form_enc_type_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->formEncType('application/x-www-form-urlencoded');
 		$this->assertSelectorAttribute($input, 'input', 'formenctype', 'application/x-www-form-urlencoded');
@@ -460,11 +419,7 @@ class InputTest extends TestCase
 	
 	public function test_form_method_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->formMethod('get');
 		$this->assertSelectorAttribute($input, 'input', 'formmethod', 'get');
@@ -478,11 +433,7 @@ class InputTest extends TestCase
 	
 	public function test_form_no_validate_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->formNoValidate();
 		$this->assertSelectorAttribute($input, 'input', 'formnovalidate');
@@ -493,11 +444,7 @@ class InputTest extends TestCase
 	
 	public function test_form_target_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->formTarget('_blank');
 		$this->assertSelectorAttribute($input, 'input', 'formtarget', '_blank');
@@ -517,11 +464,7 @@ class InputTest extends TestCase
 	
 	public function test_height_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -534,11 +477,7 @@ class InputTest extends TestCase
 	
 	public function test_list_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -551,11 +490,7 @@ class InputTest extends TestCase
 	
 	public function test_max_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -568,11 +503,7 @@ class InputTest extends TestCase
 	
 	public function test_max_length_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -585,11 +516,7 @@ class InputTest extends TestCase
 	
 	public function test_min_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -602,11 +529,7 @@ class InputTest extends TestCase
 	
 	public function test_multiple_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->multiple();
 		$this->assertSelectorAttribute($input, 'input', 'multiple');
@@ -617,11 +540,7 @@ class InputTest extends TestCase
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -634,11 +553,7 @@ class InputTest extends TestCase
 	
 	public function test_pattern_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -651,11 +566,7 @@ class InputTest extends TestCase
 	
 	public function test_placeholder_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -668,11 +579,7 @@ class InputTest extends TestCase
 	
 	public function test_read_only_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->readOnly();
 		$this->assertSelectorAttribute($input, 'input', 'readonly');
@@ -683,11 +590,7 @@ class InputTest extends TestCase
 	
 	public function test_required_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->required();
 		$this->assertSelectorAttribute($input, 'input', 'required');
@@ -698,11 +601,7 @@ class InputTest extends TestCase
 	
 	public function test_size_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -715,11 +614,7 @@ class InputTest extends TestCase
 	
 	public function test_src_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -732,11 +627,7 @@ class InputTest extends TestCase
 	
 	public function test_step_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -749,11 +640,7 @@ class InputTest extends TestCase
 	
 	public function test_type_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$input->type('button');
 		$this->assertSelectorAttribute($input, 'input', 'type', 'button');
@@ -830,11 +717,7 @@ class InputTest extends TestCase
 	
 	public function test_value_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -847,11 +730,7 @@ class InputTest extends TestCase
 	
 	public function test_width_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$input = is_subclass_of(Input::class, FormElement::class)
-			? new Input($this->aire(), $form)
-			: new Input($this->aire());
+		$input = new Input($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		

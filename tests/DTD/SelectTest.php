@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\DTD;
 
-use Galahad\Aire\Elements\FormElement;
 use Galahad\Aire\DTD\Select;
 use Galahad\Aire\Tests\TestCase;
 
@@ -38,11 +37,7 @@ class SelectTest extends TestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$select->autoFocus();
 		$this->assertSelectorAttribute($select, 'select', 'autofocus');
@@ -53,11 +48,7 @@ class SelectTest extends TestCase
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$select->disabled();
 		$this->assertSelectorAttribute($select, 'select', 'disabled');
@@ -68,11 +59,7 @@ class SelectTest extends TestCase
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -85,11 +72,7 @@ class SelectTest extends TestCase
 	
 	public function test_multiple_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$select->multiple();
 		$this->assertSelectorAttribute($select, 'select', 'multiple');
@@ -100,11 +83,7 @@ class SelectTest extends TestCase
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
@@ -117,11 +96,7 @@ class SelectTest extends TestCase
 	
 	public function test_required_flag_can_be_set_on_and_off() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$select->required();
 		$this->assertSelectorAttribute($select, 'select', 'required');
@@ -132,11 +107,7 @@ class SelectTest extends TestCase
 	
 	public function test_size_attribute_can_be_set_and_unset() : void
 	{
-		$form = $this->aire()->form();
-		
-		$select = is_subclass_of(Select::class, FormElement::class)
-			? new Select($this->aire(), $form)
-			: new Select($this->aire());
+		$select = new Select($this->aire(), $this->aire()->form());
 		
 		$value = str_random();
 		
