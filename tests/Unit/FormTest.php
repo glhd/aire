@@ -2,17 +2,42 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
-use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 class FormTest extends TestCase
 {
 	public function test_forms_are_post_by_default()
 	{
-		$form = $this->aire()->open()->close();
+		$form = $this->aire()->form();
 		
 		$this->assertSelectorExists($form, 'form');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
+	}
+	
+	public function test_forms_have_an_action_set_automatically() : void
+	{
+		$form = $this->aire()->form();
+		
+		$this->assertSelectorAttribute($form, 'form', 'action', '');
+	}
+	
+	public function test_form_actions_can_be_set() : void
+	{
+		$form = $this->aire()->form('/foo/bar');
+		
+		$this->assertSelectorAttribute($form, 'form', 'action', '/foo/bar');
+	}
+	
+	public function test_form_actions_can_be_set_using_routes() : void
+	{
+		Route::get('/foo/bar')->name('demo-route');
+		$expected = URL::route('demo-route');
+		
+		$form = $this->aire()->form()->route('demo-route');
+		
+		$this->assertSelectorAttribute($form, 'form', 'action', $expected);
 	}
 	
 	public function test_csrf_token_is_included_if_session_is_set_and_method_is_not_get()

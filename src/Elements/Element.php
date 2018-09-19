@@ -57,17 +57,6 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
-	public function getId()
-	{
-		if ($id = $this->getAttribute('id')) {
-			return $id;
-		}
-		
-		return $this->aire->config('generate_missing_ids', true)
-			? $this->generateId()
-			: null;
-	}
-	
 	public function getAttribute($name, $default = null)
 	{
 		$attributes = $this->getAttributes();

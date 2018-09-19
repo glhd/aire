@@ -6,13 +6,18 @@ use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Form;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
 class Aire
 {
+	/**
+	 * @var \Illuminate\Contracts\Foundation\Application
+	 */
+	protected $app;
+	
 	/**
 	 * @var \Illuminate\View\Factory
 	 */
@@ -29,39 +34,49 @@ class Aire
 	protected $config;
 	
 	/**
-	 * @var \Illuminate\Routing\UrlGenerator
-	 */
-	protected $url;
-	
-	/**
 	 * Aire constructor.
 	 *
 	 * @param \Illuminate\View\Factory $factory
-	 * @param \Illuminate\Routing\UrlGenerator $url
+	 * @param \Illuminate\Contracts\Foundation\Application $app
 	 * @param array $config
 	 */
-	public function __construct(Factory $factory, UrlGenerator $url, array $config = [])
+	public function __construct(Factory $factory, Application $app, array $config = [])
 	{
 		$this->factory = $factory;
+		$this->app = $app;
 		$this->config = $config;
-		$this->url = $url;
 	}
 	
-	public function form() : Form
+	public function form($action = null, $bound_data = null) : Form
 	{
-		$this->form = new Form($this, $this->url);
+		$this->form = $this->app->make(Form::class);
+		
+		if ($action) {
+			$this->form->action($action);
+		}
+		
+		if ($bound_data) {
+			$this->form->bind($bound_data);
+		}
 		
 		return $this->form;
+	}
+	
+	public function getForm() : Form
+	{
+		return $this->form ?? $this->form();
 	}
 	
 	/**
 	 * Open a new Form.
 	 *
+	 * @param null $action
+	 * @param null $bound_data
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function open() : Form
+	public function open($action = null, $bound_data = null) : Form
 	{
-		$this->form()->open();
+		$this->form($action, $bound_data)->open();
 		
 		return $this->form;
 	}
@@ -73,7 +88,7 @@ class Aire
 	 */
 	public function close() : Form
 	{
-		return $this->form->close();
+		return $this->getForm()->close();
 	}
 	
 	public function label(string $label) : Label

@@ -3,7 +3,9 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Value\Defaults;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\HtmlString;
 
 class Form extends Element
@@ -11,30 +13,39 @@ class Form extends Element
 	protected $view = 'form';
 	
 	protected $attributes = [
+		'action' => '',
 		'method' => 'POST',
 	];
 	
 	protected $opened = false;
 	
 	/**
+	 * @var \Galahad\Aire\Value\Defaults
+	 */
+	protected $defaults;
+	
+	/**
 	 * @var \Illuminate\Routing\UrlGenerator
 	 */
 	protected $url;
 	
-	public function __construct(Aire $aire, UrlGenerator $url)
+	public function __construct(Aire $aire, UrlGenerator $url, Defaults $defaults)
 	{
 		parent::__construct($aire);
 		
-		if ($session = app('session')) {
-			$this->view_data['_token'] = $session->token();
+		if ($token = Session::token()) {
+			$this->view_data['_token'] = $token;
 		}
 		
 		$this->url = $url;
+		$this->defaults = $defaults;
 	}
 	
 	public function bind($bound_data) : self
 	{
+		$this->defaults->bind($bound_data);
 		
+		return $this;
 	}
 	
 	public function open() : self
@@ -59,7 +70,7 @@ class Form extends Element
 	
 	public function action(string $action) : self
 	{
-		$this->view_data['action'] = $action;
+		$this->attributes['action'] = $action;
 		
 		return $this;
 	}

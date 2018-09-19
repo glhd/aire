@@ -6,7 +6,9 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
-	<title></title>
+	<title>
+		Aire Documentation &amp; Demos
+	</title>
 	
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet" />
 </head>
@@ -14,12 +16,22 @@
 <body>
 
 	<div class="container mx-auto my-8">
+		
+		<div class="my-8">
+			
+			<h2>
+				Basic Form Example
+			</h2>
 
-		{{ Aire::open() }}
+			{{ Aire::open() }}
+			
+			{{ Aire::input()->label('Demo Input')->id('demo') }}
+			
+			{{ Aire::button('Demo Button') }}
+			
+			{{ Aire::close() }}
 		
-		{{ Aire::input()->label('Demo Input') }}
-		
-		{{ Aire::close() }}
+		</div>
 	
 	</div>
 

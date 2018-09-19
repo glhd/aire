@@ -8,27 +8,17 @@ class Label extends Element
 {
 	protected $view = 'label';
 	
-	/**
-	 * @var \Galahad\Aire\Elements\Element
-	 */
-	protected $element;
-	
-	public function __construct(Aire $aire, string $text, Element $for = null)
+	public function __construct(Aire $aire, string $text)
 	{
 		parent::__construct($aire);
 		
 		$this->view_data['text'] = $text;
-		$this->element = $for;
 	}
 	
-	public function getAttributes() : array
+	public function for($id) : self
 	{
-		$attributes = parent::getAttributes();
+		$this->attributes['for'] = $id;
 		
-		if ($this->element && !isset($attributes['for']) && $id = $this->element->getId()) {
-			$attributes['for'] = $id;
-		}
-		
-		return $attributes;
+		return $this;
 	}
 }

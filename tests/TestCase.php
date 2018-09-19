@@ -5,6 +5,7 @@ namespace Galahad\Aire\Tests;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
 use Galahad\Aire\Support\Facades\Aire as AireFacade;
+use Galahad\Aire\Tests\Constraints\SelectorAttribute;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -70,15 +71,7 @@ abstract class TestCase extends Orchestra
 	
 	protected function assertSelectorAttribute($html, string $selector, string $attribute, string $value = null)
 	{
-		$actual = $this->crawl($html)
-			->filter($selector)
-			->attr($attribute);
-		
-		$this->assertNotNull($actual, "Selector '$selector' should have attribute '$attribute'");
-		
-		if ($value) {
-			$this->assertEquals($value, $actual, "Selector '$selector' should have a '$attribute' with value'$value'");
-		}
+		static::assertThat($html, new SelectorAttribute($selector, $attribute, $value));
 	}
 	
 	protected function assertSelectorAttributeMissing($html, string $selector, string $attribute)

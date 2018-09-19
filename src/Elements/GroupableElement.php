@@ -22,6 +22,15 @@ abstract class GroupableElement extends Element
 		$this->group = new Group($aire, $this);
 	}
 	
+	public function id($value)
+	{
+		if ($this->group->label) {
+			$this->group->label->for($value);
+		}
+		
+		return parent::id($value);
+	}
+	
 	public function grouped() : self
 	{
 		$this->grouped = true;
