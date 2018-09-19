@@ -42,28 +42,28 @@ class Select extends FormElement
 	protected $view = 'select';
 
 	/**
-	 * Set the 'autofocus' attribute
+	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $autofocus
 	 * @return self
 	 */
-	public function autofocus($autofocus = true) : self
+	public function autofocus(?bool $autofocus = true) : self
 	{
 		$this->attributes['autofocus'] = $autofocus;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'disabled' attribute
+	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
 	 * @return self
 	 */
-	public function disabled($disabled = true) : self
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-
+		
 		return $this;
 	}
 
@@ -81,28 +81,28 @@ class Select extends FormElement
 	}
 
 	/**
-	 * Set the 'multiple' attribute
+	 * Set the 'multiple' flag
 	 *
 	 * @param bool $multiple
 	 * @return self
 	 */
-	public function multiple($multiple = true) : self
+	public function multiple(?bool $multiple = true) : self
 	{
 		$this->attributes['multiple'] = $multiple;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'required' attribute
+	 * Set the 'required' flag
 	 *
 	 * @param bool $required
 	 * @return self
 	 */
-	public function required($required = true) : self
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-
+		
 		return $this;
 	}
 

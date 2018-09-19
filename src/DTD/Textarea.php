@@ -42,15 +42,15 @@ class Textarea extends FormElement
 	protected $view = 'textarea';
 
 	/**
-	 * Set the 'autofocus' attribute
+	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $autofocus
 	 * @return self
 	 */
-	public function autofocus($autofocus = true) : self
+	public function autofocus(?bool $autofocus = true) : self
 	{
 		$this->attributes['autofocus'] = $autofocus;
-
+		
 		return $this;
 	}
 
@@ -81,15 +81,15 @@ class Textarea extends FormElement
 	}
 
 	/**
-	 * Set the 'disabled' attribute
+	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
 	 * @return self
 	 */
-	public function disabled($disabled = true) : self
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-
+		
 		return $this;
 	}
 
@@ -125,7 +125,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function maxlength($value = null) : self
+	public function maxLength($value = null) : self
 	{
 		$this->attributes['maxlength'] = $value;
 
@@ -146,28 +146,28 @@ class Textarea extends FormElement
 	}
 
 	/**
-	 * Set the 'readonly' attribute
+	 * Set the 'readonly' flag
 	 *
 	 * @param bool $readonly
 	 * @return self
 	 */
-	public function readonly($readonly = true) : self
+	public function readonly(?bool $readonly = true) : self
 	{
 		$this->attributes['readonly'] = $readonly;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'required' attribute
+	 * Set the 'required' flag
 	 *
 	 * @param bool $required
 	 * @return self
 	 */
-	public function required($required = true) : self
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-
+		
 		return $this;
 	}
 

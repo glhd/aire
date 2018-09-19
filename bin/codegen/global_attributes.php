@@ -1,7 +1,5 @@
 <?php
 
-$write = '--write' === strtolower($argv[2] ?? '');
-
 if ($write) {
 	ob_start();
 }

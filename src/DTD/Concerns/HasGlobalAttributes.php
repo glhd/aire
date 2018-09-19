@@ -47,7 +47,7 @@ trait HasGlobalAttributes
 	}
 
 	/**
-	 * Set the 'class' cssStyle
+	 * Set the 'class' attribute
 	 *
 	 * @param string $value
 	 * @return self
@@ -60,17 +60,21 @@ trait HasGlobalAttributes
 	}
 
 	/**
-	 * Set the 'contenteditable' boolean
+	 * Set the 'contenteditable' boolean attribute
 	 *
 	 * @param bool $content_editable
 	 * @return self
 	 */
-	public function contentEditable(bool $content_editable = true) : self
+	public function contentEditable(?bool $content_editable = true) : self
 	{
-		$this->attributes['contenteditable'] = $content_editable
-			? 'true'
-			: 'false';
-
+		if (null === $content_editable) {
+			$this->attributes['contenteditable'] = null;
+		} else {
+			$this->attributes['contenteditable'] = $content_editable
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 
@@ -149,15 +153,15 @@ trait HasGlobalAttributes
 	 * @param bool $hidden
 	 * @return self
 	 */
-	public function hidden(bool $hidden = true) : self
+	public function hidden(?bool $hidden = true) : self
 	{
 		$this->attributes['hidden'] = $hidden;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'id' cssId
+	 * Set the 'id' attribute
 	 *
 	 * @param string $value
 	 * @return self
@@ -408,22 +412,26 @@ trait HasGlobalAttributes
 	}
 
 	/**
-	 * Set the 'spellcheck' boolean
+	 * Set the 'spellcheck' boolean attribute
 	 *
 	 * @param bool $spell_check
 	 * @return self
 	 */
-	public function spellCheck(bool $spell_check = true) : self
+	public function spellCheck(?bool $spell_check = true) : self
 	{
-		$this->attributes['spellcheck'] = $spell_check
-			? 'true'
-			: 'false';
-
+		if (null === $spell_check) {
+			$this->attributes['spellcheck'] = null;
+		} else {
+			$this->attributes['spellcheck'] = $spell_check
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'style' style
+	 * Set the 'style' attribute
 	 *
 	 * @param string $value
 	 * @return self
@@ -475,7 +483,7 @@ trait HasGlobalAttributes
 	}
 
 	/**
-	 * Set the 'aria-atomic' boolean
+	 * Set the 'aria-atomic' boolean attribute
 	 *
 	 * Possible values:
 	 *
@@ -485,27 +493,35 @@ trait HasGlobalAttributes
 	 * @param bool $aria_atomic
 	 * @return self
 	 */
-	public function ariaAtomic(bool $aria_atomic = true) : self
+	public function ariaAtomic(?bool $aria_atomic = true) : self
 	{
-		$this->attributes['aria-atomic'] = $aria_atomic
-			? 'true'
-			: 'false';
-
+		if (null === $aria_atomic) {
+			$this->attributes['aria-atomic'] = null;
+		} else {
+			$this->attributes['aria-atomic'] = $aria_atomic
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'aria-busy' boolean
+	 * Set the 'aria-busy' boolean attribute
 	 *
 	 * @param bool $aria_busy
 	 * @return self
 	 */
-	public function ariaBusy(bool $aria_busy = true) : self
+	public function ariaBusy(?bool $aria_busy = true) : self
 	{
-		$this->attributes['aria-busy'] = $aria_busy
-			? 'true'
-			: 'false';
-
+		if (null === $aria_busy) {
+			$this->attributes['aria-busy'] = null;
+		} else {
+			$this->attributes['aria-busy'] = $aria_busy
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 
@@ -608,7 +624,7 @@ trait HasGlobalAttributes
 	}
 
 	/**
-	 * Set the 'aria-haspopup' boolean
+	 * Set the 'aria-haspopup' boolean attribute
 	 *
 	 * Possible values:
 	 *
@@ -618,17 +634,21 @@ trait HasGlobalAttributes
 	 * @param bool $aria_has_popup
 	 * @return self
 	 */
-	public function ariaHasPopup(bool $aria_has_popup = true) : self
+	public function ariaHasPopup(?bool $aria_has_popup = true) : self
 	{
-		$this->attributes['aria-haspopup'] = $aria_has_popup
-			? 'true'
-			: 'false';
-
+		if (null === $aria_has_popup) {
+			$this->attributes['aria-haspopup'] = null;
+		} else {
+			$this->attributes['aria-haspopup'] = $aria_has_popup
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'aria-hidden' boolean
+	 * Set the 'aria-hidden' boolean attribute
 	 *
 	 * Possible values:
 	 *
@@ -638,12 +658,16 @@ trait HasGlobalAttributes
 	 * @param bool $aria_hidden
 	 * @return self
 	 */
-	public function ariaHidden(bool $aria_hidden = true) : self
+	public function ariaHidden(?bool $aria_hidden = true) : self
 	{
-		$this->attributes['aria-hidden'] = $aria_hidden
-			? 'true'
-			: 'false';
-
+		if (null === $aria_hidden) {
+			$this->attributes['aria-hidden'] = null;
+		} else {
+			$this->attributes['aria-hidden'] = $aria_hidden
+				? 'true'
+				: 'false';
+		}
+		
 		return $this;
 	}
 

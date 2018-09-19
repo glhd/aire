@@ -179,28 +179,28 @@ class Input extends FormElement
 	}
 
 	/**
-	 * Set the 'autofocus' attribute
+	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $autofocus
 	 * @return self
 	 */
-	public function autofocus($autofocus = true) : self
+	public function autofocus(?bool $autofocus = true) : self
 	{
 		$this->attributes['autofocus'] = $autofocus;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'checked' attribute
+	 * Set the 'checked' flag
 	 *
 	 * @param bool $checked
 	 * @return self
 	 */
-	public function checked($checked = true) : self
+	public function checked(?bool $checked = true) : self
 	{
 		$this->attributes['checked'] = $checked;
-
+		
 		return $this;
 	}
 
@@ -218,15 +218,15 @@ class Input extends FormElement
 	}
 
 	/**
-	 * Set the 'disabled' attribute
+	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
 	 * @return self
 	 */
-	public function disabled($disabled = true) : self
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-
+		
 		return $this;
 	}
 
@@ -294,15 +294,15 @@ class Input extends FormElement
 	}
 
 	/**
-	 * Set the 'formnovalidate' attribute
+	 * Set the 'formnovalidate' flag
 	 *
 	 * @param bool $formnovalidate
 	 * @return self
 	 */
-	public function formnovalidate($formnovalidate = true) : self
+	public function formnovalidate(?bool $formnovalidate = true) : self
 	{
 		$this->attributes['formnovalidate'] = $formnovalidate;
-
+		
 		return $this;
 	}
 
@@ -371,7 +371,7 @@ class Input extends FormElement
 	 * @param string $value
 	 * @return self
 	 */
-	public function maxlength($value = null) : self
+	public function maxLength($value = null) : self
 	{
 		$this->attributes['maxlength'] = $value;
 
@@ -392,15 +392,15 @@ class Input extends FormElement
 	}
 
 	/**
-	 * Set the 'multiple' attribute
+	 * Set the 'multiple' flag
 	 *
 	 * @param bool $multiple
 	 * @return self
 	 */
-	public function multiple($multiple = true) : self
+	public function multiple(?bool $multiple = true) : self
 	{
 		$this->attributes['multiple'] = $multiple;
-
+		
 		return $this;
 	}
 
@@ -431,28 +431,28 @@ class Input extends FormElement
 	}
 
 	/**
-	 * Set the 'readonly' attribute
+	 * Set the 'readonly' flag
 	 *
 	 * @param bool $readonly
 	 * @return self
 	 */
-	public function readonly($readonly = true) : self
+	public function readonly(?bool $readonly = true) : self
 	{
 		$this->attributes['readonly'] = $readonly;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'required' attribute
+	 * Set the 'required' flag
 	 *
 	 * @param bool $required
 	 * @return self
 	 */
-	public function required($required = true) : self
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-
+		
 		return $this;
 	}
 

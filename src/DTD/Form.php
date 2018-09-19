@@ -184,15 +184,15 @@ class Form extends Element
 	}
 
 	/**
-	 * Set the 'novalidate' attribute
+	 * Set the 'novalidate' flag
 	 *
 	 * @param bool $novalidate
 	 * @return self
 	 */
-	public function novalidate($novalidate = true) : self
+	public function novalidate(?bool $novalidate = true) : self
 	{
 		$this->attributes['novalidate'] = $novalidate;
-
+		
 		return $this;
 	}
 

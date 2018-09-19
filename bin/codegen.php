@@ -103,8 +103,15 @@ function print_setter($attribute, $attribute_config) {
 	$method = $attribute_config['spellings']->camel;
 	$attribute_param = $attribute_config['spellings']->snake;
 	
+	$descriptor = 'attribute';
+	if ($is_flag) {
+		$descriptor = 'flag';
+	} else if ($is_bool) {
+		$descriptor = 'boolean attribute';
+	}
+	
 	echo "\t/**\n";
-	echo "\t * Set the '$attribute' ".($attribute_config['type'] ?? 'attribute')."\n";
+	echo "\t * Set the '$attribute' $descriptor\n";
 	echo "\t *\n";
 	
 	if (isset($attribute_config['attribOption'])) {
@@ -124,16 +131,22 @@ function print_setter($attribute, $attribute_config) {
 		echo "\t * @return self\n";
 		echo "\t */\n";
 		
-		echo "\tpublic function $method(bool \$$attribute_param = true) : self\n";
+		echo "\tpublic function $method(?bool \$$attribute_param = true) : self\n";
 		echo "\t{\n";
 		
 		if ($is_flag) {
-			echo "\t\t\$this->attributes['$attribute'] = \$$attribute_param;\n\n";
+			echo "\t\t\$this->attributes['$attribute'] = \$$attribute_param;\n";
 		} else if ($is_bool) {
-			echo "\t\t\$this->attributes['$attribute'] = \$$attribute_param\n";
-			echo "\t\t\t? 'true'\n";
-			echo "\t\t\t: 'false';\n\n";
+			echo "\t\tif (null === \$$attribute_param) {\n";
+			echo "\t\t\t\$this->attributes['$attribute'] = null;\n";
+			echo "\t\t} else {\n";
+			echo "\t\t\t\$this->attributes['$attribute'] = \$$attribute_param\n";
+			echo "\t\t\t\t? 'true'\n";
+			echo "\t\t\t\t: 'false';\n";
+			echo "\t\t}\n";
 		}
+		
+		echo "\t\t\n";
 		echo "\t\treturn \$this;\n";
 		echo "\t}\n\n";
 		
@@ -152,7 +165,9 @@ function print_setter($attribute, $attribute_config) {
 	}
 }
 
-$mode = $argv[1] ?? null;
+$mode = $argv[1] ?? 'help';
+$write = '--write' === strtolower($argv[2] ?? '');
+
 $generator = __DIR__."/codegen/{$mode}.php";
 
 if (file_exists($generator)) {

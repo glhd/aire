@@ -1,7 +1,5 @@
 <?php
 
-$write = '--write' === strtolower($argv[2] ?? '');
-
 foreach ($tags as $tag => $config) {
 	
 	if ($write) {
@@ -53,12 +51,14 @@ foreach ($tags as $tag => $config) {
 	
 	echo "\tprotected \$view = '$view';\n\n";
 	
-	foreach ($config['attributes'] as $attribute => $attribute_config) {
-		if ('value' === $attribute || 'name' === $attribute) {
-			continue;
+	if (isset($config['attributes'])) {
+		foreach ($config['attributes'] as $attribute => $attribute_config) {
+			if ('value' === $attribute || 'name' === $attribute) {
+				continue;
+			}
+			
+			print_setter($attribute, $attribute_config);
 		}
-		
-		print_setter($attribute, $attribute_config);
 	}
 	
 	echo "}\n";

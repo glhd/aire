@@ -46,28 +46,28 @@ class Button extends FormElement
 	protected $view = 'button';
 
 	/**
-	 * Set the 'autofocus' attribute
+	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $autofocus
 	 * @return self
 	 */
-	public function autofocus($autofocus = true) : self
+	public function autofocus(?bool $autofocus = true) : self
 	{
 		$this->attributes['autofocus'] = $autofocus;
-
+		
 		return $this;
 	}
 
 	/**
-	 * Set the 'disabled' attribute
+	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
 	 * @return self
 	 */
-	public function disabled($disabled = true) : self
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-
+		
 		return $this;
 	}
 
@@ -135,15 +135,15 @@ class Button extends FormElement
 	}
 
 	/**
-	 * Set the 'formnovalidate' attribute
+	 * Set the 'formnovalidate' flag
 	 *
 	 * @param bool $formnovalidate
 	 * @return self
 	 */
-	public function formnovalidate($formnovalidate = true) : self
+	public function formnovalidate(?bool $formnovalidate = true) : self
 	{
 		$this->attributes['formnovalidate'] = $formnovalidate;
-
+		
 		return $this;
 	}
 
