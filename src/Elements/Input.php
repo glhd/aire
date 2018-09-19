@@ -2,7 +2,6 @@
 
 namespace Galahad\Aire\Elements;
 
-use Galahad\Aire\Aire;
 use Galahad\Aire\Value\HasValue;
 
 class Input extends GroupableElement
@@ -15,16 +14,10 @@ class Input extends GroupableElement
 		'type' => 'text',
 	];
 	
-	public function __construct(Aire $aire, $name = null, $label = null)
+	public function name($name) : self
 	{
-		parent::__construct($aire);
+		$this->attributes['name'] = $name;
 		
-		if ($name) {
-			$this->attributes['name'] = $name;
-		}
-		
-		if ($label) {
-			$this->group->label($label);
-		}
+		return $this;
 	}
 }

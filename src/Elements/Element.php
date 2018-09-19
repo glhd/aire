@@ -3,6 +3,8 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\HasAriaAttributes;
+use Galahad\Aire\Elements\Concerns\HasGlobalAttributes;
 use Illuminate\Contracts\Support\Htmlable;
 
 abstract class Element implements Htmlable
@@ -60,13 +62,7 @@ abstract class Element implements Htmlable
 	
 	public function getAttributes() : array
 	{
-		$attributes = $this->attributes;
-		
-		if (!isset($attributes['value']) && method_exists($this, 'getValue') && $value = $this->getValue()) {
-			$attributes['value'] = $value;
-		}
-		
-		return $attributes;
+		return $this->attributes;
 	}
 	
 	public function toHtml()

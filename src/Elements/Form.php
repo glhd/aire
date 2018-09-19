@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Value\Defaults;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
@@ -35,12 +36,13 @@ class Form extends Element
 	{
 		parent::__construct($aire);
 		
+		$this->defaults = new Defaults($session);
+		
+		$this->url = $url;
+		
 		if ($token = $session->token()) {
 			$this->view_data['_token'] = $token;
 		}
-		
-		$this->url = $url;
-		$this->defaults = new Defaults($session);
 	}
 	
 	public function bind($bound_data) : self

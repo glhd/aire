@@ -97,13 +97,15 @@ class Aire
 	
 	public function __call($method_name, $arguments)
 	{
-		if (!method_exists($this->form, $method_name)) {
+		$form = $this->form ?? $this->form();
+		
+		if (!method_exists($form, $method_name)) {
 			throw new BadMethodCallException(sprintf(
 				'Method %s::%s does not exist.', static::class, $method_name
 			));
 		}
 		
-		return $this->form->$method_name(...$arguments);
+		return $form->$method_name(...$arguments);
 	}
 	
 	/**

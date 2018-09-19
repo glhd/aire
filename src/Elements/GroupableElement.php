@@ -19,7 +19,7 @@ abstract class GroupableElement extends FormElement
 		parent::__construct($aire, $form);
 		
 		$this->grouped = $aire->config('group_by_default', true);
-		$this->group = new Group($aire, $this);
+		$this->group = new Group($aire, $form, $this);
 	}
 	
 	public function id($value)

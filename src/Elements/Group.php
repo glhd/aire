@@ -5,7 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Illuminate\Support\HtmlString;
 
-class Group extends Element
+class Group extends FormElement
 {
 	/**
 	 * @var \Galahad\Aire\Elements\GroupableElement
@@ -19,16 +19,16 @@ class Group extends Element
 	
 	protected $view = 'group';
 	
-	public function __construct(Aire $aire, GroupableElement $element)
+	public function __construct(Aire $aire, Form $form, GroupableElement $element)
 	{
-		parent::__construct($aire);
+		parent::__construct($aire, $form);
 		
 		$this->element = $element;
 	}
 	
 	public function label(string $text) : self
 	{
-		$this->label = new Label($this->aire, $text);
+		$this->label = $this->form->label($text);
 		
 		if ($id = $this->element->getAttribute('id')) {
 			$this->label->for($id);

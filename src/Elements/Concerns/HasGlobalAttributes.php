@@ -1,6 +1,6 @@
 <?php
 
-namespace Galahad\Aire\Elements;
+namespace Galahad\Aire\Elements\Concerns;
 
 trait HasGlobalAttributes
 {

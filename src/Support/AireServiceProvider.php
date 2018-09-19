@@ -52,17 +52,11 @@ class AireServiceProvider extends ServiceProvider
 			);
 		});
 		
-		$this->app->bind('galahad.aire.defaults', function($app) {
-			return new Defaults($app['session']);
-		});
-		
-		$this->app->alias(Defaults::class, 'galahad.aire.defaults');
-		
 		$this->app->bind('galahad.aire.form', function($app) {
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				$app['galahad.aire.defaults']
+				$app['session']
 			);
 		});
 		

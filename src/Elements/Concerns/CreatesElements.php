@@ -1,6 +1,11 @@
 <?php
 
-namespace Galahad\Aire\Elements;
+namespace Galahad\Aire\Elements\Concerns;
+
+use Galahad\Aire\Elements\Button;
+use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Input;
+use Galahad\Aire\Elements\Label;
 
 trait CreatesElements
 {
@@ -18,11 +23,17 @@ trait CreatesElements
 	
 	public function input($name = null, $label = null) : Input
 	{
-		return $this->injectDefaultValue(
-			(new Input($this->aire, $this))
-				->name($name)
-				->label($label)
-		);
+		$input = new Input($this->aire, $this);
+		
+		if ($name) {
+			$input->name($name);
+		}
+		
+		if ($label) {
+			$input->label($label);
+		}
+		
+		return $this->injectDefaultValue($input);
 	}
 	
 	/**
