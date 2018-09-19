@@ -19,7 +19,7 @@
 		
 		<div class="my-8">
 			
-			<h2>
+			<h2 class="mb-8">
 				Basic Form Example
 			</h2>
 

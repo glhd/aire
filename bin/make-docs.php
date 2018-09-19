@@ -6,6 +6,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Session\NullSessionHandler;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
@@ -24,6 +25,7 @@ class Aire extends Galahad\Aire\Support\Facades\Aire
 $app = new Application($base_path);
 Application::setInstance($app);
 $app->instance('session', false);
+$app->instance('session.store', new Illuminate\Session\Store('docs', new NullSessionHandler()));
 $app->instance('request', Request::create('/'));
 
 $config = new Illuminate\Config\Repository();

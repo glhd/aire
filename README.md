@@ -32,7 +32,7 @@ Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)).
   - https://tailwindcss.com/docs/examples/forms/
   - https://github.com/glhd/forms
   - https://github.com/glhd/bootforms
-  - Append/Prepend
+  - Append/Prepend (input groups)
 
 ## Components
 

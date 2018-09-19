@@ -1,4 +1,4 @@
-<div class="m-2 p-2">
+<div class="mb-4">
 	{{ $label ?? '' }}
 	{{ $element }}
 </div>
