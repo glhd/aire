@@ -3,6 +3,9 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+$license = file_get_contents(__DIR__.'/../data/LICENSE.md');
+$license_docblock = str_replace(["\r\n", "\r", "\n"], "\n * ", $license);
+
 $json = file_get_contents(__DIR__.'/../data/completions.json');
 $data = json_decode($json, true);
 
@@ -15,44 +18,13 @@ $global_attributes = $attributes->filter(function($attribute) {
 	return 0 !== stripos($attribute, 'on');
 });
 
-foreach($global_attributes as $attribute => $config):
+$mode = $argv[1] ?? null;
+$generator = __DIR__."/codegen/{$mode}.php";
 
-$snake = str_replace('-', '_', $attribute);
-$method = camel_case($attribute);
-
-if (isset($config['type']) && 'boolean' === $config['type']):
-
-$code = <<<ENDOFCODE
-public function test_the_{$snake}_can_be_set_and_unset()
-{
-	\$form = \$this->aire()->form();
-	
-	\$form->$method();
-	
-	\$this->assertSelectorAttribute(\$form, 'form', '$attribute');
-	
-	\$form->$method(false);
-	
-	\$this->assertSelectorAttributeMissing(\$form, 'form', '$attribute');
+if (file_exists($generator)) {
+	include $generator;
+	exit(0);
 }
-ENDOFCODE;
 
-else:
-
-$code = <<<ENDOFCODE
-public function test_the_{$snake}_can_be_set()
-{
-	\$form = \$this->aire()->form();
-	
-	\$value = str_random();
-	\$form->$method(\$value);
-	
-	\$this->assertSelectorAttribute(\$form, 'form', '$attribute', \$value);
-}
-ENDOFCODE;
-
-endif;
-
-echo "$code\n";
-
-endforeach;
+echo "\nInvalid mode: '$mode'";
+exit(1);
