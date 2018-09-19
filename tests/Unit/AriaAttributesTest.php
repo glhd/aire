@@ -20,13 +20,9 @@ class AriaAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$form->ariaAtomic();
+		$form->ariaAtomic('true');
 		
-		$this->assertSelectorAttribute($form, 'form', 'aria-atomic');
-		
-		$form->ariaAtomic(false);
-		
-		$this->assertSelectorAttributeMissing($form, 'form', 'aria-atomic');
+		$this->assertSelectorAttribute($form, 'form', 'aria-atomic', 'true');
 	}
 	
 	public function test_that_busy_can_be_set_and_unset()
@@ -35,11 +31,11 @@ class AriaAttributesTest extends TestCase
 		
 		$form->ariaBusy();
 		
-		$this->assertSelectorAttribute($form, 'form', 'aria-busy');
+		$this->assertSelectorAttribute($form, 'form', 'aria-busy', 'true');
 		
 		$form->ariaBusy(false);
 		
-		$this->assertSelectorAttributeMissing($form, 'form', 'aria-busy');
+		$this->assertSelectorAttribute($form, 'form', 'aria-busy', 'false');
 	}
 	
 	public function test_that_controls_can_be_set()
@@ -106,13 +102,13 @@ class AriaAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$form->ariaHaspopup();
+		$form->ariaHasPopup();
 		
-		$this->assertSelectorAttribute($form, 'form', 'aria-haspopup');
+		$this->assertSelectorAttribute($form, 'form', 'aria-haspopup', 'true');
 		
-		$form->ariaHaspopup(false);
+		$form->ariaHasPopup(false);
 		
-		$this->assertSelectorAttributeMissing($form, 'form', 'aria-haspopup');
+		$this->assertSelectorAttribute($form, 'form', 'aria-haspopup', 'false');
 	}
 	
 	public function test_that_hidden_can_be_set_and_unset()
@@ -121,11 +117,11 @@ class AriaAttributesTest extends TestCase
 		
 		$form->ariaHidden();
 		
-		$this->assertSelectorAttribute($form, 'form', 'aria-hidden');
+		$this->assertSelectorAttribute($form, 'form', 'aria-hidden', 'true');
 		
 		$form->ariaHidden(false);
 		
-		$this->assertSelectorAttributeMissing($form, 'form', 'aria-hidden');
+		$this->assertSelectorAttribute($form, 'form', 'aria-hidden', 'false');
 	}
 	
 	public function test_that_invalid_can_be_set()

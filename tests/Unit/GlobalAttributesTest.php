@@ -32,11 +32,11 @@ class GlobalAttributesTest extends TestCase
 		
 		$form->contentEditable();
 		
-		$this->assertSelectorAttribute($form, 'form', 'contenteditable');
+		$this->assertSelectorAttribute($form, 'form', 'contenteditable', 'true');
 		
 		$form->contentEditable(false);
 		
-		$this->assertSelectorAttributeMissing($form, 'form', 'contenteditable');
+		$this->assertSelectorAttribute($form, 'form', 'contenteditable', 'false');
 	}
 	
 	public function test_the_contextmenu_can_be_set()
@@ -83,10 +83,9 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
-		$form->hidden($value);
+		$form->hidden();
 		
-		$this->assertSelectorAttribute($form, 'form', 'hidden', $value);
+		$this->assertSelectorAttribute($form, 'form', 'hidden');
 	}
 	
 	public function test_the_id_can_be_set()
@@ -125,11 +124,11 @@ class GlobalAttributesTest extends TestCase
 		
 		$form->spellCheck();
 		
-		$this->assertSelectorAttribute($form, 'form', 'spellcheck');
+		$this->assertSelectorAttribute($form, 'form', 'spellcheck', 'true');
 		
 		$form->spellCheck(false);
 		
-		$this->assertSelectorAttributeMissing($form, 'form', 'spellcheck');
+		$this->assertSelectorAttribute($form, 'form', 'spellcheck', 'false');
 	}
 	
 	public function test_the_style_can_be_set()

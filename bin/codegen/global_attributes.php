@@ -1,43 +1,37 @@
 <?php
 
-foreach($global_attributes as $attribute => $config):
-	
-$snake = str_replace('-', '_', $attribute);
-$method = camel_case($attribute);
+$write = '--write' === strtolower($argv[2] ?? '');
 
-if (isset($config['type']) && 'boolean' === $config['type']):
-
-$code = <<<ENDOFCODE
-public function test_the_{$snake}_can_be_set_and_unset()
-{
-	\$form = \$this->aire()->form();
-	
-	\$form->$method();
-	
-	\$this->assertSelectorAttribute(\$form, 'form', '$attribute');
-	
-	\$form->$method(false);
-	
-	\$this->assertSelectorAttributeMissing(\$form, 'form', '$attribute');
+if ($write) {
+	ob_start();
 }
-ENDOFCODE;
 
-else:
+echo "<?php\n\n";
 
-$code = <<<ENDOFCODE
-public function test_the_{$snake}_can_be_set()
-{
-	\$form = \$this->aire()->form();
-	
-	\$value = str_random();
-	\$form->$method(\$value);
-	
-	\$this->assertSelectorAttribute(\$form, 'form', '$attribute', \$value);
+echo "/**\n";
+echo " * Portions of this code have been generated using Atom autocompletion data.\n";
+echo " *\n";
+echo " * @see https://github.com/atom/autocomplete-html\n";
+echo " *\n";
+echo " * $license_docblock\n";
+echo " *\n";
+echo " */\n\n";
+
+echo "namespace Galahad\Aire\DTD\Concerns;\n\n";
+
+echo "trait HasGlobalAttributes\n";
+echo "{\n";
+
+foreach ($global_attributes as $attribute => $attribute_config) {
+	print_setter($attribute, $attribute_config);
 }
-ENDOFCODE;
 
-endif;
+echo "}\n";
 
-echo "$code\n";
-
-endforeach;
+if ($write) {
+	$php = ob_get_clean();
+	
+	$file_path = __DIR__.'/../../src/DTD/Concerns/HasGlobalAttributes.php';
+	file_put_contents($file_path, $php);
+	echo "Wrote $file_path\n";
+}

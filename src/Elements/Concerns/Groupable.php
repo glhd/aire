@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements\Concerns;
 
 use BadMethodCallException;
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Group;
 
 /**
@@ -14,13 +15,15 @@ trait Groupable
 	
 	protected $grouped = true;
 	
-	public function id($value)
+	public function id($value = null) : Element
 	{
-		if ($this->group->label) {
+		if ($value && $this->group->label) {
 			$this->group->label->for($value);
 		}
 		
-		return parent::id($value);
+		$this->attributes['id'] = $value;
+		
+		return $this;
 	}
 	
 	public function grouped() : self

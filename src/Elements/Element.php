@@ -3,14 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
-use Galahad\Aire\Elements\Concerns\HasAriaAttributes;
-use Galahad\Aire\Elements\Concerns\HasGlobalAttributes;
+use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Illuminate\Contracts\Support\Htmlable;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes,
-		HasAriaAttributes;
+	use HasGlobalAttributes;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
