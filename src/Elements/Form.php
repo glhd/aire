@@ -5,11 +5,13 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Value\Defaults;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
 
 class Form extends Element
 {
+	use CreatesElements;
+	
 	protected $view = 'form';
 	
 	protected $attributes = [
@@ -29,16 +31,16 @@ class Form extends Element
 	 */
 	protected $url;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, Defaults $defaults)
+	public function __construct(Aire $aire, UrlGenerator $url, Store $session)
 	{
 		parent::__construct($aire);
 		
-		if ($token = Session::token()) {
+		if ($token = $session->token()) {
 			$this->view_data['_token'] = $token;
 		}
 		
 		$this->url = $url;
-		$this->defaults = $defaults;
+		$this->defaults = new Defaults($session);
 	}
 	
 	public function bind($bound_data) : self

@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Value\HasValue;
 
 class Input extends GroupableElement
 {

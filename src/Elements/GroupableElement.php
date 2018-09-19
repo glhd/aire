@@ -14,9 +14,9 @@ abstract class GroupableElement extends Element
 	
 	protected $grouped = true;
 	
-	public function __construct(Aire $aire)
+	public function __construct(Aire $aire, Form $form = null)
 	{
-		parent::__construct($aire);
+		parent::__construct($aire, $form);
 		
 		$this->grouped = $aire->config('group_by_default', true);
 		$this->group = new Group($aire, $this);

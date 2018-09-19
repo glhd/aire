@@ -11,6 +11,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
+/**
+ * @mixin \Galahad\Aire\Elements\Form
+ */
 class Aire
 {
 	/**
@@ -62,11 +65,6 @@ class Aire
 		return $this->form;
 	}
 	
-	public function getForm() : Form
-	{
-		return $this->form ?? $this->form();
-	}
-	
 	/**
 	 * Open a new Form.
 	 *
@@ -79,31 +77,6 @@ class Aire
 		$this->form($action, $bound_data)->open();
 		
 		return $this->form;
-	}
-	
-	/**
-	 * Close active Form.
-	 *
-	 * @return \Galahad\Aire\Elements\Form
-	 */
-	public function close() : Form
-	{
-		return $this->getForm()->close();
-	}
-	
-	public function label(string $label) : Label
-	{
-		return $this->element(Label::class, func_get_args());
-	}
-	
-	public function button(string $label) : Button
-	{
-		return $this->element(Button::class, func_get_args());
-	}
-	
-	public function input($name = null, $label = null) : Input
-	{
-		return $this->element(Input::class, func_get_args());
 	}
 	
 	public function config($key, $default = null)
@@ -135,10 +108,5 @@ class Aire
 	protected function make($view, array $data = [], array $merge_data = []) : View
 	{
 		return $this->factory->make("aire::{$view}", $data, $merge_data);
-	}
-	
-	protected function element($class_name, array $args)
-	{
-		return new $class_name($this, ...$args);
 	}
 }

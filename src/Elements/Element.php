@@ -41,9 +41,15 @@ abstract class Element implements Htmlable
 	 */
 	protected $merge_data = [];
 	
-	public function __construct(Aire $aire)
+	/**
+	 * @var \Galahad\Aire\Elements\Form
+	 */
+	protected $form;
+	
+	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
+		$this->form = $form;
 	}
 	
 	public function data($key, $value)
@@ -66,7 +72,13 @@ abstract class Element implements Htmlable
 	
 	public function getAttributes() : array
 	{
-		return $this->attributes;
+		$attributes = $this->attributes;
+		
+		if (!isset($attributes['value']) && method_exists($this, 'getValue') && $value = $this->getValue()) {
+			$attributes['value'] = $value;
+		}
+		
+		return $attributes;
 	}
 	
 	public function toHtml()

@@ -53,7 +53,7 @@ class AireServiceProvider extends ServiceProvider
 		});
 		
 		$this->app->bind('galahad.aire.defaults', function($app) {
-			return new Defaults($app['request']);
+			return new Defaults($app['session']);
 		});
 		
 		$this->app->alias(Defaults::class, 'galahad.aire.defaults');
