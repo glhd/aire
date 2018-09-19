@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
+use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Galahad\Aire\Value\Defaults;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
@@ -11,7 +12,8 @@ use Illuminate\Support\HtmlString;
 
 class Form extends \Galahad\Aire\DTD\Form
 {
-	use CreatesElements;
+	use CreatesElements,
+		CreatesInputTypes;
 	
 	protected $attributes = [
 		'action' => '',

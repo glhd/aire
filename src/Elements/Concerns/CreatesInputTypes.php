@@ -1,0 +1,172 @@
+<?php
+
+namespace Galahad\Aire\Elements\Concerns;
+
+use Galahad\Aire\Elements\Input;
+
+trait CreatesInputTypes
+{
+	abstract public function input($name = null, $label = null) : Input;
+	
+	public function checkbox($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('checkbox');
+		
+		return $input;
+	}
+	
+	public function color($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('color');
+		
+		return $input;
+	}
+	
+	public function date($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('date');
+		
+		return $input;
+	}
+	
+	public function dateTime($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('datetime');
+		
+		return $input;
+	}
+	
+	public function dateTimeLocal($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('datetime-local');
+		
+		return $input;
+	}
+	
+	public function email($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('email');
+		
+		return $input;
+	}
+	
+	public function file($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('file');
+		
+		return $input;
+	}
+	
+	public function image($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('image');
+		
+		return $input;
+	}
+	
+	public function month($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('month');
+		
+		return $input;
+	}
+	
+	public function number($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('number');
+		
+		return $input;
+	}
+	
+	public function password($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('password');
+		
+		return $input;
+	}
+	
+	public function radio($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('radio');
+		
+		return $input;
+	}
+	
+	public function range($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('range');
+		
+		return $input;
+	}
+	
+	public function search($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('search');
+		
+		return $input;
+	}
+	
+	public function tel($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('tel');
+		
+		return $input;
+	}
+	
+	public function time($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('time');
+		
+		return $input;
+	}
+	
+	public function url($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('url');
+		
+		return $input;
+	}
+	
+	public function week($name = null, $label = null) : Input
+	{
+		$input = $this->input($name, $label);
+		
+		$input->type('week');
+		
+		return $input;
+	}
+}
