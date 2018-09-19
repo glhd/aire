@@ -5,6 +5,7 @@ namespace Galahad\Aire;
 use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Form;
 use Galahad\Aire\Elements\Input;
+use Galahad\Aire\Elements\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Arr;
@@ -73,6 +74,11 @@ class Aire
 	public function close() : Form
 	{
 		return $this->form->close();
+	}
+	
+	public function label(string $label) : Label
+	{
+		return $this->element(Label::class, func_get_args());
 	}
 	
 	public function button(string $label) : Button

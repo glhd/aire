@@ -13,7 +13,7 @@ class Label extends Element
 	 */
 	protected $element;
 	
-	public function __construct(Aire $aire, Element $for, string $text)
+	public function __construct(Aire $aire, string $text, Element $for = null)
 	{
 		parent::__construct($aire);
 		
@@ -25,7 +25,7 @@ class Label extends Element
 	{
 		$attributes = parent::getAttributes();
 		
-		if (!isset($attributes['for']) && $id = $this->element->getId()) {
+		if ($this->element && !isset($attributes['for']) && $id = $this->element->getId()) {
 			$attributes['for'] = $id;
 		}
 		

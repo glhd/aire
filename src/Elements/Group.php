@@ -23,7 +23,7 @@ class Group extends Element
 	
 	public function label(string $label) : self
 	{
-		$this->data['label'] = new Label($this->aire, $this->element, $label);
+		$this->data['label'] = new Label($this->aire, $label, $this->element);
 		
 		return $this;
 	}
