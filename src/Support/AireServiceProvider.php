@@ -76,7 +76,7 @@ class AireServiceProvider extends ServiceProvider
 		if (method_exists($this->app, 'resourcePath')) {
 			$this->publishes([
 				$this->view_directory => $this->app->resourcePath('views/vendor/aire'),
-			]);
+			], 'views');
 		}
 		
 		return $this;
@@ -87,7 +87,7 @@ class AireServiceProvider extends ServiceProvider
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),
-			]);
+			], 'config');
 		}
 		
 		return $this;
