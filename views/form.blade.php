@@ -1,4 +1,6 @@
-<form {{ aire_attributes($attributes) }}>
+<?php /** @var \Galahad\Aire\Elements\Attributes $attributes */ ?>
+
+<form {{ $attributes }}>
 
 	@if(isset($_token) && 'GET' !== $method)
 		<input type="hidden" name="_token" value="{{ $_token }}" />

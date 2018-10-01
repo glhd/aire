@@ -11,6 +11,11 @@ abstract class Element implements Htmlable
 	use HasGlobalAttributes;
 	
 	/**
+	 * @var \Galahad\Aire\Elements\Attributes
+	 */
+	public $attributes;
+	
+	/**
 	 * @var \Galahad\Aire\Aire
 	 */
 	protected $aire;
@@ -23,7 +28,7 @@ abstract class Element implements Htmlable
 	/**
 	 * @var array
 	 */
-	protected $attributes = [];
+	protected $default_attributes = [];
 	
 	/**
 	 * @var array
@@ -38,6 +43,19 @@ abstract class Element implements Htmlable
 	public function __construct(Aire $aire)
 	{
 		$this->aire = $aire;
+		
+		$attributes = array_merge(
+			$this->default_attributes,
+			$aire->config("default_attributes.{$this->view}", [])
+		);
+		
+		$attribute_listener = function($attribute, $value) use ($aire) {
+			$aire->callAttributeObservers($this, $attribute, $value);
+		};
+		
+		$default_classes = $aire->config("default_classes.{$this->view}");
+		
+		$this->attributes = new Attributes($attributes, $attribute_listener, $default_classes);
 	}
 	
 	public function data($key, $value)
@@ -49,18 +67,6 @@ abstract class Element implements Htmlable
 		}
 		
 		return $this;
-	}
-	
-	public function getAttribute($name, $default = null)
-	{
-		$attributes = $this->getAttributes();
-		
-		return $attributes[$name] ?? $default;
-	}
-	
-	public function getAttributes() : array
-	{
-		return $this->attributes;
 	}
 	
 	public function toHtml()
@@ -79,15 +85,8 @@ abstract class Element implements Htmlable
 	
 	protected function viewData()
 	{
-		$default_attributes = $this->aire->config("default_attributes.{$this->view}", []);
-		$attributes = array_merge($default_attributes, $this->getAttributes());
+		$attributes = $this->attributes;
 		
-		if ($default_classes = $this->aire->config("default_classes.{$this->view}")) {
-			$attributes['class'] = isset($attributes['class'])
-				? "$default_classes {$attributes['class']}"
-				: $default_classes;
-		}
-		
-		return array_merge($this->view_data, $attributes, compact('attributes'));
+		return array_merge($this->view_data, $attributes->toArray(), compact('attributes'));
 	}
 }

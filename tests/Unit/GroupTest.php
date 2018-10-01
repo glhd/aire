@@ -11,7 +11,7 @@ class GroupTest extends TestCase
 		$input = $this->aire()->input();
 		
 		$this->assertSelectorExists($input, 'div > input[type="text"]');
-		$this->assertSelectorClassNames($input, 'div', ['p-2', 'm-2']);
+		$this->assertSelectorClassNames($input, 'div', ['mb-6']);
 	}
 	
 	public function test_a_group_can_have_a_label() : void

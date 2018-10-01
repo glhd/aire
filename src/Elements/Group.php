@@ -35,7 +35,7 @@ class Group extends FormElement
 	{
 		$this->label = $this->form->label($text);
 		
-		if ($id = $this->element->getAttribute('id')) {
+		if ($id = $this->element->attributes->get('id')) {
 			$this->label->for($id);
 		}
 		

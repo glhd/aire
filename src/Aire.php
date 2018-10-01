@@ -3,9 +3,12 @@
 namespace Galahad\Aire;
 
 use BadMethodCallException;
+use Closure;
+use Galahad\Aire\Elements\Concerns\Groupable;
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
+use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
@@ -15,14 +18,9 @@ use Illuminate\View\Factory;
 class Aire
 {
 	/**
-	 * @var \Illuminate\Contracts\Foundation\Application
-	 */
-	protected $app;
-	
-	/**
 	 * @var \Illuminate\View\Factory
 	 */
-	protected $factory;
+	protected $view_factory;
 	
 	/**
 	 * @var \Galahad\Aire\Elements\Form
@@ -45,17 +43,36 @@ class Aire
 	protected $view_prefix;
 	
 	/**
+	 * @var array
+	 */
+	protected $attribute_observers = [];
+	
+	/**
+	 * @var \Closure
+	 */
+	protected $form_resolver;
+	
+	/**
+	 * @var \Illuminate\Session\Store
+	 */
+	protected $session_store;
+	
+	/**
 	 * Aire constructor.
 	 *
-	 * @param \Illuminate\View\Factory $factory
-	 * @param \Illuminate\Contracts\Foundation\Application $app
+	 * @param \Illuminate\View\Factory $view_factory
+	 * @param \Illuminate\Session\Store $session_store
+	 * @param \Closure $form_resolver
 	 * @param array $config
 	 */
-	public function __construct(Factory $factory, Application $app, array $config)
+	public function __construct(Factory $view_factory, Store $session_store, Closure $form_resolver, array $config)
 	{
-		$this->factory = $factory;
-		$this->app = $app;
+		$this->view_factory = $view_factory;
+		$this->session_store = $session_store;
+		$this->form_resolver = $form_resolver;
 		$this->config = $config;
+		
+		$this->registerObservers();
 	}
 	
 	/**
@@ -89,7 +106,7 @@ class Aire
 	 */
 	public function form($action = null, $bound_data = null) : Form
 	{
-		$this->form = $this->app->make(Form::class);
+		$this->form = call_user_func($this->form_resolver);
 		
 		if ($action) {
 			$this->form->action($action);
@@ -142,6 +159,35 @@ class Aire
 	}
 	
 	/**
+	 * Observe changes to attributes
+	 *
+	 * @param string $attribute
+	 * @param callable $observer
+	 * @return \Galahad\Aire\Aire
+	 */
+	public function registerAttributeObserver(string $attribute, callable $observer) : self
+	{
+		if (!isset($this->attribute_observers[$attribute])) {
+			$this->attribute_observers[$attribute] = [];
+		}
+		
+		$this->attribute_observers[$attribute][] = $observer;
+		
+		return $this;
+	}
+	
+	public function callAttributeObservers(Element $element, string $attribute, $value = null) : self
+	{
+		if (isset($this->attribute_observers[$attribute])) {
+			foreach ($this->attribute_observers[$attribute] as $observer) {
+				$observer($element, $value);
+			}
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * Defer to the Form object for all other method calls
 	 *
 	 * @param string $method_name
@@ -179,6 +225,49 @@ class Aire
 			$view = "{$this->view_namespace}::{$view}";
 		}
 		
-		return $this->factory->make($view, $data, $merge_data);
+		return $this->view_factory->make($view, $data, $merge_data);
+	}
+	
+	protected function registerObservers() : self
+	{
+		// Automatically set 'for' on label w/ an element that has an 'id'
+		$this->registerAttributeObserver('id', function(Element $element, $id) {
+			if (!in_array(Groupable::class, class_uses_recursive($element))) {
+				return;
+			}
+			
+			/** @var Groupable $element */
+			if ($id && $element->group->label) {
+				$element->group->label->for($id);
+			}
+		});
+		
+		// Automatically set 'value' for named elements
+		$this->registerAttributeObserver('name', function(Element $element, $name) {
+			// If 'value' is set, don't override
+			if ($element->attributes->has('value')) {
+				return;
+			}
+			
+			// If old input is set, use that
+			if ($this->session_store->hasOldInput($name)) {
+				$element->attributes['value'] = $this->session_store->getOldInput($name);
+				return;
+			}
+			
+			// If form has bound data, use that
+			if ($this->form && $bound_data = $this->form->bound_data) {
+				$bound_value = is_object($bound_data)
+					? object_get($bound_data, $name)
+					: array_get($bound_data, $name);
+				
+				if ($bound_value) {
+					$element->attributes['value'] = $bound_value;
+					return;
+				}
+			}
+		});
+		
+		return $this;
 	}
 }

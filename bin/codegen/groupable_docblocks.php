@@ -52,8 +52,8 @@ foreach ($methods as $method) {
 	
 	$shortcut_name = 'group'.studly_case($name);
 	
-	echo " * @method static $return $name($params)\n";
-	echo " * @method static $return $shortcut_name($params)\n";
+	echo " * @method $return $name($params)\n";
+	echo " * @method $return $shortcut_name($params)\n";
 	
 }
 

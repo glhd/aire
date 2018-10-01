@@ -29,8 +29,6 @@ use Illuminate\Support\Facades\Facade;
 @method static Galahad\Aire\Elements\Element noValidate(bool $no_validate = true)
 @method static Galahad\Aire\Elements\Element target($value = NULL)
 @method static mixed data($key, $value)
-@method static mixed getAttribute($name, $default = NULL)
-@method static array getAttributes()
 @method static mixed toHtml()
 @method static Galahad\Aire\Elements\Element accessKey($value = NULL)
 @method static Galahad\Aire\Elements\Element class($value = NULL)

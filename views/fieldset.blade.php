@@ -1,4 +1,6 @@
-<fieldset {{ aire_attributes($attributes) }}>
+<?php /** @var \Galahad\Aire\Elements\Attributes $attributes */ ?>
+
+<fieldset {{ $attributes }}>
 	
 	{{ $fields ?? '' }}
 

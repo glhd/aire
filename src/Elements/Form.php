@@ -5,9 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
-use Galahad\Aire\Value\Defaults;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
 
 class Form extends \Galahad\Aire\DTD\Form
@@ -15,7 +13,9 @@ class Form extends \Galahad\Aire\DTD\Form
 	use CreatesElements,
 		CreatesInputTypes;
 	
-	protected $attributes = [
+	public $bound_data;
+	
+	protected $default_attributes = [
 		'action' => '',
 		'method' => 'POST',
 	];
@@ -23,38 +23,26 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $opened = false;
 	
 	/**
-	 * @var \Galahad\Aire\Value\Defaults
-	 */
-	protected $defaults;
-	
-	/**
 	 * @var \Illuminate\Routing\UrlGenerator
 	 */
 	protected $url;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, Store $session)
+	public function __construct(Aire $aire, UrlGenerator $url, $token = null)
 	{
 		parent::__construct($aire);
 		
-		$this->defaults = new Defaults($session);
-		
 		$this->url = $url;
 		
-		if ($token = $session->token()) {
+		if ($token) {
 			$this->view_data['_token'] = $token;
 		}
 	}
 	
 	public function bind($bound_data) : self
 	{
-		$this->defaults->bind($bound_data);
+		$this->bound_data = $bound_data;
 		
 		return $this;
-	}
-	
-	public function getDefaultValue($name, $fallback = null)
-	{
-		return $this->defaults->get($name, $fallback = null);
 	}
 	
 	public function open() : self

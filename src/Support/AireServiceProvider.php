@@ -43,21 +43,24 @@ class AireServiceProvider extends ServiceProvider
 	{
 		$this->mergeConfigFrom($this->config_path, 'aire');
 		
-		$this->app->singleton('galahad.aire', function($app) {
+		$this->app->singleton('galahad.aire', function(Application $app) {
 			return new Aire(
 				$app['view'],
-				$app, // TODO: form factory closure
-				$app['config']['aire'] ?? []
+				$app['session.store'],
+				function() use ($app) {
+					return $app->make(Form::class);
+				},
+				$app['config']['aire']
 			);
 		});
 		
 		$this->app->alias('galahad.aire', Aire::class);
 		
-		$this->app->bind('galahad.aire.form', function($app) {
+		$this->app->bind('galahad.aire.form', function(Application $app) {
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				$app['session.store']
+				$app['session.store']->token()
 			);
 		});
 		
