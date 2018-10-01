@@ -58,10 +58,10 @@ are fluent, allowing for easy configuration of your form components:
     ->autoComplete('off')
     ->groupClass('flex-1 mr-2') }}
     
-    {{ Aire::input('family_name', 'Last/Family Name')
-      ->id('family_name')
-      ->autoComplete('off')
-      ->groupClass('flex-1') }}
+  {{ Aire::input('family_name', 'Last/Family Name')
+    ->id('family_name')
+    ->autoComplete('off')
+    ->groupClass('flex-1') }}
   
 </div>
   
