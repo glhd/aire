@@ -46,10 +46,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Galahad\\Aire\\AireServiceProvider"
+        "Galahad\\Aire\\Support\\AireServiceProvider"
       ],
       "aliases": {
-        "Aire": "Galahad\\Aire\\Facades\\Aire"
+        "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
       }
     }
   }

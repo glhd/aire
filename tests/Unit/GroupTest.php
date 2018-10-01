@@ -37,4 +37,11 @@ class GroupTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
 	}
+	
+	public function test_a_group_can_have_help_text() : void
+	{
+		$input = $this->aire()
+			->input()
+			->helpText('Help text');
+	}
 }

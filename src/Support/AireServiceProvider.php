@@ -4,7 +4,6 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Form;
-use Galahad\Aire\Value\Defaults;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,20 +46,22 @@ class AireServiceProvider extends ServiceProvider
 		$this->app->singleton('galahad.aire', function($app) {
 			return new Aire(
 				$app['view'],
-				$app,
+				$app, // TODO: form factory closure
 				$app['config']['aire'] ?? []
 			);
 		});
+		
+		$this->app->alias('galahad.aire', Aire::class);
 		
 		$this->app->bind('galahad.aire.form', function($app) {
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				$app['session']
+				$app['session.store']
 			);
 		});
 		
-		$this->app->alias(Form::class, 'galahad.aire.form');
+		$this->app->alias('galahad.aire.form', Form::class);
 	}
 	
 	/**

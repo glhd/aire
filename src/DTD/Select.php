@@ -46,7 +46,7 @@ class Select extends FormElement
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : FormElement
+	public function autoFocus(?bool $auto_focus = true)
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -59,7 +59,7 @@ class Select extends FormElement
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : FormElement
+	public function disabled(?bool $disabled = true)
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -72,7 +72,7 @@ class Select extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null) : FormElement
+	public function form($value = null)
 	{
 		$this->attributes['form'] = $value;
 
@@ -85,7 +85,7 @@ class Select extends FormElement
 	 * @param bool $multiple
 	 * @return $this
 	 */
-	public function multiple(?bool $multiple = true) : FormElement
+	public function multiple(?bool $multiple = true)
 	{
 		$this->attributes['multiple'] = $multiple;
 		
@@ -98,7 +98,7 @@ class Select extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null) : FormElement
+	public function name($value = null)
 	{
 		$this->attributes['name'] = $value;
 
@@ -111,7 +111,7 @@ class Select extends FormElement
 	 * @param bool $required
 	 * @return $this
 	 */
-	public function required(?bool $required = true) : FormElement
+	public function required(?bool $required = true)
 	{
 		$this->attributes['required'] = $required;
 		
@@ -124,7 +124,7 @@ class Select extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function size($value = null) : FormElement
+	public function size($value = null)
 	{
 		$this->attributes['size'] = $value;
 

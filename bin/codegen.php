@@ -142,7 +142,7 @@ function print_setter($attribute, $attribute_config, $parent = 'Element') {
 		echo "\t * @return \$this\n";
 		echo "\t */\n";
 		
-		echo "\tpublic function $method(?bool \$$attribute_param = true) : $parent\n";
+		echo "\tpublic function $method(?bool \$$attribute_param = true)\n";
 		echo "\t{\n";
 		
 		if ($is_flag) {
@@ -167,7 +167,7 @@ function print_setter($attribute, $attribute_config, $parent = 'Element') {
 		echo "\t * @return \$this\n";
 		echo "\t */\n";
 		
-		echo "\tpublic function $method(\$value = null) : $parent\n";
+		echo "\tpublic function $method(\$value = null)\n";
 		echo "\t{\n";
 		echo "\t\t\$this->attributes['$attribute'] = \$value;\n\n";
 		echo "\t\treturn \$this;\n";

@@ -19,6 +19,11 @@ class Group extends FormElement
 	
 	protected $view = 'group';
 	
+	protected $view_data = [
+		'prepend' => null,
+		'append' => null,
+	];
+	
 	public function __construct(Aire $aire, Form $form, FormElement $element)
 	{
 		parent::__construct($aire, $form);
@@ -33,6 +38,27 @@ class Group extends FormElement
 		if ($id = $this->element->getAttribute('id')) {
 			$this->label->for($id);
 		}
+		
+		return $this;
+	}
+	
+	public function helpText(string $text) : self
+	{
+		$this->view_data['help_text'] = $text;
+		
+		return $this;
+	}
+	
+	public function prepend(string $text) : self
+	{
+		$this->view_data['prepend'] = $text;
+		
+		return $this;
+	}
+	
+	public function append(string $text) : self
+	{
+		$this->view_data['append'] = $text;
 		
 		return $this;
 	}

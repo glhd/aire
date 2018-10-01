@@ -25,7 +25,10 @@
 
 			{{ Aire::open() }}
 			
-			{{ Aire::input()->label('Demo Input')->id('demo') }}
+			{{ Aire::input()
+				->label('Demo Input')
+				->id('demo')
+				->helpText('This is demo help text.') }}
 			
 			{{ Aire::button('Demo Button') }}
 			

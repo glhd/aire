@@ -47,7 +47,7 @@ class Fieldset extends Element
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : Element
+	public function disabled(?bool $disabled = true)
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -60,7 +60,7 @@ class Fieldset extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null) : Element
+	public function form($value = null)
 	{
 		$this->attributes['form'] = $value;
 
@@ -73,7 +73,7 @@ class Fieldset extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null) : Element
+	public function name($value = null)
 	{
 		$this->attributes['name'] = $value;
 

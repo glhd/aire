@@ -6,6 +6,7 @@ use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
+use Galahad\Aire\Elements\Textarea;
 
 trait CreatesElements
 {
@@ -21,9 +22,29 @@ trait CreatesElements
 		);
 	}
 	
+	public function submit(string $label) : Button
+	{
+		return $this->button($label)->type('submit');
+	}
+	
 	public function input($name = null, $label = null) : Input
 	{
 		$input = new Input($this->aire, $this);
+		
+		if ($name) {
+			$input->name($name);
+		}
+		
+		if ($label) {
+			$input->label($label);
+		}
+		
+		return $this->injectDefaultValue($input);
+	}
+	
+	public function textarea($name = null, $label = null) : Textarea
+	{
+		$input = new Textarea($this->aire, $this);
 		
 		if ($name) {
 			$input->name($name);

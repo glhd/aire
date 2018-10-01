@@ -79,7 +79,14 @@ abstract class Element implements Htmlable
 	
 	protected function viewData()
 	{
-		$attributes = $this->getAttributes();
+		$default_attributes = $this->aire->config("default_attributes.{$this->view}", []);
+		$attributes = array_merge($default_attributes, $this->getAttributes());
+		
+		if ($default_classes = $this->aire->config("default_classes.{$this->view}")) {
+			$attributes['class'] = isset($attributes['class'])
+				? "$default_classes {$attributes['class']}"
+				: $default_classes;
+		}
 		
 		return array_merge($this->view_data, $attributes, compact('attributes'));
 	}

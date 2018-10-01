@@ -46,7 +46,7 @@ class Textarea extends FormElement
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : FormElement
+	public function autoFocus(?bool $auto_focus = true)
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -59,7 +59,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function cols($value = null) : FormElement
+	public function cols($value = null)
 	{
 		$this->attributes['cols'] = $value;
 
@@ -72,7 +72,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function dirName($value = null) : FormElement
+	public function dirName($value = null)
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -85,7 +85,7 @@ class Textarea extends FormElement
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : FormElement
+	public function disabled(?bool $disabled = true)
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -98,7 +98,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null) : FormElement
+	public function form($value = null)
 	{
 		$this->attributes['form'] = $value;
 
@@ -111,7 +111,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function label($value = null) : FormElement
+	public function label($value = null)
 	{
 		$this->attributes['label'] = $value;
 
@@ -124,7 +124,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function maxLength($value = null) : FormElement
+	public function maxLength($value = null)
 	{
 		$this->attributes['maxlength'] = $value;
 
@@ -137,7 +137,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null) : FormElement
+	public function name($value = null)
 	{
 		$this->attributes['name'] = $value;
 
@@ -150,7 +150,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function placeholder($value = null) : FormElement
+	public function placeholder($value = null)
 	{
 		$this->attributes['placeholder'] = $value;
 
@@ -163,7 +163,7 @@ class Textarea extends FormElement
 	 * @param bool $read_only
 	 * @return $this
 	 */
-	public function readOnly(?bool $read_only = true) : FormElement
+	public function readOnly(?bool $read_only = true)
 	{
 		$this->attributes['readonly'] = $read_only;
 		
@@ -176,7 +176,7 @@ class Textarea extends FormElement
 	 * @param bool $required
 	 * @return $this
 	 */
-	public function required(?bool $required = true) : FormElement
+	public function required(?bool $required = true)
 	{
 		$this->attributes['required'] = $required;
 		
@@ -189,7 +189,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function rows($value = null) : FormElement
+	public function rows($value = null)
 	{
 		$this->attributes['rows'] = $value;
 
@@ -207,7 +207,7 @@ class Textarea extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function wrap($value = null) : FormElement
+	public function wrap($value = null)
 	{
 		$this->attributes['wrap'] = $value;
 

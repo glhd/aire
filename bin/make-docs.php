@@ -17,11 +17,6 @@ $base_path = dirname(__DIR__);
 
 require_once "$base_path/vendor/autoload.php";
 
-// Provide global facade to templates
-class Aire extends Galahad\Aire\Support\Facades\Aire
-{
-}
-
 $app = new Application($base_path);
 Application::setInstance($app);
 $app->instance('session', false);

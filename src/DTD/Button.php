@@ -47,7 +47,7 @@ class Button extends FormElement
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true) : FormElement
+	public function autoFocus(?bool $auto_focus = true)
 	{
 		$this->attributes['autofocus'] = $auto_focus;
 		
@@ -60,7 +60,7 @@ class Button extends FormElement
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true) : FormElement
+	public function disabled(?bool $disabled = true)
 	{
 		$this->attributes['disabled'] = $disabled;
 		
@@ -73,7 +73,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null) : FormElement
+	public function form($value = null)
 	{
 		$this->attributes['form'] = $value;
 
@@ -86,7 +86,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formAction($value = null) : FormElement
+	public function formAction($value = null)
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -105,7 +105,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formEncType($value = null) : FormElement
+	public function formEncType($value = null)
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -123,7 +123,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formMethod($value = null) : FormElement
+	public function formMethod($value = null)
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -136,7 +136,7 @@ class Button extends FormElement
 	 * @param bool $form_no_validate
 	 * @return $this
 	 */
-	public function formNoValidate(?bool $form_no_validate = true) : FormElement
+	public function formNoValidate(?bool $form_no_validate = true)
 	{
 		$this->attributes['formnovalidate'] = $form_no_validate;
 		
@@ -156,7 +156,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formTarget($value = null) : FormElement
+	public function formTarget($value = null)
 	{
 		$this->attributes['formtarget'] = $value;
 
@@ -169,7 +169,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null) : FormElement
+	public function name($value = null)
 	{
 		$this->attributes['name'] = $value;
 
@@ -188,7 +188,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function type($value = null) : FormElement
+	public function type($value = null)
 	{
 		$this->attributes['type'] = $value;
 
@@ -201,7 +201,7 @@ class Button extends FormElement
 	 * @param string $value
 	 * @return $this
 	 */
-	public function value($value = null) : FormElement
+	public function value($value = null)
 	{
 		$this->attributes['value'] = $value;
 

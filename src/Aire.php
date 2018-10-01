@@ -51,7 +51,7 @@ class Aire
 	 * @param \Illuminate\Contracts\Foundation\Application $app
 	 * @param array $config
 	 */
-	public function __construct(Factory $factory, Application $app, array $config = [])
+	public function __construct(Factory $factory, Application $app, array $config)
 	{
 		$this->factory = $factory;
 		$this->app = $app;

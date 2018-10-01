@@ -46,7 +46,7 @@ class Label extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function for($value = null) : Element
+	public function for($value = null)
 	{
 		$this->attributes['for'] = $value;
 
@@ -59,7 +59,7 @@ class Label extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null) : Element
+	public function form($value = null)
 	{
 		$this->attributes['form'] = $value;
 

@@ -47,7 +47,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function acceptCharset($value = null) : Element
+	public function acceptCharset($value = null)
 	{
 		$this->attributes['accept-charset'] = $value;
 
@@ -60,7 +60,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function action($value = null) : Element
+	public function action($value = null)
 	{
 		$this->attributes['action'] = $value;
 
@@ -138,7 +138,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function autoComplete($value = null) : Element
+	public function autoComplete($value = null)
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -157,7 +157,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function encType($value = null) : Element
+	public function encType($value = null)
 	{
 		$this->attributes['enctype'] = $value;
 
@@ -175,7 +175,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function method($value = null) : Element
+	public function method($value = null)
 	{
 		$this->attributes['method'] = $value;
 
@@ -188,7 +188,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null) : Element
+	public function name($value = null)
 	{
 		$this->attributes['name'] = $value;
 
@@ -201,7 +201,7 @@ class Form extends Element
 	 * @param bool $no_validate
 	 * @return $this
 	 */
-	public function noValidate(?bool $no_validate = true) : Element
+	public function noValidate(?bool $no_validate = true)
 	{
 		$this->attributes['novalidate'] = $no_validate;
 		
@@ -221,7 +221,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function target($value = null) : Element
+	public function target($value = null)
 	{
 		$this->attributes['target'] = $value;
 
