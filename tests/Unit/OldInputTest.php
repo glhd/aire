@@ -36,4 +36,20 @@ class OldInputTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
 	}
+	
+	public function test_explicit_value_supercedes_old_input() : void
+	{
+		$this->withSession([
+			'_old_input' => [
+				'foo' => 'bar',
+			],
+		]);
+		
+		$input = $this->aire()
+			->form()
+			->input('foo')
+			->value('baz');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', 'baz');
+	}
 }

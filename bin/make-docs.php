@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use Galahad\Aire\Support\Facades\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;

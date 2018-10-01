@@ -1,4 +1,4 @@
-<div class="mb-6 {{ $class ?? '' }}">
+<div class="mb-6 {{ $class }}">
 	{{ $label ?? '' }}
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">

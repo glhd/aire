@@ -1,5 +1,5 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes $attributes */ ?>
 
-<select {{ $attributes->excluding('class') }}>
+<select {{ $attributes }}>
 	{{ $options ?? null }}
 </select>

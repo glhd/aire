@@ -1,3 +1,5 @@
+<?php use Galahad\Aire\Support\Facades\Aire; ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -29,6 +31,8 @@
 				->label('Demo Input')
 				->id('demo')
 				->helpText('This is demo help text.') }}
+			
+			{{ Aire::textarea()->value('Demo text area') }}
 			
 			{{ Aire::button('Demo Button') }}
 			
