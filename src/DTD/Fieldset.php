@@ -39,7 +39,7 @@ use Galahad\Aire\Elements\Element;
  */
 class Fieldset extends Element
 {
-	protected $view = 'fieldset';
+	public $name = 'fieldset';
 
 	/**
 	 * Set the 'disabled' flag

@@ -1,4 +1,4 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
 
 <select {{ $attributes }}>
 	{{ $options ?? null }}

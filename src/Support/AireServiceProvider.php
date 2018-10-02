@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Attributes\Classes;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;

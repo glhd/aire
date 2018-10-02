@@ -39,7 +39,7 @@ use Galahad\Aire\Elements\Element;
  */
 class Form extends Element
 {
-	protected $view = 'form';
+	public $name = 'form';
 
 	/**
 	 * Set the 'accept-charset' attribute

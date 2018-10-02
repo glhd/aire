@@ -39,7 +39,7 @@ use Galahad\Aire\Elements\FormElement;
  */
 class Button extends FormElement
 {
-	protected $view = 'button';
+	public $name = 'button';
 
 	/**
 	 * Set the 'autofocus' flag

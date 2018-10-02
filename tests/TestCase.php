@@ -6,6 +6,8 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
 use Galahad\Aire\Support\Facades\Aire as AireFacade;
 use Galahad\Aire\Tests\Constraints\SelectorAttribute;
+use Galahad\Aire\Tests\Constraints\SelectorHasClassNames;
+use Galahad\Aire\Tests\Constraints\SelectorMissingClassNames;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -85,22 +87,11 @@ abstract class TestCase extends Orchestra
 	
 	protected function assertSelectorClassNames($html, string $selector, $class_names)
 	{
-		$class_names = (array) $class_names;
-		
-		$actual = $this->crawl($html)
-			->filter($selector)
-			->attr('class');
-		
-		$this->assertNotNull($actual, "Selector '$selector' should have a class attribute");
-		
-		$actual_class_names = explode(' ', $actual);
-		
-		$intersection = array_intersect($actual_class_names, $class_names);
-		
-		$this->assertCount(
-			count($intersection),
-			$class_names,
-			"Selector '$selector' should have all the classes '".implode(' ', $class_names)."'"
-		);
+		static::assertThat($html, new SelectorHasClassNames($selector, $class_names));
+	}
+	
+	protected function assertSelectorMissingClassNames($html, string $selector, $class_names)
+	{
+		static::assertThat($html, new SelectorMissingClassNames($selector, $class_names));
 	}
 }

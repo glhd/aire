@@ -4,6 +4,8 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
+use Galahad\Aire\Elements\Attributes\Attributes;
+use Galahad\Aire\Elements\Attributes\Classes;
 use Illuminate\Contracts\Support\Htmlable;
 
 abstract class Element implements Htmlable
@@ -11,7 +13,12 @@ abstract class Element implements Htmlable
 	use HasGlobalAttributes;
 	
 	/**
-	 * @var \Galahad\Aire\Elements\Attributes
+	 * @var string
+	 */
+	public $name;
+	
+	/**
+	 * @var \Galahad\Aire\Elements\Attributes\Attributes
 	 */
 	public $attributes;
 	
@@ -19,11 +26,6 @@ abstract class Element implements Htmlable
 	 * @var \Galahad\Aire\Aire
 	 */
 	protected $aire;
-	
-	/**
-	 * @var string
-	 */
-	protected $view;
 	
 	/**
 	 * @var array
@@ -46,16 +48,15 @@ abstract class Element implements Htmlable
 		
 		$attributes = array_merge(
 			$this->default_attributes,
-			$aire->config("default_attributes.{$this->view}", [])
+			$aire->config("default_attributes.{$this->name}", []),
+			['class' => new Classes($this)]
 		);
 		
 		$attribute_listener = function($attribute, $value) use ($aire) {
 			$aire->callAttributeObservers($this, $attribute, $value);
 		};
 		
-		$default_classes = $aire->config("default_classes.{$this->view}");
-		
-		$this->attributes = new Attributes($attributes, $attribute_listener, $default_classes);
+		$this->attributes = new Attributes($attributes, $attribute_listener);
 	}
 	
 	public function data($key, $value)
@@ -77,7 +78,7 @@ abstract class Element implements Htmlable
 	public function __toString()
 	{
 		return $this->aire->render(
-			$this->view,
+			$this->name,
 			$this->viewData(),
 			$this->merge_data
 		);

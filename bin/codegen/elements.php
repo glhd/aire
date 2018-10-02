@@ -49,7 +49,7 @@ foreach ($tags as $tag => $config) {
 	
 	$view = snake_case($tag, '-');
 	
-	echo "\tprotected \$view = '$view';\n\n";
+	echo "\tpublic \$name = '$view';\n\n";
 	
 	if (isset($config['attributes'])) {
 		foreach ($config['attributes'] as $attribute => $attribute_config) {

@@ -44,6 +44,6 @@ class GroupTest extends TestCase
 			->input()
 			->helpText('Help text');
 		
-		$this->markTestIncomplete();
+		$this->assertSelectorText($input, 'div > small', 'Help text');
 	}
 }

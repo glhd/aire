@@ -38,6 +38,6 @@ use Galahad\Aire\Elements\Element;
  */
 class Legend extends Element
 {
-	protected $view = 'legend';
+	public $name = 'legend';
 
 }

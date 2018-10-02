@@ -38,7 +38,7 @@ use Galahad\Aire\Elements\FormElement;
  */
 class Select extends FormElement
 {
-	protected $view = 'select';
+	public $name = 'select';
 
 	/**
 	 * Set the 'autofocus' flag

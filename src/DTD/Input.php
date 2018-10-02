@@ -39,7 +39,7 @@ use Galahad\Aire\Elements\FormElement;
  */
 class Input extends FormElement
 {
-	protected $view = 'input';
+	public $name = 'input';
 	
 	/**
 	 * Set the 'accept' attribute

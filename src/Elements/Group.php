@@ -8,6 +8,26 @@ use Illuminate\Support\HtmlString;
 class Group extends FormElement
 {
 	/**
+	 * Not valid nor invalid
+	 */
+	public const VALIDATION_NONE = 'none';
+	
+	/**
+	 * Invalid data
+	 */
+	public const VALIDATION_INVALID = 'invalid';
+	
+	/**
+	 * Valid data
+	 */
+	public const VALIDATION_VALID = 'valid';
+	
+	/**
+	 * @var string
+	 */
+	public $name = 'group';
+	
+	/**
 	 * @var \Galahad\Aire\Elements\GroupableElement
 	 */
 	public $element;
@@ -17,8 +37,14 @@ class Group extends FormElement
 	 */
 	public $label;
 	
-	protected $view = 'group';
+	/**
+	 * @var string
+	 */
+	public $validation_state = self::VALIDATION_NONE;
 	
+	/**
+	 * @var array
+	 */
 	protected $view_data = [
 		'prepend' => null,
 		'append' => null,
@@ -33,7 +59,7 @@ class Group extends FormElement
 	
 	public function label(string $text) : self
 	{
-		$this->label = $this->form->label($text);
+		$this->label = (new Label($this->aire, $this))->text($text);
 		
 		if ($id = $this->element->attributes->get('id')) {
 			$this->label->for($id);
@@ -45,6 +71,32 @@ class Group extends FormElement
 	public function helpText(string $text) : self
 	{
 		$this->view_data['help_text'] = $text;
+		
+		return $this;
+	}
+	
+	public function validated($validation_state = self::VALIDATION_VALID) : self
+	{
+		$this->validation_state = $validation_state;
+		
+		return $this;
+	}
+	
+	public function valid() : self
+	{
+		return $this->validated(self::VALIDATION_VALID);
+	}
+	
+	public function invalid() : self
+	{
+		return $this->validated(self::VALIDATION_INVALID);
+	}
+	
+	public function errors($message) : self
+	{
+		$this->view_data['errors'] = (array) $message;
+		
+		$this->invalid();
 		
 		return $this;
 	}

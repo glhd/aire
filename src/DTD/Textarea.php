@@ -38,7 +38,7 @@ use Galahad\Aire\Elements\FormElement;
  */
 class Textarea extends FormElement
 {
-	protected $view = 'textarea';
+	public $name = 'textarea';
 
 	/**
 	 * Set the 'autofocus' flag

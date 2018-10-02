@@ -36,9 +36,9 @@ foreach ($methods as $method) {
 			if ($type = $parameter->getType()) {
 				$signature = "$type $signature";
 				
-				if ($type->allowsNull()) {
-					$signature = "$signature = null";
-				}
+				// if ($type->allowsNull()) {
+				// 	$signature = "?$signature";
+				// }
 			}
 			
 			if ($parameter->isDefaultValueAvailable()) {

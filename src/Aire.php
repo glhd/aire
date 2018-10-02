@@ -4,12 +4,14 @@ namespace Galahad\Aire;
 
 use BadMethodCallException;
 use Closure;
+use Galahad\Aire\Elements\Attributes\Classes;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Contracts\View\View;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
+use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\Factory;
 
 /**
@@ -73,6 +75,7 @@ class Aire
 		$this->config = $config;
 		
 		$this->registerObservers();
+		$this->registerClasses();
 	}
 	
 	/**
@@ -267,6 +270,36 @@ class Aire
 				}
 			}
 		});
+		
+		// Automatically set errors for named elements
+		$this->registerAttributeObserver('name', function(Element $element, $name) {
+			if (!in_array(Groupable::class, class_uses_recursive($element))) {
+				return;
+			}
+			
+			if (!$errors = $this->session_store->get('errors')) {
+				return;
+			}
+			
+			if (!$errors instanceof ViewErrorBag) {
+				return;
+			}
+			
+			if (!$errors->has($name)) {
+				return;
+			}
+			
+			/** @var Groupable $element */
+			$element->errors($errors->get($name));
+		});
+		
+		return $this;
+	}
+	
+	protected function registerClasses() : self
+	{
+		Classes::setDefaultClasses($this->config('default_classes'));
+		Classes::setValidationClasses($this->config('validation_classes'));
 		
 		return $this;
 	}

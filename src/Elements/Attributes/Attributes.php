@@ -1,6 +1,6 @@
 <?php
 
-namespace Galahad\Aire\Elements;
+namespace Galahad\Aire\Elements\Attributes;
 
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
@@ -22,21 +22,14 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	protected $attribute_listener;
 	
 	/**
-	 * Default classes
-	 *
-	 * @var string
-	 */
-	protected $default_classes;
-	
-	/**
 	 * @var array
 	 */
 	protected $items;
 	
-	public function __construct(array $items, callable $attribute_listener, string $default_classes = null)
+	public function __construct(array $items, callable $attribute_listener)
 	{
-		$this->items = array_merge(['class' => ''], $items);
-		$this->default_classes = $default_classes;
+		$this->items = $items;
+		
 		$this->attribute_listener = $attribute_listener;
 	}
 	
@@ -73,11 +66,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	
 	public function offsetSet($key, $value) : void
 	{
-		if ($this->default_classes && 'class' === $key) {
-			$value = "{$this->default_classes} {$value}";
+		if ('class' === $key) {
+			$this->items['class']->set($value);
+		} else {
+			$this->items[$key] = $value;
 		}
-		
-		$this->items[$key] = $value;
 		
 		call_user_func($this->attribute_listener, $key, $value);
 	}
@@ -104,11 +97,6 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			})
 			->filter(function($value) {
 				return false !== $value && null !== $value;
-			})
-			->map(function($value) {
-				return is_array($value)
-					? implode(' ', $value)
-					: $value;
 			})
 			->map(function($value, $name) {
 				if (true === $value) {

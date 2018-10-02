@@ -38,7 +38,7 @@ use Galahad\Aire\Elements\Element;
  */
 class Label extends Element
 {
-	protected $view = 'label';
+	public $name = 'label';
 
 	/**
 	 * Set the 'for' attribute

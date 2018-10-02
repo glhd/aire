@@ -47,7 +47,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'accesskey');
 	}
 	
-	public function test_class_attribute_can_be_set_and_unset() : void
+	public function test_class_attribute_can_be_set() : void
 	{
 		$form = $this->aire()->form();
 		
@@ -55,9 +55,6 @@ class GlobalAttributesTest extends TestCase
 		
 		$form->class($value);
 		$this->assertSelectorAttribute($form, 'form', 'class', $value);
-		
-		$form->class(null);
-		$this->assertSelectorAttributeMissing($form, 'form', 'class');
 	}
 	
 	public function test_content_editable_boolean_can_be_set_to_true_and_false_and_be_unset() : void

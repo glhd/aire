@@ -22,4 +22,18 @@
 			{{ $help_text }}
 		</small>
 	@endisset
+	
+	@if(isset($errors) && count($errors))
+		<ul class="list-reset">
+			
+			@foreach($errors as $error)
+				
+				<li class="block mt-1 text-red text-sm font-normal">
+					{{ $error }}
+				</li>
+				
+			@endforeach
+			
+		</ul>
+	@endif
 </div>
