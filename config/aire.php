@@ -43,6 +43,7 @@ return [
 	*/
 	'default_classes' => [
 		'input' => 'text-grey-darkest bg-white border rounded-sm',
+		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',
 	],
 	
 	/*

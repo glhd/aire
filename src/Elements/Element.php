@@ -5,7 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Attributes;
-use Galahad\Aire\Elements\Attributes\Classes;
+use Galahad\Aire\Elements\Attributes\ClassNames;
 use Illuminate\Contracts\Support\Htmlable;
 
 abstract class Element implements Htmlable
@@ -49,7 +49,7 @@ abstract class Element implements Htmlable
 		$attributes = array_merge(
 			$this->default_attributes,
 			$aire->config("default_attributes.{$this->name}", []),
-			['class' => new Classes($this)]
+			['class' => new ClassNames($this)]
 		);
 		
 		$attribute_listener = function($attribute, $value) use ($aire) {

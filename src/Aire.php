@@ -4,7 +4,7 @@ namespace Galahad\Aire;
 
 use BadMethodCallException;
 use Closure;
-use Galahad\Aire\Elements\Attributes\Classes;
+use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
@@ -298,8 +298,8 @@ class Aire
 	
 	protected function registerClasses() : self
 	{
-		Classes::setDefaultClasses($this->config('default_classes'));
-		Classes::setValidationClasses($this->config('validation_classes'));
+		ClassNames::setDefaultClasses($this->config('default_classes'));
+		ClassNames::setValidationClasses($this->config('validation_classes'));
 		
 		return $this;
 	}

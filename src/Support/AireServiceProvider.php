@@ -3,7 +3,6 @@
 namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
-use Galahad\Aire\Elements\Attributes\Classes;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -14,12 +13,15 @@ class AireServiceProvider extends ServiceProvider
 	
 	protected $view_directory;
 	
+	protected $translations_directory;
+	
 	public function __construct(Application $app)
 	{
 		parent::__construct($app);
 		
 		$this->config_path = __DIR__.'/../../config/aire.php';
 		$this->view_directory = __DIR__.'/../../views';
+		$this->translations_directory = __DIR__.'/../../translations';
 	}
 	
 	/**
@@ -33,6 +35,7 @@ class AireServiceProvider extends ServiceProvider
 		
 		$this->bootConfig();
 		$this->bootViews();
+		$this->bootTranslations();
 	}
 	
 	/**
@@ -92,6 +95,19 @@ class AireServiceProvider extends ServiceProvider
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),
 			], 'config');
+		}
+		
+		return $this;
+	}
+	
+	protected function bootTranslations() : self
+	{
+		$this->loadTranslationsFrom($this->translations_directory, 'aire');
+		
+		if (method_exists($this->app, 'resourcePath')) {
+			$this->publishes([
+				$this->translations_directory => $this->app->resourcePath('lang/vendor/aire'),
+			], 'translations');
 		}
 		
 		return $this;

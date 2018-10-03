@@ -4,6 +4,7 @@ namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class DataBindingTest extends TestCase
 {
@@ -48,6 +49,50 @@ class DataBindingTest extends TestCase
 		$input->name('foo');
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
+	}
+	
+	public function test_datetime_objects_are_bound_to_date_inputs_in_proper_format() : void
+	{
+		$now = now();
+		
+		$input = $this->aire()
+			->form()
+			->bind(['foo' => $now])
+			->date('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', $now->format('Y-m-d'));
+	}
+	
+	public function test_datetime_objects_are_bound_to_datetime_local_inputs_in_proper_format() : void
+	{
+		$now = now();
+		
+		$input = $this->aire()
+			->form()
+			->bind(['foo' => $now])
+			->dateTimeLocal('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', $now->format('Y-m-d\TH:i'));
+	}
+	
+	public function test_multiple_values_can_be_bound_to_a_multi_select() : void
+	{
+		$options = [
+			'foo' => 'Foo',
+			'bar' => 'Bar',
+			'baz' => 'Baz',
+		];
+		
+		$select = $this->aire()
+			->form()
+			->bind(['test' => ['bar', 'baz']])
+			->select($options, 'test')
+			->multiple();
+		
+		$this->assertSelectorAttribute($select, 'select', 'name', 'foo[]');
+		$this->assertSelectorAttributeMissing($select, 'option[value="foo"]', 'selected');
+		$this->assertSelectorAttribute($select, 'option[value="bar"]', 'selected');
+		$this->assertSelectorAttribute($select, 'option[value="baz"]', 'selected');
 	}
 }
 

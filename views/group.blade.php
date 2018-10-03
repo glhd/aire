@@ -10,11 +10,11 @@
 		
 		{{ $element }}
 			
-			@if($append)
-				<div class="-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm">
-					{{ $append }}
-				</div>
-			@endif
+		@if($append)
+			<div class="-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm">
+				{{ $append }}
+			</div>
+		@endif
 	</div>
 	
 	@isset($help_text)

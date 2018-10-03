@@ -5,6 +5,8 @@ namespace Galahad\Aire\Elements\Concerns;
 use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
+use Galahad\Aire\Elements\Select;
+use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
 
 trait CreatesElements
@@ -39,6 +41,21 @@ trait CreatesElements
 		return $input;
 	}
 	
+	public function select(array $options, $name = null, $label = null) : Select
+	{
+		$select = new Select($this->aire, $options, $this);
+		
+		if ($name) {
+			$select->name($name);
+		}
+		
+		if ($label) {
+			$select->label($label);
+		}
+		
+		return $select;
+	}
+	
 	public function textarea($name = null, $label = null) : Textarea
 	{
 		$textarea = new Textarea($this->aire, $this);
@@ -52,5 +69,10 @@ trait CreatesElements
 		}
 		
 		return $textarea;
+	}
+	
+	public function summary() : Summary
+	{
+		return new Summary($this->aire);
 	}
 }
