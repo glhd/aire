@@ -48,11 +48,7 @@ abstract class Element implements Htmlable
 			['class' => new ClassNames($this)]
 		);
 		
-		$attribute_listener = function($attribute, $value) use ($aire) {
-			$aire->callAttributeObservers($this, $attribute, $value);
-		};
-		
-		$this->attributes = new Attributes($attributes, $attribute_listener);
+		$this->attributes = new Attributes($attributes);
 	}
 	
 	public function getAttribute(string $attribute, $default = null)

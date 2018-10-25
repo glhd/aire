@@ -20,5 +20,13 @@ abstract class FormElement extends Element
 		if (method_exists($this, 'initGroup')) {
 			$this->initGroup();
 		}
+		
+		$this->attributes->registerMutator('value', function($value) {
+			if (null !== $value || !$this->attributes->has('name')) {
+				return $value;
+			}
+			
+			return $this->form->getBoundValue($this->attributes->get('name'));
+		});
 	}
 }

@@ -30,7 +30,7 @@ class SelectorAttribute extends CrawlerConstraint
 	
 	public function toString() : string
 	{
-		$description = "selector '{$this->selector}' has the attribute '{$this->value}'";
+		$description = "selector '{$this->selector}' has the attribute '{$this->attribute}'";
 		
 		if ($this->value) {
 			$description .= " with the value '{$this->value}'";

@@ -233,44 +233,7 @@ class Aire
 	
 	protected function registerObservers() : self
 	{
-		// Automatically set 'for' on label w/ an element that has an 'id'
-		// $this->registerAttributeObserver('id', function(Element $element, $id) {
-		// 	if (!in_array(Groupable::class, class_uses_recursive($element))) {
-		// 		return;
-		// 	}
-		//
-		// 	/** @var Groupable $element */
-		// 	if ($id && $element->group->label) {
-		// 		$element->group->label->for($id);
-		// 	}
-		// });
-		
-		// Automatically set 'value' for named elements
-		$this->registerAttributeObserver('name', function(Element $element, $name) {
-			// If 'value' is set, don't override
-			if ($element->attributes->has('value')) {
-				return;
-			}
-			
-			// If old input is set, use that
-			if ($this->session_store->hasOldInput($name)) {
-				$element->attributes['value'] = $this->session_store->getOldInput($name);
-				return;
-			}
-			
-			// If form has bound data, use that
-			if ($this->form && $bound_data = $this->form->bound_data) {
-				$bound_value = is_object($bound_data)
-					? object_get($bound_data, $name)
-					: array_get($bound_data, $name);
-				
-				if ($bound_value) {
-					$element->attributes['value'] = $bound_value;
-					return;
-				}
-			}
-		});
-		
+		// FIXME: This needs refactoring and tests — tests are passing but this doesn't work
 		// Automatically set errors for named elements
 		$this->registerAttributeObserver('name', function(Element $element, $name) {
 			if (!in_array(Groupable::class, class_uses_recursive($element))) {

@@ -64,7 +64,7 @@ class AireServiceProvider extends ServiceProvider
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				$app['session.store']->token()
+				$app['session.store']
 			);
 		});
 		

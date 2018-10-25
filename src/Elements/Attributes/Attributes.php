@@ -17,11 +17,6 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	protected $except = [];
 	
 	/**
-	 * @var callable
-	 */
-	protected $attribute_listener;
-	
-	/**
 	 * @var array
 	 */
 	protected $items;
@@ -33,16 +28,18 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	protected $mutators = [];
 	
-	public function __construct(array $items, callable $attribute_listener)
+	public function __construct(array $items)
 	{
 		$this->items = $items;
-		
-		$this->attribute_listener = $attribute_listener;
 	}
 	
 	public function registerMutator(string $attribute, callable $mutator) : self
 	{
-		$this->mutators[$attribute] = $mutator;
+		if (!isset($this->mutators[$attribute])) {
+			$this->mutators[$attribute] = [];
+		}
+		
+		$this->mutators[$attribute][] = $mutator;
 		
 		return $this;
 	}
@@ -70,15 +67,25 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	
 	public function offsetExists($key) : bool
 	{
-		return isset($this->items[$key]);
+		if (isset($this->items[$key])) {
+			return true;
+		}
+		
+		if (isset($this->mutators[$key])) {
+			return null !== call_user_func($this->mutators[$key], null);
+		}
+		
+		return false;
 	}
 	
 	public function offsetGet($key)
 	{
-		$value = $this->items[$key];
+		$value = $this->items[$key] ?? null;
 		
 		if (isset($this->mutators[$key])) {
-			$value = call_user_func($this->mutators[$key], $value);
+			foreach($this->mutators[$key] as $mutator) {
+				$value = $mutator($value);
+			}
 		}
 		
 		return $value;
@@ -91,15 +98,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		} else {
 			$this->items[$key] = $value;
 		}
-		
-		call_user_func($this->attribute_listener, $key, $value);
 	}
 	
 	public function offsetUnset($key) : void
 	{
 		unset($this->items[$key]);
-		
-		call_user_func($this->attribute_listener, $key, null);
 	}
 	
 	public function except(...$keys) : self
@@ -143,9 +146,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	{
 		$array = $this->items;
 		
-		$keys_to_mutate = array_intersect(array_keys($array), array_keys($this->mutators));
-		
-		foreach ($keys_to_mutate as $key) {
+		foreach (array_keys($this->mutators) as $key) {
 			$array[$key] = $this->offsetGet($key);
 		}
 		
