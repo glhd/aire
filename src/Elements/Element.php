@@ -48,24 +48,36 @@ abstract class Element implements Htmlable
 	{
 		$this->aire = $aire;
 		
-		$attributes = array_merge(
+		$this->attributes = new Attributes(array_merge(
 			$this->default_attributes,
 			$aire->config("default_attributes.{$this->name}", []),
 			['class' => new ClassNames($this)]
-		);
-		
-		$this->attributes = new Attributes($attributes);
+		));
 		
 		if ($form) {
 			$this->initForm($form);
 		}
 	}
 	
+	/**
+	 * Get an Element's attribute
+	 *
+	 * @param string $attribute
+	 * @param null $default
+	 * @return mixed
+	 */
 	public function getAttribute(string $attribute, $default = null)
 	{
 		return Arr::get($this->attributes, $attribute, $default);
 	}
 	
+	/**
+	 * Set a data attribute
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return $this
+	 */
 	public function data($key, $value)
 	{
 		if (null === $value && isset($this->attributes["data-{$key}"])) {
@@ -77,6 +89,11 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
+	/**
+	 * Render the Element to HTML
+	 *
+	 * @return string
+	 */
 	public function render() : string
 	{
 		return $this->aire->render(
@@ -85,6 +102,11 @@ abstract class Element implements Htmlable
 		);
 	}
 	
+	/**
+	 * Render to HTML, including group if appropriate
+	 *
+	 * @return string
+	 */
 	public function toHtml()
 	{
 		return $this->grouped && $this->group
@@ -92,11 +114,21 @@ abstract class Element implements Htmlable
 			: $this->render();
 	}
 	
+	/**
+	 * Alias for toHtml()
+	 *
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return $this->toHtml();
 	}
 	
+	/**
+	 * Get the Element's view data
+	 *
+	 * @return array
+	 */
 	protected function viewData()
 	{
 		$attributes = $this->attributes;
@@ -108,6 +140,12 @@ abstract class Element implements Htmlable
 		);
 	}
 	
+	/**
+	 * Run additional initialization if the Element is associated with a Form
+	 *
+	 * @param \Galahad\Aire\Elements\Form $form
+	 * @return \Galahad\Aire\Elements\Element
+	 */
 	protected function initForm(Form $form) : self
 	{
 		$this->form = $form;

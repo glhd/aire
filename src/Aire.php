@@ -5,13 +5,10 @@ namespace Galahad\Aire;
 use BadMethodCallException;
 use Closure;
 use Galahad\Aire\Elements\Attributes\ClassNames;
-use Galahad\Aire\Elements\Concerns\Groupable;
-use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Contracts\View\View;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
-use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\Factory;
 
 /**
@@ -161,35 +158,6 @@ class Aire
 	}
 	
 	/**
-	 * Observe changes to attributes
-	 *
-	 * @param string $attribute
-	 * @param callable $observer
-	 * @return \Galahad\Aire\Aire
-	 */
-	public function registerAttributeObserver(string $attribute, callable $observer) : self
-	{
-		if (!isset($this->attribute_observers[$attribute])) {
-			$this->attribute_observers[$attribute] = [];
-		}
-		
-		$this->attribute_observers[$attribute][] = $observer;
-		
-		return $this;
-	}
-	
-	public function callAttributeObservers(Element $element, string $attribute, $value = null) : self
-	{
-		if (isset($this->attribute_observers[$attribute])) {
-			foreach ($this->attribute_observers[$attribute] as $observer) {
-				$observer($element, $value);
-			}
-		}
-		
-		return $this;
-	}
-	
-	/**
 	 * Defer to the Form object for all other method calls
 	 *
 	 * @param string $method_name
@@ -230,10 +198,15 @@ class Aire
 		return $this->view_factory->make($view, $data, $merge_data);
 	}
 	
+	/**
+	 * Register the configured class names with the ClassName class
+	 *
+	 * @return \Galahad\Aire\Aire
+	 */
 	protected function registerClasses() : self
 	{
-		ClassNames::setDefaultClasses($this->config('default_classes'));
-		ClassNames::setValidationClasses($this->config('validation_classes'));
+		ClassNames::setDefaultClasses($this->config('default_classes', []));
+		ClassNames::setValidationClasses($this->config('validation_classes', []));
 		
 		return $this;
 	}

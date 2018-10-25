@@ -124,6 +124,13 @@ trait Groupable
 		return $this;
 	}
 	
+	/**
+	 * Pass method calls to the group if they don't exist on the Element
+	 *
+	 * @param $method_name
+	 * @param $arguments
+	 * @return $this
+	 */
 	public function __call($method_name, $arguments)
 	{
 		$group_method = 0 === strpos($method_name, 'group')
@@ -137,12 +144,15 @@ trait Groupable
 		}
 		
 		throw new BadMethodCallException(sprintf(
-			'Method %s::%s does not exist on the element or Group.',
+			'Method %s::%s does not exist on the Element or Group.',
 			class_basename(static::class),
 			$method_name
 		));
 	}
 	
+	/**
+	 * Initialize the group
+	 */
 	protected function initGroup()
 	{
 		if (null === $this->grouped) {

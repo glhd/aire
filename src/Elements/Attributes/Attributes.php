@@ -33,6 +33,17 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		$this->items = $items;
 	}
 	
+	/**
+	 * Register a mutator for an attribute
+	 *
+	 * When fetching the attribute, even if it does not exist, this mutator will
+	 * be called. This provides an opportunity to mutate or calculate the value
+	 * of the attribute based on outside data (for example, data binding).
+	 *
+	 * @param string $attribute
+	 * @param callable $mutator
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
 	public function registerMutator(string $attribute, callable $mutator) : self
 	{
 		if (!isset($this->mutators[$attribute])) {
@@ -44,6 +55,13 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this;
 	}
 	
+	/**
+	 * Get an attribute value, optionally with a fallback default
+	 *
+	 * @param $key
+	 * @param null $default
+	 * @return mixed|null
+	 */
 	public function get($key, $default = null)
 	{
 		if ($this->offsetExists($key)) {
@@ -53,11 +71,24 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return value($default);
 	}
 	
+	/**
+	 * Check if an attribute exists
+	 *
+	 * @param $key
+	 * @return bool
+	 */
 	public function has($key) : bool
 	{
 		return $this->offsetExists($key);
 	}
 	
+	/**
+	 * Set an attribute value
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
 	public function set($key, $value) : self
 	{
 		$this->offsetSet($key, $value);
@@ -65,6 +96,12 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this;
 	}
 	
+	/**
+	 * @inheritdoc
+	 *
+	 * @param mixed $key
+	 * @return bool
+	 */
 	public function offsetExists($key) : bool
 	{
 		if (isset($this->items[$key])) {
@@ -78,12 +115,18 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return false;
 	}
 	
+	/**
+	 * @inheritdoc
+	 *
+	 * @param mixed $key
+	 * @return mixed|null
+	 */
 	public function offsetGet($key)
 	{
 		$value = $this->items[$key] ?? null;
 		
 		if (isset($this->mutators[$key])) {
-			foreach($this->mutators[$key] as $mutator) {
+			foreach ($this->mutators[$key] as $mutator) {
 				$value = $mutator($value);
 			}
 		}
@@ -91,6 +134,12 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $value;
 	}
 	
+	/**
+	 * @inheritdoc
+	 *
+	 * @param mixed $key
+	 * @param mixed $value
+	 */
 	public function offsetSet($key, $value) : void
 	{
 		if ('class' === $key) {
@@ -100,11 +149,22 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		}
 	}
 	
+	/**
+	 * @inheritdoc
+	 *
+	 * @param mixed $key
+	 */
 	public function offsetUnset($key) : void
 	{
 		unset($this->items[$key]);
 	}
 	
+	/**
+	 * Exclude certain keys from being included when rendering to HTML
+	 *
+	 * @param mixed ...$keys
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
 	public function except(...$keys) : self
 	{
 		$this->except = array_merge($this->except, $keys);
@@ -112,6 +172,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this;
 	}
 	
+	/**
+	 * Render attributes to key="value" pairs
+	 *
+	 * @return string
+	 */
 	public function toHtml() : string
 	{
 		return $this->toCollection()
@@ -132,13 +197,18 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			->implode(' ');
 	}
 	
+	/**
+	 * Get a collection of all attributes (after mutation)
+	 *
+	 * @return \Illuminate\Support\Collection
+	 */
 	public function toCollection() : Collection
 	{
 		return new Collection($this->toArray());
 	}
 	
 	/**
-	 * Get the instance as an array.
+	 * Get an array of all attributes (after mutation)
 	 *
 	 * @return array
 	 */

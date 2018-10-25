@@ -56,7 +56,7 @@ trait CreatesElements
 		return $select;
 	}
 	
-	public function textarea($name = null, $label = null) : Textarea
+	public function textArea($name = null, $label = null) : Textarea
 	{
 		$textarea = new Textarea($this->aire, $this);
 		

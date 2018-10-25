@@ -9,10 +9,25 @@ use Illuminate\Support\ServiceProvider;
 
 class AireServiceProvider extends ServiceProvider
 {
+	/**
+	 * Resolved path to internal config file
+	 *
+	 * @var string
+	 */
 	protected $config_path;
 	
+	/**
+	 * Resolved path to internal views
+	 *
+	 * @var string
+	 */
 	protected $view_directory;
 	
+	/**
+	 * Resolved path to internal translations
+	 *
+	 * @var string
+	 */
 	protected $translations_directory;
 	
 	public function __construct(Application $app)
@@ -51,9 +66,7 @@ class AireServiceProvider extends ServiceProvider
 			return new Aire(
 				$app['view'],
 				$app['session.store'],
-				function() use ($app) {
-					return $app->make(Form::class);
-				},
+				$app['galahad.aire.form.resolver'],
 				$app['config']['aire']
 			);
 		});
@@ -63,12 +76,18 @@ class AireServiceProvider extends ServiceProvider
 		$this->app->bind('galahad.aire.form', function(Application $app) {
 			return new Form(
 				$app['galahad.aire'],
-				$app['url'],
+				$app['routes'],
 				$app['session.store']
 			);
 		});
 		
 		$this->app->alias('galahad.aire.form', Form::class);
+		
+		$this->app->singleton('galahad.aire.form.resolver', function(Application $app) {
+			return function() use ($app) {
+				return $app->make(Form::class);
+			};
+		});
 	}
 	
 	/**
@@ -89,6 +108,11 @@ class AireServiceProvider extends ServiceProvider
 		return $this;
 	}
 	
+	/**
+	 * Boot the configuration
+	 *
+	 * @return \Galahad\Aire\Support\AireServiceProvider
+	 */
 	protected function bootConfig() : self
 	{
 		if (method_exists($this->app, 'configPath')) {
@@ -100,6 +124,11 @@ class AireServiceProvider extends ServiceProvider
 		return $this;
 	}
 	
+	/**
+	 * Boot the translations
+	 *
+	 * @return \Galahad\Aire\Support\AireServiceProvider
+	 */
 	protected function bootTranslations() : self
 	{
 		$this->loadTranslationsFrom($this->translations_directory, 'aire');

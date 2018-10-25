@@ -5,6 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
@@ -12,18 +13,35 @@ use Illuminate\Support\ViewErrorBag;
 
 class Form extends \Galahad\Aire\DTD\Form
 {
-	use CreatesElements,
-		CreatesInputTypes;
+	use CreatesElements, CreatesInputTypes;
 	
+	/**
+	 * Data that's bound to the form
+	 *
+	 * @var object|\Illuminate\Database\Eloquent\Model|array
+	 */
 	public $bound_data;
 	
+	/**
+	 * @inheritdoc
+	 */
 	protected $default_attributes = [
 		'action' => '',
 		'method' => 'POST',
 	];
 	
+	/**
+	 * Forms are not grouped
+	 *
+	 * @var bool
+	 */
 	protected $grouped = false;
 	
+	/**
+	 * Forms can either be open or closed, which determines how it's rendered
+	 *
+	 * @var bool
+	 */
 	protected $opened = false;
 	
 	/**
@@ -32,15 +50,21 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $url;
 	
 	/**
+	 * @var \Illuminate\Routing\RouteCollection
+	 */
+	protected $routes;
+	
+	/**
 	 * @var \Illuminate\Session\Store
 	 */
 	protected $session_store;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, RouteCollection $routes, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
 		$this->url = $url;
+		$this->routes = $routes;
 		
 		if ($session_store) {
 			$this->session_store = $session_store;
@@ -48,6 +72,15 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 	}
 	
+	/**
+	 * Bind data to the form
+	 *
+	 * This data will automatically be used to determine an Element's
+	 * value if a value is not set, and no old input exists
+	 *
+	 * @param $bound_data
+	 * @return \Galahad\Aire\Elements\Form
+	 */
 	public function bind($bound_data) : self
 	{
 		$this->bound_data = $bound_data;
@@ -55,6 +88,13 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	/**
+	 * Get the bound value for an Element
+	 *
+	 * @param $name
+	 * @param null $default
+	 * @return mixed|null
+	 */
 	public function getBoundValue($name, $default = null)
 	{
 		$name = rtrim($name, '[]');
@@ -78,7 +118,13 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $default;
 	}
 	
-	public function getErrors($name)
+	/**
+	 * Get any validation errors associated with an Element
+	 *
+	 * @param string $name
+	 * @return array
+	 */
+	public function getErrors(string $name) : array
 	{
 		if (!$errors = $this->session_store->get('errors')) {
 			return [];
@@ -95,6 +141,13 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $errors->get($name);
 	}
 	
+	/**
+	 * Open the form
+	 *
+	 * This will start output buffering until the form is closed
+	 *
+	 * @return \Galahad\Aire\Elements\Form
+	 */
 	public function open() : self
 	{
 		ob_start();
@@ -103,6 +156,14 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	/**
+	 * Close the form
+	 *
+	 * This will end output buffering and set all the output to the 'fields'
+	 * property in the view data
+	 *
+	 * @return \Galahad\Aire\Elements\Form
+	 */
 	public function close() : self
 	{
 		if (!$this->opened) {
@@ -115,10 +176,17 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
-	public function route(string $route, array $parameters = [], bool $absolute = true) : self
+	/**
+	 * Set the form's action to a named route
+	 *
+	 * @param string $route_name
+	 * @param array $parameters
+	 * @param bool $absolute
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function route(string $route_name, array $parameters = [], bool $absolute = true) : self
 	{
-		$action = $this->url->route($route, $parameters, $absolute);
-		
+		$action = $this->url->route($route_name, $parameters, $absolute);
 		$this->action($action);
 		
 		return $this;
