@@ -6,12 +6,13 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Attributes;
 use Galahad\Aire\Elements\Attributes\ClassNames;
+use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes;
+	use HasGlobalAttributes, Groupable;
 	
 	/**
 	 * @var string
@@ -29,6 +30,11 @@ abstract class Element implements Htmlable
 	protected $aire;
 	
 	/**
+	 * @var \Galahad\Aire\Elements\Form
+	 */
+	protected $form;
+	
+	/**
 	 * @var array
 	 */
 	protected $default_attributes = [];
@@ -38,7 +44,7 @@ abstract class Element implements Htmlable
 	 */
 	protected $view_data = [];
 	
-	public function __construct(Aire $aire)
+	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
 		
@@ -49,6 +55,10 @@ abstract class Element implements Htmlable
 		);
 		
 		$this->attributes = new Attributes($attributes);
+		
+		if ($form) {
+			$this->initForm($form);
+		}
 	}
 	
 	public function getAttribute(string $attribute, $default = null)
@@ -77,12 +87,14 @@ abstract class Element implements Htmlable
 	
 	public function toHtml()
 	{
-		return $this->render();
+		return $this->grouped && $this->group
+			? $this->group->render()
+			: $this->render();
 	}
 	
 	public function __toString()
 	{
-		return $this->render();
+		return $this->toHtml();
 	}
 	
 	protected function viewData()
@@ -94,5 +106,22 @@ abstract class Element implements Htmlable
 			$this->view_data,               // Override with view data
 			compact('attributes')   // Finally, make sure $attributes is always available
 		);
+	}
+	
+	protected function initForm(Form $form) : self
+	{
+		$this->form = $form;
+		
+		$this->initGroup();
+		
+		$this->attributes->registerMutator('value', function($value) {
+			if (null !== $value || !$this->attributes->has('name')) {
+				return $value;
+			}
+			
+			return $this->form->getBoundValue($this->attributes->get('name'));
+		});
+		
+		return $this;
 	}
 }

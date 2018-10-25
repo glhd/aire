@@ -112,7 +112,7 @@ class ClassNames
 	 */
 	protected function validation() : ?string
 	{
-		if (property_exists($this->element, 'group')) {
+		if ($this->element->group) {
 			$key = "{$this->element->group->validation_state}.{$this->element->name}";
 			return Arr::get(static::$validation_classes, $key);
 		}

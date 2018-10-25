@@ -5,7 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Illuminate\Support\HtmlString;
 
-class Group extends FormElement
+class Group extends Element
 {
 	/**
 	 * Not valid nor invalid
@@ -28,7 +28,7 @@ class Group extends FormElement
 	public $name = 'group';
 	
 	/**
-	 * @var \Galahad\Aire\Elements\FormElement|\Galahad\Aire\Elements\Concerns\Groupable
+	 * @var \Galahad\Aire\Elements\Element|\Galahad\Aire\Elements\Concerns\Groupable
 	 */
 	public $element;
 	
@@ -50,7 +50,9 @@ class Group extends FormElement
 		'append' => null,
 	];
 	
-	public function __construct(Aire $aire, Form $form, FormElement $element)
+	protected $grouped = false;
+	
+	public function __construct(Aire $aire, Form $form, Element $element)
 	{
 		parent::__construct($aire, $form);
 		
@@ -130,5 +132,10 @@ class Group extends FormElement
 			'element' => new HtmlString($this->element->render()),
 			'errors' => $errors,
 		]);
+	}
+	
+	protected function initGroup()
+	{
+		// Ignore
 	}
 }

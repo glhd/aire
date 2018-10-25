@@ -30,14 +30,14 @@
 
 namespace Galahad\Aire\DTD;
 
-use Galahad\Aire\Elements\FormElement;
+use Galahad\Aire\Elements\Element;
 
 /**
  * Represents a clickable button, which can be used in forms, or anywhere
  * in a document that needs simple, standard button functionality.
  *
  */
-class Button extends FormElement
+class Button extends Element
 {
 	public $name = 'button';
 

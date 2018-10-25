@@ -30,13 +30,13 @@
 
 namespace Galahad\Aire\DTD;
 
-use Galahad\Aire\Elements\FormElement;
+use Galahad\Aire\Elements\Element;
 
 /**
  * Represents a control that provides a menu of options:
  *
  */
-class Select extends FormElement
+class Select extends Element
 {
 	public $name = 'select';
 	

@@ -22,6 +22,8 @@ class Form extends \Galahad\Aire\DTD\Form
 		'method' => 'POST',
 	];
 	
+	protected $grouped = false;
+	
 	protected $opened = false;
 	
 	/**
@@ -169,5 +171,10 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		return parent::render();
+	}
+	
+	protected function initGroup()
+	{
+		// Ignore
 	}
 }

@@ -30,13 +30,13 @@
 
 namespace Galahad\Aire\DTD;
 
-use Galahad\Aire\Elements\FormElement;
+use Galahad\Aire\Elements\Element;
 
 /**
  * Represents a multi-line plain-text editing control.
  *
  */
-class Textarea extends FormElement
+class Textarea extends Element
 {
 	public $name = 'textarea';
 

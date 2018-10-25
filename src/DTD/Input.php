@@ -30,14 +30,14 @@
 
 namespace Galahad\Aire\DTD;
 
-use Galahad\Aire\Elements\FormElement;
+use Galahad\Aire\Elements\Element;
 
 /**
  * Used to create interactive controls for web-based forms in order to
  * accept data from the user.
  *
  */
-class Input extends FormElement
+class Input extends Element
 {
 	public $name = 'input';
 	

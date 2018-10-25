@@ -98,7 +98,7 @@ trait Groupable
 	 *
 	 * @var bool
 	 */
-	protected $grouped = true;
+	protected $grouped;
 	
 	/**
 	 * Enable grouping of element
@@ -124,18 +124,6 @@ trait Groupable
 		return $this;
 	}
 	
-	public function toHtml()
-	{
-		return $this->grouped
-			? $this->group->render()
-			: $this->render();
-	}
-	
-	public function __toString()
-	{
-		return $this->toHtml();
-	}
-	
 	public function __call($method_name, $arguments)
 	{
 		$group_method = 0 === strpos($method_name, 'group')
@@ -157,7 +145,10 @@ trait Groupable
 	
 	protected function initGroup()
 	{
-		$this->grouped = $this->aire->config('group_by_default', true);
+		if (null === $this->grouped) {
+			$this->grouped = $this->aire->config('group_by_default', true);
+		}
+		
 		$this->group = new Group($this->aire, $this->form, $this);
 	}
 }

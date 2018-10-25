@@ -16,6 +16,14 @@ class Label extends \Galahad\Aire\DTD\Label
 		parent::__construct($aire);
 		
 		$this->group = $group;
+		
+		$this->attributes->registerMutator('for', function($for) {
+			if (null === $for && $id = optional($this->group)->element->getAttribute('id')) {
+				$for = $id;
+			}
+			
+			return $for;
+		});
 	}
 	
 	public function text($text) : self
@@ -23,23 +31,5 @@ class Label extends \Galahad\Aire\DTD\Label
 		$this->view_data['text'] = $text;
 		
 		return $this;
-	}
-	
-	public function render() : string
-	{
-		$this->inferForAttribute();
-		
-		return parent::render();
-	}
-	
-	protected function inferForAttribute()
-	{
-		if (isset($this->attributes['for'])) {
-			return;
-		}
-		
-		if ($id = $this->group->element->getAttribute('id')) {
-			$this->attributes['for'] = $id;
-		}
 	}
 }

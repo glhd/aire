@@ -84,9 +84,7 @@ $tags = collect($data['tags'])
 		return in_array($tag, $tag_whitelist);
 	})
 	->map(function($config, $tag) use ($form_element_tags, $attributes, $attribute_methods) {
-		$config['parent'] = in_array($tag, $form_element_tags)
-			? 'FormElement'
-			: 'Element';
+		$config['parent'] = 'Element';
 		
 		if (isset($config['attributes'])) {
 			$config['attributes'] = collect($config['attributes'])
@@ -205,11 +203,7 @@ function print_setter_test($attribute, $attribute_config, $tag = 'form') {
 	if ('Form' !== $class_name) {
 		$target = '$'.strtolower($class_name);
 		
-		if (is_subclass_of("\\Galahad\\Aire\\DTD\\{$class_name}", \Galahad\Aire\Elements\FormElement::class)) {
-			echo "\t\t$target = new $class_name(\$this->aire(), \$this->aire()->form());\n";
-		} else {
-			echo "\t\t$target = new $class_name(\$this->aire());\n";
-		}
+		echo "\t\t$target = new $class_name(\$this->aire(), \$this->aire()->form());\n";
 	} else {
 		echo "\t\t\$form = \$this->aire()->form();\n";
 	}
