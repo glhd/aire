@@ -24,4 +24,22 @@ class Label extends \Galahad\Aire\DTD\Label
 		
 		return $this;
 	}
+	
+	public function render() : string
+	{
+		$this->inferForAttribute();
+		
+		return parent::render();
+	}
+	
+	protected function inferForAttribute()
+	{
+		if (isset($this->attributes['for'])) {
+			return;
+		}
+		
+		if ($id = $this->group->element->getAttribute('id')) {
+			$this->attributes['for'] = $id;
+		}
+	}
 }

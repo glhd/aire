@@ -234,16 +234,16 @@ class Aire
 	protected function registerObservers() : self
 	{
 		// Automatically set 'for' on label w/ an element that has an 'id'
-		$this->registerAttributeObserver('id', function(Element $element, $id) {
-			if (!in_array(Groupable::class, class_uses_recursive($element))) {
-				return;
-			}
-			
-			/** @var Groupable $element */
-			if ($id && $element->group->label) {
-				$element->group->label->for($id);
-			}
-		});
+		// $this->registerAttributeObserver('id', function(Element $element, $id) {
+		// 	if (!in_array(Groupable::class, class_uses_recursive($element))) {
+		// 		return;
+		// 	}
+		//
+		// 	/** @var Groupable $element */
+		// 	if ($id && $element->group->label) {
+		// 		$element->group->label->for($id);
+		// 	}
+		// });
 		
 		// Automatically set 'value' for named elements
 		$this->registerAttributeObserver('name', function(Element $element, $name) {

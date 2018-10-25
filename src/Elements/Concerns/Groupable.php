@@ -18,7 +18,6 @@ use Galahad\Aire\Elements\Group;
  * @method \Galahad\Aire\Elements\Group groupAppend(string $text)
  * @method mixed data($key, $value)
  * @method mixed groupData($key, $value)
- * @method mixed toHtml()
  * @method mixed groupToHtml()
  * @method mixed accessKey($value = NULL)
  * @method mixed groupAccessKey($value = NULL)
@@ -123,16 +122,11 @@ trait Groupable
 		return $this;
 	}
 	
-	public function __toString()
+	public function toHtml()
 	{
 		return $this->grouped
-			? $this->group->__toString()
-			: $this->renderInsideElement();
-	}
-	
-	public function renderInsideElement()
-	{
-		return parent::__toString();
+			? $this->group->render()
+			: $this->render();
 	}
 	
 	public function __call($method_name, $arguments)

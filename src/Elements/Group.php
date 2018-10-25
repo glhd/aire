@@ -28,7 +28,7 @@ class Group extends FormElement
 	public $name = 'group';
 	
 	/**
-	 * @var \Galahad\Aire\Elements\GroupableElement
+	 * @var \Galahad\Aire\Elements\FormElement|\Galahad\Aire\Elements\Concerns\Groupable
 	 */
 	public $element;
 	
@@ -119,7 +119,7 @@ class Group extends FormElement
 	{
 		return array_merge(parent::viewData(), [
 			'label' => $this->label,
-			'element' => new HtmlString($this->element->renderInsideElement()),
+			'element' => new HtmlString($this->element->render()),
 		]);
 	}
 }

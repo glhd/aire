@@ -7,6 +7,7 @@ use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Attributes;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
@@ -37,11 +38,6 @@ abstract class Element implements Htmlable
 	 */
 	protected $view_data = [];
 	
-	/**
-	 * @var array
-	 */
-	protected $merge_data = [];
-	
 	public function __construct(Aire $aire)
 	{
 		$this->aire = $aire;
@@ -59,6 +55,11 @@ abstract class Element implements Htmlable
 		$this->attributes = new Attributes($attributes, $attribute_listener);
 	}
 	
+	public function getAttribute(string $attribute, $default = null)
+	{
+		return Arr::get($this->attributes, $attribute, $default);
+	}
+	
 	public function data($key, $value)
 	{
 		if (null === $value && isset($this->attributes["data-{$key}"])) {
@@ -70,24 +71,32 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
+	public function render() : string
+	{
+		return $this->aire->render(
+			$this->name,
+			$this->viewData()
+		);
+	}
+	
 	public function toHtml()
 	{
-		return (string) $this;
+		return $this->render();
 	}
 	
 	public function __toString()
 	{
-		return $this->aire->render(
-			$this->name,
-			$this->viewData(),
-			$this->merge_data
-		);
+		return $this->render();
 	}
 	
 	protected function viewData()
 	{
 		$attributes = $this->attributes;
 		
-		return array_merge($this->view_data, $attributes->toArray(), compact('attributes'));
+		return array_merge(
+			$attributes->toArray(),         // Provide shortcuts to all attributes
+			$this->view_data,               // Override with view data
+			compact('attributes')   // Finally, make sure $attributes is always available
+		);
 	}
 }

@@ -89,7 +89,7 @@ class DataBindingTest extends TestCase
 			->select($options, 'test')
 			->multiple();
 		
-		$this->assertSelectorAttribute($select, 'select', 'name', 'foo[]');
+		$this->assertSelectorAttribute($select, 'select', 'name', 'test[]');
 		$this->assertSelectorAttributeMissing($select, 'option[value="foo"]', 'selected');
 		$this->assertSelectorAttribute($select, 'option[value="bar"]', 'selected');
 		$this->assertSelectorAttribute($select, 'option[value="baz"]', 'selected');
