@@ -74,7 +74,6 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->config = $config;
 		
-		$this->registerObservers();
 		$this->registerClasses();
 	}
 	
@@ -229,34 +228,6 @@ class Aire
 		}
 		
 		return $this->view_factory->make($view, $data, $merge_data);
-	}
-	
-	protected function registerObservers() : self
-	{
-		// FIXME: This needs refactoring and tests — tests are passing but this doesn't work
-		// Automatically set errors for named elements
-		$this->registerAttributeObserver('name', function(Element $element, $name) {
-			if (!in_array(Groupable::class, class_uses_recursive($element))) {
-				return;
-			}
-			
-			if (!$errors = $this->session_store->get('errors')) {
-				return;
-			}
-			
-			if (!$errors instanceof ViewErrorBag) {
-				return;
-			}
-			
-			if (!$errors->has($name)) {
-				return;
-			}
-			
-			/** @var Groupable $element */
-			$element->errors($errors->get($name));
-		});
-		
-		return $this;
 	}
 	
 	protected function registerClasses() : self

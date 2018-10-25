@@ -71,6 +71,15 @@ abstract class TestCase extends Orchestra
 		$this->assertEquals($text, trim($actual));
 	}
 	
+	protected function assertSelectorMissingText($html, string $selector, string $text)
+	{
+		$actual = $this->crawl($html)
+			->filter($selector)
+			->text();
+		
+		$this->assertNotContains($text, trim($actual));
+	}
+	
 	protected function assertSelectorAttribute($html, string $selector, string $attribute, string $value = null)
 	{
 		static::assertThat($html, new SelectorAttribute($selector, $attribute, $value));

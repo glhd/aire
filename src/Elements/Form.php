@@ -8,6 +8,7 @@ use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\ViewErrorBag;
 
 class Form extends \Galahad\Aire\DTD\Form
 {
@@ -73,6 +74,23 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		return $default;
+	}
+	
+	public function getErrors($name)
+	{
+		if (!$errors = $this->session_store->get('errors')) {
+			return [];
+		}
+		
+		if (!$errors instanceof ViewErrorBag) {
+			return [];
+		}
+		
+		if (!$errors->has($name)) {
+			return [];
+		}
+		
+		return $errors->get($name);
 	}
 	
 	public function open() : self

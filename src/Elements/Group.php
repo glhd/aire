@@ -117,9 +117,18 @@ class Group extends FormElement
 	
 	protected function viewData()
 	{
+		$errors = [];
+		if ($name = $this->element->getAttribute('name')) {
+			$errors = $this->form->getErrors($name);
+			if (!empty($errors)) {
+				$this->invalid();
+			}
+		}
+		
 		return array_merge(parent::viewData(), [
 			'label' => $this->label,
 			'element' => new HtmlString($this->element->render()),
+			'errors' => $errors,
 		]);
 	}
 }
