@@ -26,6 +26,13 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	protected $items;
 	
+	/**
+	 * Callbacks to mutate attribute values
+	 *
+	 * @var array
+	 */
+	protected $mutators = [];
+	
 	public function __construct(array $items, callable $attribute_listener)
 	{
 		$this->items = $items;
@@ -33,10 +40,17 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		$this->attribute_listener = $attribute_listener;
 	}
 	
+	public function registerMutator(string $attribute, callable $mutator) : self
+	{
+		$this->mutators[$attribute] = $mutator;
+		
+		return $this;
+	}
+	
 	public function get($key, $default = null)
 	{
 		if ($this->offsetExists($key)) {
-			return $this->items[$key];
+			return $this->offsetGet($key);
 		}
 		
 		return value($default);
@@ -61,7 +75,13 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	
 	public function offsetGet($key)
 	{
-		return $this->items[$key];
+		$value = $this->items[$key];
+		
+		if (isset($this->mutators[$key])) {
+			$value = call_user_func($this->mutators[$key], $value);
+		}
+		
+		return $value;
 	}
 	
 	public function offsetSet($key, $value) : void
@@ -91,10 +111,8 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	
 	public function toHtml() : string
 	{
-		return Collection::make($this->items)
-			->filter(function($value, $name) {
-				return !in_array($name, $this->except, false);
-			})
+		return $this->toCollection()
+			->except($this->except)
 			->filter(function($value) {
 				return false !== $value && null !== $value;
 			})
@@ -111,6 +129,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			->implode(' ');
 	}
 	
+	public function toCollection() : Collection
+	{
+		return new Collection($this->toArray());
+	}
+	
 	/**
 	 * Get the instance as an array.
 	 *
@@ -118,6 +141,14 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	public function toArray() : array
 	{
-		return $this->items;
+		$array = $this->items;
+		
+		$keys_to_mutate = array_intersect(array_keys($array), array_keys($this->mutators));
+		
+		foreach ($keys_to_mutate as $key) {
+			$array[$key] = $this->offsetGet($key);
+		}
+		
+		return $array;
 	}
 }

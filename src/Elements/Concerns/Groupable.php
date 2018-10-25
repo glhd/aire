@@ -129,6 +129,11 @@ trait Groupable
 			: $this->render();
 	}
 	
+	public function __toString()
+	{
+		return $this->toHtml();
+	}
+	
 	public function __call($method_name, $arguments)
 	{
 		$group_method = 0 === strpos($method_name, 'group')

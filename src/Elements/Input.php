@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements;
 
+use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\Groupable;
 
 class Input extends \Galahad\Aire\DTD\Input
@@ -12,30 +13,21 @@ class Input extends \Galahad\Aire\DTD\Input
 		'type' => 'text',
 	];
 	
-	protected function viewData()
+	public function __construct(Aire $aire, Form $form = null)
 	{
-		$view_data = parent::viewData();
+		parent::__construct($aire, $form);
 		
-		switch ($view_data['type']) {
-			case 'date':
-				if ($view_data['value'] instanceof \DateTime) {
-					$view_data['value'] = $view_data['value']->format('Y-m-d');
+		$this->attributes->registerMutator('value', function($value) {
+			if ($value instanceof \DateTime) {
+				switch ($this->attributes->get('type')) {
+					case 'date':
+						return $value->format('Y-m-d');
+					case 'datetime-local':
+						return $value->format('Y-m-d\TH:i');
 				}
-				if ($view_data['attributes']['value'] instanceof \DateTime) {
-					$view_data['attributes']['value'] = $view_data['attributes']['value']->format('Y-m-d');
-				}
-				break;
+			}
 			
-			case 'datetime-local':
-				if ($view_data['value'] instanceof \DateTime) {
-					$view_data['value'] = $view_data['value']->format('Y-m-d\TH:i');
-				}
-				if ($view_data['attributes']['value'] instanceof \DateTime) {
-					$view_data['attributes']['value'] = $view_data['attributes']['value']->format('Y-m-d\TH:i');
-				}
-				break;
-		}
-		
-		return $view_data;
+			return $value;
+		});
 	}
 }

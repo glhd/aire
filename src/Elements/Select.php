@@ -14,21 +14,11 @@ class Select extends \Galahad\Aire\DTD\Select
 		parent::__construct($aire, $form);
 		
 		$this->view_data['options'] = $options;
-	}
-	
-	protected function viewData()
-	{
-		$view_data = parent::viewData();
 		
-		if ($this->attributes['multiple'] ?? false) {
-			if (isset($view_data['name']) && '[]' !== substr($view_data['name'], -2)) {
-				$view_data['name'] .= '[]';
-			}
-			if (isset($view_data['attributes']['name']) && '[]' !== substr($view_data['attributes']['name'], -2)) {
-				$view_data['attributes']['name'] .= '[]';
-			}
-		}
-		
-		return $view_data;
+		$this->attributes->registerMutator('name', function($name) {
+			return $this->attributes->get('multiple', false)
+				? "{$name}[]"
+				: $name;
+		});
 	}
 }
