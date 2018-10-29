@@ -10,7 +10,7 @@
 		Aire Documentation &amp; Demos
 	</title>
 	
-	<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet" />
+	<link href="{{ App::isLocal() ? asset('tailwind.css') : 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css' }}" rel="stylesheet" />
 </head>
 
 <body>

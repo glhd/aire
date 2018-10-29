@@ -3,6 +3,8 @@
 namespace Docs;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
@@ -14,6 +16,8 @@ class BuildCommand extends Command
 	
 	public function handle()
 	{
+		Config::set('app.env', 'production');
+		
 		$dist = dirname(__DIR__);
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
