@@ -30,13 +30,18 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected $translations_directory;
 	
+	protected $js_dist_directory;
+	
 	public function __construct(Application $app)
 	{
 		parent::__construct($app);
 		
-		$this->config_path = __DIR__.'/../../config/aire.php';
-		$this->view_directory = __DIR__.'/../../views';
-		$this->translations_directory = __DIR__.'/../../translations';
+		$base_path = dirname(__DIR__, 2);
+		
+		$this->config_path = "$base_path/config/aire.php";
+		$this->view_directory = "$base_path/views";
+		$this->translations_directory = "$base_path/translations";
+		$this->js_dist_directory = "$base_path/js/dist";
 	}
 	
 	/**
@@ -51,6 +56,7 @@ class AireServiceProvider extends ServiceProvider
 		$this->bootConfig();
 		$this->bootViews();
 		$this->bootTranslations();
+		$this->bootPublicAssets();
 	}
 	
 	/**
@@ -76,8 +82,9 @@ class AireServiceProvider extends ServiceProvider
 		$this->app->bind('galahad.aire.form', function(Application $app) {
 			return new Form(
 				$app['galahad.aire'],
-				$app['routes'],
-				$app['session.store']
+				$app['url'],
+				$app->bound('routes') ? $app['routes'] : null,
+				$app->bound('session.store') ? $app['session.store'] : null
 			);
 		});
 		
@@ -140,5 +147,19 @@ class AireServiceProvider extends ServiceProvider
 		}
 		
 		return $this;
+	}
+	
+	/**
+	 * Publish public assets (JS/etc)
+	 *
+	 * @return \Galahad\Aire\Support\AireServiceProvider
+	 */
+	protected function bootPublicAssets() : self
+	{
+		if (method_exists($this->app, 'publicPath')) {
+			$this->publishes([
+				$this->js_dist_directory => $this->app->publicPath('vendor/aire/js'),
+			], 'public');
+		}
 	}
 }

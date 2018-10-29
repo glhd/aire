@@ -23,6 +23,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	public $bound_data;
 	
 	/**
+	 * Forms are validated by default
+	 *
+	 * @var bool
+	 */
+	public $validate = true;
+	
+	/**
 	 * @inheritdoc
 	 */
 	protected $default_attributes = [
@@ -59,7 +66,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $session_store;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, RouteCollection $routes, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, RouteCollection $routes = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
@@ -70,6 +77,8 @@ class Form extends \Galahad\Aire\DTD\Form
 			$this->session_store = $session_store;
 			$this->view_data['_token'] = $session_store->token();
 		}
+		
+		$this->validate = $this->aire->config('validate_by_default', true);
 	}
 	
 	/**
@@ -189,6 +198,9 @@ class Form extends \Galahad\Aire\DTD\Form
 		$action = $this->url->route($route_name, $parameters, $absolute);
 		$this->action($action);
 		
+		// FIXME: Needs tests
+		$this->inferMethodFromRoute($route_name);
+		
 		return $this;
 	}
 	
@@ -232,6 +244,30 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	/**
+	 * Enable client-side validation
+	 *
+	 * @return $this
+	 */
+	public function validate() : self
+	{
+		$this->validate = true;
+		
+		return $this;
+	}
+	
+	/**
+	 * Disable client-side validation
+	 *
+	 * @return $this
+	 */
+	public function withoutValidation() : self
+	{
+		$this->validate = false;
+		
+		return $this;
+	}
+	
 	public function render() : string
 	{
 		if ($this->opened) {
@@ -243,6 +279,31 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function initGroup()
 	{
-		// Ignore
+		// Ignore for Form
+	}
+	
+	protected function inferMethodFromRoute($route_name)
+	{
+		if (!$this->routes) {
+			return;
+		}
+		
+		if (!$route = $this->routes->getByName($route_name)) {
+			return;
+		}
+		
+		$methods = array_filter($route->methods(), function($method) {
+			return 'HEAD' !== $method;
+		});
+		
+		if (1 !== count($methods)) {
+			return;
+		}
+		
+		$method = strtolower($methods[0]);
+		
+		if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
+			$this->$method();
+		}
 	}
 }

@@ -134,9 +134,12 @@ abstract class Element implements Htmlable
 		$attributes = $this->attributes;
 		
 		return array_merge(
-			$attributes->toArray(),         // Provide shortcuts to all attributes
-			$this->view_data,               // Override with view data
-			compact('attributes')   // Finally, make sure $attributes is always available
+			$attributes->toArray(), // Provide shortcuts to all attributes
+			$this->view_data, // Override with view data
+			[
+				'attributes' => $attributes, // Ensure that $attributes always exists
+				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
+			],
 		);
 	}
 	
@@ -158,6 +161,10 @@ abstract class Element implements Htmlable
 			}
 			
 			return $this->form->getBoundValue($this->attributes->get('name'));
+		});
+		
+		$this->attributes->registerMutator('data-validate', function() {
+			return $this->form->validate ? 'true' : 'false';
 		});
 		
 		return $this;

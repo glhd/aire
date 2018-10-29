@@ -1,4 +1,4 @@
-<div class="mb-6 {{ $class }}">
+<div class="mb-6 {{ $class }}" data-aire-group>
 	{{ $label ?? '' }}
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">
@@ -18,13 +18,13 @@
 	</div>
 	
 	@isset($help_text)
-		<small class="block mt-1 text-grey-dark text-sm font-normal">
+		<small class="block mt-1 text-grey-dark text-sm font-normal" data-aire-help-text>
 			{{ $help_text }}
 		</small>
 	@endisset
 	
 	@if(isset($errors) && count($errors))
-		<ul class="list-reset">
+		<ul class="list-reset" data-aire-errors>
 			
 			@foreach($errors as $error)
 				

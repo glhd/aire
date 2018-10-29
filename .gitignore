@@ -6,3 +6,6 @@ composer.lock
 .idea/
 data/
 docs/src/cache/*.php
+.phpstorm.meta.php
+_ide_helper.php
+node_modules

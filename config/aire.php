@@ -17,6 +17,19 @@ return [
 	
 	/*
 	|--------------------------------------------------------------------------
+	| Default Client-Side Validation
+	|--------------------------------------------------------------------------
+	|
+	| Aire comes with built-in client-side validation. By default, it is
+	| enabled when available. You can disable this on a form-by-form basis
+	| by using the `withoutValidation()` method, but if you would like to turn
+	| off validation by default, you can set this configuration value.
+	|
+	*/
+	'validate_by_default' => true,
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Default Attributes
 	|--------------------------------------------------------------------------
 	|
