@@ -1,9 +1,11 @@
 <?php
 
-echo "/**\n";
+echo "<?php\n\n";
+echo "namespace {\n";
+echo "\tclass Aire extends \Galahad\Aire\Support\Facades\Aire {\n";
 
 $classes = [
-	// \Galahad\Aire\Aire::class,
+	\Galahad\Aire\Aire::class,
 	\Galahad\Aire\Elements\Form::class,
 ];
 
@@ -24,16 +26,8 @@ foreach ($classes as $class) {
 		}
 		
 		$return = $method->hasReturnType()
-			? (string) $method->getReturnType()
+			? $method->getReturnType()
 			: 'mixed';
-		
-		if ('self' === $return) {
-			$return = $class;
-		}
-		
-		if (false !== strpos($return, '\\')) {
-			$return = "\\$return";
-		}
 		
 		$params = collect($method->getParameters())
 			->map(function(ReflectionParameter $parameter) use ($class) {
@@ -58,9 +52,20 @@ foreach ($classes as $class) {
 			})
 			->implode(', ');
 		
-		echo " * @method static $return $name($params)\n";
+		$param_calls = collect($method->getParameters())
+			->map(function(ReflectionParameter $parameter) {
+				return '$'.$parameter->getName();
+			})
+			->implode(', ');
+		
+		echo "\t\tpublic function $name($params)\n";
+		echo "\t\t{\n";
+		echo "\t\t\treturn \Galahad\Aire\Aire::$name($param_calls);\n";
+		echo "\t\t}\n";
+		echo "\t\t\n";
 		
 	}
 }
 
-echo " */\n";
+echo "\t}\n";
+echo "}\n";
