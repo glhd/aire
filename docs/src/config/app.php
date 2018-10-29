@@ -36,6 +36,7 @@ return [
 		Illuminate\View\ViewServiceProvider::class,
 		
 		Galahad\Aire\Support\AireServiceProvider::class,
+		GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 		
 		Docs\RouteServiceProvider::class,
 		
@@ -78,6 +79,7 @@ return [
 		'View' => Illuminate\Support\Facades\View::class,
 		
 		'Aire' => Galahad\Aire\Support\Facades\Aire::class,
+		'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 	
 	],
 

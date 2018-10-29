@@ -50,10 +50,21 @@ class BuildCommand extends Command
 		$dist = dirname(__DIR__);
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
+		$data = [
+			'readme' => new Readme(),
+		];
+		
 		foreach ($files as $filename) {
 			$view = basename($filename, '.blade.php');
+			
+			// Skip partials
+			if ('_' === $view[0]) {
+				$this->comment("Skipping '$view' partial...");
+				continue;
+			}
+			
 			$this->comment("Writing '$view' view...");
-			File::put("$dist/$view.html", View::make($view)->render());
+			File::put("$dist/$view.html", View::make($view, $data)->render());
 		}
 	}
 }

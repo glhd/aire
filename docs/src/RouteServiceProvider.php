@@ -2,8 +2,8 @@
 
 namespace Docs;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -11,8 +11,10 @@ class RouteServiceProvider extends ServiceProvider
 	
 	public function map()
 	{
-		Route::get('/', function () {
-			return view('index');
+		Route::get('/', function() {
+			return view('index', [
+				'readme' => new Readme(),
+			]);
 		});
 	}
 }

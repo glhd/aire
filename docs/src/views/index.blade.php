@@ -1,45 +1,32 @@
-<!doctype html>
-<html lang="en">
+@extends('_layout')
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="x-ua-compatible" content="ie=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+@section('content')
 	
-	<title>
-		Aire Documentation &amp; Demos
-	</title>
+	<h2 id="intro" class="mb-8 font-semibold text-grey-darkest">
+		Introduction
+	</h2>
 	
-	<link href="{{ App::isLocal() ? asset('tailwind.css') : 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css' }}" rel="stylesheet" />
-</head>
-
-<body>
-
-	<div class="container mx-auto my-8">
-		
-		<div class="my-8">
-			
-			<h2 class="mb-8">
-				Basic Form Example
-			</h2>
-
-			{{ Aire::open() }}
-			
-			{{ Aire::input()
-				->label('Demo Input')
-				->id('demo')
-				->helpText('This is demo help text.') }}
-			
-			{{ Aire::textarea()->value('Demo text area') }}
-			
-			{{ Aire::button('Demo Button') }}
-			
-			{{ Aire::close() }}
-		
-		</div>
+	<p>
+		Aire is a form builder library for Laravel.
+	</p>
 	
-	</div>
+	{!! $readme !!}
+	
+	<h2 id="demo" class="mb-8 font-semibold text-grey-darkest">
+		Basic Demo
+	</h2>
+	
+	{{ Aire::open() }}
+	
+	{{ Aire::input()
+		->label('Demo Input')
+		->id('demo')
+		->helpText('This is demo help text.') }}
+	
+	{{ Aire::textarea()->value('Demo text area') }}
+	
+	{{ Aire::button('Demo Button') }}
+	
+	{{ Aire::close() }}
 
-</body>
-
-</html>
+@endsection

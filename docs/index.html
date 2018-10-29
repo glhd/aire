@@ -7,23 +7,142 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-		Aire Documentation &amp; Demos
+		Aire - Documentation &amp; Demos
 	</title>
 	
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-grey-lightest font-sans antialiased">
 
-	<div class="container mx-auto my-8">
-		
-		<div class="my-8">
+<div class="container mx-auto my-8 flex flex-col sm:flex-row-reverse">
+	
+	<div class="flex-1 rounded border bg-white p-4 shadow-md">
 			
-			<h2 class="mb-8">
-				Basic Form Example
-			</h2>
+	<h2 id="intro" class="mb-8 font-semibold text-grey-darkest">
+		Introduction
+	</h2>
+	
+	<p>
+		Aire is a form builder library for Laravel.
+	</p>
+	
+	<body>
+<h1 class="mt-6 mb-2 font-semibold text-grey-darkest text-lg">Aire</h1>
+<p class="my-4 text-base">Aire is a modern Laravel form builder (<a href="https://glhd.github.io/aire/">demo</a>).</p>
+<h1 class="mt-6 mb-2 font-semibold text-grey-darkest text-lg">Configuration</h1>
+<p class="my-4 text-base">Aire comes with classes that should work with the default Tailwind class names
+out of the box (<code class="bg-grey-lightest text-purple-darker inline-block px-1">.bg-blue-dark</code> etc). If you need to change the default class names
+for any given element, there are two different ways to go about it.</p>
+<p class="my-4 text-base">The first is to publish the <code class="bg-grey-lightest text-purple-darker inline-block px-1">aire.php</code> config file via <code class="bg-grey-lightest text-purple-darker inline-block px-1">php artisan vendor:publish --tag=config</code>
+and update the <code class="bg-grey-lightest text-purple-darker inline-block px-1">default_classes</code> config for the element you'd like to change:</p>
+<pre class="bg-grey-lightest border rounded-sm p-2"><code class="bg-grey-lightest text-purple-darker inline-block px-1">return [
+  'default_classes' =&gt; [
+    'input' =&gt; 'text-grey-darkest bg-white border rounded-sm',
+  ],
+];
+</code></pre>
+<p class="my-4 text-base">The second option is to publish custom views via <code class="bg-grey-lightest text-purple-darker inline-block px-1">php artisan vendor:publish --tag=views</code>
+which gives you total control over component rendering. There's a view file for each component
+type (<code class="bg-grey-lightest text-purple-darker inline-block px-1">input.blade.php</code> etc) as well as for component grouping. This gives you the most
+flexibility, but means that you have the maintain your views as Aire releases add new
+features or change component rendering.</p>
+<h1 class="mt-6 mb-2 font-semibold text-grey-darkest text-lg">Usage</h1>
+<p class="my-4 text-base">The most common usage is via the <code class="bg-grey-lightest text-purple-darker inline-block px-1">Aire</code> facade in your blade templates. All method calls
+are fluent, allowing for easy configuration of your form components:</p>
+<pre class="bg-grey-lightest border rounded-sm p-2"><code class="bg-grey-lightest text-purple-darker inline-block px-1">{{ Aire::bind($user) }}
 
-			<form action="" method="POST" class="" data-aire-id="1">
+{{ Aire::open()-&gt;route('users.update') }}
+
+&lt;div class="flex flex-col md:flex-row"&gt;
+
+  {{ Aire::input('given_name', 'First/Given Name')
+    -&gt;id('given_name')
+    -&gt;autoComplete('off')
+    -&gt;groupClass('flex-1 mr-2') }}
+    
+  {{ Aire::input('family_name', 'Last/Family Name')
+    -&gt;id('family_name')
+    -&gt;autoComplete('off')
+    -&gt;groupClass('flex-1') }}
+  
+&lt;/div&gt;
+  
+{{ Aire::email('email', 'Email Address') }}
+  
+{{ Aire::submit('Update User') }}
+  
+{{ Aire::close() }}
+</code></pre>
+<h2 class="mt-4 mb-2 font-semibold text-grey-darkest text-base">Considerations/Inspiration</h2>
+<ul>
+<li>Form controls should take sizing config</li>
+<li>'Read-only plain text' http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text</li>
+<li>'Form groups' - Label/input/help text/validation text (config how many errors show)</li>
+<li>Multi-column forms (Name: {first} {last})</li>
+<li>Configurable support for custom checkboxes and radios?</li>
+<li>Custom select support?</li>
+<li>File inputs?</li>
+<li>Should client-side validation be included?</li>
+<li>https://github.com/netojose/laravel-bootstrap-4-forms</li>
+<li>https://tailwindcss.com/docs/examples/forms/</li>
+<li>https://github.com/glhd/forms</li>
+<li>https://github.com/glhd/bootforms</li>
+<li>Append/Prepend (input groups)</li>
+</ul>
+<h2 class="mt-4 mb-2 font-semibold text-grey-darkest text-base">Components</h2>
+<ul>
+<li>Button</li>
+<li>Checkbox</li>
+<li>Date</li>
+<li>DateTimeLocal</li>
+<li>Email</li>
+<li>File</li>
+<li>FormControl</li>
+<li>FormOpen</li>
+<li>FormClose</li>
+<li>Hidden</li>
+<li>Input</li>
+<li>Label</li>
+<li>Password</li>
+<li>RadioButton</li>
+<li>Select</li>
+<li>Text</li>
+<li>TextArea</li>
+</ul>
+<h2 class="mt-4 mb-2 font-semibold text-grey-darkest text-base">Input Types</h2>
+<ul>
+<li>button</li>
+<li>checkbox</li>
+<li>color</li>
+<li>date</li>
+<li>datetime</li>
+<li>datetime-local</li>
+<li>email</li>
+<li>file</li>
+<li>hidden</li>
+<li>image</li>
+<li>month</li>
+<li>number</li>
+<li>password</li>
+<li>radio</li>
+<li>range</li>
+<li>reset</li>
+<li>search</li>
+<li>submit</li>
+<li>tel</li>
+<li>text</li>
+<li>time</li>
+<li>url</li>
+<li>wee</li>
+</ul>
+</body>
+	
+	<h2 id="demo" class="mb-8 font-semibold text-grey-darkest">
+		Basic Demo
+	</h2>
+	
+	<form action="" method="POST" class="" data-aire-id="1">
 
 		
 		
@@ -51,8 +170,8 @@
 		
 	</div>
 
-			
-			<div class="mb-6 " data-aire-group>
+	
+	<div class="mb-6 " data-aire-group>
 	
 	
 	<div class="">
@@ -67,8 +186,8 @@
 		
 	</div>
 
-			
-			<div class="mb-6 " data-aire-group>
+	
+	<div class="mb-6 " data-aire-group>
 	
 	
 	<div class="">
@@ -2044,10 +2163,43 @@
 		
 </form>
 
-		
-		</div>
-	
+
 	</div>
+	
+	<div class="flex-no-shrink pr-8">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 204.07 130.44" width="180">
+		<title>aire</title>
+		<g>
+			<path d="M75.5,126h196a4,4,0,0,1,4,4v35a4,4,0,0,1-4,4H75.5a4,4,0,0,1-4-4V130A4,4,0,0,1,75.5,126Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f;fill-rule: evenodd"/>
+			<path d="M75.5,126h196a4,4,0,0,1,4,4v35a4,4,0,0,1-4,4H75.5a4,4,0,0,1-4-4V130A4,4,0,0,1,75.5,126Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f;fill-rule: evenodd"/>
+			<path d="M79.5,131h188c2.21,0,3,.79,3,3v27c0,2.21-.79,3-3,3H79.5c-2.21,0-3-.79-3-3V134C76.5,131.79,77.29,131,79.5,131Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f;fill-rule: evenodd"/>
+			<path d="M80.5,131h186a4,4,0,0,1,4,4v25a4,4,0,0,1-4,4H80.5a4,4,0,0,1-4-4V135A4,4,0,0,1,80.5,131Z" transform="translate(-71.43 -86.06)" style="fill: #fff;fill-rule: evenodd"/>
+			<path d="M75.5,173.5h126a4,4,0,0,1,4,4v35a4,4,0,0,1-4,4H75.5a4,4,0,0,1-4-4v-35A4,4,0,0,1,75.5,173.5Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f;fill-rule: evenodd"/>
+			<path d="M82.69,118.49l-2-.84-.88-1.49,1.25-4H91.9L93,115.88l-.75,1.91-2.46.7v3.11h14.56v-3.25l-3-1.12L92.09,89.09H83.71l-9.35,28.19-2.93,1.07v3.25H82.69Zm1.86-17.63,1.35-6H87l1.35,6,2.24,7.25H82.27Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f"/>
+			<path d="M111.62,93.78a3.87,3.87,0,1,0-4.14-3.86A3.91,3.91,0,0,0,111.62,93.78ZM105.3,121.6h13.35v-2.83l-2.14-.47-1.07-2v-19H105.3v2.84l2.37.46,1.07,2V116.3l-1.07,2-2.37.47Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f"/>
+			<path d="M134.7,118.77l-2.47-.47-1.07-2v-6.37a8.65,8.65,0,0,1,3.72-7.49l2.28,2.46c2.42.14,5-1.35,5-4.37a3.74,3.74,0,0,0-3.91-3.81c-2.47,0-4.93,2.14-7.21,7.86l-.37-.19.46-5.91V97.32h-10v2.84l2.23.46,1.07,2V116.3l-1.07,2-2.23.47v2.83H134.7Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f"/>
+			<path d="M165.12,118.86l-1.35-2.7A16.73,16.73,0,0,1,157,118c-4.09,0-6.19-2.19-6.56-7.22h15.17v-1.48c0-7.4-3.4-12.7-10.47-12.7-6.84,0-11.86,5.62-11.86,13.25,0,7.17,4.37,12.52,11.86,12.52A17.6,17.6,0,0,0,165.12,118.86ZM154.61,99.79c2.88,0,3.81,2.79,3.91,8h-8.15C150.51,102.34,152,99.79,154.61,99.79Z" transform="translate(-71.43 -86.06)" style="fill: #f4645f"/>
+		</g>
+	</svg>
+	
+	<ul class="list-reset mt-8">
+		
+		<li>
+			<a href="http://localhost#intro" class="text-grey-darker no-underline font-semibold text-lg hover:underline">
+				Introduction
+			</a>
+		</li>
+		
+		<li>
+			<a href="http://localhost#demo" class="text-grey-darker no-underline font-semibold text-lg hover:underline">
+				Basic Demo
+			</a>
+		</li>
+		
+	</ul>
+</div>
+
+</div>
 
 </body>
 
