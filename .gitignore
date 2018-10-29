@@ -10,3 +10,4 @@ docs/src/cache/*.php
 _ide_helper.php
 node_modules
 mix-manifest.json
+yarn-error.log
