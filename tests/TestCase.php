@@ -13,6 +13,14 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class TestCase extends Orchestra
 {
+	protected function setUp()
+	{
+		parent::setUp();
+		
+		// Don't pollute test output with JS unless necessary
+		$this->app['config']->set('aire.inline_validation', false);
+	}
+	
 	protected function getPackageProviders($app)
 	{
 		return [
