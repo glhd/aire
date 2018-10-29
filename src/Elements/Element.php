@@ -129,7 +129,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return array
 	 */
-	protected function viewData()
+	protected function viewData() : array
 	{
 		$attributes = $this->attributes;
 		
@@ -139,7 +139,7 @@ abstract class Element implements Htmlable
 			[
 				'attributes' => $attributes, // Ensure that $attributes always exists
 				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
-			],
+			]
 		);
 	}
 	

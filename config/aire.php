@@ -30,6 +30,21 @@ return [
 	
 	/*
 	|--------------------------------------------------------------------------
+	| Client-Side Validation Scripts
+	|--------------------------------------------------------------------------
+	|
+	| For easiest integration, Aire will inline the javascript necessary to
+	| perform client-side validation. You can instead publish the JS scripts
+	| and load them via `<script>` tags to take advantage of HTTP caching.
+	|
+	*/
+	'inline_validation' => true,
+	'validation_script_path' => function_exists('asset')
+		? asset('vendor/aire/js/aire.js')
+		: null,
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Default Attributes
 	|--------------------------------------------------------------------------
 	|

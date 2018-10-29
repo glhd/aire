@@ -117,7 +117,7 @@ class Group extends Element
 		return $this;
 	}
 	
-	protected function viewData()
+	protected function viewData() : array
 	{
 		$errors = [];
 		if ($name = $this->element->getAttribute('name')) {

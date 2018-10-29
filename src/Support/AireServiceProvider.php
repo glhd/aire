@@ -83,6 +83,7 @@ class AireServiceProvider extends ServiceProvider
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
+				"{$this->js_dist_directory}/aire.js",
 				$app->bound('routes') ? $app['routes'] : null,
 				$app->bound('session.store') ? $app['session.store'] : null
 			);
@@ -161,5 +162,7 @@ class AireServiceProvider extends ServiceProvider
 				$this->js_dist_directory => $this->app->publicPath('vendor/aire/js'),
 			], 'public');
 		}
+		
+		return $this;
 	}
 }

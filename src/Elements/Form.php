@@ -16,6 +16,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	use CreatesElements, CreatesInputTypes;
 	
 	/**
+	 * Global "id" for use with JS targeting
+	 *
+	 * @var int
+	 */
+	protected static $next_form_id = 1;
+	
+	/**
 	 * Data that's bound to the form
 	 *
 	 * @var object|\Illuminate\Database\Eloquent\Model|array
@@ -66,7 +73,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $session_store;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, RouteCollection $routes = null, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, RouteCollection $routes = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
@@ -78,7 +85,7 @@ class Form extends \Galahad\Aire\DTD\Form
 			$this->view_data['_token'] = $session_store->token();
 		}
 		
-		$this->validate = $this->aire->config('validate_by_default', true);
+		$this->initValidation($validation_src);
 	}
 	
 	/**
@@ -277,6 +284,11 @@ class Form extends \Galahad\Aire\DTD\Form
 		return parent::render();
 	}
 	
+	protected function viewData() : array
+	{
+		return array_merge(parent::viewData(), ['validate' => $this->validate]);
+	}
+	
 	protected function initGroup()
 	{
 		// Ignore for Form
@@ -305,5 +317,16 @@ class Form extends \Galahad\Aire\DTD\Form
 		if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
 			$this->$method();
 		}
+	}
+	
+	protected function initValidation(string $validation_src) : void
+	{
+		$this->data('aire-id', static::$next_form_id++);
+		
+		$this->validate = $this->aire->config('validate_by_default', true);
+		
+		$this->view_data['inline_validation'] = $this->aire->config('inline_validation', true);
+		$this->view_data['validation_script_path'] = $this->aire->config('validation_script_path');
+		$this->view_data['validation_src'] = $validation_src;
 	}
 }
