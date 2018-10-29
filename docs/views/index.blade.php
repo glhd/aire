@@ -1,5 +1,3 @@
-<?php use Galahad\Aire\Support\Facades\Aire; ?>
-
 <!doctype html>
 <html lang="en">
 

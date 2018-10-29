@@ -28,7 +28,8 @@
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0",
     "symfony/css-selector": "^4.1",
-    "symfony/dom-crawler": "^4.1"
+    "symfony/dom-crawler": "^4.1",
+    "laravel/framework": "^5.7"
   },
   "autoload": {
     "psr-4": {
@@ -40,7 +41,8 @@
       "tests/TestCase.php"
     ],
     "psr-4": {
-      "Galahad\\Aire\\Tests\\": "tests/"
+      "Galahad\\Aire\\Tests\\": "tests/",
+      "Docs\\": "docs/"
     }
   },
   "minimum-stability": "stable",
@@ -53,5 +55,10 @@
         "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
       }
     }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
+    ]
   }
 }

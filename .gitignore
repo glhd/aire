@@ -11,3 +11,8 @@ _ide_helper.php
 node_modules
 mix-manifest.json
 yarn-error.log
+docs/cache/*
+docs/bootstrap/cache/*
+docs/storage
+!docs/bootstrap/cache/.gitkeep
+!docs/cache/.gitkeep
