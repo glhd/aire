@@ -17,7 +17,7 @@ return [
 		Illuminate\Bus\BusServiceProvider::class,
 		Illuminate\Cache\CacheServiceProvider::class,
 		Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-		// Illuminate\Cookie\CookieServiceProvider::class,
+		Illuminate\Cookie\CookieServiceProvider::class,
 		Illuminate\Database\DatabaseServiceProvider::class,
 		// Illuminate\Encryption\EncryptionServiceProvider::class,
 		Illuminate\Filesystem\FilesystemServiceProvider::class,
@@ -30,12 +30,15 @@ return [
 		Illuminate\Queue\QueueServiceProvider::class,
 		// Illuminate\Redis\RedisServiceProvider::class,
 		// Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
-		// Illuminate\Session\SessionServiceProvider::class,
+		Illuminate\Session\SessionServiceProvider::class,
 		Illuminate\Translation\TranslationServiceProvider::class,
 		Illuminate\Validation\ValidationServiceProvider::class,
 		Illuminate\View\ViewServiceProvider::class,
 		
+		Galahad\Aire\Support\AireServiceProvider::class,
+		
 		Docs\RouteServiceProvider::class,
+		
 	],
 	
 	'aliases' => [
@@ -48,7 +51,7 @@ return [
 		// 'Bus' => Illuminate\Support\Facades\Bus::class,
 		'Cache' => Illuminate\Support\Facades\Cache::class,
 		'Config' => Illuminate\Support\Facades\Config::class,
-		// 'Cookie' => Illuminate\Support\Facades\Cookie::class,
+		'Cookie' => Illuminate\Support\Facades\Cookie::class,
 		// 'Crypt' => Illuminate\Support\Facades\Crypt::class,
 		// 'DB' => Illuminate\Support\Facades\DB::class,
 		// 'Eloquent' => Illuminate\Database\Eloquent\Model::class,
@@ -66,15 +69,15 @@ return [
 		// 'Redis' => Illuminate\Support\Facades\Redis::class,
 		'Request' => Illuminate\Support\Facades\Request::class,
 		'Response' => Illuminate\Support\Facades\Response::class,
-		// 'Route' => Illuminate\Support\Facades\Route::class,
-		'Schema' => Illuminate\Support\Facades\Schema::class,
-		// 'Session' => Illuminate\Support\Facades\Session::class,
+		'Route' => Illuminate\Support\Facades\Route::class,
+		// 'Schema' => Illuminate\Support\Facades\Schema::class,
+		'Session' => Illuminate\Support\Facades\Session::class,
 		'Storage' => Illuminate\Support\Facades\Storage::class,
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View' => Illuminate\Support\Facades\View::class,
 		
-		'Aire' => \Galahad\Aire\Support\Facades\Aire::class,
+		'Aire' => Galahad\Aire\Support\Facades\Aire::class,
 	
 	],
 

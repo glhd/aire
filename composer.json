@@ -42,7 +42,7 @@
     ],
     "psr-4": {
       "Galahad\\Aire\\Tests\\": "tests/",
-      "Docs\\": "docs/"
+      "Docs\\": "docs/src/"
     }
   },
   "minimum-stability": "stable",
