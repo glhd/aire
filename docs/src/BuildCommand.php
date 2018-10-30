@@ -42,7 +42,7 @@ class BuildCommand extends Command
 		$this->comment('Copying assets...');
 		
 		File::copy(__DIR__.'/public/tailwind.css', __DIR__.'/../tailwind.css');
-		File::copy(__DIR__.'/../../js/dist/aire.js', __DIR__.'/../aire.js');
+		// File::copy(__DIR__.'/../../js/dist/aire.js', __DIR__.'/../aire.js');
 	}
 	
 	protected function writeFiles()
