@@ -109,7 +109,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		}
 		
 		if (isset($this->mutators[$key])) {
-			return null !== call_user_func($this->mutators[$key], null);
+			return null !== $this->offsetGet($key);
 		}
 		
 		return false;

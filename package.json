@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "css": "tailwind build docs/src/aire.css -c ./tailwind.js -o ./docs/src/public/aire.css",
     "dev": "rollup --config --watch",
     "prod": "rollup --config"
   },
@@ -11,6 +12,7 @@
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
+    "tailwindcss": "^0.6.6",
     "validatorjs": "^3.15.1"
   }
 }

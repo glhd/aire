@@ -10,20 +10,30 @@
 		Aire - {{ $title ?? 'Documentation & Demos' }}
 	</title>
 	
-	<link href="{{ App::isLocal() ? asset('tailwind.css') : 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css' }}" rel="stylesheet" />
+	<link href="{{ asset('aire.css') }}" rel="stylesheet" />
 </head>
 
-<body class="bg-grey-lightest font-sans antialiased">
+<body class="font-sans antialiased">
 
 <div class="container mx-auto my-8 flex flex-col sm:flex-row-reverse">
 	
-	<div class="flex-1 rounded border bg-white p-4 shadow-md">
+	<div class="flex-1 border-l border-grey-lighter pl-16 text-grey-darkest">
 		@yield('content')
 	</div>
 	
-	@include('_sidebar')
+	<div class="flex-no-shrink pr-16">
+		@include('_sidebar')
+	</div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-markup-templating.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-php.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-php-extras.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-javascript.min.js"></script>
 
 </body>
 

@@ -19,6 +19,7 @@ class BuildCommand extends Command
 		config()->set('app.url', 'https://glhd.github.io/aire/');
 		
 		$this->buildJavascript();
+		$this->buildCSS();
 		$this->copyAssets();
 		$this->writeFiles();
 		
@@ -37,12 +38,23 @@ class BuildCommand extends Command
 		}
 	}
 	
+	protected function buildCSS()
+	{
+		$this->comment('Building tailwind CSS file...');
+		
+		$process = (new Process(['yarn', 'run', 'css']))->setTimeout(null);
+		$process->run();
+		
+		if (!$process->isSuccessful()) {
+			throw new \RuntimeException($process->getErrorOutput());
+		}
+	}
+	
 	protected function copyAssets()
 	{
 		$this->comment('Copying assets...');
 		
-		File::copy(__DIR__.'/public/tailwind.css', __DIR__.'/../tailwind.css');
-		// File::copy(__DIR__.'/../../js/dist/aire.js', __DIR__.'/../aire.js');
+		File::copy(__DIR__.'/public/aire.css', __DIR__.'/../aire.css');
 	}
 	
 	protected function writeFiles()

@@ -16,5 +16,7 @@ class RouteServiceProvider extends ServiceProvider
 				'readme' => new Readme(),
 			]);
 		});
+		
+		Route::view('/basic', 'basic');
 	}
 }
