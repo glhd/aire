@@ -1,14 +1,4 @@
-/**
- * This injects Tailwind's base styles, which is a combination of
- * Normalize.css and some additional base styles.
- *
- * You can see the styles here:
- * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/preflight";
- */
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
 
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 
@@ -617,13 +607,69 @@ table {
   border-collapse: collapse;
 }
 
-/**
- * This injects any component classes registered by plugins.
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/components";
- */
+h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #3d4852;
+  font-size: 1.125rem;
+}
+
+h2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #3d4852;
+  font-size: 1rem;
+}
+
+h3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #8795a1;
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+:not(pre) > code {
+  background-color: #f1f5f8;
+  color: #f4645f;
+  display: inline-block;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-left: .25rem;
+  margin-right: .25rem;
+  font-size: .875rem;
+  border-radius: .125rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+}
+
+pre {
+  background-color: #f8fafc;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  border-radius: .125rem;
+  padding: .5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+ul,
+ol {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+li {
+  margin-bottom: .5rem;
+}
 
 .container {
   width: 100%;
@@ -652,31 +698,6 @@ table {
     max-width: 1200px;
   }
 }
-
-/**
- * Here you would add any of your custom component classes; stuff that you'd
- * want loaded *before* the utilities so that the utilities could still
- * override them.
- *
- * Example:
- *
- * .btn { ... }
- * .form-input { ... }
- *
- * Or if using a preprocessor or `postcss-import`:
- *
- * @import "components/buttons";
- * @import "components/forms";
- */
-
-/**
- * This injects all of Tailwind's utility classes, generated based on your
- * config file.
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/utilities";
- */
 
 .list-reset {
   list-style: none;
@@ -765,6 +786,10 @@ table {
 
 .bg-red-lightest {
   background-color: #fcebea;
+}
+
+.bg-salmon {
+  background-color: #f4645f;
 }
 
 .bg-orange-darkest {
@@ -1059,6 +1084,10 @@ table {
   background-color: #fcebea;
 }
 
+.hover\:bg-salmon:hover {
+  background-color: #f4645f;
+}
+
 .hover\:bg-orange-darkest:hover {
   background-color: #462a16;
 }
@@ -1349,6 +1378,10 @@ table {
 
 .focus\:bg-red-lightest:focus {
   background-color: #fcebea;
+}
+
+.focus\:bg-salmon:focus {
+  background-color: #f4645f;
 }
 
 .focus\:bg-orange-darkest:focus {
@@ -1715,6 +1748,10 @@ table {
   border-color: #fcebea;
 }
 
+.border-salmon {
+  border-color: #f4645f;
+}
+
 .border-orange-darkest {
   border-color: #462a16;
 }
@@ -2007,6 +2044,10 @@ table {
   border-color: #fcebea;
 }
 
+.hover\:border-salmon:hover {
+  border-color: #f4645f;
+}
+
 .hover\:border-orange-darkest:hover {
   border-color: #462a16;
 }
@@ -2297,6 +2338,10 @@ table {
 
 .focus\:border-red-lightest:focus {
   border-color: #fcebea;
+}
+
+.focus\:border-salmon:focus {
+  border-color: #f4645f;
 }
 
 .focus\:border-orange-darkest:focus {
@@ -4881,6 +4926,10 @@ table {
   resize: both;
 }
 
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+}
+
 .shadow {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
 }
@@ -4905,6 +4954,10 @@ table {
   box-shadow: none;
 }
 
+.hover\:shadow-sm:hover {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+}
+
 .hover\:shadow:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
 }
@@ -4927,6 +4980,10 @@ table {
 
 .hover\:shadow-none:hover {
   box-shadow: none;
+}
+
+.focus\:shadow-sm:focus {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
 }
 
 .focus\:shadow:focus {
@@ -5051,6 +5108,10 @@ table {
 
 .text-red-lightest {
   color: #fcebea;
+}
+
+.text-salmon {
+  color: #f4645f;
 }
 
 .text-orange-darkest {
@@ -5345,6 +5406,10 @@ table {
   color: #fcebea;
 }
 
+.hover\:text-salmon:hover {
+  color: #f4645f;
+}
+
 .hover\:text-orange-darkest:hover {
   color: #462a16;
 }
@@ -5635,6 +5700,10 @@ table {
 
 .focus\:text-red-lightest:focus {
   color: #fcebea;
+}
+
+.focus\:text-salmon:focus {
+  color: #f4645f;
 }
 
 .focus\:text-orange-darkest:focus {
@@ -6265,20 +6334,127 @@ table {
   z-index: auto;
 }
 
-/**
- * Here you would add any custom utilities you need that don't come out of the
- * box with Tailwind.
- *
- * Example :
- *
- * .bg-pattern-graph-paper { ... }
- * .skew-45 { ... }
- *
- * Or if using a preprocessor or `postcss-import`:
- *
- * @import "utilities/background-patterns";
- * @import "utilities/skew-transforms";
- */
+code,
+pre {
+  font-family: "Fira Code", Consolas, Monaco, "Andale Mono", monospace;
+  font-feature-settings: "calt" 1;
+  font-variant-ligatures: contextual;
+  text-rendering: optimizeLegibility;
+}
+
+code[class*=language-],
+pre[class*=language-] {
+  color: #000;
+  text-shadow: 0 1px #fff;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  tab-size: 4;
+  hyphens: none;
+}
+
+pre > code {
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+code[class*=language-]::-moz-selection,
+code[class*=language-] ::-moz-selection,
+pre[class*=language-]::-moz-selection,
+pre[class*=language-] ::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+code[class*=language-]::selection,
+code[class*=language-] ::selection,
+pre[class*=language-]::selection,
+pre[class*=language-] ::selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+@media print {
+  code[class*=language-],
+  pre[class*=language-] {
+    text-shadow: none;
+  }
+}
+
+pre[class*=language-] {
+  overflow: auto;
+}
+
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog,
+.token.punctuation {
+  color: #999;
+}
+
+.namespace {
+  opacity: .7;
+}
+
+.token.attr-name,
+.token.boolean,
+.token.constant,
+.token.deleted,
+.token.number,
+.token.property,
+.token.scope,
+.token.symbol,
+.token.tag {
+  color: #da564a;
+}
+
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: #2e7d32;
+}
+
+.language-css .token.string,
+.style .token.string,
+.token.entity,
+.token.operator,
+.token.url {
+  color: #555;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #07a;
+}
+
+.token.function {
+  color: #555;
+}
+
+.token.important,
+.token.regex,
+.token.variable {
+  color: #4ea1df;
+}
+
+.token.bold,
+.token.important {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
 
 @media (min-width: 576px) {
   .sm\:list-reset {
@@ -6368,6 +6544,10 @@ table {
 
   .sm\:bg-red-lightest {
     background-color: #fcebea;
+  }
+
+  .sm\:bg-salmon {
+    background-color: #f4645f;
   }
 
   .sm\:bg-orange-darkest {
@@ -6662,6 +6842,10 @@ table {
     background-color: #fcebea;
   }
 
+  .sm\:hover\:bg-salmon:hover {
+    background-color: #f4645f;
+  }
+
   .sm\:hover\:bg-orange-darkest:hover {
     background-color: #462a16;
   }
@@ -6952,6 +7136,10 @@ table {
 
   .sm\:focus\:bg-red-lightest:focus {
     background-color: #fcebea;
+  }
+
+  .sm\:focus\:bg-salmon:focus {
+    background-color: #f4645f;
   }
 
   .sm\:focus\:bg-orange-darkest:focus {
@@ -7310,6 +7498,10 @@ table {
     border-color: #fcebea;
   }
 
+  .sm\:border-salmon {
+    border-color: #f4645f;
+  }
+
   .sm\:border-orange-darkest {
     border-color: #462a16;
   }
@@ -7602,6 +7794,10 @@ table {
     border-color: #fcebea;
   }
 
+  .sm\:hover\:border-salmon:hover {
+    border-color: #f4645f;
+  }
+
   .sm\:hover\:border-orange-darkest:hover {
     border-color: #462a16;
   }
@@ -7892,6 +8088,10 @@ table {
 
   .sm\:focus\:border-red-lightest:focus {
     border-color: #fcebea;
+  }
+
+  .sm\:focus\:border-salmon:focus {
+    border-color: #f4645f;
   }
 
   .sm\:focus\:border-orange-darkest:focus {
@@ -10468,6 +10668,10 @@ table {
     resize: both;
   }
 
+  .sm\:shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .sm\:shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -10492,6 +10696,10 @@ table {
     box-shadow: none;
   }
 
+  .sm\:hover\:shadow-sm:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .sm\:hover\:shadow:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -10514,6 +10722,10 @@ table {
 
   .sm\:hover\:shadow-none:hover {
     box-shadow: none;
+  }
+
+  .sm\:focus\:shadow-sm:focus {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
   }
 
   .sm\:focus\:shadow:focus {
@@ -10630,6 +10842,10 @@ table {
 
   .sm\:text-red-lightest {
     color: #fcebea;
+  }
+
+  .sm\:text-salmon {
+    color: #f4645f;
   }
 
   .sm\:text-orange-darkest {
@@ -10924,6 +11140,10 @@ table {
     color: #fcebea;
   }
 
+  .sm\:hover\:text-salmon:hover {
+    color: #f4645f;
+  }
+
   .sm\:hover\:text-orange-darkest:hover {
     color: #462a16;
   }
@@ -11214,6 +11434,10 @@ table {
 
   .sm\:focus\:text-red-lightest:focus {
     color: #fcebea;
+  }
+
+  .sm\:focus\:text-salmon:focus {
+    color: #f4645f;
   }
 
   .sm\:focus\:text-orange-darkest:focus {
@@ -11935,6 +12159,10 @@ table {
     background-color: #fcebea;
   }
 
+  .md\:bg-salmon {
+    background-color: #f4645f;
+  }
+
   .md\:bg-orange-darkest {
     background-color: #462a16;
   }
@@ -12227,6 +12455,10 @@ table {
     background-color: #fcebea;
   }
 
+  .md\:hover\:bg-salmon:hover {
+    background-color: #f4645f;
+  }
+
   .md\:hover\:bg-orange-darkest:hover {
     background-color: #462a16;
   }
@@ -12517,6 +12749,10 @@ table {
 
   .md\:focus\:bg-red-lightest:focus {
     background-color: #fcebea;
+  }
+
+  .md\:focus\:bg-salmon:focus {
+    background-color: #f4645f;
   }
 
   .md\:focus\:bg-orange-darkest:focus {
@@ -12875,6 +13111,10 @@ table {
     border-color: #fcebea;
   }
 
+  .md\:border-salmon {
+    border-color: #f4645f;
+  }
+
   .md\:border-orange-darkest {
     border-color: #462a16;
   }
@@ -13167,6 +13407,10 @@ table {
     border-color: #fcebea;
   }
 
+  .md\:hover\:border-salmon:hover {
+    border-color: #f4645f;
+  }
+
   .md\:hover\:border-orange-darkest:hover {
     border-color: #462a16;
   }
@@ -13457,6 +13701,10 @@ table {
 
   .md\:focus\:border-red-lightest:focus {
     border-color: #fcebea;
+  }
+
+  .md\:focus\:border-salmon:focus {
+    border-color: #f4645f;
   }
 
   .md\:focus\:border-orange-darkest:focus {
@@ -16033,6 +16281,10 @@ table {
     resize: both;
   }
 
+  .md\:shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .md\:shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -16057,6 +16309,10 @@ table {
     box-shadow: none;
   }
 
+  .md\:hover\:shadow-sm:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .md\:hover\:shadow:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -16079,6 +16335,10 @@ table {
 
   .md\:hover\:shadow-none:hover {
     box-shadow: none;
+  }
+
+  .md\:focus\:shadow-sm:focus {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
   }
 
   .md\:focus\:shadow:focus {
@@ -16195,6 +16455,10 @@ table {
 
   .md\:text-red-lightest {
     color: #fcebea;
+  }
+
+  .md\:text-salmon {
+    color: #f4645f;
   }
 
   .md\:text-orange-darkest {
@@ -16489,6 +16753,10 @@ table {
     color: #fcebea;
   }
 
+  .md\:hover\:text-salmon:hover {
+    color: #f4645f;
+  }
+
   .md\:hover\:text-orange-darkest:hover {
     color: #462a16;
   }
@@ -16779,6 +17047,10 @@ table {
 
   .md\:focus\:text-red-lightest:focus {
     color: #fcebea;
+  }
+
+  .md\:focus\:text-salmon:focus {
+    color: #f4645f;
   }
 
   .md\:focus\:text-orange-darkest:focus {
@@ -17500,6 +17772,10 @@ table {
     background-color: #fcebea;
   }
 
+  .lg\:bg-salmon {
+    background-color: #f4645f;
+  }
+
   .lg\:bg-orange-darkest {
     background-color: #462a16;
   }
@@ -17792,6 +18068,10 @@ table {
     background-color: #fcebea;
   }
 
+  .lg\:hover\:bg-salmon:hover {
+    background-color: #f4645f;
+  }
+
   .lg\:hover\:bg-orange-darkest:hover {
     background-color: #462a16;
   }
@@ -18082,6 +18362,10 @@ table {
 
   .lg\:focus\:bg-red-lightest:focus {
     background-color: #fcebea;
+  }
+
+  .lg\:focus\:bg-salmon:focus {
+    background-color: #f4645f;
   }
 
   .lg\:focus\:bg-orange-darkest:focus {
@@ -18440,6 +18724,10 @@ table {
     border-color: #fcebea;
   }
 
+  .lg\:border-salmon {
+    border-color: #f4645f;
+  }
+
   .lg\:border-orange-darkest {
     border-color: #462a16;
   }
@@ -18732,6 +19020,10 @@ table {
     border-color: #fcebea;
   }
 
+  .lg\:hover\:border-salmon:hover {
+    border-color: #f4645f;
+  }
+
   .lg\:hover\:border-orange-darkest:hover {
     border-color: #462a16;
   }
@@ -19022,6 +19314,10 @@ table {
 
   .lg\:focus\:border-red-lightest:focus {
     border-color: #fcebea;
+  }
+
+  .lg\:focus\:border-salmon:focus {
+    border-color: #f4645f;
   }
 
   .lg\:focus\:border-orange-darkest:focus {
@@ -21598,6 +21894,10 @@ table {
     resize: both;
   }
 
+  .lg\:shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .lg\:shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -21622,6 +21922,10 @@ table {
     box-shadow: none;
   }
 
+  .lg\:hover\:shadow-sm:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .lg\:hover\:shadow:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -21644,6 +21948,10 @@ table {
 
   .lg\:hover\:shadow-none:hover {
     box-shadow: none;
+  }
+
+  .lg\:focus\:shadow-sm:focus {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
   }
 
   .lg\:focus\:shadow:focus {
@@ -21760,6 +22068,10 @@ table {
 
   .lg\:text-red-lightest {
     color: #fcebea;
+  }
+
+  .lg\:text-salmon {
+    color: #f4645f;
   }
 
   .lg\:text-orange-darkest {
@@ -22054,6 +22366,10 @@ table {
     color: #fcebea;
   }
 
+  .lg\:hover\:text-salmon:hover {
+    color: #f4645f;
+  }
+
   .lg\:hover\:text-orange-darkest:hover {
     color: #462a16;
   }
@@ -22344,6 +22660,10 @@ table {
 
   .lg\:focus\:text-red-lightest:focus {
     color: #fcebea;
+  }
+
+  .lg\:focus\:text-salmon:focus {
+    color: #f4645f;
   }
 
   .lg\:focus\:text-orange-darkest:focus {
@@ -23065,6 +23385,10 @@ table {
     background-color: #fcebea;
   }
 
+  .xl\:bg-salmon {
+    background-color: #f4645f;
+  }
+
   .xl\:bg-orange-darkest {
     background-color: #462a16;
   }
@@ -23357,6 +23681,10 @@ table {
     background-color: #fcebea;
   }
 
+  .xl\:hover\:bg-salmon:hover {
+    background-color: #f4645f;
+  }
+
   .xl\:hover\:bg-orange-darkest:hover {
     background-color: #462a16;
   }
@@ -23647,6 +23975,10 @@ table {
 
   .xl\:focus\:bg-red-lightest:focus {
     background-color: #fcebea;
+  }
+
+  .xl\:focus\:bg-salmon:focus {
+    background-color: #f4645f;
   }
 
   .xl\:focus\:bg-orange-darkest:focus {
@@ -24005,6 +24337,10 @@ table {
     border-color: #fcebea;
   }
 
+  .xl\:border-salmon {
+    border-color: #f4645f;
+  }
+
   .xl\:border-orange-darkest {
     border-color: #462a16;
   }
@@ -24297,6 +24633,10 @@ table {
     border-color: #fcebea;
   }
 
+  .xl\:hover\:border-salmon:hover {
+    border-color: #f4645f;
+  }
+
   .xl\:hover\:border-orange-darkest:hover {
     border-color: #462a16;
   }
@@ -24587,6 +24927,10 @@ table {
 
   .xl\:focus\:border-red-lightest:focus {
     border-color: #fcebea;
+  }
+
+  .xl\:focus\:border-salmon:focus {
+    border-color: #f4645f;
   }
 
   .xl\:focus\:border-orange-darkest:focus {
@@ -27163,6 +27507,10 @@ table {
     resize: both;
   }
 
+  .xl\:shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .xl\:shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -27187,6 +27535,10 @@ table {
     box-shadow: none;
   }
 
+  .xl\:hover\:shadow-sm:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+  }
+
   .xl\:hover\:shadow:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
   }
@@ -27209,6 +27561,10 @@ table {
 
   .xl\:hover\:shadow-none:hover {
     box-shadow: none;
+  }
+
+  .xl\:focus\:shadow-sm:focus {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
   }
 
   .xl\:focus\:shadow:focus {
@@ -27325,6 +27681,10 @@ table {
 
   .xl\:text-red-lightest {
     color: #fcebea;
+  }
+
+  .xl\:text-salmon {
+    color: #f4645f;
   }
 
   .xl\:text-orange-darkest {
@@ -27619,6 +27979,10 @@ table {
     color: #fcebea;
   }
 
+  .xl\:hover\:text-salmon:hover {
+    color: #f4645f;
+  }
+
   .xl\:hover\:text-orange-darkest:hover {
     color: #462a16;
   }
@@ -27909,6 +28273,10 @@ table {
 
   .xl\:focus\:text-red-lightest:focus {
     color: #fcebea;
+  }
+
+  .xl\:focus\:text-salmon:focus {
+    color: #f4645f;
   }
 
   .xl\:focus\:text-orange-darkest:focus {
