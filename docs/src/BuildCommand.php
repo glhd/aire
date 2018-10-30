@@ -18,6 +18,7 @@ class BuildCommand extends Command
 		app()->instance('env', 'production');
 		config()->set('app.url', 'https://glhd.github.io/aire/');
 		app('url')->forceRootUrl('https://glhd.github.io/aire/');
+		app('url')->forceScheme('https');
 		
 		$this->buildJavascript();
 		$this->buildCSS();
