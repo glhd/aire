@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\View;
 
 class FormRenderingTest extends TestCase
 {
-	protected function setUp()
-	{
-		parent::setUp();
-		
-		View::addLocation(__DIR__.'/stubs');
-	}
-	
 	public function test_a_basic_form_renders_as_expected()
 	{
 		$html = View::make('basic-form')->render();
