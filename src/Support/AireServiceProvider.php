@@ -84,7 +84,7 @@ class AireServiceProvider extends ServiceProvider
 				$app['galahad.aire'],
 				$app['url'],
 				"{$this->js_dist_directory}/aire.js",
-				$app->bound('routes') ? $app['routes'] : null,
+				$app->bound('router') ? $app['router'] : null,
 				$app->bound('session.store') ? $app['session.store'] : null
 			);
 		});

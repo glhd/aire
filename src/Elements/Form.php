@@ -6,6 +6,7 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Routing\RouteCollection;
+use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
@@ -64,21 +65,21 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $url;
 	
 	/**
-	 * @var \Illuminate\Routing\RouteCollection
+	 * @var \Illuminate\Routing\Router
 	 */
-	protected $routes;
+	protected $router;
 	
 	/**
 	 * @var \Illuminate\Session\Store
 	 */
 	protected $session_store;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, RouteCollection $routes = null, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
 		$this->url = $url;
-		$this->routes = $routes;
+		$this->router = $router;
 		
 		if ($session_store) {
 			$this->session_store = $session_store;
@@ -296,11 +297,11 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function inferMethodFromRoute($route_name)
 	{
-		if (!$this->routes) {
+		if (!$this->router) {
 			return;
 		}
 		
-		if (!$route = $this->routes->getByName($route_name)) {
+		if (!$route = $this->router->getRoutes()->getByName($route_name)) {
 			return;
 		}
 		

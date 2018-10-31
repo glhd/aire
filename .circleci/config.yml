@@ -1,0 +1,41 @@
+#
+# https://circleci.com/docs/2.0/language-php/
+#
+
+version: 2
+jobs:
+  build:
+    docker:
+    - image: circleci/php:7.1.20-cli-stretch
+
+    working_directory: ~/aire
+
+    steps:
+    - checkout
+
+    - run: sudo docker-php-ext-enable xdebug
+
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "composer.json" }}
+        - v1-dependencies-
+
+    - run: "[ -f ./vendor/laravel/framework/composer.json ] || composer install -n --prefer-dist"
+
+    - save_cache:
+        paths:
+        - ./vendor
+        key: v1-dependencies-{{ checksum "composer.json" }}
+
+    - run: mkdir -p ~/artifacts
+
+    - run: ./vendor/bin/phpunit --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
+
+    - run: php vendor/bin/php-coveralls -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
+
+    - store_test_results:
+        path: ~/artifacts
+
+    - store_artifacts:
+        path: ~/artifacts
+
