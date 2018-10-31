@@ -116,13 +116,12 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function range($name = null, $label = null) : Input
+	public function range($name = null, $label = null, $min = 0, $max = 100) : Input
 	{
-		$input = $this->input($name, $label);
-		
-		$input->type('range');
-		
-		return $input;
+		return $this->input($name, $label)
+			->type('range')
+			->min($min)
+			->max($max);
 	}
 	
 	public function search($name = null, $label = null) : Input

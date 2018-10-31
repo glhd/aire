@@ -7,15 +7,25 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class CrawlerConstraint extends Constraint
 {
-	protected function crawl($html) : Crawler
+	protected function crawl($html, $selector = null) : Crawler
 	{
-		return $html instanceof Crawler
+		$crawler = $html instanceof Crawler
 			? $html
 			: new Crawler((string) $html);
+		
+		if ($selector) {
+			$crawler = $crawler->filter($selector);
+		}
+		
+		return $crawler;
 	}
 	
 	protected function failureDescription($other): string
 	{
-		return $this->crawl($other)->html() . ' ' . $this->toString();
+		$selector = property_exists($this, 'selector')
+			? $this->selector
+			: null;
+		
+		return $this->crawl($other, $selector)->html() . ' ' . $this->toString();
 	}
 }

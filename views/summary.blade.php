@@ -1,10 +1,9 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
 <?php /** @var \Illuminate\Support\ViewErrorBag $errors */ ?>
 
-
-@if ($errors->any())
+@if (isset($errors) && $errors->any())
 	
-	<div class="{{ $class }}">
+	<div {{ $attributes }} data-aire-summary>
 		
 		{{ trans_choice('aire::common.summary', $errors->count()) }}
 		
@@ -17,6 +16,7 @@
 			</ul>
 			
 		@endif
+		
 	</div>
 	
 @endif

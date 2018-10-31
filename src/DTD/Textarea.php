@@ -106,19 +106,6 @@ class Textarea extends Element
 	}
 
 	/**
-	 * Set the 'label' attribute
-	 *
-	 * @param string $value
-	 * @return $this
-	 */
-	public function label($value = null)
-	{
-		$this->attributes['label'] = $value;
-
-		return $this;
-	}
-
-	/**
 	 * Set the 'maxlength' attribute
 	 *
 	 * @param string $value

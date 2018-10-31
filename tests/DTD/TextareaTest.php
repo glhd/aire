@@ -96,19 +96,6 @@ class TextareaTest extends TestCase
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'form');
 	}
 	
-	public function test_label_attribute_can_be_set_and_unset() : void
-	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$value = str_random();
-		
-		$textarea->label($value);
-		$this->assertSelectorAttribute($textarea, 'textarea', 'label', $value);
-		
-		$textarea->label(null);
-		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'label');
-	}
-	
 	public function test_max_length_attribute_can_be_set_and_unset() : void
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());

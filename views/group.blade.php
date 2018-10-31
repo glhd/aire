@@ -1,4 +1,6 @@
-<div class="mb-6 {{ $class }}" data-aire-group>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+
+<div {{ $attributes->except('class') }} class="mb-6 {{ $class }}" data-aire-group>
 	{{ $label ?? '' }}
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">

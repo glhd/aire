@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements\Attributes;
 
 use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Group;
 use Illuminate\Support\Arr;
 
 class ClassNames
@@ -114,6 +115,11 @@ class ClassNames
 	{
 		if ($this->element->group) {
 			$key = "{$this->element->group->validation_state}.{$this->element->name}";
+			return Arr::get(static::$validation_classes, $key);
+		}
+		
+		if ($this->element instanceof Group) {
+			$key = "{$this->element->validation_state}.{$this->element->name}";
 			return Arr::get(static::$validation_classes, $key);
 		}
 		

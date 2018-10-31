@@ -21,7 +21,7 @@ trait CreatesElements
 		return (new Button($this->aire, $this))->label($label);
 	}
 	
-	public function submit(string $label) : Button
+	public function submit(string $label = 'Submit') : Button
 	{
 		return $this->button($label)->type('submit');
 	}

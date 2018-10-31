@@ -6,8 +6,13 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
 use Galahad\Aire\Support\Facades\Aire as AireFacade;
 use Galahad\Aire\Tests\Constraints\SelectorAttribute;
+use Galahad\Aire\Tests\Constraints\SelectorContainsText;
+use Galahad\Aire\Tests\Constraints\SelectorCount;
+use Galahad\Aire\Tests\Constraints\SelectorDoesNotExist;
+use Galahad\Aire\Tests\Constraints\SelectorExists;
 use Galahad\Aire\Tests\Constraints\SelectorHasClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorMissingClassNames;
+use Galahad\Aire\Tests\Constraints\SelectorTextEquals;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -19,6 +24,9 @@ abstract class TestCase extends Orchestra
 		
 		// Don't pollute test output with JS unless necessary
 		$this->app['config']->set('aire.inline_validation', false);
+		
+		// Add encryption key for HTTP tests
+		$this->app['config']->set('app.key', 'base64:tfsezwCu4ZRixRLA/+yL/qoouX++Q3lPAPOAbtnBCG8=');
 	}
 	
 	protected function getPackageProviders($app)
@@ -49,34 +57,38 @@ abstract class TestCase extends Orchestra
 	
 	protected function assertSelectorExists($html, $selector)
 	{
-		$count = $this->crawl($html)
-			->filter($selector)
-			->count();
-		
-		$this->assertGreaterThan(0, $count, "Selector '$selector' should exist");
+		static::assertThat($html, new SelectorExists($selector));
 	}
 	
 	protected function assertSelectorDoesNotExist($html, $selector)
 	{
-		return $this->assertSelectorCount($html, $selector, 0);
+		static::assertThat($html, new SelectorDoesNotExist($selector));
 	}
 	
-	protected function assertSelectorCount($html, string $selector, int $count)
+	protected function assertSelectorCount($html, string $selector, int $expected_count)
 	{
-		$count = $this->crawl($html)
-			->filter($selector)
-			->count();
-		
-		$this->assertEquals($count, $count);
+		static::assertThat($html, new SelectorCount($selector, $expected_count));
 	}
 	
+	/**
+	 * @deprecated
+	 * @param $html
+	 * @param string $selector
+	 * @param string $text
+	 */
 	protected function assertSelectorText($html, string $selector, string $text)
 	{
-		$actual = $this->crawl($html)
-			->filter($selector)
-			->text();
-		
-		$this->assertEquals($text, trim($actual));
+		$this->assertSelectorTextEquals($html, $selector, $text);
+	}
+	
+	protected function assertSelectorTextEquals($html, string $selector, string $expected_text, bool $trim_actual = true)
+	{
+		static::assertThat($html, new SelectorTextEquals($selector, $expected_text, $trim_actual));
+	}
+	
+	protected function assertSelectorContainsText($html, string $selector, string $expected_text, bool $match_case = true)
+	{
+		static::assertThat($html, new SelectorContainsText($selector, $expected_text, $match_case));
 	}
 	
 	protected function assertSelectorMissingText($html, string $selector, string $text)

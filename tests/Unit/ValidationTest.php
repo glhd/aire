@@ -36,7 +36,7 @@ class ValidationTest extends TestCase
 		$this->assertSelectorMissingClassNames($input, 'input', 'no-validation');
 		$this->assertSelectorMissingClassNames($input, 'input', 'is-valid');
 		
-		$this->assertSelectorText($input, 'ul li', 'Expected error');
+		$this->assertSelectorTextEquals($input, 'ul li', 'Expected error');
 		$this->assertSelectorMissingText($input, 'ul li', 'Unexpected error');
 	}
 }

@@ -31,9 +31,13 @@ class SelectorHasClassNames extends CrawlerConstraint
 	
 	protected function matches($html) : bool
 	{
-		$actual = $this->crawl($html)
-			->filter($this->selector)
-			->attr('class');
+		$nodes = $this->crawl($html)->filter($this->selector);
+		
+		if (0 === $nodes->count()) {
+			return false;
+		}
+		
+		$actual = $nodes->attr('class');
 		
 		if (null === $actual) {
 			return false;
