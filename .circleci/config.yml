@@ -31,7 +31,7 @@ jobs:
 
     - run: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
-    - run: php vendor/bin/php-coveralls -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
+    - run: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
 
     - store_test_results:
         path: ~/artifacts
