@@ -22,7 +22,6 @@ class Select extends \Galahad\Aire\DTD\Select
 	
 	public function setOptions(array $options) : self
 	{
-		// FIXME: Needs tests
 		$this->view_data['options'] = Arr::isAssoc($options)
 			? $options
 			: array_combine($options, $options);

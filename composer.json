@@ -56,10 +56,5 @@
         "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
       }
     }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-    ]
   }
 }
