@@ -1,8 +1,8 @@
 
 <div>
-  <a href="https://travis-ci.org/glhd/aire" target="_blank">
+  <a href="https://circleci.com/gh/glhd/aire" target="_blank">
     <img 
-      src="https://travis-ci.org/glhd/aire.svg?branch=master" 
+      src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
       alt="Build Status" 
     />
   </a>
