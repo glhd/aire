@@ -22,11 +22,27 @@ abstract class TestCase extends Orchestra
 	{
 		parent::setUp();
 		
+		$config = $this->app['config'];
+		
 		// Don't pollute test output with JS unless necessary
-		$this->app['config']->set('aire.inline_validation', false);
+		$config->set('aire.inline_validation', false);
 		
 		// Add encryption key for HTTP tests
-		$this->app['config']->set('app.key', 'base64:tfsezwCu4ZRixRLA/+yL/qoouX++Q3lPAPOAbtnBCG8=');
+		$config->set('app.key', 'base64:tfsezwCu4ZRixRLA/+yL/qoouX++Q3lPAPOAbtnBCG8=');
+		
+		// Add feature stubs to view
+		$this->app['view']->addLocation(__DIR__.'/Feature/stubs');
+		
+		// Set up some easily testable class names
+		$config->set('aire.validation_classes.none.group', 'no-validation');
+		$config->set('aire.validation_classes.valid.group', 'is-valid');
+		$config->set('aire.validation_classes.invalid.group', 'is-invalid');
+		$config->set('aire.validation_classes.none.label', 'no-validation');
+		$config->set('aire.validation_classes.valid.label', 'is-valid');
+		$config->set('aire.validation_classes.invalid.label', 'is-invalid');
+		$config->set('aire.validation_classes.none.input', 'no-validation');
+		$config->set('aire.validation_classes.valid.input', 'is-valid');
+		$config->set('aire.validation_classes.invalid.input', 'is-invalid');
 	}
 	
 	protected function getPackageProviders($app)

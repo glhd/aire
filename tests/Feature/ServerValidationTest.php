@@ -10,25 +10,6 @@ use Illuminate\Support\Facades\Route;
 
 class ServerValidationTest extends TestCase
 {
-	protected function setUp()
-	{
-		parent::setUp();
-		
-		$this->app['view']->addLocation(__DIR__.'/stubs');
-		
-		$config = $this->app['config'];
-		
-		$config->set('aire.validation_classes.none.group', 'no-validation');
-		$config->set('aire.validation_classes.valid.group', 'is-valid');
-		$config->set('aire.validation_classes.invalid.group', 'is-invalid');
-		$config->set('aire.validation_classes.none.label', 'no-validation');
-		$config->set('aire.validation_classes.valid.label', 'is-valid');
-		$config->set('aire.validation_classes.invalid.label', 'is-invalid');
-		$config->set('aire.validation_classes.none.input', 'no-validation');
-		$config->set('aire.validation_classes.valid.input', 'is-valid');
-		$config->set('aire.validation_classes.invalid.input', 'is-invalid');
-	}
-	
 	public function test_validation_errors_are_shown_on_render()
 	{
 		Route::get('/aire', function() {
