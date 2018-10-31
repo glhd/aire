@@ -39,9 +39,7 @@ return [
 	|
 	*/
 	'inline_validation' => true,
-	'validation_script_path' => function_exists('asset')
-		? asset('vendor/aire/js/aire.js')
-		: null,
+	'validation_script_path' => env('APP_URL').'/vendor/aire/js/aire.js',
 	
 	/*
 	|--------------------------------------------------------------------------
