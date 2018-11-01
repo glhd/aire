@@ -8,7 +8,7 @@ class GroupTest extends TestCase
 {
 	public function test_an_input_can_be_grouped() : void
 	{
-		$input = $this->aire()->input();
+		$input = $this->aire()->input()->toHtml();
 		
 		$this->assertSelectorExists($input, 'div[data-aire-group]');
 		$this->assertSelectorExists($input, 'div > input[type="text"]');
@@ -16,7 +16,7 @@ class GroupTest extends TestCase
 	
 	public function test_an_input_can_be_ungrouped() : void
 	{
-		$input = $this->aire()->input()->withoutGroup();
+		$input = $this->aire()->input()->withoutGroup()->toHtml();
 		
 		$this->assertSelectorDoesNotExist($input, 'div[data-aire-group]');
 		$this->assertSelectorExists($input, 'input[type="text"]');
@@ -24,7 +24,7 @@ class GroupTest extends TestCase
 	
 	public function test_an_element_that_is_not_grouped_by_default_can_be_grouped() : void
 	{
-		$button = $this->aire()->button()->grouped()->render();
+		$button = $this->aire()->button()->grouped()->toHtml();
 		
 		$this->assertSelectorDoesNotExist($button, 'div[data-aire-group]');
 	}
@@ -34,9 +34,10 @@ class GroupTest extends TestCase
 		$input = $this->aire()
 			->input('foo')
 			->id('bar')
-			->label('Foo Input');
+			->label('Foo Input')
+			->toHtml();
 		
-		$this->assertSelectorText($input, 'div > label', 'Foo Input');
+		$this->assertSelectorTextEquals($input, 'div > label', 'Foo Input');
 		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
 	}
 	
@@ -46,19 +47,42 @@ class GroupTest extends TestCase
 			->input()
 			->label('Foo Input');
 		
-		$this->assertSelectorAttributeMissing($input, 'div > label', 'for');
+		$this->assertSelectorAttributeMissing($input->toHtml(), 'div > label', 'for');
 		
 		$input->id('bar');
 		
-		$this->assertSelectorAttribute($input, 'div > label', 'for', 'bar');
+		$this->assertSelectorAttribute($input->toHtml(), 'div > label', 'for', 'bar');
 	}
 	
 	public function test_a_group_can_have_help_text() : void
 	{
 		$input = $this->aire()
 			->input()
-			->helpText('Help text');
+			->helpText('Help text')
+			->toHtml();
 		
-		$this->assertSelectorText($input, 'div > small', 'Help text');
+		$this->assertSelectorTextEquals($input, 'div > small', 'Help text');
+	}
+	
+	public function test_a_group_can_have_errors() : void
+	{
+		$html = $this->aire()->input()->errors('Error message')->toHtml();
+		
+		$this->assertSelectorExists($html, 'ul[data-aire-errors]');
+		$this->assertSelectorTextEquals($html, 'ul[data-aire-errors] li', 'Error message');
+	}
+	
+	public function test_a_group_can_have_content_prepended() : void
+	{
+		$html = $this->aire()->input()->prepend('Foo')->toHtml();
+		
+		$this->assertSelectorTextEquals($html, '[data-aire-group] .flex .rounded-l-sm', 'Foo');
+	}
+	
+	public function test_a_group_can_have_content_appended() : void
+	{
+		$html = $this->aire()->input()->append('Foo')->toHtml();
+		
+		$this->assertSelectorTextEquals($html, '[data-aire-group] .flex .rounded-r-sm', 'Foo');
 	}
 }

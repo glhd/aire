@@ -48,6 +48,7 @@ class Group extends Element
 	protected $view_data = [
 		'prepend' => null,
 		'append' => null,
+		'errors' => [],
 	];
 	
 	protected $grouped = false;
@@ -119,10 +120,12 @@ class Group extends Element
 	
 	protected function viewData() : array
 	{
-		$errors = [];
+		$errors = $this->view_data['errors'];
+		
 		if ($name = $this->element->getAttribute('name')) {
-			$errors = $this->form->getErrors($name);
-			if (!empty($errors)) {
+			$session_errors = $this->form->getErrors($name);
+			if (!empty($session_errors)) {
+				$errors = array_merge($errors, $session_errors);
 				$this->invalid();
 			}
 		}
