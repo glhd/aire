@@ -1,24 +1,24 @@
 
-<div>
-	<a href="https://circleci.com/gh/glhd/aire" target="_blank">
+<div class="mb-6 text-right">
+	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="no-underline">
 		<img 
 			src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank">
+	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="no-underline">
 		<img 
 			src="https://coveralls.io/repos/github/glhd/aire/badge.svg?branch=master" 
 			alt="Coverage Status" 
 		/>
 	</a>
-	<a href="https://packagist.org/packages/glhd/aire" target="_blank">
+	<a href="https://packagist.org/packages/glhd/aire" target="_blank" class="no-underline">
         <img 
             src="https://poser.pugx.org/glhd/aire/v/stable" 
             alt="Latest Stable Release" 
         />
 	</a>
-	<a href="./LICENSE" target="_blank">
+	<a href="./LICENSE" target="_blank" class="no-underline">
         <img 
             src="https://poser.pugx.org/glhd/aire/license" 
             alt="MIT Licensed" 

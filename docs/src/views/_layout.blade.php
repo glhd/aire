@@ -10,7 +10,8 @@
 		Aire - {{ $title ?? 'Documentation & Demos' }}
 	</title>
 	
-	<link href="{{ asset('aire.css') }}" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ asset('aire.css') }}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" crossorigin="anonymous" />
 </head>
 
 <body class="font-sans antialiased">
