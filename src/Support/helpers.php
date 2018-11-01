@@ -2,9 +2,7 @@
 
 use Galahad\Aire\Aire;
 
-// @codeCoverageIgnore
-
-if (!function_exists('aire')) {
+if (!function_exists('aire')) { // @codeCoverageIgnore
 	function aire() : Aire
 	{
 		return app('galahad.aire');
