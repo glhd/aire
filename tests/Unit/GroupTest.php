@@ -26,7 +26,7 @@ class GroupTest extends TestCase
 	{
 		$button = $this->aire()->button()->grouped()->toHtml();
 		
-		$this->assertSelectorDoesNotExist($button, 'div[data-aire-group]');
+		$this->assertSelectorExists($button, 'div[data-aire-group]');
 	}
 	
 	public function test_a_group_can_have_a_label() : void
