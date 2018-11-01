@@ -3,7 +3,6 @@
 namespace Docs;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +22,13 @@ class RouteServiceProvider extends ServiceProvider
 				continue;
 			}
 			
-			Route::get('index' === $view ? '/' : $view, function(Request $request) use ($view) {
+			$path = 'index' === $view
+				? '/'
+				: $view;
+			
+			Route::get($path, function() use ($view, $path) {
 				return view($view, [
-					'current_path' => $view,
+					'current_path' => $path,
 					'readme' => new Readme(),
 				]);
 			});

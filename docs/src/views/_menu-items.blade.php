@@ -6,7 +6,7 @@
 		
 		<li class="group text-salmon mb-6">
 			<i class="fas fa-fw fa-{{ $icon }} mr-2"></i>
-			<a href="{{ 'index' === $path ? url('/') : url($path) }}" class="text-salmon font-bold no-underline cursor-default">
+			<a href="{{ url($path) }}" class="text-salmon font-bold no-underline cursor-default">
 				{{ $label }}
 			</a>
 		</li>
@@ -15,7 +15,7 @@
 		
 		<li class="group mb-6">
 			<i class="fas fa-fw fa-{{ $icon }} mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="{{ 'index' === $path ? url('/') : url($path) }}" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<a href="{{ url($path) }}" class="text-grey-darker no-underline hover:text-grey-darkest">
 				{{ $label }}
 			</a>
 		</li>
