@@ -3,6 +3,7 @@
 namespace Docs;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +15,6 @@ class RouteServiceProvider extends ServiceProvider
 	{
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
-		$view_data = [
-			'readme' => new Readme(),
-		];
-		
 		foreach ($files as $filename) {
 			$view = basename($filename, '.blade.php');
 			
@@ -26,7 +23,12 @@ class RouteServiceProvider extends ServiceProvider
 				continue;
 			}
 			
-			Route::view('index' === $view ? '/' : $view, $view, $view_data);
+			Route::get('index' === $view ? '/' : $view, function(Request $request) use ($view) {
+				return view($view, [
+					'current_path' => trim($request->path(), '/'),
+					'readme' => new Readme(),
+				]);
+			});
 		}
 	}
 }

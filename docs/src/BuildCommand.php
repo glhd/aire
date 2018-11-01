@@ -64,10 +64,6 @@ class BuildCommand extends Command
 		$dist = dirname(__DIR__);
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
-		$data = [
-			'readme' => new Readme(),
-		];
-		
 		foreach ($files as $filename) {
 			$view = basename($filename, '.blade.php');
 			
@@ -76,6 +72,11 @@ class BuildCommand extends Command
 				$this->comment("Skipping '$view' partial...");
 				continue;
 			}
+			
+			$data = [
+				'current_path' => $view,
+				'readme' => new Readme(),
+			];
 			
 			$this->comment("Writing '$view' view...");
 			File::put("$dist/$view.html", View::make($view, $data)->render());

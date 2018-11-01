@@ -2,7 +2,7 @@
 	
 	<?php [$path, $label, $icon] = $item; ?>
 	
-	@if(trim(request()->path(), '/') === trim($path, '/'))
+	@if($current_path === trim($path, '/'))
 		
 		<li class="group text-salmon mb-6">
 			<i class="fas fa-fw fa-{{ $icon }} mr-2"></i>
