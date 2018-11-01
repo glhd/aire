@@ -16,6 +16,8 @@ class Readme implements Htmlable
 	
 	public function __construct()
 	{
+		config()->set('markdown.html_input', 'allow');
+		
 		$readme_markdown = File::get(__DIR__.'/../../README.md');
 		$readme_html = Markdown::convertToHtml($readme_markdown);
 		$this->crawler = new Crawler($readme_html);
