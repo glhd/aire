@@ -165,7 +165,7 @@ an error at the top of the page if validation failed.
 Javascript validation in Aire is currently **work in progress**. Eventually, Aire will
 support automatic client-side validation (just call `rules()` on a field). This will let
 you set the rules on a field-by-field basis, or for the whole form, and will let you
-pass in a `FormRequest` object to automatically inject rules.
+pass in a `FormRequest` object to automatically inject rules. 
 
 ## Misc. Notes
 

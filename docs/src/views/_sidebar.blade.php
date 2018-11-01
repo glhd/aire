@@ -19,7 +19,8 @@
 	$menu = [
 		['/', 'README', 'file'],
 		['/api', 'API Overview', 'code'],
-		['/basic', 'Basic Demo', 'th-list'],
+		['/basic', 'Basic Demo', 'file-code'],
+		['/html-buttons', 'HTML in Buttons', 'file-code'],
 		['/themes', 'Theming', 'paint-brush'],
 	];
 	?>

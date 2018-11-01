@@ -8,6 +8,6 @@
 		p-2 px-4 {{ $class }}"
 >
 
-	{{ $label ?? null }}
+	{{ $slot }}
 	
 </button>

@@ -75,4 +75,14 @@ class FormRenderingTest extends TestCase
 		$this->assertSelectorExists($html, 'button#submit');
 		$this->assertSelectorAttribute($html, '#submit', 'type', 'submit');
 	}
+	
+	public function test_a_button_with_html_content_renders()
+	{
+		$html = View::make('button-open-close')->render();
+		
+		$this->assertSelectorExists($html, 'form > button');
+		$this->assertSelectorAttribute($html, 'form > button', 'type', 'submit');
+		$this->assertSelectorExists($html, 'form > button > strong');
+		$this->assertSelectorTextEquals($html, 'form > button > strong', 'Hello world');
+	}
 }

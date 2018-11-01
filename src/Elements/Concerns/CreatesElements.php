@@ -16,9 +16,15 @@ trait CreatesElements
 		return (new Label($this->aire))->text($label);
 	}
 	
-	public function button(string $label) : Button
+	public function button(string $label = null) : Button
 	{
-		return (new Button($this->aire, $this))->label($label);
+		$button = new Button($this->aire, $this);
+		
+		if ($label) {
+			$button->label($label);
+		}
+		
+		return $button;
 	}
 	
 	public function submit(string $label = 'Submit') : Button

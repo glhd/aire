@@ -60,6 +60,11 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $opened = false;
 	
 	/**
+	 * @var \Galahad\Aire\Elements\Button
+	 */
+	protected $pending_button;
+	
+	/**
 	 * @var \Illuminate\Routing\UrlGenerator
 	 */
 	protected $url;
@@ -193,6 +198,26 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	public function openButton() : Button
+	{
+		$this->pending_button = new Button($this->aire, $this);
+		
+		return $this->pending_button->open();
+	}
+	
+	public function closeButton() : Button
+	{
+		if (!$this->pending_button) {
+			throw new \BadMethodCallException('Trying to close a button that hasn\'t been opened.');
+		}
+		
+		$button = $this->pending_button->close();
+		
+		$this->pending_button = null;
+		
+		return $button;
+	}
+	
 	/**
 	 * Set the form's action to a named route
 	 *
@@ -206,7 +231,6 @@ class Form extends \Galahad\Aire\DTD\Form
 		$action = $this->url->route($route_name, $parameters, $absolute);
 		$this->action($action);
 		
-		// FIXME: Needs tests
 		$this->inferMethodFromRoute($route_name);
 		
 		return $this;
