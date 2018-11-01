@@ -6,12 +6,27 @@ use Galahad\Aire\Tests\TestCase;
 
 class GroupTest extends TestCase
 {
-	public function test_an_input_can_be_grouped()
+	public function test_an_input_can_be_grouped() : void
 	{
 		$input = $this->aire()->input();
 		
-		$this->assertSelectorClassNames($input, 'div', ['mb-6']);
+		$this->assertSelectorExists($input, 'div[data-aire-group]');
 		$this->assertSelectorExists($input, 'div > input[type="text"]');
+	}
+	
+	public function test_an_input_can_be_ungrouped() : void
+	{
+		$input = $this->aire()->input()->withoutGroup();
+		
+		$this->assertSelectorDoesNotExist($input, 'div[data-aire-group]');
+		$this->assertSelectorExists($input, 'input[type="text"]');
+	}
+	
+	public function test_an_element_that_is_not_grouped_by_default_can_be_grouped() : void
+	{
+		$button = $this->aire()->button()->grouped()->render();
+		
+		$this->assertSelectorDoesNotExist($button, 'div[data-aire-group]');
 	}
 	
 	public function test_a_group_can_have_a_label() : void

@@ -143,11 +143,13 @@ trait Groupable
 			return $this;
 		}
 		
+		// @codeCoverageIgnoreStart
 		throw new BadMethodCallException(sprintf(
 			'Method %s::%s does not exist on the Element or Group.',
 			class_basename(static::class),
 			$method_name
 		));
+		// @codeCoverageIgnoreEnd
 	}
 	
 	/**

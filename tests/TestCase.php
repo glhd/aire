@@ -6,6 +6,7 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Support\AireServiceProvider;
 use Galahad\Aire\Support\Facades\Aire as AireFacade;
 use Galahad\Aire\Tests\Constraints\SelectorAttribute;
+use Galahad\Aire\Tests\Constraints\SelectorAttributeMissing;
 use Galahad\Aire\Tests\Constraints\SelectorContainsText;
 use Galahad\Aire\Tests\Constraints\SelectorCount;
 use Galahad\Aire\Tests\Constraints\SelectorDoesNotExist;
@@ -123,11 +124,7 @@ abstract class TestCase extends Orchestra
 	
 	protected function assertSelectorAttributeMissing($html, string $selector, string $attribute)
 	{
-		$actual = $this->crawl($html)
-			->filter($selector)
-			->attr($attribute);
-		
-		$this->assertNull($actual, "Selector '$selector' should not have attribute '$attribute'");
+		static::assertThat($html, new SelectorAttributeMissing($selector, $attribute));
 	}
 	
 	protected function assertSelectorClassNames($html, string $selector, $class_names)

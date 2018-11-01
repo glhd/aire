@@ -68,7 +68,7 @@ use Illuminate\View\Factory;
  * @method static mixed grouped()
  * @method static mixed withoutGroup()
  * @method static \Galahad\Aire\Elements\Label label(string $label)
- * @method static \Galahad\Aire\Elements\Button button(string $label)
+ * @method static \Galahad\Aire\Elements\Button button(string $label = null)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
