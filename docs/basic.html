@@ -10,7 +10,8 @@
 		Aire - Documentation &amp; Demos
 	</title>
 	
-	<link href="https://glhd.github.io/aire/aire.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://glhd.github.io/aire/aire.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" crossorigin="anonymous" />
 </head>
 
 <body class="font-sans antialiased">
@@ -22,6 +23,24 @@
 	<h1>
 		Basic Demo
 	</h1>
+	
+	<pre><code class="language-php">{{ Aire::open() }}
+	
+{{ Aire::input()
+	->label('Demo Input')
+	->id('demo')
+	->helpText('This is demo help text.') }}
+
+{{ Aire::select(['Option 1', 'Option 2'])
+    ->label('Demo Select') }}
+
+{{ Aire::textarea()->value('Demo text area') }}
+
+{{ Aire::button('Demo Button') }}
+
+{{ Aire::close() }}</code></pre>
+	
+	<h2>Resulting Form</h2>
 	
 	<form action="" method="POST" class="" data-aire-id="1">
 
@@ -100,12 +119,7 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6 " data-aire-group>
-	
-	
-	<div class="">
-				
-		<button
+	<button
 	data-validate="true"
 	class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
 		rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker
@@ -116,12 +130,6 @@
 	Demo Button
 	
 </button>
-
-			
-			</div>
-	
-		
-	</div>
 	
 			
 		<script>(function () {
@@ -2095,20 +2103,65 @@
 	</g>
 </svg>
 
-<ul class="list-reset mt-8">
+<ul class="list-reset mt-8 font-semibold">
 	
-	<li>
-		<a href="https://glhd.github.io/aire" class="text-grey-darker no-underline font-semibold text-lg hover:underline">
-			Introduction
-		</a>
-	</li>
-	
-	<li>
-		<a href="https://glhd.github.io/aire/basic" class="text-grey-darker no-underline font-semibold text-lg hover:underline">
-			Basic Demo
-		</a>
-	</li>
-	
+		
+			
+				
+							
+				<li class="group text-salmon mb-6">
+					<i class="fas fa-fw fa-file mr-2"></i>
+					<a href="https://glhd.github.io/aire" class="text-salmon font-bold no-underline cursor-default">
+						README
+					</a>
+				</li>
+				
+					
+			
+				
+							
+				<li class="group mb-6">
+					<i class="fas fa-fw fa-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
+					<a href="https://glhd.github.io/aire/api" class="text-grey-darker no-underline hover:text-grey-darkest">
+						API Overview
+					</a>
+				</li>
+				
+					
+			
+				
+							
+				<li class="group mb-6">
+					<i class="fas fa-fw fa-file-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
+					<a href="https://glhd.github.io/aire/basic" class="text-grey-darker no-underline hover:text-grey-darkest">
+						Basic Demo
+					</a>
+				</li>
+				
+					
+			
+				
+							
+				<li class="group mb-6">
+					<i class="fas fa-fw fa-file-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
+					<a href="https://glhd.github.io/aire/html-buttons" class="text-grey-darker no-underline hover:text-grey-darkest">
+						HTML in Buttons
+					</a>
+				</li>
+				
+					
+			
+				
+							
+				<li class="group mb-6">
+					<i class="fas fa-fw fa-paint-brush mr-2 text-grey-dark group-hover:text-grey-darker"></i>
+					<a href="https://glhd.github.io/aire/themes" class="text-grey-darker no-underline hover:text-grey-darkest">
+						Theming
+					</a>
+				</li>
+				
+					
+		
 </ul>
 	</div>
 
