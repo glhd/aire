@@ -74,7 +74,7 @@ class BuildCommand extends Command
 			}
 			
 			$data = [
-				'current_path' => $view,
+				'current_path' => 'index' === $view ? '/' : $view,
 				'readme' => new Readme(),
 			];
 			

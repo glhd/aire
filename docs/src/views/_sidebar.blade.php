@@ -17,9 +17,9 @@
 	
 	<?php
 	$main = [
-		['/', 'README', 'file'],
-		['/api', 'API Overview', 'code'],
-		['/themes', 'Theming', 'paint-brush'],
+		['index', 'README', 'file'],
+		['api', 'API Overview', 'code'],
+		['themes', 'Theming', 'paint-brush'],
 	];
 	?>
 	
@@ -35,8 +35,8 @@
 	
 	<?php
 	$recipes = [
-		['/basic', 'Basic Demo', 'file-code'],
-		['/html-buttons', 'HTML in Buttons', 'file-code'],
+		['basic', 'Basic Demo', 'file-code'],
+		['html-buttons', 'HTML in Buttons', 'file-code'],
 	];
 	?>
 	

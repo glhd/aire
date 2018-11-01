@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
 			
 			Route::get('index' === $view ? '/' : $view, function(Request $request) use ($view) {
 				return view($view, [
-					'current_path' => trim($request->path(), '/'),
+					'current_path' => $view,
 					'readme' => new Readme(),
 				]);
 			});
