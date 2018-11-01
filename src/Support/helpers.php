@@ -2,6 +2,8 @@
 
 use Galahad\Aire\Aire;
 
+// @codeCoverageIgnore
+
 if (!function_exists('aire')) {
 	function aire() : Aire
 	{
