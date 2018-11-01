@@ -14,7 +14,7 @@ jobs:
     - checkout
 
     - run:
-        name: Enable XDebug
+        name: Enabling XDebug
         command: sudo docker-php-ext-enable xdebug
 
     - restore_cache:
@@ -23,7 +23,7 @@ jobs:
         - v1-dependencies-
 
     - run:
-        name: Install Composer dependencies
+        name: Installing Composer dependencies
         command: "[ -f ./vendor/laravel/framework/composer.json ] || composer install -n --prefer-dist"
 
     - save_cache:
@@ -32,15 +32,15 @@ jobs:
         key: v1-dependencies-{{ checksum "composer.json" }}
 
     - run:
-        name: Ensure artifacts directory exists
+        name: Ensuring that the artifacts directory exists
         command: mkdir -p ~/artifacts
 
     - run:
-        name: Run tests
+        name: Running tests
         command: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
     - run:
-        name: Send data to Coveralls
+        name: Sending data to Coveralls
         command: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
 
     - store_test_results:
