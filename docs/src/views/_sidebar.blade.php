@@ -16,39 +16,37 @@
 <ul class="list-reset mt-8 font-semibold">
 	
 	<?php
-	$menu = [
+	$main = [
 		['/', 'README', 'file'],
 		['/api', 'API Overview', 'code'],
-		['/basic', 'Basic Demo', 'file-code'],
-		['/html-buttons', 'HTML in Buttons', 'file-code'],
 		['/themes', 'Theming', 'paint-brush'],
 	];
 	?>
 	
-	@foreach($menu as $item)
-		
-		<?php [$path, $label, $icon] = $item; ?>
-		
-			@if(trim(request()->path(), '/') === trim($path, '/'))
-				
-				<li class="group text-salmon mb-6">
-					<i class="fas fa-fw fa-{{ $icon }} mr-2"></i>
-					<a href="{{ url($path) }}" class="text-salmon font-bold no-underline cursor-default">
-						{{ $label }}
-					</a>
-				</li>
-				
-			@else
-				
-				<li class="group mb-6">
-					<i class="fas fa-fw fa-{{ $icon }} mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-					<a href="{{ url($path) }}" class="text-grey-darker no-underline hover:text-grey-darkest">
-						{{ $label }}
-					</a>
-				</li>
-				
-			@endif
-		
-	@endforeach
+	@include('_menu-items', ['menu' => $main])
+
+</ul>
+
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-grey-lighter text-grey text-sm">
+	Recipes
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
+	
+	<?php
+	$recipes = [
+		['/basic', 'Basic Demo', 'file-code'],
+		['/html-buttons', 'HTML in Buttons', 'file-code'],
+	];
+	?>
+	
+	@include('_menu-items', ['menu' => $recipes])
+	
+	<li class="group mb-6 mt-6 pt-6 border-t border-grey-lighter">
+		<i class="fab fa-fw fa-github mr-2 text-grey-dark group-hover:text-grey-darker"></i>
+		<a href="https://github.com/glhd/aire" class="text-grey-darker no-underline hover:text-grey-darkest" target="_blank">
+			Aire on Github
+		</a>
+	</li>
 	
 </ul>
