@@ -40,6 +40,10 @@ use Galahad\Aire\Elements\Element;
 class Button extends Element
 {
 	public $name = 'button';
+	
+	protected $view_data = [
+		'slot' => null,
+	];
 
 	/**
 	 * Set the 'autofocus' flag
