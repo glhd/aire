@@ -247,11 +247,13 @@ class Aire
 	{
 		$form = $this->form ?? $this->form();
 		
+		// @codeCoverageIgnoreStart
 		if (!method_exists($form, $method_name)) {
 			throw new BadMethodCallException(sprintf(
 				'Method %s::%s does not exist.', static::class, $method_name
 			));
 		}
+		// @codeCoverageIgnoreEnd
 		
 		return $form->$method_name(...$arguments);
 	}
