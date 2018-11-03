@@ -6,6 +6,12 @@
 		Aire Themes
 	</h1>
 	
+	<div class="mt-4 mb-8 p-6 border rounded leading-normal">
+		<strong>Please note:</strong> Aire themes are mostly meant for package developers. If you
+		just want to customize the look and feel for your project, see <a href="{{ url('customizing') }}">
+			customizing Aire</a>.
+	</div>
+	
 	<p>
 		Out of the box, Aire comes with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>-based
 		templates that mostly mimic Bootstrap 4's aesthetic. It's easy to publish reusable Aire themes
