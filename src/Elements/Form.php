@@ -276,6 +276,15 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	public function method($method = null)
+	{
+		if (method_exists($this, strtolower($method))) {
+			return $this->$method();
+		}
+		
+		return parent::method($method);
+	}
+	
 	/**
 	 * Enable client-side validation
 	 *

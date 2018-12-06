@@ -103,7 +103,13 @@ class ClassNames
 	 */
 	protected function defaults() : ?string
 	{
-		return Arr::get(static::$default_classes, $this->element->name);
+		$key = $this->element->name;
+		
+		if ('textarea' === $key && !Arr::has(static::$default_classes, 'textarea')) {
+			$key = 'input';
+		}
+		
+		return Arr::get(static::$default_classes, $key);
 	}
 	
 	/**
@@ -113,13 +119,19 @@ class ClassNames
 	 */
 	protected function validation() : ?string
 	{
+		$element_key = $this->element->name;
+		
+		if ('textarea' === $element_key && !Arr::has(static::$validation_classes, 'textarea')) {
+			$element_key = 'input';
+		}
+		
 		if ($this->element->group) {
-			$key = "{$this->element->group->validation_state}.{$this->element->name}";
+			$key = "{$this->element->group->validation_state}.{$element_key}";
 			return Arr::get(static::$validation_classes, $key);
 		}
 		
 		if ($this->element instanceof Group) {
-			$key = "{$this->element->validation_state}.{$this->element->name}";
+			$key = "{$this->element->validation_state}.{$element_key}";
 			return Arr::get(static::$validation_classes, $key);
 		}
 		
