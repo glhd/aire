@@ -8,6 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Session\NullSessionHandler;
+use Illuminate\Translation\ArrayLoader;
+use Illuminate\Translation\Translator;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
@@ -23,6 +25,9 @@ Application::setInstance($app);
 $app->instance('session', false);
 $app->instance('session.store', new Illuminate\Session\Store('docs', new NullSessionHandler()));
 $app->instance('request', Request::create('/'));
+
+$translator = new Translator(new ArrayLoader(), 'en');
+$app->instance('translator', $translator);
 
 $config = new Illuminate\Config\Repository();
 $app->instance('config', $config);

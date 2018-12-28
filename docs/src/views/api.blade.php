@@ -121,6 +121,7 @@
 	
 	<ul>
 		<li><code>Aire::input($name = null, $label = null)</code></li>
+		<li><code>Aire::hidden($name = null, $value = null)</code></li>
 		<li><code>Aire::color($name = null, $label = null)</code></li>
 		<li><code>Aire::date($name = null, $label = null)</code></li>
 		<li><code>Aire::dateTime($name = null, $label = null)</code></li>

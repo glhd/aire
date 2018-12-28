@@ -6,6 +6,8 @@
 		Customizing Aire
 	</h1>
 	
-	
+	<p>
+		Coming soon…
+	</p>
 
 @endsection
