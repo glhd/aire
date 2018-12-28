@@ -177,7 +177,9 @@ class Form extends Element
 	 */
 	public function method($value = null)
 	{
-		$this->attributes['method'] = $value;
+		$this->attributes['method'] = $value
+			? strtoupper($value)
+			: null;
 
 		return $this;
 	}

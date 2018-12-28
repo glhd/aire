@@ -277,10 +277,10 @@ class FormTest extends TestCase
 		$form = $this->aire()->form();
 		
 		$form->method('get');
-		$this->assertSelectorAttribute($form, 'form', 'method', 'get');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'GET');
 		
 		$form->method('post');
-		$this->assertSelectorAttribute($form, 'form', 'method', 'post');
+		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 		
 		$form->method(null);
 		$this->assertSelectorAttributeMissing($form, 'form', 'method');

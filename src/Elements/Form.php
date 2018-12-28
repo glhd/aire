@@ -5,7 +5,6 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
-use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
@@ -330,6 +329,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function inferMethodFromRoute($route_name)
 	{
+		if ($this->attributes['method'] !== $this->default_attributes['method']) {
+			return;
+		}
+		
 		if (!$this->router) {
 			return;
 		}
@@ -342,7 +345,7 @@ class Form extends \Galahad\Aire\DTD\Form
 			return 'HEAD' !== $method;
 		});
 		
-		if (1 !== count($methods)) {
+		if (!count($methods)) {
 			return;
 		}
 		

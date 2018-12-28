@@ -8,6 +8,19 @@ trait CreatesInputTypes
 {
 	abstract public function input($name = null, $label = null) : Input;
 	
+	public function hidden($name = null, $value = null) : Input
+	{
+		$input = $this->input($name);
+		
+		$input->type('hidden');
+		
+		if ($value) {
+			$input->value($value);
+		}
+		
+		return $input;
+	}
+	
 	public function checkbox($name = null, $label = null) : Input
 	{
 		$input = $this->input($name, $label);

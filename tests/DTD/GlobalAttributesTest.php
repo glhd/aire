@@ -136,10 +136,10 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$form->hidden();
+		$form->hide();
 		$this->assertSelectorAttribute($form, 'form', 'hidden');
 		
-		$form->hidden(false);
+		$form->hide(false);
 		$this->assertSelectorAttributeMissing($form, 'form', 'hidden');
 	}
 	

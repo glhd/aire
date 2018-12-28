@@ -152,7 +152,7 @@ trait HasGlobalAttributes
 	 * @param bool $hidden
 	 * @return $this
 	 */
-	public function hidden(?bool $hidden = true)
+	public function hide(?bool $hidden = true)
 	{
 		$this->attributes['hidden'] = $hidden;
 		
