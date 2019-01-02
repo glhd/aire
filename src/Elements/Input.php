@@ -27,4 +27,28 @@ class Input extends \Galahad\Aire\DTD\Input
 			return $value;
 		});
 	}
+	
+	public function type($value = null)
+	{
+		parent::type($value);
+		
+		if ('hidden' === $value) {
+			$this->withoutGroup();
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Set the default value
+	 *
+	 * @param $value
+	 * @return \Galahad\Aire\Elements\Input
+	 */
+	public function defaultValue($value) : self
+	{
+		$this->attributes['class']->default('value', $value);
+		
+		return $this;
+	}
 }

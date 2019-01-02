@@ -221,11 +221,11 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * Set the form's action to a named route
 	 *
 	 * @param string $route_name
-	 * @param array $parameters
+	 * @param mixed $parameters
 	 * @param bool $absolute
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function route(string $route_name, array $parameters = [], bool $absolute = true) : self
+	public function route(string $route_name, $parameters = [], bool $absolute = true) : self
 	{
 		$action = $this->url->route($route_name, $parameters, $absolute);
 		$this->action($action);

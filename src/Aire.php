@@ -74,7 +74,7 @@ use Illuminate\View\Factory;
  * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Summary summary()
- * @method static \Galahad\Aire\Elements\Input checkbox($name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Input color($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Input date($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Input dateTime($name = NULL, $label = NULL)

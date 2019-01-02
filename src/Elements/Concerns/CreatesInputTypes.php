@@ -21,15 +21,6 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function checkbox($name = null, $label = null) : Input
-	{
-		$input = $this->input($name, $label);
-		
-		$input->type('checkbox');
-		
-		return $input;
-	}
-	
 	public function color($name = null, $label = null) : Input
 	{
 		$input = $this->input($name, $label);
@@ -116,15 +107,6 @@ trait CreatesInputTypes
 		$input = $this->input($name, $label);
 		
 		$input->type('password');
-		
-		return $input;
-	}
-	
-	public function radio($name = null, $label = null) : Input
-	{
-		$input = $this->input($name, $label);
-		
-		$input->type('radio');
 		
 		return $input;
 	}

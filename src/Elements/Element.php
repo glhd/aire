@@ -44,6 +44,13 @@ abstract class Element implements Htmlable
 	 */
 	protected $view_data = [];
 	
+	/**
+	 * Should we bind the value by default
+	 *
+	 * @var bool
+	 */
+	protected $bind_value = true;
+	
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
@@ -155,13 +162,15 @@ abstract class Element implements Htmlable
 		
 		$this->initGroup();
 		
-		$this->attributes->registerMutator('value', function($value) {
-			if (null !== $value || !$this->attributes->has('name')) {
-				return $value;
-			}
-			
-			return $this->form->getBoundValue($this->attributes->get('name'));
-		});
+		if ($this->bind_value) {
+			$this->attributes->registerMutator('value', function($value) {
+				if (null !== $value || !$this->attributes->has('name')) {
+					return $value;
+				}
+				
+				return $this->form->getBoundValue($this->attributes->get('name'));
+			});
+		}
 		
 		$this->attributes->registerMutator('data-validate', function() {
 			return $this->form->validate ? 'true' : 'false';

@@ -3,8 +3,10 @@
 namespace Galahad\Aire\Elements\Concerns;
 
 use Galahad\Aire\Elements\Button;
+use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
+use Galahad\Aire\Elements\Radio;
 use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
@@ -80,5 +82,20 @@ trait CreatesElements
 	public function summary() : Summary
 	{
 		return new Summary($this->aire);
+	}
+	
+	public function checkbox($name = null, $label = null) : Checkbox
+	{
+		$checkbox = new Checkbox($this->aire, $this);
+		
+		if ($name) {
+			$checkbox->name($name);
+		}
+		
+		if ($label) {
+			$checkbox->label($label);
+		}
+		
+		return $checkbox;
 	}
 }

@@ -22,6 +22,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	protected $items;
 	
 	/**
+	 * @var array
+	 */
+	protected $defaults = [];
+	
+	/**
 	 * Callbacks to mutate attribute values
 	 *
 	 * @var array
@@ -131,6 +136,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			}
 		}
 		
+		// Use the default value if all else fails
+		if (null === $value && isset($this->defaults[$key])) {
+			return $this->defaults[$key];
+		}
+		
 		return $value;
 	}
 	
@@ -157,6 +167,20 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function offsetUnset($key) : void
 	{
 		unset($this->items[$key]);
+	}
+	
+	/**
+	 * Set a default/fallback value
+	 *
+	 * @param string $key
+	 * @param $value
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
+	public function setDefault(string $key, $value) : self
+	{
+		$this->defaults[$key] = $value;
+		
+		return $this;
 	}
 	
 	/**

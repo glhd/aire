@@ -83,13 +83,6 @@ class InputTypeTest extends TestCase
 		$this->assertSelectorAttribute($password, 'input', 'type', 'password');
 	}
 	
-	public function test_radio_input_type_helper() : void
-	{
-		$radio = $this->aire()->form()->radio();
-		
-		$this->assertSelectorAttribute($radio, 'input', 'type', 'radio');
-	}
-	
 	public function test_range_input_type_helper() : void
 	{
 		$range = $this->aire()->form()->range();

@@ -28,8 +28,10 @@
 {{ Aire::checkbox('checkbox', 'Checkbox')
     ->id('checkbox') }}
 
+{{-- TODO: Radio buttons don't make any sense singularly, so implement as a group
 {{ Aire::radio('radio', 'Radio')
     ->id('radio') }}
+--}}
 
 {{ Aire::submit('Submit Button')->id('submit') }}
 

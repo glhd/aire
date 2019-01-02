@@ -66,10 +66,10 @@ class FormRenderingTest extends TestCase
 		$this->assertSelectorExists($html, 'label[for="checkbox"]');
 		
 		// Radio Button
-		$this->assertSelectorExists($html, 'input#radio');
-		$this->assertSelectorAttribute($html, '#radio', 'name', 'radio');
-		$this->assertSelectorAttribute($html, '#radio', 'type', 'radio');
-		$this->assertSelectorExists($html, 'label[for="radio"]');
+		// $this->assertSelectorExists($html, 'input#radio');
+		// $this->assertSelectorAttribute($html, '#radio', 'name', 'radio');
+		// $this->assertSelectorAttribute($html, '#radio', 'type', 'radio');
+		// $this->assertSelectorExists($html, 'label[for="radio"]');
 		
 		// Submit Button
 		$this->assertSelectorExists($html, 'button#submit');
