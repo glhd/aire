@@ -39,6 +39,8 @@
 
 {{ Aire::textarea()->value('Demo text area') }}
 
+{{ Aire::checkbox()->label('Demo check box') }}
+
 {{ Aire::button('Demo Button') }}
 
 {{ Aire::close() }}</code></pre>
@@ -49,7 +51,7 @@
 
 		
 		
-	<div data-validate="true" class="mb-6 " data-aire-group>
+	<div data-validate="true" class="mb-6" data-aire-group>
 	<label for="demo"
 	class="inline-block mb-2 cursor-pointer ">
 	
@@ -74,7 +76,7 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6 " data-aire-group>
+	<div data-validate="true" class="mb-6" data-aire-group>
 	<label 
 	class="inline-block mb-2  ">
 	
@@ -106,7 +108,7 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6 " data-aire-group>
+	<div data-validate="true" class="mb-6" data-aire-group>
 	
 	
 	<div class="">
@@ -114,6 +116,26 @@
 		<textarea
 	data-validate="true"
 	class="h-auto w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm">Demo text area</textarea>
+
+			
+			</div>
+	
+		
+	</div>
+
+	
+	<div data-validate="true" class="mb-6" data-aire-group>
+	
+	
+	<div class="">
+				
+		<label >
+	<input
+		type="checkbox" value="1" data-validate="true"
+		class="pr-2"
+	/>
+	Demo check box
+</label>
 
 			
 			</div>
