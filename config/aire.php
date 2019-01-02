@@ -68,7 +68,9 @@ return [
 	|
 	*/
 	'default_classes' => [
+		'group' => 'mb-6',
 		'input' => 'text-grey-darkest bg-white border rounded-sm',
+		'checkbox' => 'pr-2',
 		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',
 		'button' => 'inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
 			rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker

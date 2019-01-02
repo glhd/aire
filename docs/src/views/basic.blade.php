@@ -18,6 +18,8 @@
 
 {{ Aire::textarea()->value('Demo text area') }}
 
+{{ Aire::checkbox()->label('Demo check box') }}
+
 {{ Aire::button('Demo Button') }}
 
 {{ Aire::close() }}@endverbatim</code></pre>
@@ -35,6 +37,8 @@
 	    ->label('Demo Select') }}
 	
 	{{ Aire::textarea()->value('Demo text area') }}
+	
+	{{ Aire::checkbox()->label('Demo check box') }}
 	
 	{{ Aire::button('Demo Button') }}
 	

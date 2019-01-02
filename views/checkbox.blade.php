@@ -3,7 +3,7 @@
 <label {!! isset($attributes['id']) ? "for=\"{$attributes['id']}\"" : '' !!}>
 	<input
 		{{ $attributes->except('class') }}
-		class="block w-full p-2 text-base leading-normal {{ $class }}"
+		class="{{ $class }}"
 	/>
 	{{ $checkbox_label ?? '' }}
 </label>
