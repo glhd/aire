@@ -110,7 +110,7 @@ class AireServiceProvider extends ServiceProvider
 		if (method_exists($this->app, 'resourcePath')) {
 			$this->publishes([
 				$this->view_directory => $this->app->resourcePath('views/vendor/aire'),
-			], 'views');
+			], 'aire-views');
 		}
 		
 		return $this;
@@ -126,7 +126,7 @@ class AireServiceProvider extends ServiceProvider
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),
-			], 'config');
+			], 'aire-config');
 		}
 		
 		return $this;
@@ -144,7 +144,7 @@ class AireServiceProvider extends ServiceProvider
 		if (method_exists($this->app, 'resourcePath')) {
 			$this->publishes([
 				$this->translations_directory => $this->app->resourcePath('lang/vendor/aire'),
-			], 'translations');
+			], 'aire-translations');
 		}
 		
 		return $this;
@@ -159,8 +159,8 @@ class AireServiceProvider extends ServiceProvider
 	{
 		if (method_exists($this->app, 'publicPath')) {
 			$this->publishes([
-				$this->js_dist_directory => $this->app->publicPath('vendor/aire/js'),
-			], 'public');
+				$this->js_dist_directory => $this->app->publicPath().'/vendor/aire/js',
+			], 'aire-public-assets');
 		}
 		
 		return $this;
@@ -174,7 +174,26 @@ class AireServiceProvider extends ServiceProvider
 		$default_config = require $path;
 		$user_config = $this->app['config']->get($key, []);
 		
-		$merged_config = array_merge_recursive($default_config, $user_config);
+		$merged_config = array_merge($default_config, $user_config);
+		
+		$recursive_configs = ['default_attributes', 'default_classes', 'validation_classes'];
+		
+		foreach ($recursive_configs as $config_key) {
+			if (!isset($user_config[$config_key])) {
+				continue;
+			}
+			
+			foreach ($default_config[$config_key] as $subkey => $defaults) {
+				if (is_string($defaults) && !isset($user_config[$config_key][$subkey])) {
+					$merged_config[$config_key][$subkey] = $defaults;
+				} else if (is_array($defaults)) {
+					$merged_config[$config_key][$subkey] = array_merge(
+						$defaults,
+						$user_config[$config_key][$subkey] ?? []
+					);
+				}
+			}
+		}
 		
 		$this->app['config']->set($key, $merged_config);
 	}
