@@ -27,6 +27,7 @@
 		Basic Demo
 	</h1>
 	
+		
 	<pre><code class="language-php">{{ Aire::open() }}
 	
 {{ Aire::input()
@@ -37,17 +38,24 @@
 {{ Aire::select(['Option 1', 'Option 2'])
     ->label('Demo Select') }}
 
-{{ Aire::textarea()->value('Demo text area') }}
+{{ Aire::textarea()
+	->value('Demo text area') }}
 
-{{ Aire::checkbox()->label('Demo check box') }}
+{{ Aire::checkbox()
+	->label('Demo check box') }}
 
-{{ Aire::button('Demo Button') }}
+// Radio groups must have a name
+{{ Aire::radioGroup('demo_radios', ['one' => 'Option 1', 'two' => 'Option 2'])
+	->defaultValue('two')
+	->label('Demo radio group') }}
+
+{{ Aire::submit('Demo Submit Button') }}
 
 {{ Aire::close() }}</code></pre>
 	
 	<h2>Resulting Form</h2>
 	
-	<form action="" method="POST" class="" data-aire-id="1">
+	<form action="" method="POST" class="" data-aire-id="1" enctype="multipart/form-data">
 
 		
 		
@@ -129,12 +137,14 @@
 	
 	<div class="">
 				
-		<label >
+		<label class="flex items-center" >
 	<input
 		type="checkbox" value="1" data-validate="true"
 		class="pr-2"
 	/>
-	Demo check box
+	<span class="ml-2 flex-1">
+		Demo check box
+	</span>
 </label>
 
 			
@@ -144,8 +154,121 @@
 	</div>
 
 	
+	<div data-validate="true" class="mb-6" data-aire-group>
+	<label 
+	class="inline-block mb-2  ">
+	
+	Demo radio group
+</label>
+
+	
+	<div class="">
+				
+		<div value="two" data-validate="true">
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="radio" class="" name="foo" data-validate="true"
+				value="one"
+				
+			/>
+			<span class="flex-1 ml-2">
+				Option 1
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="radio" class="" name="foo" data-validate="true"
+				value="two"
+				checked
+			/>
+			<span class="flex-1 ml-2">
+				Option 2
+			</span>
+		</label>
+	
+	</div>
+
+			
+			</div>
+	
+		
+	</div>
+
+	
+	<div data-validate="true" class="mb-6" data-aire-group>
+	<label 
+	class="inline-block mb-2  ">
+	
+	Demo checkbox group
+</label>
+
+	
+	<div class="">
+				
+		<div data-validate="true">
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="checkbox" class="" name="bar[]" data-validate="true"
+				value="one"
+				
+			/>
+			<span class="flex-1 ml-2">
+				one
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="checkbox" class="" name="bar[]" data-validate="true"
+				value="two"
+				checked
+			/>
+			<span class="flex-1 ml-2">
+				two
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="checkbox" class="" name="bar[]" data-validate="true"
+				value="three"
+				checked
+			/>
+			<span class="flex-1 ml-2">
+				three
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+			<input
+				type="checkbox" class="" name="bar[]" data-validate="true"
+				value="four"
+				
+			/>
+			<span class="flex-1 ml-2">
+				four
+			</span>
+		</label>
+	
+	</div>
+
+			
+			</div>
+	
+		
+	</div>
+
+	
 	<button
-	data-validate="true"
+	type="submit" data-validate="true"
 	class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
 			rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker
 			hover:border-blue-darkest p-2 px-4"

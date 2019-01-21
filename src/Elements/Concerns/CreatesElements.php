@@ -4,9 +4,11 @@ namespace Galahad\Aire\Elements\Concerns;
 
 use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Checkbox;
+use Galahad\Aire\Elements\CheckboxGroup;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
 use Galahad\Aire\Elements\Radio;
+use Galahad\Aire\Elements\RadioGroup;
 use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
@@ -97,5 +99,31 @@ trait CreatesElements
 		}
 		
 		return $checkbox;
+	}
+	
+	public function checkboxGroup($name, array $options, $label = null) : CheckboxGroup
+	{
+		$checkbox_group = new CheckboxGroup($this->aire, $options, $this);
+		
+		$checkbox_group->name(trim($name, '[]').'[]');
+		
+		if ($label) {
+			$checkbox_group->label($label);
+		}
+		
+		return $checkbox_group;
+	}
+	
+	public function radioGroup($name, array $options, $label = null) : RadioGroup
+	{
+		$radio_group = new RadioGroup($this->aire, $options, $this);
+		
+		$radio_group->name($name);
+		
+		if ($label) {
+			$radio_group->label($label);
+		}
+		
+		return $radio_group;
 	}
 }

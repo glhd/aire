@@ -3,9 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\HasValue;
 
 class Input extends \Galahad\Aire\DTD\Input
 {
+	use HasValue;
+	
 	protected $default_attributes = [
 		'type' => 'text',
 	];
@@ -35,19 +38,6 @@ class Input extends \Galahad\Aire\DTD\Input
 		if ('hidden' === $value) {
 			$this->withoutGroup();
 		}
-		
-		return $this;
-	}
-	
-	/**
-	 * Set the default value
-	 *
-	 * @param $value
-	 * @return \Galahad\Aire\Elements\Input
-	 */
-	public function defaultValue($value) : self
-	{
-		$this->attributes['class']->default('value', $value);
 		
 		return $this;
 	}

@@ -6,21 +6,21 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\HasValue;
 use Illuminate\Support\Arr;
 
-class Select extends \Galahad\Aire\DTD\Select
+class RadioGroup extends \Galahad\Aire\DTD\Input
 {
 	use HasValue;
+	
+	public $name = 'radio-group';
+	
+	protected $default_attributes = [
+		'type' => 'radio',
+	];
 	
 	public function __construct(Aire $aire, array $options, Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		
 		$this->setOptions($options);
-		
-		$this->attributes->registerMutator('name', function($name) {
-			return $this->attributes->get('multiple', false)
-				? "{$name}[]"
-				: $name;
-		});
 	}
 	
 	public function setOptions(array $options) : self

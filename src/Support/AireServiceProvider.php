@@ -165,4 +165,17 @@ class AireServiceProvider extends ServiceProvider
 		
 		return $this;
 	}
+	
+	/**
+	 * @inheritdoc
+	 */
+	protected function mergeConfigFrom($path, $key)
+	{
+		$default_config = require $path;
+		$user_config = $this->app['config']->get($key, []);
+		
+		$merged_config = array_merge_recursive($default_config, $user_config);
+		
+		$this->app['config']->set($key, $merged_config);
+	}
 }

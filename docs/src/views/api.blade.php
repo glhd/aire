@@ -99,6 +99,11 @@
 	</ul>
 	
 	<p>
+		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faus-elements
+		that abstract away managing the values of individual radio buttons or multi-value checkboxes.
+	</p>
+	
+	<p>
 		Each element and input type can be instantiated directly from the
 		<code>Aire</code> facade or from the current <code>Form</code>
 		instance.

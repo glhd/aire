@@ -4,7 +4,7 @@
 	
 	@foreach($options as $value => $label)
 		
-		<option value="{{ $value }}" {{ (is_array($attributes['value']) && in_array($value, $attributes['value'])) || $value === $attributes['value'] ? 'selected' : '' }}>
+		<option value="{{ $value }}" {{ $attributes->isValue($value) ? 'selected' : '' }}>
 			{{ $label }}
 		</option>
 		

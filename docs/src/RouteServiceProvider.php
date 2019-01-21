@@ -26,12 +26,19 @@ class RouteServiceProvider extends ServiceProvider
 				? '/'
 				: $view;
 			
-			Route::get($path, function() use ($view, $path) {
+			Route::any($path, function() use ($view, $path) {
+				if (request()->isMethod('post')) {
+					session()->flashInput(request()->all());
+				}
 				return view($view, [
 					'current_path' => $path,
 					'readme' => new Readme(),
 				]);
-			});
+			})->middleware([
+				\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+				\Illuminate\Session\Middleware\StartSession::class,
+				\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+			]);
 		}
 	}
 }

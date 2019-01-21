@@ -5,6 +5,7 @@ namespace Galahad\Aire\Elements\Attributes;
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class Attributes implements Htmlable, ArrayAccess, Arrayable
@@ -69,7 +70,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	public function get($key, $default = null)
 	{
-		if ($this->offsetExists($key)) {
+		if (isset($this->defaults[$key]) || $this->offsetExists($key)) {
 			return $this->offsetGet($key);
 		}
 		
@@ -183,6 +184,17 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this;
 	}
 	
+	public function isValue($check_value) : bool
+	{
+		$current_value = $this->get('value');
+		
+		if (is_array($current_value)) {
+			return in_array($check_value, $current_value);
+		}
+		
+		return $current_value === $check_value;
+	}
+	
 	/**
 	 * Exclude certain keys from being included when rendering to HTML
 	 *
@@ -191,9 +203,27 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	public function except(...$keys) : self
 	{
-		$this->except = array_merge($this->except, $keys);
+		$filtered_attributes = new static(Arr::except($this->items, $keys));
+		$filtered_attributes->except = $keys; // To exclude defaults
+		$filtered_attributes->defaults = $this->defaults;
+		$filtered_attributes->mutators = $this->mutators;
 		
-		return $this;
+		return $filtered_attributes;
+	}
+	
+	/**
+	 * Only use certain keys when rendering to HTML
+	 *
+	 * @param mixed ...$keys
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
+	public function only(...$keys) : self
+	{
+		$filtered_attributes = new static(Arr::only($this->items, $keys));
+		$filtered_attributes->defaults = $this->defaults;
+		$filtered_attributes->mutators = $this->mutators;
+		
+		return $filtered_attributes;
 	}
 	
 	/**
@@ -206,7 +236,9 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this->toCollection()
 			->except($this->except)
 			->filter(function($value) {
-				return false !== $value && null !== $value;
+				return false !== $value
+					&& null !== $value
+					&& !is_array($value); // Array values have to be handled in associated component
 			})
 			->map(function($value, $name) {
 				if (true === $value) {
@@ -240,6 +272,14 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	{
 		$array = $this->items;
 		
+		// Apply defaults
+		foreach (array_keys($this->defaults) as $key) {
+			if (!isset($array[$key])) {
+				$array[$key] = $this->offsetGet($key);
+			}
+		}
+		
+		// Apply mutators
 		foreach (array_keys($this->mutators) as $key) {
 			$array[$key] = $this->offsetGet($key);
 		}

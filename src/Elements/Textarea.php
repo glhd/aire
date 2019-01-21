@@ -2,8 +2,12 @@
 
 namespace Galahad\Aire\Elements;
 
+use Galahad\Aire\Elements\Concerns\HasValue;
+
 class Textarea extends \Galahad\Aire\DTD\Textarea
 {
+	use HasValue;
+	
 	/**
 	 * Set the text area value
 	 *

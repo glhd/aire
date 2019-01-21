@@ -284,6 +284,16 @@ class Form extends \Galahad\Aire\DTD\Form
 		return parent::method($method);
 	}
 	
+	public function urlEncoded() : self
+	{
+		return $this->encType('application/x-www-form-urlencoded');
+	}
+	
+	public function multipart() : self
+	{
+		return $this->encType('multipart/form-data');
+	}
+	
 	/**
 	 * Enable client-side validation
 	 *
