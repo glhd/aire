@@ -1,5 +1,6 @@
 <?php
 
+use Barryvdh\Reflection\DocBlock;
 use Galahad\Aire\Elements\Group;
 
 echo "/**\n";
@@ -8,10 +9,14 @@ $reflect = new ReflectionClass(Group::class);
 $methods = $reflect->getMethods();
 
 foreach ($methods as $method) {
-	
-	if (!$method->isPublic()) {
-		continue;
-	}
+
+    if (!$method->isPublic()) {
+        continue;
+    }
+
+    $origin = $method->getDeclaringClass();
+
+    $phpdoc = new DocBlock($method, new DocBlock\Context($reflect->getNamespaceName()));
 	
 	$name = $method->getName();
 	
@@ -22,8 +27,12 @@ foreach ($methods as $method) {
 	$return = $method->hasReturnType()
 		? $method->getReturnType()
 		: 'mixed';
+
+	if ('mixed' === $return && ($phpdoc_return = $phpdoc->getTagsByName('return'))) {
+	    $return = $phpdoc_return[0]->getContent();
+    }
 	
-	if ('self' === "$return") {
+	if ('self' === "$return" || 'static' === "$return" || '$this' === "$return") {
 		$return = '\\'.Group::class;
 	} else if ($return instanceof ReflectionType && !$return->isBuiltin()) {
 		$return = "\\$return";
@@ -51,9 +60,12 @@ foreach ($methods as $method) {
 		->implode(', ');
 	
 	$shortcut_name = 'group'.studly_case($name);
-	
-	echo " * @method $return $name($params)\n";
-	echo " * @method $return $shortcut_name($params)\n";
+
+    if ($origin->getName() === $reflect->getName()) {
+        echo " * @method $return $name($params)\n";
+    } else {
+        echo " * @method $return $shortcut_name($params)\n";
+    }
 	
 }
 

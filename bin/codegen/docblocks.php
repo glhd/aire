@@ -3,7 +3,7 @@
 echo "/**\n";
 
 $classes = [
-	// \Galahad\Aire\Aire::class,
+	\Galahad\Aire\Aire::class,
 	\Galahad\Aire\Elements\Form::class,
 ];
 
