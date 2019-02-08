@@ -192,7 +192,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			return in_array($check_value, $current_value);
 		}
 		
-		return $current_value === $check_value;
+		return $current_value == $check_value;
 	}
 	
 	/**
