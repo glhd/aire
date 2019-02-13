@@ -69,6 +69,9 @@ return [
 	*/
 	'default_classes' => [
 		'group' => 'mb-6',
+		'group_prepend' => '-mr-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-l-sm',
+		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm',
+		'group_help_text' => 'block mt-1 text-grey-dark text-sm font-normal',
 		'input' => 'text-grey-darkest bg-white border rounded-sm',
 		'checkbox' => 'pr-2',
 		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',

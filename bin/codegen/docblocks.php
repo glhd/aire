@@ -1,11 +1,18 @@
 <?php
 
+use Barryvdh\Reflection\DocBlock;
+use Galahad\Aire\Elements\Element;
+
 echo "/**\n";
 
 $classes = [
 	\Galahad\Aire\Aire::class,
-	\Galahad\Aire\Elements\Form::class,
+	// \Galahad\Aire\Elements\Form::class,
+	\Galahad\Aire\Elements\Concerns\CreatesElements::class,
+	\Galahad\Aire\Elements\Concerns\CreatesInputTypes::class,
 ];
+
+$element_reflect = new ReflectionClass(Element::class);
 
 foreach ($classes as $class) {
 	$reflect = new ReflectionClass($class);
@@ -23,11 +30,21 @@ foreach ($classes as $class) {
 			continue;
 		}
 		
+		if ($element_reflect->hasMethod($name)) {
+			continue;
+		}
+		
+		$phpdoc = new DocBlock($method, new DocBlock\Context($reflect->getNamespaceName()));
+		
 		$return = $method->hasReturnType()
 			? (string) $method->getReturnType()
 			: 'mixed';
 		
-		if ('self' === $return) {
+		if ('mixed' === $return && ($phpdoc_return = $phpdoc->getTagsByName('return'))) {
+			$return = $phpdoc_return[0]->getContent();
+		}
+		
+		if ('self' === $return || '$this' === $return) {
 			$return = $class;
 		}
 		
