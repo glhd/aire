@@ -192,6 +192,20 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			return in_array($check_value, $current_value);
 		}
 		
+		if (is_string($check_value)) {
+			if (is_int($current_value) && ctype_digit($check_value)) {
+				$check_value = (int) $check_value;
+			} else if (is_float($current_value) && is_numeric($check_value)) {
+				$check_value = (float) $check_value;
+			} else if (is_bool($current_value)) {
+				if (in_array($check_value, [1, '1', 'true'])) {
+					$check_value = true;
+				} else if (in_array($check_value, [0, '0', 'false'])) {
+					$check_value = false;
+				}
+			}
+		}
+		
 		return $current_value === $check_value;
 	}
 	
