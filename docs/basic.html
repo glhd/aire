@@ -35,7 +35,7 @@
 	->id('demo')
 	->helpText('This is demo help text.') }}
 
-{{ Aire::select(['Option 1', 'Option 2'])
+{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
     ->label('Demo Select') }}
 
 {{ Aire::textarea()
@@ -59,20 +59,15 @@
 
 		
 		
-	<div data-validate="true" class="mb-6" data-aire-group>
-	<label for="demo"
-	class="inline-block mb-2 cursor-pointer ">
-	
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
+	<label class="inline-block mb-2 cursor-pointer" for="demo">
 	Demo Input
 </label>
 
 	
 	<div class="">
 				
-		<input
-	type="text" id="demo" data-validate="true"
-	class="block w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm"
-/>
+		<input type="text" class="block w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm" id="demo" data-aire-validate="true" />
 
 			
 			</div>
@@ -84,25 +79,23 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6" data-aire-group>
-	<label 
-	class="inline-block mb-2  ">
-	
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
+	<label class="inline-block mb-2">
 	Demo Select
 </label>
 
 	
 	<div class="">
 				
-		<select data-validate="true" class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none ">
+		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none" data-aire-validate="true">
 	
 			
-		<option value="Option 1" >
+		<option value="one" >
 			Option 1
 		</option>
 		
 			
-		<option value="Option 2" >
+		<option value="two" >
 			Option 2
 		</option>
 		
@@ -116,14 +109,14 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6" data-aire-group>
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
 	
 	
 	<div class="">
 				
 		<textarea
-	data-validate="true"
-	class="h-auto w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm">Demo text area</textarea>
+	data-aire-validate="true"
+	class="h-auto w-full p-2 text-base leading-normal block w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm">Demo text area</textarea>
 
 			
 			</div>
@@ -132,16 +125,13 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6" data-aire-group>
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
 	
 	
 	<div class="">
 				
-		<label class="flex items-center" >
-	<input
-		type="checkbox" value="1" data-validate="true"
-		class="pr-2"
-	/>
+		<label class="flex items-center">
+	<input type="checkbox" value="1" class="pr-2" data-aire-validate="true" />
 	<span class="ml-2 flex-1">
 		Demo check box
 	</span>
@@ -154,21 +144,19 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6" data-aire-group>
-	<label 
-	class="inline-block mb-2  ">
-	
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
+	<label class="inline-block mb-2">
 	Demo radio group
 </label>
 
 	
 	<div class="">
 				
-		<div value="two" data-validate="true">
+		<div >
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="radio" class="" name="foo" data-validate="true"
+				type="radio" class="" name="foo" data-aire-validate="true"
 				value="one"
 				
 			/>
@@ -180,7 +168,7 @@
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="radio" class="" name="foo" data-validate="true"
+				type="radio" class="" name="foo" data-aire-validate="true"
 				value="two"
 				checked
 			/>
@@ -198,24 +186,22 @@
 	</div>
 
 	
-	<div data-validate="true" class="mb-6" data-aire-group>
-	<label 
-	class="inline-block mb-2  ">
-	
+	<div data-aire-validate="true" class="mb-6" data-aire-group>
+	<label class="inline-block mb-2">
 	Demo checkbox group
 </label>
 
 	
 	<div class="">
 				
-		<div data-validate="true">
+		<div >
 	
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="checkbox" class="" name="bar[]" data-validate="true"
-				value="one"
-				
+				type="checkbox" class="" name="bar[]" data-aire-validate="true"
+				value="0"
+				checked
 			/>
 			<span class="flex-1 ml-2">
 				one
@@ -225,9 +211,9 @@
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="checkbox" class="" name="bar[]" data-validate="true"
-				value="two"
-				checked
+				type="checkbox" class="" name="bar[]" data-aire-validate="true"
+				value="1"
+				
 			/>
 			<span class="flex-1 ml-2">
 				two
@@ -237,9 +223,9 @@
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="checkbox" class="" name="bar[]" data-validate="true"
-				value="three"
-				checked
+				type="checkbox" class="" name="bar[]" data-aire-validate="true"
+				value="2"
+				
 			/>
 			<span class="flex-1 ml-2">
 				three
@@ -249,8 +235,8 @@
 			
 		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
 			<input
-				type="checkbox" class="" name="bar[]" data-validate="true"
-				value="four"
+				type="checkbox" class="" name="bar[]" data-aire-validate="true"
+				value="3"
 				
 			/>
 			<span class="flex-1 ml-2">
@@ -267,15 +253,10 @@
 	</div>
 
 	
-	<button
-	type="submit" data-validate="true"
-	class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
-			rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker
-			hover:border-blue-darkest p-2 px-4"
->
-
+	<button class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
+			rounded leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker
+			hover:border-blue-darkest p-2 px-4" type="submit" data-aire-validate="true">
 	Demo Button
-	
 </button>
 	
 			
@@ -2205,7 +2186,7 @@
       _classCallCheck(this, Aire);
 
       this.form = form;
-      this.fields = document.querySelectorAll('[data-validate="true"]');
+      this.fields = form.querySelectorAll('[data-aire-validate="true"]');
     }
 
     _createClass(Aire, [{

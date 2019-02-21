@@ -17,7 +17,7 @@
 	->id('demo')
 	->helpText('This is demo help text.') }}
 
-{{ Aire::select(['Option 1', 'Option 2'])
+{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
     ->label('Demo Select') }}
 
 {{ Aire::textarea()
@@ -44,7 +44,7 @@
 		->id('demo')
 		->helpText('This is demo help text.') }}
 	
-	{{ Aire::select(['Option 1', 'Option 2'])
+	{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
 	    ->label('Demo Select') }}
 	
 	{{ Aire::textarea()->value('Demo text area') }}

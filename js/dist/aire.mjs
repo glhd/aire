@@ -1921,7 +1921,7 @@ function () {
     _classCallCheck(this, Aire);
 
     this.form = form;
-    this.fields = document.querySelectorAll('[data-validate="true"]');
+    this.fields = form.querySelectorAll('[data-aire-validate="true"]');
   }
 
   _createClass(Aire, [{
