@@ -3,12 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
-use Illuminate\Support\Arr;
 
 class RadioGroup extends \Galahad\Aire\DTD\Input
 {
-	use HasValue;
+	use HasValue, HasOptions;
 	
 	public $name = 'radio-group';
 	
@@ -21,14 +21,5 @@ class RadioGroup extends \Galahad\Aire\DTD\Input
 		parent::__construct($aire, $form);
 		
 		$this->setOptions($options);
-	}
-	
-	public function setOptions(array $options) : self
-	{
-		$this->view_data['options'] = Arr::isAssoc($options)
-			? $options
-			: array_combine($options, $options);
-		
-		return $this;
 	}
 }

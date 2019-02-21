@@ -246,6 +246,10 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	public function isValue($check_value) : bool
 	{
+		if (null === $check_value) {
+			return false;
+		}
+		
 		$current_value = $this->get('value');
 		
 		/** @noinspection TypeUnsafeComparisonInspection **/

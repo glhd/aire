@@ -3,12 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
-use Illuminate\Support\Arr;
 
 class Select extends \Galahad\Aire\DTD\Select
 {
-	use HasValue;
+	use HasValue, HasOptions;
 	
 	public function __construct(Aire $aire, array $options, Form $form = null)
 	{
@@ -21,14 +21,5 @@ class Select extends \Galahad\Aire\DTD\Select
 				? rtrim($name, '[]').'[]'
 				: $name;
 		});
-	}
-	
-	public function setOptions(array $options) : self
-	{
-		$this->view_data['options'] = Arr::isAssoc($options)
-			? $options
-			: array_combine($options, $options);
-		
-		return $this;
 	}
 }

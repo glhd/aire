@@ -89,6 +89,27 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
+	public function setAttribute($key, $value) : self
+	{
+		$this->attributes->set($key, $value);
+		
+		return $this;
+	}
+	
+	public function addClass(...$class_name) : self
+	{
+		$this->attributes->class->add(...$class_name);
+		
+		return $this;
+	}
+	
+	public function removeClass(...$class_name) : self
+	{
+		$this->attributes->class->remove(...$class_name);
+		
+		return $this;
+	}
+	
 	/**
 	 * Render the Element to HTML
 	 *

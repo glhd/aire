@@ -53,6 +53,8 @@ class ClassNames
 	{
 		$this->element_name = $element_name;
 		$this->group = $group;
+		
+		$this->class_names = $this->defaults();
 	}
 	
 	/**
@@ -128,7 +130,6 @@ class ClassNames
 	public function __toString()
 	{
 		return implode(' ', array_unique(array_merge(
-			$this->defaults(),
 			$this->class_names,
 			$this->validation()
 		)));
