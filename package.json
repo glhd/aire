@@ -3,16 +3,28 @@
   "scripts": {
     "css": "tailwind build docs/src/aire.css -c ./tailwind.js -o ./docs/src/public/aire.css",
     "dev": "rollup --config --watch",
-    "prod": "rollup --config"
+    "prod": "rollup --config",
+    "test": "ava js/tests/"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "ava": "^1.2.1",
+    "puppeteer": "^1.12.2",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "tailwindcss": "^0.6.6",
     "validatorjs": "^3.15.1"
+  },
+  "ava": {
+    "babel": {
+      "testOptions": {
+        "babelrc": false,
+        "configFile": false
+      }
+    }
   }
 }
