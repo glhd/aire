@@ -61,4 +61,15 @@ class Checkbox extends Input
 		
 		return $this;
 	}
+	
+	protected function viewData() : array
+	{
+		$data = parent::viewData();
+		
+		if ($this->attributes->has('id')) {
+			$data['label_for'] = $this->attributes->get('id');
+		}
+		
+		return $data;
+	}
 }

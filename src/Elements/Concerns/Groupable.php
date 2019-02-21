@@ -67,7 +67,7 @@ trait Groupable
 	 *
 	 * @return $this
 	 */
-	public function grouped()
+	public function grouped() : self
 	{
 		$this->grouped = true;
 		
@@ -79,7 +79,7 @@ trait Groupable
 	 *
 	 * @return $this
 	 */
-	public function withoutGroup()
+	public function withoutGroup() : self
 	{
 		$this->grouped = false;
 		
@@ -117,12 +117,14 @@ trait Groupable
 	/**
 	 * Initialize the group
 	 */
-	protected function initGroup()
+	protected function initGroup() : Group
 	{
 		if (null === $this->grouped) {
 			$this->grouped = $this->aire->config('group_by_default', true);
 		}
 		
 		$this->group = new Group($this->aire, $this->form, $this);
+		
+		return $this->group;
 	}
 }

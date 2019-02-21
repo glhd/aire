@@ -18,7 +18,7 @@ class Label extends \Galahad\Aire\DTD\Label
 		$this->group = $group;
 		
 		$this->attributes->registerMutator('for', function($for) {
-			if (null === $for && $id = optional($this->group)->element->getAttribute('id')) {
+			if (null === $for && $id = optional($this->group)->element->attributes->get('id')) {
 				$for = $id;
 			}
 			

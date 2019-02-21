@@ -51,8 +51,20 @@ class Group extends Element
 		'errors' => [],
 	];
 	
+	/**
+	 * Groups should never be grouped themselves
+	 *
+	 * @var bool
+	 */
 	protected $grouped = false;
 	
+	/**
+	 * Constructor
+	 *
+	 * @param \Galahad\Aire\Aire $aire
+	 * @param \Galahad\Aire\Elements\Form $form
+	 * @param \Galahad\Aire\Elements\Element $element
+	 */
 	public function __construct(Aire $aire, Form $form, Element $element)
 	{
 		parent::__construct($aire, $form);
@@ -60,7 +72,13 @@ class Group extends Element
 		$this->element = $element;
 	}
 	
-	public function label(string $text) : self
+	/**
+	 * Set the group's label
+	 *
+	 * @param string|HtmlString $text
+	 * @return \Galahad\Aire\Elements\Group
+	 */
+	public function label($text) : self
 	{
 		$this->label = (new Label($this->aire, $this))->text($text);
 		
@@ -122,11 +140,11 @@ class Group extends Element
 	{
 		$errors = $this->view_data['errors'];
 		
-		if ($name = $this->element->getAttribute('name')) {
+		if ($name = $this->element->attributes->get('name')) {
 			$session_errors = $this->form->getErrors($name);
 			if (!empty($session_errors)) {
 				$errors = array_merge($errors, $session_errors);
-				$this->invalid();
+				$this->invalid(); // TODO: This feels like an odd place to call this
 			}
 		}
 		

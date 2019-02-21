@@ -30,6 +30,11 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected $translations_directory;
 	
+	/**
+	 * Resolved path to the built JS directory
+	 *
+	 * @var string
+	 */
 	protected $js_dist_directory;
 	
 	public function __construct(Application $app)

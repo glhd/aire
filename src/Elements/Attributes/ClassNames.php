@@ -35,9 +35,9 @@ class ClassNames
 	/**
 	 * Manually applied class names
 	 *
-	 * @var string
+	 * @var string[]
 	 */
-	protected $class_names;
+	protected $class_names = [];
 	
 	/**
 	 * Constructor
@@ -54,7 +54,7 @@ class ClassNames
 	 *
 	 * @param array $default_classes
 	 */
-	public static function setDefaultClasses(array $default_classes)
+	public static function setDefaultClasses(array $default_classes) : void
 	{
 		static::$default_classes = $default_classes;
 	}
@@ -64,20 +64,52 @@ class ClassNames
 	 *
 	 * @param array $validation_classes
 	 */
-	public static function setValidationClasses(array $validation_classes)
+	public static function setValidationClasses(array $validation_classes) : void
 	{
 		static::$validation_classes = $validation_classes;
 	}
 	
 	/**
-	 * Set the class name
+	 * Set the class names
 	 *
-	 * @param null|string $class_names
+	 * @param null|string|array $class_names
 	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
 	 */
-	public function set(?string $class_names) : self
+	public function set($class_names) : self
 	{
+		if (null === $class_names) {
+			$class_names = [];
+		} else if (is_string($class_names)) {
+			$class_names = explode(' ', $class_names);
+		}
+		
 		$this->class_names = $class_names;
+		
+		return $this;
+	}
+	
+	/**
+	 * Add class(es) to the class list
+	 *
+	 * @param mixed ...$class_names
+	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
+	 */
+	public function add(...$class_names) : self
+	{
+		$this->class_names = array_unique(array_merge($this->class_names, $class_names));
+		
+		return $this;
+	}
+	
+	/**
+	 * Remove class(es) from the class list
+	 *
+	 * @param string[] ...$class_names
+	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
+	 */
+	public function remove(...$class_names) : self
+	{
+		$this->class_names = array_diff($this->class_names, $class_names);
 		
 		return $this;
 	}
@@ -89,11 +121,11 @@ class ClassNames
 	 */
 	public function __toString()
 	{
-		return implode(' ', array_filter([
+		return implode(' ', array_unique(array_merge(
 			$this->defaults(),
 			$this->class_names,
-			$this->validation(),
-		]));
+			$this->validation()
+		)));
 	}
 	
 	/**
@@ -101,15 +133,21 @@ class ClassNames
 	 *
 	 * @return null|string
 	 */
-	protected function defaults() : ?string
+	protected function defaults() : array
 	{
-		$key = $this->element->name;
+		$element_key = $this->element->name;
 		
-		if ('textarea' === $key && !Arr::has(static::$default_classes, 'textarea')) {
-			$key = 'input';
+		if ('textarea' === $element_key && !isset(static::$default_classes[$element_key])) {
+			$element_key = 'input';
 		}
 		
-		return Arr::get(static::$default_classes, $key);
+		if (!isset(static::$default_classes[$element_key])) {
+			return [];
+		}
+		
+		return is_string(static::$default_classes[$element_key])
+			? explode(' ', static::$default_classes[$element_key])
+			: static::$default_classes[$element_key];
 	}
 	
 	/**
@@ -117,24 +155,28 @@ class ClassNames
 	 *
 	 * @return null|string
 	 */
-	protected function validation() : ?string
+	protected function validation() : array
 	{
 		$element_key = $this->element->name;
 		
-		if ('textarea' === $element_key && !Arr::has(static::$validation_classes, 'textarea')) {
+		if ('textarea' === $element_key && !isset(static::$validation_classes[$element_key])) {
 			$element_key = 'input';
 		}
 		
+		$class_names = [];
+		
 		if ($this->element->group) {
 			$key = "{$this->element->group->validation_state}.{$element_key}";
-			return Arr::get(static::$validation_classes, $key);
-		}
-		
-		if ($this->element instanceof Group) {
+			$class_names = Arr::get(static::$validation_classes, $key, []);
+		} else if ($this->element instanceof Group) {
 			$key = "{$this->element->validation_state}.{$element_key}";
-			return Arr::get(static::$validation_classes, $key);
+			$class_names = Arr::get(static::$validation_classes, $key, []);
 		}
 		
-		return null;
+		if (is_string($class_names)) {
+			$class_names = explode(' ', $class_names);
+		}
+		
+		return $class_names;
 	}
 }

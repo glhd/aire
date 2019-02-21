@@ -8,15 +8,11 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+/**
+ * @property \Galahad\Aire\Elements\Attributes\ClassNames $class
+ */
 class Attributes implements Htmlable, ArrayAccess, Arrayable
 {
-	/**
-	 * Attributes to except when generating HTML
-	 *
-	 * @var array
-	 */
-	protected $except = [];
-	
 	/**
 	 * @var array
 	 */
@@ -34,6 +30,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	protected $mutators = [];
 	
+	/**
+	 * Constructor
+	 *
+	 * @param array $items
+	 */
 	public function __construct(array $items)
 	{
 		$this->items = $items;
@@ -171,6 +172,49 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	}
 	
 	/**
+	 * Get attribute using object notation
+	 *
+	 * @param $name
+	 * @return mixed|null
+	 */
+	public function __get($name)
+	{
+		return $this->offsetGet($name);
+	}
+	
+	/**
+	 * Set attribute using object notation
+	 *
+	 * @param $name
+	 * @param $value
+	 */
+	public function __set($name, $value)
+	{
+		$this->offsetSet($name, $value);
+	}
+	
+	/**
+	 * Check if attribute is set using object notation
+	 *
+	 * @param $name
+	 * @return bool
+	 */
+	public function __isset($name)
+	{
+		return $this->offsetExists($name);
+	}
+	
+	/**
+	 * Unset attribute using object notation
+	 *
+	 * @param $name
+	 */
+	public function __unset($name)
+	{
+		$this->offsetUnset($name);
+	}
+	
+	/**
 	 * Set a default/fallback value
 	 *
 	 * @param string $key
@@ -184,29 +228,23 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		return $this;
 	}
 	
+	/**
+	 * Check if the "value" attribute matches a given value
+	 *
+	 * This function will cast string values to the same type as the
+	 * current "value" attribute ("1" === true, etc)
+	 *
+	 * @param mixed $check_value
+	 * @return bool
+	 */
 	public function isValue($check_value) : bool
 	{
 		$current_value = $this->get('value');
+		$check_value = $this->castValueForComparison($check_value, $current_value);
 		
-		if (is_array($current_value)) {
-			return in_array($check_value, $current_value);
-		}
-		
-		if (is_string($check_value)) {
-			if (is_int($current_value) && ctype_digit($check_value)) {
-				$check_value = (int) $check_value;
-			} else if (is_float($current_value) && is_numeric($check_value)) {
-				$check_value = (float) $check_value;
-			} else if (is_bool($current_value)) {
-				if (in_array($check_value, [1, '1', 'true'])) {
-					$check_value = true;
-				} else if (in_array($check_value, [0, '0', 'false'])) {
-					$check_value = false;
-				}
-			}
-		}
-		
-		return $current_value === $check_value;
+		return is_array($current_value)
+			? in_array($check_value, $current_value)
+			: $check_value === $current_value;
 	}
 	
 	/**
@@ -218,9 +256,8 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function except(...$keys) : self
 	{
 		$filtered_attributes = new static(Arr::except($this->items, $keys));
-		$filtered_attributes->except = $keys; // To exclude defaults
-		$filtered_attributes->defaults = $this->defaults;
-		$filtered_attributes->mutators = $this->mutators;
+		$filtered_attributes->defaults = Arr::except($this->defaults, $keys);
+		$filtered_attributes->mutators = Arr::except($this->mutators, $keys);
 		
 		return $filtered_attributes;
 	}
@@ -234,8 +271,8 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function only(...$keys) : self
 	{
 		$filtered_attributes = new static(Arr::only($this->items, $keys));
-		$filtered_attributes->defaults = $this->defaults;
-		$filtered_attributes->mutators = $this->mutators;
+		$filtered_attributes->defaults = Arr::only($this->defaults, $keys);
+		$filtered_attributes->mutators = Arr::only($this->mutators, $keys);
 		
 		return $filtered_attributes;
 	}
@@ -248,7 +285,6 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function toHtml() : string
 	{
 		return $this->toCollection()
-			->except($this->except)
 			->filter(function($value) {
 				return false !== $value
 					&& null !== $value
@@ -278,26 +314,56 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	}
 	
 	/**
-	 * Get an array of all attributes (after mutation)
+	 * Get an array of all attributes (after mutation, and with defaults)
 	 *
 	 * @return array
 	 */
 	public function toArray() : array
 	{
-		$array = $this->items;
+		// We want to get values for keys that are in the attribute list,
+		// but also need to load defaults and anything that has a mutator
 		
-		// Apply defaults
-		foreach (array_keys($this->defaults) as $key) {
-			if (!isset($array[$key])) {
-				$array[$key] = $this->offsetGet($key);
-			}
-		}
+		$keys = array_unique(array_merge(
+			array_keys($this->items),
+			array_keys($this->defaults),
+			array_keys($this->mutators)
+		));
 		
-		// Apply mutators
-		foreach (array_keys($this->mutators) as $key) {
+		// Once we've loaded a list of all keys, we'll call offsetGet()
+		// to apply mutators and default values
+		
+		$array = [];
+		foreach ($keys as $key) {
 			$array[$key] = $this->offsetGet($key);
 		}
 		
 		return $array;
+	}
+	
+	protected function castValueForComparison($check_value, $current_value)
+	{
+		if (!is_string($check_value)) {
+			return $check_value;
+		}
+		
+		$value_type = gettype(is_array($current_value) ? current($current_value) : $current_value);
+		
+		if ('integer' === $value_type && ctype_digit($check_value)) {
+			return (int) $check_value;
+		}
+		
+		if ('float' === $value_type && is_numeric($check_value)) {
+			return (float) $check_value;
+		}
+		
+		if ('boolean' === $value_type && in_array(strtolower($check_value), ['1', 'true'])) {
+			return true;
+		}
+		
+		if ('boolean' === $value_type && in_array(strtolower($check_value), ['0', 'false'])) {
+			return false;
+		}
+		
+		return $check_value;
 	}
 }

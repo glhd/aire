@@ -5,7 +5,7 @@ import Validator from 'validatorjs';
 export default class Aire {
 	constructor(form) {
 		this.form = form;
-		this.fields = document.querySelectorAll('[data-validate="true"]');
+		this.fields = form.querySelectorAll('[data-aire-validate="true"]');
 	}
 	
 	validate() {

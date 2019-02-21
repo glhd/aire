@@ -67,30 +67,20 @@ abstract class Element implements Htmlable
 	}
 	
 	/**
-	 * Get an Element's attribute
-	 *
-	 * @param string $attribute
-	 * @param null $default
-	 * @return mixed
-	 */
-	public function getAttribute(string $attribute, $default = null)
-	{
-		return Arr::get($this->attributes, $attribute, $default);
-	}
-	
-	/**
 	 * Set a data attribute
 	 *
 	 * @param $key
 	 * @param $value
 	 * @return $this
 	 */
-	public function data($key, $value)
+	public function data($key, $value) : self
 	{
-		if (null === $value && isset($this->attributes["data-{$key}"])) {
-			unset($this->attributes["data-{$key}"]);
+		$attribute = "data-{$key}";
+		
+		if (null === $value && isset($this->attributes[$attribute])) {
+			unset($this->attributes[$attribute]);
 		} else {
-			$this->attributes["data-{$key}"] = $value;
+			$this->attributes[$attribute] = $value;
 		}
 		
 		return $this;
@@ -114,7 +104,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function toHtml()
+	public function toHtml() : string
 	{
 		return $this->grouped && $this->group
 			? $this->group->render()
@@ -126,7 +116,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function __toString() : string
 	{
 		return $this->toHtml();
 	}
@@ -138,13 +128,11 @@ abstract class Element implements Htmlable
 	 */
 	protected function viewData() : array
 	{
-		$attributes = $this->attributes;
-		
 		return array_merge(
-			$attributes->toArray(), // Provide shortcuts to all attributes
+			$this->attributes->toArray(), // Provide shortcuts to all attributes
 			$this->view_data, // Override with view data
 			[
-				'attributes' => $attributes, // Ensure that $attributes always exists
+				'attributes' => $this->attributes, // Ensure that $attributes always exists
 				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
 			]
 		);
@@ -172,7 +160,7 @@ abstract class Element implements Htmlable
 			});
 		}
 		
-		$this->attributes->registerMutator('data-validate', function() {
+		$this->attributes->registerMutator('data-aire-validate', function() {
 			return $this->form->validate ? 'true' : 'false';
 		});
 		
