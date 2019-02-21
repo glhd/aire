@@ -8,7 +8,6 @@ use Galahad\Aire\Elements\Attributes\Attributes;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
@@ -55,14 +54,18 @@ abstract class Element implements Htmlable
 	{
 		$this->aire = $aire;
 		
+		if ($form) {
+			$this->initForm($form);
+		}
+		
 		$this->attributes = new Attributes(array_merge(
 			$this->default_attributes,
 			$aire->config("default_attributes.{$this->name}", []),
-			['class' => new ClassNames($this)]
+			['class' => new ClassNames($this->name, $this->group)]
 		));
 		
 		if ($form) {
-			$this->initForm($form);
+			$this->registerMutators();
 		}
 	}
 	
@@ -150,12 +153,13 @@ abstract class Element implements Htmlable
 		
 		$this->initGroup();
 		
+		return $this;
+	}
+	
+	protected function registerMutators() : self
+	{
 		if ($this->bind_value) {
-			$this->attributes->registerMutator('value', function($value) {
-				if (null !== $value || !$this->attributes->has('name')) {
-					return $value;
-				}
-				
+			$this->attributes->setDefault('value', function() {
 				return $this->form->getBoundValue($this->attributes->get('name'));
 			});
 		}

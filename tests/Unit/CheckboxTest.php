@@ -36,9 +36,18 @@ class CheckboxTest extends TestCase
 		$this->assertSelectorExists($html, '[data-aire-group] label[for="bar"] input[type="checkbox"]');
 	}
 	
-	public function test_bound_data_sets_checked_attribute() : void
+	public function test_bound_integer_sets_checked_attribute() : void
 	{
-		$this->aire()->form()->bind(['foo' => '1']);
+		$this->aire()->form()->bind(['foo' => 1]);
+		
+		$input = $this->aire()->checkbox('foo');
+		
+		$this->assertSelectorAttribute($input, 'input', 'checked');
+	}
+	
+	public function test_bound_boolean_sets_checked_attribute() : void
+	{
+		$this->aire()->form()->bind(['foo' => true]);
 		
 		$input = $this->aire()->checkbox('foo');
 		

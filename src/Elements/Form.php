@@ -118,6 +118,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function getBoundValue($name, $default = null)
 	{
+		if (null === $name) {
+			return value($default);
+		}
+		
 		$name = rtrim($name, '[]');
 		
 		// If old input is set, use that
@@ -136,7 +140,7 @@ class Form extends \Galahad\Aire\DTD\Form
 			}
 		}
 		
-		return $default;
+		return value($default);
 	}
 	
 	/**
@@ -332,9 +336,9 @@ class Form extends \Galahad\Aire\DTD\Form
 		return array_merge(parent::viewData(), ['validate' => $this->validate]);
 	}
 	
-	protected function initGroup()
+	protected function initGroup() : ?Group
 	{
-		// Ignore for Form
+		return null; // Ignore for Form
 	}
 	
 	protected function inferMethodFromRoute($route_name)

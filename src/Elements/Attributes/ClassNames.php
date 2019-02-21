@@ -23,16 +23,6 @@ class ClassNames
 	protected static $validation_classes = [];
 	
 	/**
-	 * The element that this attribute is connected to
-	 *
-	 * This is necessary to automatically set class names based on
-	 * defaults and validation state.
-	 *
-	 * @var \Galahad\Aire\Elements\Element
-	 */
-	protected $element;
-	
-	/**
 	 * Manually applied class names
 	 *
 	 * @var string[]
@@ -40,13 +30,29 @@ class ClassNames
 	protected $class_names = [];
 	
 	/**
+	 * The name of the element that this class list targets
+	 *
+	 * @var string
+	 */
+	protected $element_name;
+	
+	/**
+	 * If the class list is associated with a group, we can pull validation classes as well
+	 *
+	 * @var \Galahad\Aire\Elements\Group
+	 */
+	protected $group;
+	
+	/**
 	 * Constructor
 	 *
-	 * @param \Galahad\Aire\Elements\Element $element
+	 * @param string $element_name
+	 * @param \Galahad\Aire\Elements\Group|null $group
 	 */
-	public function __construct(Element $element)
+	public function __construct($element_name, Group $group = null)
 	{
-		$this->element = $element;
+		$this->element_name = $element_name;
+		$this->group = $group;
 	}
 	
 	/**
@@ -135,19 +141,19 @@ class ClassNames
 	 */
 	protected function defaults() : array
 	{
-		$element_key = $this->element->name;
+		$element_name = $this->element_name;
 		
-		if ('textarea' === $element_key && !isset(static::$default_classes[$element_key])) {
-			$element_key = 'input';
+		if ('textarea' === $element_name && !isset(static::$default_classes[$element_name])) {
+			$element_name = 'input';
 		}
 		
-		if (!isset(static::$default_classes[$element_key])) {
+		if (!isset(static::$default_classes[$element_name])) {
 			return [];
 		}
 		
-		return is_string(static::$default_classes[$element_key])
-			? explode(' ', static::$default_classes[$element_key])
-			: static::$default_classes[$element_key];
+		return is_string(static::$default_classes[$element_name])
+			? explode(' ', static::$default_classes[$element_name])
+			: static::$default_classes[$element_name];
 	}
 	
 	/**
@@ -157,21 +163,18 @@ class ClassNames
 	 */
 	protected function validation() : array
 	{
-		$element_key = $this->element->name;
-		
-		if ('textarea' === $element_key && !isset(static::$validation_classes[$element_key])) {
-			$element_key = 'input';
+		if (null === $this->group) {
+			return [];
 		}
 		
-		$class_names = [];
+		$element_name = $this->element_name;
 		
-		if ($this->element->group) {
-			$key = "{$this->element->group->validation_state}.{$element_key}";
-			$class_names = Arr::get(static::$validation_classes, $key, []);
-		} else if ($this->element instanceof Group) {
-			$key = "{$this->element->validation_state}.{$element_key}";
-			$class_names = Arr::get(static::$validation_classes, $key, []);
+		if ('textarea' === $element_name && !isset(static::$validation_classes[$element_name])) {
+			$element_name = 'input';
 		}
+		
+		$key = "{$this->group->validation_state}.{$element_name}";
+		$class_names = Arr::get(static::$validation_classes, $key, []);
 		
 		if (is_string($class_names)) {
 			$class_names = explode(' ', $class_names);

@@ -35,7 +35,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @param array $items
 	 */
-	public function __construct(array $items)
+	public function __construct(array $items = [])
 	{
 		$this->items = $items;
 	}
@@ -217,13 +217,20 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	/**
 	 * Set a default/fallback value
 	 *
-	 * @param string $key
-	 * @param $value
+	 * @param string $attribute
+	 * @param mixed|callable $default
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function setDefault(string $key, $value) : self
+	public function setDefault(string $attribute, $default) : self
 	{
-		$this->defaults[$key] = $value;
+		// If the default value is callable, register it as a mutator
+		if (is_callable($default)) {
+			return $this->registerMutator($attribute, function($value) use ($default) {
+				return $value ?? $default();
+			});
+		}
+		
+		$this->defaults[$attribute] = $default;
 		
 		return $this;
 	}
@@ -240,11 +247,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function isValue($check_value) : bool
 	{
 		$current_value = $this->get('value');
-		$check_value = $this->castValueForComparison($check_value, $current_value);
 		
+		/** @noinspection TypeUnsafeComparisonInspection **/
 		return is_array($current_value)
-			? in_array($check_value, $current_value)
-			: $check_value === $current_value;
+			? in_array($check_value, $current_value, false)
+			: $check_value == $current_value;
 	}
 	
 	/**
@@ -291,14 +298,16 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 					&& !is_array($value); // Array values have to be handled in associated component
 			})
 			->map(function($value, $name) {
-				if (true === $value) {
-					return $name;
+				$name = strtolower($name);
+				
+				// Cast boolean values to '1' or '0'
+				if ('value' === $name && is_bool($value)) {
+					$value = $value ? '1' : '0';
 				}
 				
-				$name = strtolower($name);
-				$value = e($value);
-				
-				return "{$name}=\"{$value}\"";
+				return true === $value
+					? $name
+					: sprintf('%s="%s"', $name, e($value));
 			})
 			->implode(' ');
 	}

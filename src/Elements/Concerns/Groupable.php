@@ -117,7 +117,7 @@ trait Groupable
 	/**
 	 * Initialize the group
 	 */
-	protected function initGroup() : Group
+	protected function initGroup() : ?Group
 	{
 		if (null === $this->grouped) {
 			$this->grouped = $this->aire->config('group_by_default', true);

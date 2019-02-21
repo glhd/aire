@@ -128,6 +128,9 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected function bootConfig() : self
 	{
+		// TODO: It may make sense to not publish the default classes/etc so that
+		// TODO: publishing doesn't fix the user to that set of default classes
+		
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),

@@ -3,6 +3,8 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Attributes\Attributes;
+use Galahad\Aire\Elements\Attributes\ClassNames;
 use Illuminate\Support\Str;
 
 class Checkbox extends Input
@@ -11,7 +13,7 @@ class Checkbox extends Input
 	
 	protected $default_attributes = [
 		'type' => 'checkbox',
-		'value' => '1',
+		'value' => true,
 	];
 	
 	/**
@@ -25,17 +27,18 @@ class Checkbox extends Input
 	{
 		parent::__construct($aire, $form);
 		
-		$this->attributes->registerMutator('checked', function($value) {
-			if (null !== $value || !$this->attributes->has('name')) {
-				return $value;
+		$this->view_data['label_attributes'] = tap(new Attributes(['class' => new ClassNames('checkbox_label', $this->group)]))
+			->setDefault('for', function() {
+				return $this->attributes->get('id');
+			});
+		
+		$this->attributes->setDefault('checked', function() {
+			if (!$name = $this->attributes->get('name')) {
+				return null;
 			}
 			
-			$checked_value = $this->attributes['value'];
-			$bound_value = $this->form->getBoundValue($this->attributes->get('name'));
-			
-			return is_array($bound_value)
-				? in_array($checked_value, $bound_value)
-				: $checked_value === $bound_value;
+			$bound_value = $this->form->getBoundValue($name);
+			return $this->attributes->isValue($bound_value);
 		});
 	}
 	

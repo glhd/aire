@@ -155,8 +155,10 @@ class Group extends Element
 		]);
 	}
 	
-	protected function initGroup()
+	protected function initGroup() : ?Group
 	{
-		// Ignore
+		$this->group = $this;
+		
+		return $this;
 	}
 }
