@@ -3,8 +3,6 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
-use Galahad\Aire\Elements\Attributes\Attributes;
-use Galahad\Aire\Elements\Attributes\ClassNames;
 use Illuminate\Support\Str;
 
 class Checkbox extends Input
@@ -29,10 +27,9 @@ class Checkbox extends Input
 	{
 		parent::__construct($aire, $form);
 		
-		$this->view_data['label_attributes'] = tap(new Attributes(['class' => new ClassNames('checkbox_label', $this->group)]))
-			->setDefault('for', function() {
-				return $this->attributes->get('id');
-			});
+		$this->components()->label->setDefault('for', function() {
+			return $this->attributes->get('id');
+		});
 		
 		$this->attributes->setDefault('checked', function() {
 			if (!$name = $this->attributes->get('name')) {

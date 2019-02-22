@@ -1,6 +1,6 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
 
-<label {{ $label_attributes }}>
+<label {{ $components->label }}>
 	<input {{ $attributes }} />
 	<span {{ $components->wrapper }}>
 		{{ $checkbox_label ?? '' }}

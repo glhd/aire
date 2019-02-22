@@ -70,6 +70,11 @@ abstract class Element implements Htmlable
 	 */
 	protected $bind_value = true;
 	
+	/**
+	 * @var stdClass
+	 */
+	protected $component_attributes;
+	
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
@@ -208,27 +213,31 @@ abstract class Element implements Htmlable
 	
 	protected function components() : stdClass
 	{
-		return (object) collect(static::$components)
-			->mapWithKeys(function($component) {
-				$key = "{$this->name}_{$component}";
-				$attributes = new Attributes(array_merge(
-					['data-aire-component' => $component],
-					$this->aire->config("default_attributes.{$key}", []),
-					['class' => new ClassNames($key, $this->group)]
-				));
-				
-				$attributes->registerMutator('data-aire-for', function() {
-					$name = $this instanceof Group
-						? $this->element->attributes->get('name')
-						: $this->attributes->get('name');
+		if (null === $this->component_attributes) {
+			$this->component_attributes = (object) collect(static::$components)
+				->mapWithKeys(function($component) {
+					$key = "{$this->name}_{$component}";
+					$attributes = new Attributes(array_merge(
+						['data-aire-component' => $component],
+						$this->aire->config("default_attributes.{$key}", []),
+						['class' => new ClassNames($key, $this->group)]
+					));
 					
-					return rtrim($name, '[]');
-				});
-				
-				return [
-					$component => $attributes,
-				];
-			})
-			->all();
+					$attributes->registerMutator('data-aire-for', function() {
+						$name = $this instanceof Group
+							? $this->element->attributes->get('name')
+							: $this->attributes->get('name');
+						
+						return rtrim($name, '[]');
+					});
+					
+					return [
+						$component => $attributes,
+					];
+				})
+				->all();
+		}
+		
+		return $this->component_attributes;
 	}
 }
