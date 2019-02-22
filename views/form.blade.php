@@ -10,7 +10,7 @@
 		<input type="hidden" name="_method" value="{{ $_method }}" />
 	@endisset
 	
-	{{ $fields ?? '' }}
+	{{ $fields }}
 	
 	{{ $validation }}
 	

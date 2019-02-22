@@ -9,6 +9,7 @@ $demo_options = [
 $rules = [
 	'demo_input' => 'required|numeric|min:1|max:100',
 	'demo_select' => 'in:coates,patchett',
+	'demo_multiselect' => 'in:patchett,roth',
 	'demo_textarea' => 'required|min:5|max:20',
 	'demo_radiogroup' => 'in:roth,patchett',
 	'demo_checkboxgroup' => 'in:coates,roth',

@@ -44,6 +44,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $default_attributes = [
 		'action' => '',
 		'method' => 'POST',
+		'fields' => null,
 	];
 	
 	/**
@@ -460,7 +461,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected function validationData() : array
 	{
 		if (!$this->validate) {
-			return ['validate' => false];
+			return ['validation' => null];
 		}
 		
 		$config = json_encode($this->validationConfig());
@@ -471,8 +472,8 @@ class Form extends \Galahad\Aire\DTD\Form
 				$validator_url = asset('validator.js');
 				$aire_url = asset('aire-src.mjs');
 				return implode("\n", [
-					"<script src=\"{$validator_url}\"></script>",
-					'<script type="module">',
+					"<script defer src=\"{$validator_url}\"></script>",
+					'<script defer type="module">',
 					"import * as Aire from '$aire_url';",
 					'window.Aire = Aire;',
 					'</script>',
@@ -489,12 +490,13 @@ class Form extends \Galahad\Aire\DTD\Form
 		// FIXME: Only inject Aire script once even if multiple forms are on the page
 		
 		return [
-			'validate' => $this->validate,
 			'validation' => new HtmlString(implode("\n", [
 				$aire_script,
-				'<script>',
+				'<script defer>',
+				'document.addEventListener("DOMContentLoaded", function() {',
 				"Aire.configure({$config});",
-				"window.\$aire{$this->element_id} = Aire.connect('[data-aire-id={$this->element_id}]', {$rules});",
+				"window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules});",
+				'});',
 				'</script>',
 			])),
 		];

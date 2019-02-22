@@ -162,7 +162,6 @@ export const connect = (target, rules = {}) => {
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
 			validator = new Validator(getData(form), rules);
-			
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired
@@ -202,6 +201,11 @@ export const connect = (target, rules = {}) => {
 		get valid() {
 			return 'undefined' !== typeof validator
 				&& 0 === Object.keys(validator.errors.all()).length;
+		},
+		get data() {
+			return 'undefined' === typeof validator
+				? getData(form)
+				: validator.input;
 		},
 		run,
 		disconnect,

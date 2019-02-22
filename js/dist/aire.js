@@ -2194,6 +2194,10 @@
         return 'undefined' !== typeof validator && 0 === Object.keys(validator.errors.all()).length;
       },
 
+      get data() {
+        return 'undefined' === typeof validator ? getData(form) : validator.input;
+      },
+
       run: run,
       disconnect: disconnect
     };
