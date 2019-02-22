@@ -441,7 +441,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	{
 		// FIXME
 		
-		$validator_url = asset('validator.mjs');
+		$validator_url = asset('validator.js');
 		$aire_url = asset('aire-src.mjs');
 		
 		$rules = json_encode($this->rules);

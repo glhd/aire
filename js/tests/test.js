@@ -1,10 +1,19 @@
 import test from 'ava';
 import withTestForm from './helpers/withTestForm';
 
-test('window.Aire is defined', withTestForm, async (t, page) => {
-	const typeof_aire = await page.evaluate(() => {
-		return typeof(window.Aire);
+test('keypress and change events trigger validation', withTestForm, async (t, page) => {
+	page.on('console', log => console.log(log.text()));
+	
+	await page.evaluate(() => window.testSubject = window.Aire.connect('form'));
+	
+	await page.type('#demo', 'h');
+	const keyPressRunCount = await page.evaluate(() => window.testSubject.runCount);
+	
+	const changeRunCount = await page.evaluate(() => {
+		document.querySelector('#demo').blur();
+		return window.testSubject.runCount;
 	});
 	
-	t.true('function' === typeof_aire);
+	t.true(1 === keyPressRunCount);
+	t.true(2 === changeRunCount);
 });

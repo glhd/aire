@@ -14,6 +14,18 @@ class RouteServiceProvider extends ServiceProvider
 	{
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
+		Route::get('aire-src.mjs', function() {
+			return response(file_get_contents(__DIR__.'/../../js/src/Aire.js'), 200, [
+				'Content-Type' => 'text/javascript',
+			]);
+		});
+		
+		Route::get('validator.js', function() {
+			return response(file_get_contents(__DIR__.'/../../node_modules/validatorjs/dist/validator.js'), 200, [
+				'Content-Type' => 'text/javascript',
+			]);
+		});
+		
 		foreach ($files as $filename) {
 			$view = basename($filename, '.blade.php');
 			
