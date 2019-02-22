@@ -4,34 +4,13 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
-use Galahad\Aire\Elements\Attributes\Attributes;
-use Galahad\Aire\Elements\Attributes\ClassNames;
+use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
-use stdClass;
-
-// FIXME: Some elements need to have multiple components. Something like:
-// FIXME: Group::$components = ['prepend']
-// FIXME: On construct, we'll initialize attribute lists for each, and apply logic
-// FIXME: to them. Wee need a good way of handling the JS side, though.
-// FIXME: Each component could have a data-aire-component="prepend" attribute
-// FIXME: that would let us apply classes to those components. And then we
-// FIXME: just need to map the classname config to the components and diff the
-// FIXME: Element.classList in some way. We may want to just calculate the states
-// FIXME: initially, and just replace the whole list on render()
 
 abstract class Element implements Htmlable
 {
 	use HasGlobalAttributes, Groupable;
-	
-	/**
-	 * Additional components that need attribute and class name logic
-	 *
-	 * In the format 'component-alias' => Element::class
-	 *
-	 * @var array
-	 */
-	public static $components = [];
 	
 	/**
 	 * @var string
@@ -39,9 +18,14 @@ abstract class Element implements Htmlable
 	public $name;
 	
 	/**
-	 * @var \Galahad\Aire\Elements\Attributes\Attributes
+	 * @var \Galahad\Aire\Elements\Attributes\Collection
 	 */
 	public $attributes;
+	
+	/**
+	 * @var int
+	 */
+	public $element_id;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
@@ -56,7 +40,7 @@ abstract class Element implements Htmlable
 	/**
 	 * @var array
 	 */
-	protected $default_attributes = [];
+	protected $default_attributes;
 	
 	/**
 	 * @var array
@@ -70,28 +54,17 @@ abstract class Element implements Htmlable
 	 */
 	protected $bind_value = true;
 	
-	/**
-	 * @var stdClass
-	 */
-	protected $component_attributes;
-	
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
+		$this->element_id = $aire->generateElementId();
 		
 		if ($form) {
 			$this->form = $form;
 			$this->initGroup();
 		}
 		
-		$this->attributes = new Attributes(array_merge(
-			$this->default_attributes,
-			$aire->config("default_attributes.{$this->name}", []),
-			[
-				'class' => new ClassNames($this->name, $this->group),
-				'data-aire-component' => $this->name,
-			]
-		));
+		$this->attributes = new Collection($aire, $this, $this->default_attributes);
 		
 		if ($form) {
 			$this->registerMutators();
@@ -101,21 +74,28 @@ abstract class Element implements Htmlable
 	/**
 	 * Set a data attribute
 	 *
-	 * @param $key
+	 * @param $data_key
 	 * @param $value
 	 * @return $this
 	 */
-	public function data($key, $value) : self
+	public function data($data_key, $value) : self
 	{
-		$attribute = "data-{$key}";
+		$key = "data-{$data_key}";
 		
-		if (null === $value && isset($this->attributes[$attribute])) {
-			unset($this->attributes[$attribute]);
+		if (null === $value) {
+			if ($this->attributes->has($key)) {
+				$this->attributes->unset($key);
+			}
 		} else {
-			$this->attributes[$attribute] = $value;
+			$this->attributes->set($key, $value);
 		}
 		
 		return $this;
+	}
+	
+	public function getInputName($default = null) : ?string
+	{
+		return rtrim($this->attributes->get('name', $default), '[]');
 	}
 	
 	public function setAttribute($key, $value) : self
@@ -127,14 +107,14 @@ abstract class Element implements Htmlable
 	
 	public function addClass(...$class_name) : self
 	{
-		$this->attributes->class->add(...$class_name);
+		$this->attributes['class']->add(...$class_name);
 		
 		return $this;
 	}
 	
 	public function removeClass(...$class_name) : self
 	{
-		$this->attributes->class->remove(...$class_name);
+		$this->attributes['class']->remove(...$class_name);
 		
 		return $this;
 	}
@@ -182,62 +162,33 @@ abstract class Element implements Htmlable
 	protected function viewData() : array
 	{
 		return array_merge(
-			$this->attributes->toArray(), // Provide shortcuts to all attributes
+			$this->attributes->primary()->toArray(), // Provide shortcuts to all attributes
 			$this->view_data, // Override with view data
 			[
 				'attributes' => $this->attributes, // Ensure that $attributes always exists
 				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
-				'components' => $this->components(),
 			]
 		);
 	}
 	
+	/**
+	 * Register default mutators
+	 *
+	 * @return \Galahad\Aire\Elements\Element
+	 */
 	protected function registerMutators() : self
 	{
 		if ($this->bind_value) {
 			$this->attributes->setDefault('value', function() {
-				return $this->form->getBoundValue($this->attributes->get('name'));
+				return $this->form->getBoundValue($this->getInputName());
 			});
 		}
 		
+		// TODO: We may want to generate internal IDs to use here if no name exists
 		$this->attributes->registerMutator('data-aire-for', function() {
-			$name = $this instanceof Group
-				? $this->element->attributes->get('name')
-				: $this->attributes->get('name');
-			
-			return rtrim($name, '[]');
+			return $this->getInputName();
 		});
 		
 		return $this;
-	}
-	
-	protected function components() : stdClass
-	{
-		if (null === $this->component_attributes) {
-			$this->component_attributes = (object) collect(static::$components)
-				->mapWithKeys(function($component) {
-					$key = "{$this->name}_{$component}";
-					$attributes = new Attributes(array_merge(
-						['data-aire-component' => $component],
-						$this->aire->config("default_attributes.{$key}", []),
-						['class' => new ClassNames($key, $this->group)]
-					));
-					
-					$attributes->registerMutator('data-aire-for', function() {
-						$name = $this instanceof Group
-							? $this->element->attributes->get('name')
-							: $this->attributes->get('name');
-						
-						return rtrim($name, '[]');
-					});
-					
-					return [
-						$component => $attributes,
-					];
-				})
-				->all();
-		}
-		
-		return $this->component_attributes;
 	}
 }

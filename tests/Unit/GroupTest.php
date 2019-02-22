@@ -10,7 +10,7 @@ class GroupTest extends TestCase
 	{
 		$input = $this->aire()->input()->toHtml();
 		
-		$this->assertSelectorExists($input, 'div[data-aire-group-for]');
+		$this->assertSelectorExists($input, 'div[data-aire-component="group"]');
 		$this->assertSelectorExists($input, 'div > input[type="text"]');
 	}
 	
@@ -18,7 +18,7 @@ class GroupTest extends TestCase
 	{
 		$input = $this->aire()->input()->withoutGroup()->toHtml();
 		
-		$this->assertSelectorDoesNotExist($input, 'div[data-aire-group-for]');
+		$this->assertSelectorDoesNotExist($input, 'div[data-aire-component="group"]');
 		$this->assertSelectorExists($input, 'input[type="text"]');
 	}
 	
@@ -26,7 +26,7 @@ class GroupTest extends TestCase
 	{
 		$button = $this->aire()->button()->grouped()->toHtml();
 		
-		$this->assertSelectorExists($button, 'div[data-aire-group-for]');
+		$this->assertSelectorExists($button, 'div[data-aire-component="group"]');
 	}
 	
 	public function test_a_group_can_have_a_label() : void
@@ -47,7 +47,7 @@ class GroupTest extends TestCase
 			->input()
 			->label('Foo Input');
 		
-		$this->assertSelectorAttributeMissing($input->toHtml(), 'div > label', 'for');
+		$this->assertSelectorAttributeIsNot($input->toHtml(), 'div > label', 'for', 'bar');
 		
 		$input->id('bar');
 		
@@ -68,21 +68,21 @@ class GroupTest extends TestCase
 	{
 		$html = $this->aire()->input()->errors('Error message')->toHtml();
 		
-		$this->assertSelectorExists($html, 'ul[data-aire-errors]');
-		$this->assertSelectorTextEquals($html, 'ul[data-aire-errors] li', 'Error message');
+		$this->assertSelectorExists($html, '[data-aire-component="errors"]');
+		$this->assertSelectorTextEquals($html, '[data-aire-component="errors"] li', 'Error message');
 	}
 	
 	public function test_a_group_can_have_content_prepended() : void
 	{
 		$html = $this->aire()->input()->prepend('Foo')->toHtml();
 		
-		$this->assertSelectorTextEquals($html, '[data-aire-group-for] .flex .rounded-l-sm', 'Foo');
+		$this->assertSelectorTextEquals($html, '[data-aire-component="group"] .flex .rounded-l-sm', 'Foo');
 	}
 	
 	public function test_a_group_can_have_content_appended() : void
 	{
 		$html = $this->aire()->input()->append('Foo')->toHtml();
 		
-		$this->assertSelectorTextEquals($html, '[data-aire-group-for] .flex .rounded-r-sm', 'Foo');
+		$this->assertSelectorTextEquals($html, '[data-aire-component="group"] .flex .rounded-r-sm', 'Foo');
 	}
 }

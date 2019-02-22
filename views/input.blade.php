@@ -1,3 +1,3 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
 <input {{ $attributes }} />

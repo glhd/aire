@@ -21,7 +21,7 @@ $rules = [
 		Javascript Validation
 	</h1>
 	
-	{{ Aire::open()->post()->multipart()->validate($rules) }}
+	{{ Aire::open()->post()->multipart()->dev()->validate($rules) }}
 	
 	{{ Aire::input('demo_input', 'Demo Input')
 		->helpText('This is demo input with existing help text.') }}

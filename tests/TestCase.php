@@ -15,6 +15,7 @@ use Galahad\Aire\Tests\Constraints\SelectorHasClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorMissingClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorTextEquals;
 use Orchestra\Testbench\TestCase as Orchestra;
+use PHPUnit\Framework\Constraint\LogicalNot;
 use Symfony\Component\DomCrawler\Crawler;
 
 abstract class TestCase extends Orchestra
@@ -120,6 +121,11 @@ abstract class TestCase extends Orchestra
 	protected function assertSelectorAttribute($html, string $selector, string $attribute, string $value = null)
 	{
 		static::assertThat($html, new SelectorAttribute($selector, $attribute, $value));
+	}
+	
+	protected function assertSelectorAttributeIsNot($html, string $selector, string $attribute, string $value)
+	{
+		static::assertThat($html, new LogicalNot(new SelectorAttribute($selector, $attribute, $value)));
 	}
 	
 	protected function assertSelectorAttributeMissing($html, string $selector, string $attribute)

@@ -25,15 +25,15 @@ class CheckboxTest extends TestCase
 	{
 		$html = $this->aire()->checkbox()->label('Foo');
 		
-		$this->assertSelectorExists($html, '[data-aire-group-for] label input[type="checkbox"]');
-		$this->assertSelectorContainsText($html, '[data-aire-group-for] label', 'Foo');
+		$this->assertSelectorExists($html, '[data-aire-component="group"] label input[type="checkbox"]');
+		$this->assertSelectorContainsText($html, '[data-aire-component="group"] label', 'Foo');
 	}
 	
 	public function test_inline_label_uses_for_attribute_if_id_is_set() : void
 	{
 		$html = $this->aire()->checkbox()->label('Foo')->id('bar');
 		
-		$this->assertSelectorExists($html, '[data-aire-group-for] label[for="bar"] input[type="checkbox"]');
+		$this->assertSelectorExists($html, '[data-aire-component="group"] label[for="bar"] input[type="checkbox"]');
 	}
 	
 	public function test_bound_integer_sets_checked_attribute() : void

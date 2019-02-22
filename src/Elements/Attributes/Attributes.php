@@ -35,9 +35,9 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @param array $items
 	 */
-	public function __construct(array $items = [])
+	public function __construct(array ...$items)
 	{
-		$this->items = $items;
+		$this->items = array_merge([], ...$items);
 	}
 	
 	/**
@@ -99,6 +99,19 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function set($key, $value) : self
 	{
 		$this->offsetSet($key, $value);
+		
+		return $this;
+	}
+	
+	/**
+	 * Removes an attribute
+	 *
+	 * @param $key
+	 * @return \Galahad\Aire\Elements\Attributes\Attributes
+	 */
+	public function unset($key) : self
+	{
+		$this->offsetUnset($key);
 		
 		return $this;
 	}

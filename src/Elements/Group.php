@@ -22,8 +22,6 @@ class Group extends Element
 	 */
 	public const VALIDATION_VALID = 'valid';
 	
-	public static $components = ['prepend', 'append', 'help_text', 'errors'];
-	
 	/**
 	 * @var string
 	 */
@@ -72,10 +70,6 @@ class Group extends Element
 		parent::__construct($aire, $form);
 		
 		$this->element = $element;
-		
-		$this->attributes->registerMutator('data-aire-group-for', function() {
-			return $this->element->attributes->get('name', '');
-		});
 	}
 	
 	/**
@@ -86,6 +80,9 @@ class Group extends Element
 	 */
 	public function label($text) : self
 	{
+		// TODO: Is this necessary any more or can we just use attributes?
+		// TODO: Might make sense to have a special innerHTML attribute that doesn't get rendered to the key=value list
+		
 		$this->label = (new Label($this->aire, $this))->text($text);
 		
 		return $this;
@@ -138,22 +135,23 @@ class Group extends Element
 		return $this;
 	}
 	
+	public function getInputName($default = null) : ?string
+	{
+		return $this->element->getInputName($default);
+	}
+	
 	protected function viewData() : array
 	{
-		$errors = $this->view_data['errors'];
-		
-		if ($name = $this->element->attributes->get('name')) {
-			$session_errors = $this->form->getErrors($name);
-			if (!empty($session_errors)) {
-				$errors = array_merge($errors, $session_errors);
-				$this->invalid(); // TODO: This feels like an odd place to call this
+		if ($name = $this->element->getInputName()) {
+			if (!empty($session_errors = $this->form->getErrors($name))) {
+				$this->view_data['errors'] = array_merge($this->view_data['errors'], $session_errors);
+				$this->invalid();
 			}
 		}
 		
 		return array_merge(parent::viewData(), [
 			'label' => $this->label,
 			'element' => new HtmlString($this->element->render()),
-			'errors' => $errors,
 			'error_view' => $this->aire->applyTheme('group.error'),
 		]);
 	}

@@ -6,11 +6,13 @@ trait AutoId
 {
 	protected function registerAutoId()
 	{
-		// TODO: It should be possible to disable this
+		if (false === $this->aire->config('auto_id', true)) {
+			return;
+		}
+		
 		$this->attributes->setDefault('id', function() {
-			if ($name = $this->attributes->get('name')) {
-				return "__aire-{$this->form->form_id}-{$name}";
-			}
+			$name = $this->getInputName($this->element_id);
+			return "__aire-{$this->form->element_id}-{$name}";
 		});
 	}
 }

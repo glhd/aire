@@ -1,8 +1,8 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
-<label {{ $components->label }}>
+<label {{ $attributes->label }}>
 	<input {{ $attributes }} />
-	<span {{ $components->wrapper }}>
-		{{ $checkbox_label ?? '' }}
+	<span {{ $attributes->wrapper }}>
+		{{ $label_text }}
 	</span>
 </label>

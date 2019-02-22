@@ -6,42 +6,48 @@ use BadMethodCallException;
 use Closure;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Form;
-use Illuminate\Contracts\View\View;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
 /**
  * @method static \Galahad\Aire\Elements\Label label(string $label)
- * @method static \Galahad\Aire\Elements\Button button(string $label = NULL)
+ * @method static \Galahad\Aire\Elements\Button button(string $label = null)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
- * @method static \Galahad\Aire\Elements\Input input($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Input input($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Select select(array $options, $name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Summary summary()
- * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = NULL)
- * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input hidden($name = NULL, $value = NULL)
- * @method static \Galahad\Aire\Elements\Input color($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input date($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input dateTime($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input dateTimeLocal($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input email($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input file($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input image($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input month($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input number($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input password($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input range($name = NULL, $label = NULL, $min = 0, $max = 100)
- * @method static \Galahad\Aire\Elements\Input search($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input tel($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input time($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input url($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Input week($name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = null)
+ * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = null)
+ * @method static \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
+ * @method static \Galahad\Aire\Elements\Input color($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input date($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input dateTime($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input dateTimeLocal($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input email($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input file($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input image($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input month($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input number($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input password($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input range($name = null, $label = null, $min = 0, $max = 100)
+ * @method static \Galahad\Aire\Elements\Input search($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input tel($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input time($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input url($name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Input week($name = null, $label = null)
  */
 class Aire
 {
+	/**
+	 * Global store of element IDs
+	 *
+	 * @var int
+	 */
+	protected $next_element_id = 0;
+	
 	/**
 	 * @var \Illuminate\View\Factory
 	 */
@@ -200,6 +206,11 @@ class Aire
 	public function render($view, array $data = [], array $merge_data = []) : string
 	{
 		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
+	}
+	
+	public function generateElementId() : int
+	{
+		return $this->next_element_id++;
 	}
 	
 	/**

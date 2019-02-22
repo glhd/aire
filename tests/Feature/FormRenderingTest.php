@@ -24,7 +24,7 @@ class FormRenderingTest extends TestCase
 		$this->assertSelectorAttribute($html, '#generic_input', 'name', 'generic_input');
 		$this->assertSelectorAttribute($html, '#generic_input', 'required');
 		$this->assertSelectorExists($html, 'label[for="generic_input"]');
-		$this->assertSelectorTextEquals($html, '[data-aire-help-text]', 'Sample help text');
+		$this->assertSelectorTextEquals($html, '[data-aire-component="help_text"]', 'Sample help text');
 		
 		// Basic Select
 		$this->assertSelectorExists($html, 'select#basic_select');

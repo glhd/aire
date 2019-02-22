@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements;
 
+use BadMethodCallException;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
@@ -17,13 +18,6 @@ class Form extends \Galahad\Aire\DTD\Form
 	use CreatesElements, CreatesInputTypes;
 	
 	/**
-	 * Global "id" for use with JS targeting
-	 *
-	 * @var int
-	 */
-	protected static $next_form_id = 1;
-	
-	/**
 	 * Data that's bound to the form
 	 *
 	 * @var object|\Illuminate\Database\Eloquent\Model|array
@@ -36,13 +30,6 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * @var bool
 	 */
 	public $validate = true;
-	
-	/**
-	 * Each form is assigned an ID for reference in JS and for ID generation
-	 *
-	 * @var int
-	 */
-	public $form_id;
 	
 	/**
 	 * Validation rules
@@ -100,11 +87,21 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $form_request;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, Router $router = null, Store $session_store = null)
+	/**
+	 * @var string
+	 */
+	protected $js_directory;
+	
+	/**
+	 * Set to true to load development versions of JS
+	 *
+	 * @var bool
+	 */
+	protected $dev_mode = false;
+	
+	public function __construct(Aire $aire, UrlGenerator $url, string $js_directory, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
-		
-		$this->form_id = static::$next_form_id++;
 		
 		$this->url = $url;
 		$this->router = $router;
@@ -114,7 +111,21 @@ class Form extends \Galahad\Aire\DTD\Form
 			$this->view_data['_token'] = $session_store->token();
 		}
 		
-		$this->initValidation($validation_src);
+		$this->initValidation();
+		$this->js_directory = $js_directory;
+	}
+	
+	/**
+	 * Enable dev mode
+	 *
+	 * @param bool $dev_mode
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function dev(bool $dev_mode = true) : self
+	{
+		$this->dev_mode = $dev_mode;
+		
+		return $this;
 	}
 	
 	/**
@@ -134,6 +145,17 @@ class Form extends \Galahad\Aire\DTD\Form
 	}
 	
 	/**
+	 * Determine whether the form has any bound data
+	 *
+	 * @return bool
+	 */
+	public function hasBoundData() : bool
+	{
+		return null !== $this->bound_data
+			or ($this->session_store && $this->session_store->hasOldInput());
+	}
+	
+	/**
 	 * Get the bound value for an Element
 	 *
 	 * @param $name
@@ -145,8 +167,6 @@ class Form extends \Galahad\Aire\DTD\Form
 		if (null === $name) {
 			return value($default);
 		}
-		
-		$name = rtrim($name, '[]');
 		
 		// If old input is set, use that
 		if ($this->session_store && $this->session_store->hasOldInput($name)) {
@@ -216,7 +236,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function close() : self
 	{
 		if (!$this->opened) {
-			throw new \BadMethodCallException('Trying to close a form that hasn\'t been opened.');
+			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
 		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
@@ -235,7 +255,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function closeButton() : Button
 	{
 		if (!$this->pending_button) {
-			throw new \BadMethodCallException('Trying to close a button that hasn\'t been opened.');
+			throw new BadMethodCallException('Trying to close a button that hasn\'t been opened.');
 		}
 		
 		$button = $this->pending_button->close();
@@ -265,7 +285,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function get() : self
 	{
-		$this->attributes['method'] = 'GET';
+		$this->attributes->set('method', 'GET');
 		unset($this->view_data['_method']);
 		
 		return $this;
@@ -273,7 +293,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function post() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		unset($this->view_data['_method']);
 		
 		return $this;
@@ -281,7 +301,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function put() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PUT';
 		
 		return $this;
@@ -289,7 +309,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function patch() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PATCH';
 		
 		return $this;
@@ -297,7 +317,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function delete() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'DELETE';
 		
 		return $this;
@@ -426,31 +446,66 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 	}
 	
-	protected function initValidation(string $validation_src) : void
+	protected function initValidation() : void
 	{
 		$this->validate = $this->aire->config('validate_by_default', true);
 		
 		$this->attributes->registerMutator('data-aire-id', function() {
 			return $this->validate
-				? $this->form_id
+				? $this->element_id
 				: null;
 		});
 	}
 	
 	protected function validationData() : array
 	{
-		// FIXME
+		if (!$this->validate) {
+			return ['validate' => false];
+		}
 		
-		$validator_url = asset('validator.js');
-		$aire_url = asset('aire-src.mjs');
-		
+		$config = json_encode($this->validationConfig());
 		$rules = json_encode($this->rules);
 		
-		// TODO: Pass error templates in
+		$aire_script = value(function() {
+			if ($this->dev_mode) {
+				$validator_url = asset('validator.js');
+				$aire_url = asset('aire-src.mjs');
+				return implode("\n", [
+					"<script src=\"{$validator_url}\"></script>",
+					'<script type="module">',
+					"import * as Aire from '$aire_url';",
+					'window.Aire = Aire;',
+					'</script>',
+				]);
+			}
+			
+			if ($this->aire->config('inline_validation', true)) {
+				return '<script>'.file_get_contents($this->js_directory.'/aire.js').'</script>';
+			}
+			
+			return '<script src="'.$this->aire->config('validation_script_path').'"></script>';
+		});
+		
+		// FIXME: Only inject Aire script once even if multiple forms are on the page
+		
+		return [
+			'validate' => $this->validate,
+			'validation' => new HtmlString(implode("\n", [
+				$aire_script,
+				'<script>',
+				"Aire.configure({$config});",
+				"window.\$aire{$this->element_id} = Aire.connect('[data-aire-id={$this->element_id}]', {$rules});",
+				'</script>',
+			])),
+		];
+	}
+	
+	protected function validationConfig() : array
+	{
 		$placeholder = '__AIRE_ERROR_PLACEHOLDER__';
 		[$error_prefix, $error_suffix] = explode($placeholder, $this->aire->render('group.error', ['error' => $placeholder]));
 		
-		$config = json_encode([
+		return [
 			'templates' => [
 				'error' => [
 					'prefix' => trim($error_prefix),
@@ -458,31 +513,6 @@ class Form extends \Galahad\Aire\DTD\Form
 				],
 			],
 			'classnames' => $this->aire->config('validation_classes', []),
-		]);
-		
-		return [
-			'validate' => $this->validate,
-			'validation' => new HtmlString(implode("\n", [
-				"<script src='$validator_url'></script>",
-				'<script type="module">',
-				"import * as Aire from '$aire_url';",
-				'window.Validator = Validator;',
-				'window.Aire = Aire;',
-				"Aire.configure({$config});",
-				"window.\$aire = Aire.connect('[data-aire-id=\"{$this->form_id}\"]', {$rules});",
-				'// console.log(window.$aire, Validator, Aire);',
-				'</script>',
-			])),
 		];
-		
-		// FIXME:
-		// $this->view_data['inline_validation'] = $this->aire->config('inline_validation', true);
-		// $this->view_data['validation_script_path'] = $this->aire->config('validation_script_path');
-		// $this->view_data['validation_src'] = $validation_src;
-		// @if($validate && $inline_validation)
-		// <script>{!! file_get_contents($validation_src) !!}</script>
-		// @elseif($validate && $validation_script_path)
-		// <script src="{{ $validation_script_path }}" async></script>
-		// @endif
 	}
 }
