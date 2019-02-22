@@ -73,7 +73,7 @@ return [
 		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm',
 		'label' => 'inline-block mb-2',
 		'group_help_text' => 'block mt-1 text-grey-dark text-sm font-normal',
-		'input' => 'block w-full p-2 text-base leading-normal text-grey-darkest bg-white border rounded-sm',
+		'input' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm',
 		'checkbox' => 'pr-2',
 		'checkbox_label' => 'flex items-center',
 		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',
@@ -103,7 +103,11 @@ return [
 		| These classes will be applied to elements that have not been validated.
 		|
 		*/
-		'none' => [],
+		'none' => [
+			'input' => 'text-grey-darkest',
+			'select' => 'text-grey-darkest',
+			'textarea' => 'text-grey-darkest', // TODO: This probably needs to be generalized better
+		],
 		
 		/*
 		|--------------------------------------------------------------------------
@@ -115,7 +119,9 @@ return [
 		*/
 		'valid' => [
 			'label' => 'text-green-dark',
-			'input' => 'border-green-dark',
+			'input' => 'border-green-dark text-green-darker',
+			'select' => 'border-green-dark text-green-darker',
+			'textarea' => 'border-green-dark text-green-darker',
 		],
 		
 		/*
@@ -128,7 +134,9 @@ return [
 		*/
 		'invalid' => [
 			'label' => 'text-red-dark',
-			'input' => 'border-red-dark',
+			'input' => 'border-red-dark text-red-darker',
+			'select' => 'border-red-dark text-red-darker',
+			'textarea' => 'border-red-dark text-red-darker',
 		],
 	],
 	

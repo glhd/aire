@@ -10,7 +10,7 @@ class GroupTest extends TestCase
 	{
 		$input = $this->aire()->input()->toHtml();
 		
-		$this->assertSelectorExists($input, 'div[data-aire-group]');
+		$this->assertSelectorExists($input, 'div[data-aire-group-for]');
 		$this->assertSelectorExists($input, 'div > input[type="text"]');
 	}
 	
@@ -18,7 +18,7 @@ class GroupTest extends TestCase
 	{
 		$input = $this->aire()->input()->withoutGroup()->toHtml();
 		
-		$this->assertSelectorDoesNotExist($input, 'div[data-aire-group]');
+		$this->assertSelectorDoesNotExist($input, 'div[data-aire-group-for]');
 		$this->assertSelectorExists($input, 'input[type="text"]');
 	}
 	
@@ -26,7 +26,7 @@ class GroupTest extends TestCase
 	{
 		$button = $this->aire()->button()->grouped()->toHtml();
 		
-		$this->assertSelectorExists($button, 'div[data-aire-group]');
+		$this->assertSelectorExists($button, 'div[data-aire-group-for]');
 	}
 	
 	public function test_a_group_can_have_a_label() : void
@@ -76,13 +76,13 @@ class GroupTest extends TestCase
 	{
 		$html = $this->aire()->input()->prepend('Foo')->toHtml();
 		
-		$this->assertSelectorTextEquals($html, '[data-aire-group] .flex .rounded-l-sm', 'Foo');
+		$this->assertSelectorTextEquals($html, '[data-aire-group-for] .flex .rounded-l-sm', 'Foo');
 	}
 	
 	public function test_a_group_can_have_content_appended() : void
 	{
 		$html = $this->aire()->input()->append('Foo')->toHtml();
 		
-		$this->assertSelectorTextEquals($html, '[data-aire-group] .flex .rounded-r-sm', 'Foo');
+		$this->assertSelectorTextEquals($html, '[data-aire-group-for] .flex .rounded-r-sm', 'Foo');
 	}
 }

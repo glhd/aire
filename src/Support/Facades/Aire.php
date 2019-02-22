@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static \Galahad\Aire\Aire setTheme($namespace = NULL, $prefix = NULL)
+ * @method static string applyTheme(string $view)
  * @method static \Galahad\Aire\Elements\Form form($action = NULL, $bound_data = NULL)
  * @method static \Galahad\Aire\Elements\Form open($action = NULL, $bound_data = NULL)
  * @method static mixed config(string $key, $default = NULL)

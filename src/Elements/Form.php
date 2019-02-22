@@ -5,6 +5,7 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
@@ -42,6 +43,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * @var int
 	 */
 	public $form_id;
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
+	public $rules = [];
 	
 	/**
 	 * @inheritdoc
@@ -84,6 +92,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * @var \Illuminate\Session\Store
 	 */
 	protected $session_store;
+	
+	/**
+	 * Class name of the associated FormRequest object
+	 *
+	 * @var string
+	 */
+	protected $form_request;
 	
 	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, Router $router = null, Store $session_store = null)
 	{
@@ -310,11 +325,22 @@ class Form extends \Galahad\Aire\DTD\Form
 	/**
 	 * Enable client-side validation
 	 *
+	 * @param array|string|null $rule_source
 	 * @return $this
 	 */
-	public function validate() : self
+	public function validate($rule_source = null) : self
 	{
 		$this->validate = true;
+		
+		// If we were passed rules, call rules() method
+		if (is_array($rule_source)) {
+			return $this->rules($rule_source);
+		}
+		
+		// If we were passed a FormRequest class name, call formRequest() method
+		if (is_string($rule_source) && is_subclass_of($rule_source, FormRequest::class)) {
+			return $this->formRequest($rule_source);
+		}
 		
 		return $this;
 	}
@@ -331,6 +357,27 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	public function rules(array $rules = []) : self
+	{
+		$this->rules = $rules;
+		
+		return $this;
+	}
+	
+	public function formRequest(string $class_name) : self
+	{
+		// TODO: messages() and attributes()
+		
+		$this->form_request = $class_name;
+		$request = new $class_name();
+		
+		if (is_callable([$request, 'rules'])) {
+			$this->rules($request->rules());
+		}
+		
+		return $this;
+	}
+	
 	public function render() : string
 	{
 		if ($this->opened) {
@@ -342,7 +389,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function viewData() : array
 	{
-		return array_merge(parent::viewData(), ['validate' => $this->validate]);
+		return array_merge(parent::viewData(), $this->validationData());
 	}
 	
 	protected function initGroup() : ?Group
@@ -350,7 +397,7 @@ class Form extends \Galahad\Aire\DTD\Form
 		return null; // Ignore for Form
 	}
 	
-	protected function inferMethodFromRoute($route_name)
+	protected function inferMethodFromRoute($route_name) : void
 	{
 		if ($this->attributes['method'] !== $this->default_attributes['method']) {
 			return;
@@ -381,12 +428,61 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function initValidation(string $validation_src) : void
 	{
-		$this->data('aire-id', static::$next_form_id++);
-		
 		$this->validate = $this->aire->config('validate_by_default', true);
 		
-		$this->view_data['inline_validation'] = $this->aire->config('inline_validation', true);
-		$this->view_data['validation_script_path'] = $this->aire->config('validation_script_path');
-		$this->view_data['validation_src'] = $validation_src;
+		$this->attributes->registerMutator('data-aire-id', function() {
+			return $this->validate
+				? $this->form_id
+				: null;
+		});
+	}
+	
+	protected function validationData() : array
+	{
+		// FIXME
+		
+		$validator_url = asset('validator.mjs');
+		$aire_url = asset('aire-src.mjs');
+		
+		$rules = json_encode($this->rules);
+		
+		// TODO: Pass error templates in
+		$placeholder = '__AIRE_ERROR_PLACEHOLDER__';
+		[$error_prefix, $error_suffix] = explode($placeholder, $this->aire->render('group.error', ['error' => $placeholder]));
+		
+		$config = json_encode([
+			'templates' => [
+				'error' => [
+					'prefix' => trim($error_prefix),
+					'suffix' => trim($error_suffix),
+				],
+			],
+			'classnames' => $this->aire->config('validation_classes', []),
+		]);
+		
+		return [
+			'validate' => $this->validate,
+			'validation' => new HtmlString(implode("\n", [
+				"<script src='$validator_url'></script>",
+				'<script type="module">',
+				"import * as Aire from '$aire_url';",
+				'window.Validator = Validator;',
+				'window.Aire = Aire;',
+				"Aire.configure({$config});",
+				"window.\$aire = Aire.connect('[data-aire-id=\"{$this->form_id}\"]', {$rules});",
+				'// console.log(window.$aire, Validator, Aire);',
+				'</script>',
+			])),
+		];
+		
+		// FIXME:
+		// $this->view_data['inline_validation'] = $this->aire->config('inline_validation', true);
+		// $this->view_data['validation_script_path'] = $this->aire->config('validation_script_path');
+		// $this->view_data['validation_src'] = $validation_src;
+		// @if($validate && $inline_validation)
+		// <script>{!! file_get_contents($validation_src) !!}</script>
+		// @elseif($validate && $validation_script_path)
+		// <script src="{{ $validation_script_path }}" async></script>
+		// @endif
 	}
 }

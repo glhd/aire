@@ -72,8 +72,7 @@ class Group extends Element
 		$this->element = $element;
 		
 		$this->attributes->registerMutator('data-aire-group-for', function() {
-			$name = $this->element->attributes->get('name');
-			return $name ?? false;
+			return $this->element->attributes->get('name', '');
 		});
 	}
 	
@@ -153,6 +152,7 @@ class Group extends Element
 			'label' => $this->label,
 			'element' => new HtmlString($this->element->render()),
 			'errors' => $errors,
+			'error_view' => $this->aire->applyTheme('group.error'),
 		]);
 	}
 	

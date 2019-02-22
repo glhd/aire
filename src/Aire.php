@@ -171,6 +171,25 @@ class Aire
 	}
 	
 	/**
+	 * Apply the current theme to a view's name
+	 *
+	 * @param string $view
+	 * @return string
+	 */
+	public function applyTheme(string $view) : string
+	{
+		if ($this->view_prefix) {
+			$view = "{$this->view_prefix}.{$view}";
+		}
+		
+		if ($this->view_namespace) {
+			$view = "{$this->view_namespace}::{$view}";
+		}
+		
+		return $view;
+	}
+	
+	/**
 	 * Render an Aire view.
 	 *
 	 * @param $view
@@ -180,7 +199,7 @@ class Aire
 	 */
 	public function render($view, array $data = [], array $merge_data = []) : string
 	{
-		return $this->make($view, $data, $merge_data)->render();
+		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
 	}
 	
 	/**
@@ -203,27 +222,6 @@ class Aire
 		// @codeCoverageIgnoreEnd
 		
 		return $form->$method_name(...$arguments);
-	}
-	
-	/**
-	 * Make a namespaced View.
-	 *
-	 * @param $view
-	 * @param array $data
-	 * @param array $merge_data
-	 * @return \Illuminate\Contracts\View\View
-	 */
-	protected function make($view, array $data = [], array $merge_data = []) : View
-	{
-		if ($this->view_prefix) {
-			$view = "{$this->view_prefix}.{$view}";
-		}
-		
-		if ($this->view_namespace) {
-			$view = "{$this->view_namespace}::{$view}";
-		}
-		
-		return $this->view_factory->make($view, $data, $merge_data);
 	}
 	
 	/**

@@ -55,7 +55,8 @@ abstract class Element implements Htmlable
 		$this->aire = $aire;
 		
 		if ($form) {
-			$this->initForm($form);
+			$this->form = $form;
+			$this->initGroup();
 		}
 		
 		$this->attributes = new Attributes(array_merge(
@@ -162,21 +163,6 @@ abstract class Element implements Htmlable
 		);
 	}
 	
-	/**
-	 * Run additional initialization if the Element is associated with a Form
-	 *
-	 * @param \Galahad\Aire\Elements\Form $form
-	 * @return \Galahad\Aire\Elements\Element
-	 */
-	protected function initForm(Form $form) : self
-	{
-		$this->form = $form;
-		
-		$this->initGroup();
-		
-		return $this;
-	}
-	
 	protected function registerMutators() : self
 	{
 		if ($this->bind_value) {
@@ -184,10 +170,6 @@ abstract class Element implements Htmlable
 				return $this->form->getBoundValue($this->attributes->get('name'));
 			});
 		}
-		
-		$this->attributes->registerMutator('data-aire-validate', function() {
-			return $this->form->validate ? 'true' : 'false';
-		});
 		
 		return $this;
 	}
