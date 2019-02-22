@@ -37,6 +37,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	public $validate = true;
 	
 	/**
+	 * Each form is assigned an ID for reference in JS and for ID generation
+	 *
+	 * @var int
+	 */
+	public $form_id;
+	
+	/**
 	 * @inheritdoc
 	 */
 	protected $default_attributes = [
@@ -81,6 +88,8 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
+		
+		$this->form_id = static::$next_form_id++;
 		
 		$this->url = $url;
 		$this->router = $router;

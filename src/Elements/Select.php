@@ -3,12 +3,13 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\AutoId;
 use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
 
 class Select extends \Galahad\Aire\DTD\Select
 {
-	use HasValue, HasOptions;
+	use HasValue, HasOptions, AutoId;
 	
 	public function __construct(Aire $aire, array $options, Form $form = null)
 	{
@@ -21,5 +22,7 @@ class Select extends \Galahad\Aire\DTD\Select
 				? rtrim($name, '[]').'[]'
 				: $name;
 		});
+		
+		$this->registerAutoId();
 	}
 }

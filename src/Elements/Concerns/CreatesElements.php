@@ -101,7 +101,7 @@ trait CreatesElements
 		return $checkbox;
 	}
 	
-	public function checkboxGroup($name, array $options, $label = null) : CheckboxGroup
+	public function checkboxGroup(array $options, $name, $label = null) : CheckboxGroup
 	{
 		$checkbox_group = new CheckboxGroup($this->aire, $options, $this);
 		
@@ -114,7 +114,7 @@ trait CreatesElements
 		return $checkbox_group;
 	}
 	
-	public function radioGroup($name, array $options, $label = null) : RadioGroup
+	public function radioGroup(array $options, $name, $label = null) : RadioGroup
 	{
 		$radio_group = new RadioGroup($this->aire, $options, $this);
 		

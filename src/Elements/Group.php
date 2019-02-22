@@ -70,6 +70,11 @@ class Group extends Element
 		parent::__construct($aire, $form);
 		
 		$this->element = $element;
+		
+		$this->attributes->registerMutator('data-aire-group-for', function() {
+			$name = $this->element->attributes->get('name');
+			return $name ?? false;
+		});
 	}
 	
 	/**
@@ -81,10 +86,6 @@ class Group extends Element
 	public function label($text) : self
 	{
 		$this->label = (new Label($this->aire, $this))->text($text);
-		
-		if ($id = $this->element->attributes->get('id')) {
-			$this->label->for($id);
-		}
 		
 		return $this;
 	}
