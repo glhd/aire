@@ -5,7 +5,7 @@
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">
 		@if($prepend)
-			<div class="{{ config('aire.default_classes.group_prepend') }}">
+			<div {{ $components->prepend }}>
 				{{ $prepend }}
 			</div>
 		@endif
@@ -13,18 +13,19 @@
 		{{ $element }}
 			
 		@if($append)
-			<div class="{{ config('aire.default_classes.group_append') }}">
+			<div {{ $components->append }}>
 				{{ $append }}
 			</div>
 		@endif
 	</div>
 	
-	<ul class="list-reset mt-2 mb-3 {{ count($errors) ? '' : 'hidden' }}" data-aire-errors>
+	{{-- FIXME: use mutator for hidden --}}
+	<ul class="list-reset mt-2 mb-3 {{ count($errors) ? '' : 'hidden' }}" {{ $components->errors }}>
 		@each($error_view, $errors, 'error')
 	</ul>
 	
 	@isset($help_text)
-		<small class="{{ config('aire.default_classes.group_help_text') }}" data-aire-help-text>
+		<small {{ $components->help_text }}>
 			{{ $help_text }}
 		</small>
 	@endisset

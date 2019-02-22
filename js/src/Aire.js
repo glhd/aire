@@ -11,17 +11,12 @@ const resolveElement = (target) => {
 	return target;
 };
 
-const getData = (form, only) => {
+const getData = (form) => {
 	const formData = new FormData(form);
 	const values = {};
 	
 	for (let [key, value] of formData.entries()) {
 		key = key.replace(/\[]$/, '');
-		
-		if ('undefined' !== typeof only && !only.has(key) && ('' === value || !value)) {
-			continue;
-		}
-		
 		if (values[key]) {
 			if (!(values[key] instanceof Array)) {
 				values[key] = new Array(values[key]);
@@ -54,70 +49,60 @@ export const configure = (customConfig) => {
 	console.log(config);
 };
 
-// TODO: We probably need to memoize the dom references
-const defaultRenderer = (form, errors = {}, data = {}) => {
-	form.querySelectorAll('[data-aire-group-for]')
-		.forEach($group => {
-			const name = $group.dataset.aireGroupFor;
-			const fails = (name in errors);
-			const passes = !fails && (name in data);
-			const $errors = $group.querySelector(['[data-aire-errors]']);
-			
-			const { templates, classnames } = config;
-			const targets = [
-				...Object.keys(classnames.none),
-				...Object.keys(classnames.valid),
-				...Object.keys(classnames.invalid),
-			]
-				.filter((key, index, targets) => targets.indexOf(key) === index)
-				.map(key => {
-					return {
-						key,
-						$target: $group.querySelector(key),
-					}
-				});
-			
-			targets.forEach(({ key, $target }) => {
-				if (!$target) {
-					return;
-				}
-				
-				if (key in classnames.valid) {
+// FIXME: This still needs major perf work
+// FIXME: We need to handle multiple values
+// FIXME: We should be able to apply some validation even when an item is not grouped
+const defaultRenderer = ({ form, errors, data, refs, touched }) => {
+	const { templates, classnames } = config;
+	
+	Object.keys(data).forEach(name => {
+		// Stop if we don't have refs to this field
+		if (!(name in refs)) {
+			return;
+		}
+		
+		const fails = touched.has(name) && (name in errors);
+		const passes = touched.has(name) && !fails && (name in data);
+		
+		if ('errors' in refs[name]) {
+			if (passes) {
+				refs[name].errors[0].classList.add('hidden');
+				refs[name].errors[0].innerHTML = '';
+			} else if (fails) {
+				// TODO: Maybe hide help text
+				refs[name].errors[0].classList.remove('hidden');
+				refs[name].errors[0].innerHTML = errors[name].map(message => `${ templates.error.prefix }${ message }${ templates.error.suffix }`).join('');
+			}
+		}
+		
+		Object.entries(refs[name]).forEach(([name, elements]) => {
+			elements.forEach(element => {
+				if (name in classnames.valid) {
 					if (passes) {
-						$target.classList.add(...classnames.valid[key].split(' '));
+						element.classList.add(...classnames.valid[name].split(' '));
 					} else {
-						$target.classList.remove(...classnames.valid[key].split(' '));
+						element.classList.remove(...classnames.valid[name].split(' '));
 					}
 				}
 				
-				if (key in classnames.invalid) {
+				if (name in classnames.invalid) {
 					if (fails) {
-						$target.classList.add(...classnames.invalid[key].split(' '));
+						element.classList.add(...classnames.invalid[name].split(' '));
 					} else {
-						$target.classList.remove(...classnames.invalid[key].split(' '));
+						element.classList.remove(...classnames.invalid[name].split(' '));
 					}
 				}
 				
-				if (key in classnames.none) {
+				if (name in classnames.none) {
 					if (!passes && !fails) {
-						$target.classList.add(...classnames.none[key].split(' '));
+						element.classList.add(...classnames.none[name].split(' '));
 					} else {
-						$target.classList.remove(...classnames.none[key].split(' '));
+						element.classList.remove(...classnames.none[name].split(' '));
 					}
 				}
 			});
-			
-			if (passes) {
-				// console.log(`${name} passes validation`);
-				$errors.classList.add('hidden');
-				$errors.innerHTML = '';
-			} else if (fails) {
-				// TODO: Maybe hide help text
-				// console.error(`${name} fails validation`, errors[name]);
-				$errors.classList.remove('hidden');
-				$errors.innerHTML = errors[name].map(message => `${ templates.error.prefix }${ message }${ templates.error.suffix }`).join('');
-			}
 		});
+	});
 };
 
 let renderer = defaultRenderer;
@@ -137,6 +122,22 @@ export const connect = (target, rules = {}) => {
 	}
 	
 	const form = resolveElement(target);
+	
+	const refs = {};
+	form.querySelectorAll('[data-aire-component]').forEach(element => {
+		if ('aireFor' in element.dataset) {
+			const parent = element.dataset.aireFor;
+			const component = element.dataset.aireComponent;
+			
+			refs[parent] = refs[parent] || {};
+			
+			if (component in refs[parent]) {
+				refs[parent][component].push(element);
+			} else {
+				refs[parent][component] = [element];
+			}
+		}
+	});
 	
 	let validator;
 	let connected = true;
@@ -160,26 +161,26 @@ export const connect = (target, rules = {}) => {
 		
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
-			validator = new Validator(getData(form, touched), rules);
+			validator = new Validator(getData(form), rules);
 			
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired
 			const activeRun = ++latestRun;
 			
-			const passes = () => {
+			const validated = () => {
 				if (connected && activeRun === latestRun) {
-					renderer(form, {}, validator.input);
+					renderer({
+						form,
+						touched,
+						refs,
+						data: validator.input,
+						errors: validator.errors.all(),
+					});
 				}
 			};
 			
-			const fails = () => {
-				if (connected && activeRun === latestRun) {
-					renderer(form, validator.errors.all(), validator.input);
-				}
-			};
-			
-			validator.checkAsync(passes, fails);
+			validator.checkAsync(validated, validated);
 		}, 250);
 	};
 	

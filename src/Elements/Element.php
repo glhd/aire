@@ -8,10 +8,30 @@ use Galahad\Aire\Elements\Attributes\Attributes;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
+use stdClass;
+
+// FIXME: Some elements need to have multiple components. Something like:
+// FIXME: Group::$components = ['prepend']
+// FIXME: On construct, we'll initialize attribute lists for each, and apply logic
+// FIXME: to them. Wee need a good way of handling the JS side, though.
+// FIXME: Each component could have a data-aire-component="prepend" attribute
+// FIXME: that would let us apply classes to those components. And then we
+// FIXME: just need to map the classname config to the components and diff the
+// FIXME: Element.classList in some way. We may want to just calculate the states
+// FIXME: initially, and just replace the whole list on render()
 
 abstract class Element implements Htmlable
 {
 	use HasGlobalAttributes, Groupable;
+	
+	/**
+	 * Additional components that need attribute and class name logic
+	 *
+	 * In the format 'component-alias' => Element::class
+	 *
+	 * @var array
+	 */
+	public static $components = [];
 	
 	/**
 	 * @var string
@@ -62,7 +82,10 @@ abstract class Element implements Htmlable
 		$this->attributes = new Attributes(array_merge(
 			$this->default_attributes,
 			$aire->config("default_attributes.{$this->name}", []),
-			['class' => new ClassNames($this->name, $this->group)]
+			[
+				'class' => new ClassNames($this->name, $this->group),
+				'data-aire-component' => $this->name,
+			]
 		));
 		
 		if ($form) {
@@ -159,6 +182,7 @@ abstract class Element implements Htmlable
 			[
 				'attributes' => $this->attributes, // Ensure that $attributes always exists
 				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
+				'components' => $this->components(),
 			]
 		);
 	}
@@ -171,6 +195,40 @@ abstract class Element implements Htmlable
 			});
 		}
 		
+		$this->attributes->registerMutator('data-aire-for', function() {
+			$name = $this instanceof Group
+				? $this->element->attributes->get('name')
+				: $this->attributes->get('name');
+			
+			return rtrim($name, '[]');
+		});
+		
 		return $this;
+	}
+	
+	protected function components() : stdClass
+	{
+		return (object) collect(static::$components)
+			->mapWithKeys(function($component) {
+				$key = "{$this->name}_{$component}";
+				$attributes = new Attributes(array_merge(
+					['data-aire-component' => $component],
+					$this->aire->config("default_attributes.{$key}", []),
+					['class' => new ClassNames($key, $this->group)]
+				));
+				
+				$attributes->registerMutator('data-aire-for', function() {
+					$name = $this instanceof Group
+						? $this->element->attributes->get('name')
+						: $this->attributes->get('name');
+					
+					return rtrim($name, '[]');
+				});
+				
+				return [
+					$component => $attributes,
+				];
+			})
+			->all();
 	}
 }

@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class Checkbox extends Input
 {
+	public static $components = ['label', 'wrapper'];
+	
 	public $name = 'checkbox';
 	
 	protected $default_attributes = [

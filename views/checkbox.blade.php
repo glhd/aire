@@ -2,7 +2,7 @@
 
 <label {{ $label_attributes }}>
 	<input {{ $attributes }} />
-	<span class="ml-2 flex-1">
+	<span {{ $components->wrapper }}>
 		{{ $checkbox_label ?? '' }}
 	</span>
 </label>

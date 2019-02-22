@@ -22,6 +22,8 @@ class Group extends Element
 	 */
 	public const VALIDATION_VALID = 'valid';
 	
+	public static $components = ['prepend', 'append', 'help_text', 'errors'];
+	
 	/**
 	 * @var string
 	 */

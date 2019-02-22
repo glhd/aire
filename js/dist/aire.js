@@ -1965,7 +1965,7 @@
     return target;
   };
 
-  var getData = function getData(form, only) {
+  var getData = function getData(form) {
     var formData = new FormData(form);
     var values = {};
     var _iteratorNormalCompletion = true;
@@ -1979,10 +1979,6 @@
             value = _step$value[1];
 
         key = key.replace(/\[]$/, '');
-
-        if ('undefined' !== typeof only && !only.has(key) && ('' === value || !value)) {
-          continue;
-        }
 
         if (values[key]) {
           if (!(values[key] instanceof Array)) {
@@ -2028,86 +2024,84 @@
   var configure = function configure(customConfig) {
     config = customConfig;
     console.log(config);
-  }; // TODO: We probably need to memoize the dom references
+  }; // FIXME: This still needs major perf work
+  // FIXME: We need to handle multiple values
+  // FIXME: We should be able to apply some validation even when an item is not grouped
 
-  var defaultRenderer = function defaultRenderer(form) {
-    var errors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    form.querySelectorAll('[data-aire-group-for]').forEach(function ($group) {
-      var name = $group.dataset.aireGroupFor;
-      var fails = name in errors;
-      var passes = !fails && name in data;
-      var $errors = $group.querySelector(['[data-aire-errors]']);
-      var _config = config,
-          templates = _config.templates,
-          classnames = _config.classnames;
-
-      var targets = _toConsumableArray(Object.keys(classnames.none)).concat(_toConsumableArray(Object.keys(classnames.valid)), _toConsumableArray(Object.keys(classnames.invalid))).filter(function (key, index, targets) {
-        return targets.indexOf(key) === index;
-      }).map(function (key) {
-        return {
-          key: key,
-          $target: $group.querySelector(key)
-        };
-      });
-
-      targets.forEach(function (_ref) {
-        var key = _ref.key,
-            $target = _ref.$target;
-
-        if (!$target) {
-          return;
-        }
-
-        if (key in classnames.valid) {
-          if (passes) {
-            var _$target$classList;
-
-            (_$target$classList = $target.classList).add.apply(_$target$classList, _toConsumableArray(classnames.valid[key].split(' ')));
-          } else {
-            var _$target$classList2;
-
-            (_$target$classList2 = $target.classList).remove.apply(_$target$classList2, _toConsumableArray(classnames.valid[key].split(' ')));
-          }
-        }
-
-        if (key in classnames.invalid) {
-          if (fails) {
-            var _$target$classList3;
-
-            (_$target$classList3 = $target.classList).add.apply(_$target$classList3, _toConsumableArray(classnames.invalid[key].split(' ')));
-          } else {
-            var _$target$classList4;
-
-            (_$target$classList4 = $target.classList).remove.apply(_$target$classList4, _toConsumableArray(classnames.invalid[key].split(' ')));
-          }
-        }
-
-        if (key in classnames.none) {
-          if (!passes && !fails) {
-            var _$target$classList5;
-
-            (_$target$classList5 = $target.classList).add.apply(_$target$classList5, _toConsumableArray(classnames.none[key].split(' ')));
-          } else {
-            var _$target$classList6;
-
-            (_$target$classList6 = $target.classList).remove.apply(_$target$classList6, _toConsumableArray(classnames.none[key].split(' ')));
-          }
-        }
-      });
-
-      if (passes) {
-        // console.log(`${name} passes validation`);
-        $errors.classList.add('hidden');
-        $errors.innerHTML = '';
-      } else if (fails) {
-        // TODO: Maybe hide help text
-        // console.error(`${name} fails validation`, errors[name]);
-        $errors.classList.remove('hidden');
-        $errors.innerHTML = errors[name].map(function (message) {
-          return "".concat(templates.error.prefix).concat(message).concat(templates.error.suffix);
-        }).join('');
+  var defaultRenderer = function defaultRenderer(_ref) {
+    var form = _ref.form,
+        errors = _ref.errors,
+        data = _ref.data,
+        refs = _ref.refs,
+        touched = _ref.touched;
+    var _config = config,
+        templates = _config.templates,
+        classnames = _config.classnames;
+    Object.keys(data).forEach(function (name) {
+      // Stop if we don't have refs to this field
+      if (!(name in refs)) {
+        return;
       }
+
+      var fails = touched.has(name) && name in errors;
+      var passes = touched.has(name) && !fails && name in data;
+
+      if ('errors' in refs[name]) {
+        if (passes) {
+          refs[name].errors[0].classList.add('hidden');
+          refs[name].errors[0].innerHTML = '';
+        } else if (fails) {
+          // TODO: Maybe hide help text
+          refs[name].errors[0].classList.remove('hidden');
+          refs[name].errors[0].innerHTML = errors[name].map(function (message) {
+            return "".concat(templates.error.prefix).concat(message).concat(templates.error.suffix);
+          }).join('');
+        }
+      }
+
+      Object.entries(refs[name]).forEach(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            name = _ref3[0],
+            elements = _ref3[1];
+
+        elements.forEach(function (element) {
+          if (name in classnames.valid) {
+            if (passes) {
+              var _element$classList;
+
+              (_element$classList = element.classList).add.apply(_element$classList, _toConsumableArray(classnames.valid[name].split(' ')));
+            } else {
+              var _element$classList2;
+
+              (_element$classList2 = element.classList).remove.apply(_element$classList2, _toConsumableArray(classnames.valid[name].split(' ')));
+            }
+          }
+
+          if (name in classnames.invalid) {
+            if (fails) {
+              var _element$classList3;
+
+              (_element$classList3 = element.classList).add.apply(_element$classList3, _toConsumableArray(classnames.invalid[name].split(' ')));
+            } else {
+              var _element$classList4;
+
+              (_element$classList4 = element.classList).remove.apply(_element$classList4, _toConsumableArray(classnames.invalid[name].split(' ')));
+            }
+          }
+
+          if (name in classnames.none) {
+            if (!passes && !fails) {
+              var _element$classList5;
+
+              (_element$classList5 = element.classList).add.apply(_element$classList5, _toConsumableArray(classnames.none[name].split(' ')));
+            } else {
+              var _element$classList6;
+
+              (_element$classList6 = element.classList).remove.apply(_element$classList6, _toConsumableArray(classnames.none[name].split(' ')));
+            }
+          }
+        });
+      });
     });
   };
 
@@ -2124,6 +2118,20 @@
     }
 
     var form = resolveElement(target);
+    var refs = {};
+    form.querySelectorAll('[data-aire-component]').forEach(function (element) {
+      if ('aireFor' in element.dataset) {
+        var parent = element.dataset.aireFor;
+        var component = element.dataset.aireComponent;
+        refs[parent] = refs[parent] || {};
+
+        if (component in refs[parent]) {
+          refs[parent][component].push(element);
+        } else {
+          refs[parent][component] = [element];
+        }
+      }
+    });
     var validator;
     var connected = true;
     var touched = new Set();
@@ -2146,25 +2154,25 @@
       var latestRun = 0;
       clearTimeout(debounce);
       debounce = setTimeout(function () {
-        validator = new Validator(getData(form, touched), rules); // Because some validators may run async, we'll store a reference
+        validator = new Validator(getData(form), rules); // Because some validators may run async, we'll store a reference
         // to the run "id" so that we can cancel the callbacks if another
         // validation started before the callbacks were fired
 
         var activeRun = ++latestRun;
 
-        var passes = function passes() {
+        var validated = function validated() {
           if (connected && activeRun === latestRun) {
-            renderer(form, {}, validator.input);
+            renderer({
+              form: form,
+              touched: touched,
+              refs: refs,
+              data: validator.input,
+              errors: validator.errors.all()
+            });
           }
         };
 
-        var fails = function fails() {
-          if (connected && activeRun === latestRun) {
-            renderer(form, validator.errors.all(), validator.input);
-          }
-        };
-
-        validator.checkAsync(passes, fails);
+        validator.checkAsync(validated, validated);
       }, 250);
     };
 
