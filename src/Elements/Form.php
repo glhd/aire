@@ -89,18 +89,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected $form_request;
 	
 	/**
-	 * @var string
-	 */
-	protected $js_directory;
-	
-	/**
 	 * Set to true to load development versions of JS
 	 *
 	 * @var bool
 	 */
 	protected $dev_mode = false;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, string $js_directory, Router $router = null, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
@@ -113,7 +108,6 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		$this->initValidation();
-		$this->js_directory = $js_directory;
 	}
 	
 	/**
@@ -460,61 +454,12 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function validationData() : array
 	{
-		if (!$this->validate) {
-			return ['validation' => null];
-		}
+		// TODO: FormRequest
 		
-		$config = json_encode($this->validationConfig());
-		$rules = json_encode($this->rules);
+		$validation = ($this->validate && (count($this->rules) || null !== $this->form_request))
+			? new ClientValidation($this->aire, $this->element_id, $this->rules, $this->dev_mode)
+			: '';
 		
-		$aire_script = value(function() {
-			if ($this->dev_mode) {
-				$validator_url = asset('validator.js');
-				$aire_url = asset('aire-src.mjs');
-				return implode("\n", [
-					"<script defer src=\"{$validator_url}\"></script>",
-					'<script defer type="module">',
-					"import * as Aire from '$aire_url';",
-					'window.Aire = Aire;',
-					'</script>',
-				]);
-			}
-			
-			if ($this->aire->config('inline_validation', true)) {
-				return '<script>'.file_get_contents($this->js_directory.'/aire.js').'</script>';
-			}
-			
-			return '<script src="'.$this->aire->config('validation_script_path').'"></script>';
-		});
-		
-		// FIXME: Only inject Aire script once even if multiple forms are on the page
-		
-		return [
-			'validation' => new HtmlString(implode("\n", [
-				$aire_script,
-				'<script defer>',
-				'document.addEventListener("DOMContentLoaded", function() {',
-				"Aire.configure({$config});",
-				"window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules});",
-				'});',
-				'</script>',
-			])),
-		];
-	}
-	
-	protected function validationConfig() : array
-	{
-		$placeholder = '__AIRE_ERROR_PLACEHOLDER__';
-		[$error_prefix, $error_suffix] = explode($placeholder, $this->aire->render('_error', ['error' => $placeholder]));
-		
-		return [
-			'templates' => [
-				'error' => [
-					'prefix' => trim($error_prefix),
-					'suffix' => trim($error_suffix),
-				],
-			],
-			'classnames' => $this->aire->config('validation_classes', []),
-		];
+		return compact('validation');
 	}
 }

@@ -46,7 +46,6 @@ class AireServiceProvider extends ServiceProvider
 		$this->config_path = "$base_path/config/aire.php";
 		$this->view_directory = "$base_path/views";
 		$this->translations_directory = "$base_path/translations";
-		$this->js_dist_directory = "$base_path/js/dist";
 	}
 	
 	/**
@@ -88,7 +87,6 @@ class AireServiceProvider extends ServiceProvider
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				$this->js_dist_directory,
 				$app->bound('router') ? $app['router'] : null,
 				$app->bound('session.store') ? $app['session.store'] : null
 			);
