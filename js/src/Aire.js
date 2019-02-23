@@ -14,16 +14,16 @@ const resolveElement = (target) => {
 const getData = (form) => {
 	const formData = new FormData(form);
 	const values = {};
-	
 	for (let [key, value] of formData.entries()) {
-		key = key.replace(/\[]$/, '');
-		if (values[key]) {
-			if (!(values[key] instanceof Array)) {
-				values[key] = new Array(values[key]);
+		const name = key.replace(/\[]$/, '');
+		const multiple = name !== key;
+		if (values[name]) {
+			if (!(values[name] instanceof Array)) {
+				values[name] = [values[name]];
 			}
-			values[key].push(value);
+			values[name].push(value);
 		} else {
-			values[key] = value;
+			values[name] = multiple ? [value] : value;
 		}
 	}
 	
@@ -46,16 +46,13 @@ let config = {
 
 export const configure = (customConfig) => {
 	config = customConfig;
-	console.log(config);
 };
 
 // FIXME: This still needs major perf work
-// FIXME: We need to handle multiple values
-// FIXME: We should be able to apply some validation even when an item is not grouped
-const defaultRenderer = ({ form, errors, data, refs, touched }) => {
+const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 	const { templates, classnames } = config;
 	
-	Object.keys(data).forEach(name => {
+	Object.keys(rules).forEach(name => {
 		// Stop if we don't have refs to this field
 		if (!(name in refs)) {
 			return;
@@ -141,7 +138,6 @@ export const connect = (target, rules = {}) => {
 	
 	let validator;
 	let connected = true;
-	
 	const touched = new Set();
 	
 	const touch = (e) => {
@@ -161,19 +157,34 @@ export const connect = (target, rules = {}) => {
 		
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
-			validator = new Validator(getData(form), rules);
+			const data = getData(form);
+			validator = new Validator(data, rules);
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired
 			const activeRun = ++latestRun;
 			
+			// If this is the first run, "touch" anything that has a value
+			if (1 === activeRun) {
+				Object.entries(data).forEach(([key, value]) => {
+					if (null === value || 'undefiined' === typeof value || '' === value) {
+						return;
+					}
+					if (Array.isArray(value) && 0 === value.length) {
+						return;
+					}
+					touched.add(key);
+				});
+			}
+			
 			const validated = () => {
 				if (connected && activeRun === latestRun) {
 					renderer({
 						form,
+						rules,
 						touched,
 						refs,
-						data: validator.input,
+						data,
 						errors: validator.errors.all(),
 					});
 				}

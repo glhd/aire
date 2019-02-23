@@ -10,6 +10,9 @@ use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 
+// TODO: Aire::scaffold(User::class, $action = null) -> generate a form from User attributes, default action = resource route
+// TODO: Aire::scaffold($user) -> generate update form
+
 /**
  * @method static \Galahad\Aire\Elements\Label label(string $label)
  * @method static \Galahad\Aire\Elements\Button button(string $label = null)
