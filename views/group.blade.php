@@ -1,7 +1,7 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
 <div {{ $attributes }}>
-	{{ $label ?? '' }}
+	{{ $label }}
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">
 		@if($prepend)

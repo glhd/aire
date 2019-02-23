@@ -49,6 +49,7 @@ class Group extends Element
 		'prepend' => null,
 		'append' => null,
 		'errors' => [],
+		'label' => null,
 	];
 	
 	/**
@@ -152,7 +153,7 @@ class Group extends Element
 		return array_merge(parent::viewData(), [
 			'label' => $this->label,
 			'element' => new HtmlString($this->element->render()),
-			'error_view' => $this->aire->applyTheme('group.error'),
+			'error_view' => $this->aire->applyTheme('_error'),
 		]);
 	}
 	

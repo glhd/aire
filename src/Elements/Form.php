@@ -505,7 +505,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	protected function validationConfig() : array
 	{
 		$placeholder = '__AIRE_ERROR_PLACEHOLDER__';
-		[$error_prefix, $error_suffix] = explode($placeholder, $this->aire->render('group.error', ['error' => $placeholder]));
+		[$error_prefix, $error_suffix] = explode($placeholder, $this->aire->render('_error', ['error' => $placeholder]));
 		
 		return [
 			'templates' => [
