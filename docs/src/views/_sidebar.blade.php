@@ -37,6 +37,7 @@
 	<?php
 	$recipes = [
 		['basic', 'Basic Demo', 'file-code'],
+		['validation', 'Client-Side Validation', 'file-code'],
 		['html-buttons', 'HTML in Buttons', 'file-code'],
 	];
 	?>

@@ -309,9 +309,10 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function toHtml() : string
 	{
 		return $this->toCollection()
-			->filter(function($value) {
+			->filter(function($value, $key) {
 				return false !== $value
 					&& null !== $value
+					&& !('' === $value && 'class' === $key)
 					&& !is_array($value); // Array values have to be handled in associated component
 			})
 			->map(function($value, $name) {

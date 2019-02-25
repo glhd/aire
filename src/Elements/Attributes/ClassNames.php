@@ -2,7 +2,6 @@
 
 namespace Galahad\Aire\Elements\Attributes;
 
-use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Group;
 use Illuminate\Support\Arr;
 

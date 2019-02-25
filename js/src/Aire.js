@@ -1,8 +1,5 @@
 'use strict';
 
-// FIXME:
-Validator.registerMissedRuleValidator(() => true, '');
-
 const resolveElement = (target) => {
 	if ('string' === typeof target) {
 		return document.querySelector(target);
@@ -28,6 +25,16 @@ const getData = (form) => {
 	}
 	
 	return values;
+};
+
+let booted = false;
+const boot = () => {
+	if (!booted) {
+		Validator.registerMissedRuleValidator(() => true, '');
+		Validator.useLang('en');
+	}
+	
+	booted = true;
 };
 
 let config = {
@@ -118,6 +125,8 @@ export const connect = (target, rules = {}) => {
 		return null;
 	}
 	
+	boot();
+	
 	const form = resolveElement(target);
 	
 	const refs = {};
@@ -158,7 +167,7 @@ export const connect = (target, rules = {}) => {
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
 			const data = getData(form);
-			validator = new Validator(data, rules);
+			validator = new Validator(data, rules, {}); // TODO: Custom messages
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired

@@ -56,10 +56,6 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
-Validator.registerMissedRuleValidator(function () {
-  return true;
-}, '');
-
 var resolveElement = function resolveElement(target) {
   if ('string' === typeof target) {
     return document.querySelector(target);
@@ -81,16 +77,17 @@ var getData = function getData(form) {
           key = _step$value[0],
           value = _step$value[1];
 
-      key = key.replace(/\[]$/, '');
+      var name = key.replace(/\[]$/, '');
+      var multiple = name !== key;
 
-      if (values[key]) {
-        if (!(values[key] instanceof Array)) {
-          values[key] = new Array(values[key]);
+      if (values[name]) {
+        if (!(values[name] instanceof Array)) {
+          values[name] = [values[name]];
         }
 
-        values[key].push(value);
+        values[name].push(value);
       } else {
-        values[key] = value;
+        values[name] = multiple ? [value] : value;
       }
     }
   } catch (err) {
@@ -111,6 +108,19 @@ var getData = function getData(form) {
   return values;
 };
 
+var booted = false;
+
+var boot = function boot() {
+  if (!booted) {
+    Validator.registerMissedRuleValidator(function () {
+      return true;
+    }, '');
+    Validator.useLang('en');
+  }
+
+  booted = true;
+};
+
 var config = {
   'templates': {
     'error': {
@@ -126,21 +136,19 @@ var config = {
 };
 var configure = function configure(customConfig) {
   config = customConfig;
-  console.log(config);
 }; // FIXME: This still needs major perf work
-// FIXME: We need to handle multiple values
-// FIXME: We should be able to apply some validation even when an item is not grouped
 
 var defaultRenderer = function defaultRenderer(_ref) {
   var form = _ref.form,
       errors = _ref.errors,
       data = _ref.data,
+      rules = _ref.rules,
       refs = _ref.refs,
       touched = _ref.touched;
   var _config = config,
       templates = _config.templates,
       classnames = _config.classnames;
-  Object.keys(data).forEach(function (name) {
+  Object.keys(rules).forEach(function (name) {
     // Stop if we don't have refs to this field
     if (!(name in refs)) {
       return;
@@ -220,6 +228,7 @@ var connect = function connect(target) {
     return null;
   }
 
+  boot();
   var form = resolveElement(target);
   var refs = {};
   form.querySelectorAll('[data-aire-component]').forEach(function (element) {
@@ -257,19 +266,40 @@ var connect = function connect(target) {
     var latestRun = 0;
     clearTimeout(debounce);
     debounce = setTimeout(function () {
-      validator = new Validator(getData(form), rules); // Because some validators may run async, we'll store a reference
+      var data = getData(form);
+      validator = new Validator(data, rules, {}); // TODO: Custom messages
+      // Because some validators may run async, we'll store a reference
       // to the run "id" so that we can cancel the callbacks if another
       // validation started before the callbacks were fired
 
-      var activeRun = ++latestRun;
+      var activeRun = ++latestRun; // If this is the first run, "touch" anything that has a value
+
+      if (1 === activeRun) {
+        Object.entries(data).forEach(function (_ref4) {
+          var _ref5 = _slicedToArray(_ref4, 2),
+              key = _ref5[0],
+              value = _ref5[1];
+
+          if (null === value || 'undefiined' === typeof value || '' === value) {
+            return;
+          }
+
+          if (Array.isArray(value) && 0 === value.length) {
+            return;
+          }
+
+          touched.add(key);
+        });
+      }
 
       var validated = function validated() {
         if (connected && activeRun === latestRun) {
           renderer({
             form: form,
+            rules: rules,
             touched: touched,
             refs: refs,
-            data: validator.input,
+            data: data,
             errors: validator.errors.all()
           });
         }

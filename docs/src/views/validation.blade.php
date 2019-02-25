@@ -9,7 +9,8 @@ $authors = [
 
 $after_fixed_date = now()->format('Y-m-d');
 
-// TODO: date_equals, date_format, digits_between, filled, gt, gte, ip, ipv4, ipv6, json, lt, lte, not_regex
+// TODO: date_equals, date_format, digits_between, filled, gt, gte, ip, ipv4, ipv6, json, lt, lte, not_regex, nullable, starts_with, uuid
+// TODO: Maybe: timezone
 
 $rules = [
 	'accepted' => 'accepted',
@@ -37,6 +38,18 @@ $rules = [
 	'max_string' => 'max:5',
 	'max_number' => 'numeric|max:5',
 	'regex' => 'regex:/^[a-z]\d{4}$/i',
+	'numeric' => 'numeric',
+	'required' => 'required',
+	'required_if' => 'required_if:required,yes',
+	'required_unless' => 'required_unless:required_if,no',
+	'required_with' => 'required_with:required_unless', // FIXME: does not support multiple params
+	'required_with_all' => 'required_with_all:required,required_if,required_unless,required_with',
+	'required_without' => 'required_without:required_with_all', // FIXME: does not support multiple params
+	'required_without_all' => 'required_without_all:required,required_if,required_unless,required_with,required_with_all,required_without',
+	'same' => 'same:same_target', // TODO: Would be cool to apply validation styling to same_target here
+	'size_string' => 'size:5',
+	'size_number' => 'numeric|size:5',
+	'url' => 'url',
 ];
 ?>
 
@@ -46,7 +59,7 @@ $rules = [
 		Javascript Validation Demo
 	</h1>
 	
-	{{ Aire::open()->dev()->validate($rules) }}
+	{{ Aire::open()->validate($rules) }}
 	
 	{{ Aire::checkbox('accepted', 'Accept the terms') }}
 	
@@ -99,6 +112,30 @@ $rules = [
 	{{ Aire::input('max_number', 'Must be a number up to 5:') }}
 	
 	{{ Aire::input('regex', 'Must match the regular expression /^[a-z]\d{4}$/i') }}
+	
+	{{ Aire::input('numeric', 'Must be numeric:') }}
+	
+	{{ Aire::input('required', 'Required input:') }}
+	{{ Aire::input('required_if', 'Only required if the above is "yes":') }}
+	{{ Aire::input('required_unless', 'Required unless the above is "no":') }}
+	{{ Aire::input('required_with', 'Required if above is not empty:') }}
+	{{ Aire::input('required_with_all', 'Required if all of the above are not empty:') }}
+	{{ Aire::input('required_without', 'Required if above is empty:') }}
+	{{ Aire::input('required_without_all', 'Required if all of the above are empty:') }}
+	
+	<div class="flex">
+		<div class="w-1/2 pr-1">
+			{{ Aire::input('same_target', 'Enter anything:') }}
+		</div>
+		<div class="w-1/2 pl-1">
+			{{ Aire::input('same', 'Must be the same:') }}
+		</div>
+	</div>
+	
+	{{ Aire::input('size_number', 'Must be the number 5:') }}
+	{{ Aire::input('size_string', 'Must be 5 characters:') }}
+	
+	{{ Aire::url('url', 'Must be a URL:') }}
 	
 	{{-- TODO: These are the old inputs below
 	

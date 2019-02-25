@@ -69,6 +69,13 @@ class ClientValidation implements Htmlable
 		static::$aire_loaded = true;
 		
 		$config = json_encode($this->config());
+		$config_js = "
+			<script defer>
+			document.addEventListener('DOMContentLoaded', function() {
+				Aire.configure({$config});
+			});
+			</script>
+		";
 		
 		if ($this->dev_mode) {
 			$validator_url = asset('validator.js');
@@ -78,17 +85,17 @@ class ClientValidation implements Htmlable
 				<script defer type=\"module\">
 					import * as Aire from '{$aire_url}';
 					window.Aire = Aire;
-					Aire.configure({$config});
 				</script>
+				$config_js
 			";
 		}
 		
 		if ($this->aire->config('inline_validation', true)) {
 			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.js');
-			return "<script>\n{$aire_src}\n</script>";
+			return "<script defer>\n{$aire_src}\n</script>\n{$config_js}";
 		}
 		
-		return '<script src="'.$this->aire->config('validation_script_path').'"></script>';
+		return '<script defer src="'.$this->aire->config('validation_script_path').'"></script>'.$config_js;
 	}
 	
 	protected function config() : array
