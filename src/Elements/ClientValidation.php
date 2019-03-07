@@ -51,6 +51,9 @@ class ClientValidation implements Htmlable
 	{
 		$rules = json_encode($this->rules);
 		
+		// TODO: Filter out certain server-side rules that could leak sensitive data, like the unique rule
+		// TODO: Add a "validate-on-server" rule that these get replaced with
+		
 		return "
 			<script defer>
 			document.addEventListener('DOMContentLoaded', function() {
