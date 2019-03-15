@@ -16,4 +16,15 @@ trait HasValue
 		
 		return $this;
 	}
+	
+	/**
+	 * @param $value
+	 * @return $this
+	 */
+	public function value($value = null) : self
+	{
+		$this->attributes->set('value', $value);
+		
+		return $this;
+	}
 }

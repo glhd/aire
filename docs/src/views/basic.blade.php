@@ -17,7 +17,7 @@
 	->id('demo')
 	->helpText('This is demo help text.') }}
 
-{{ Aire::select(['Option 1', 'Option 2'])
+{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
     ->label('Demo Select') }}
 
 {{ Aire::textarea()
@@ -27,7 +27,7 @@
 	->label('Demo check box') }}
 
 // Radio groups must have a name
-{{ Aire::radioGroup('demo_radios', ['one' => 'Option 1', 'two' => 'Option 2'])
+{{ Aire::radioGroup(['one' => 'Option 1', 'two' => 'Option 2'], 'demo_radios')
 	->defaultValue('two')
 	->label('Demo radio group') }}
 
@@ -37,26 +37,26 @@
 	
 	<h2>Resulting Form</h2>
 	
-	{{ Aire::open()->post()->multipart() }}
+	{{ Aire::open()->post()->multipart()->validate() }}
 	
 	{{ Aire::input()
 		->label('Demo Input')
 		->id('demo')
 		->helpText('This is demo help text.') }}
 	
-	{{ Aire::select(['Option 1', 'Option 2'])
+	{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
 	    ->label('Demo Select') }}
 	
 	{{ Aire::textarea()->value('Demo text area') }}
 	
 	{{ Aire::checkbox()->label('Demo check box') }}
 	
-	{{ Aire::radioGroup('foo', ['one' => 'Option 1', 'two' => 'Option 2'])
+	{{ Aire::radioGroup(['one' => 'Option 1', 'two' => 'Option 2'], 'foo')
 		->defaultValue('two')
 		->label('Demo radio group') }}
 	
-	{{ Aire::checkboxGroup('bar', ['one', 'two', 'three', 'four'])
-		->defaultValue(['two', 'three'])
+	{{ Aire::checkboxGroup(['one' => 'Option 1', 'two' => 'Option 2', 'three' => 'Option 3'], 'bar')
+		->defaultValue(['one', 'three'])
 		->label('Demo checkbox group') }}
 	
 	{{ Aire::submit('Demo Button') }}

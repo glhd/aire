@@ -2,9 +2,11 @@
 
 namespace Galahad\Aire\Elements;
 
+use BadMethodCallException;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
@@ -14,13 +16,6 @@ use Illuminate\Support\ViewErrorBag;
 class Form extends \Galahad\Aire\DTD\Form
 {
 	use CreatesElements, CreatesInputTypes;
-	
-	/**
-	 * Global "id" for use with JS targeting
-	 *
-	 * @var int
-	 */
-	protected static $next_form_id = 1;
 	
 	/**
 	 * Data that's bound to the form
@@ -37,11 +32,19 @@ class Form extends \Galahad\Aire\DTD\Form
 	public $validate = true;
 	
 	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
+	public $rules = [];
+	
+	/**
 	 * @inheritdoc
 	 */
 	protected $default_attributes = [
 		'action' => '',
 		'method' => 'POST',
+		'fields' => null,
 	];
 	
 	/**
@@ -78,7 +81,21 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $session_store;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, string $validation_src, Router $router = null, Store $session_store = null)
+	/**
+	 * Class name of the associated FormRequest object
+	 *
+	 * @var string
+	 */
+	protected $form_request;
+	
+	/**
+	 * Set to true to load development versions of JS
+	 *
+	 * @var bool
+	 */
+	protected $dev_mode = false;
+	
+	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
@@ -90,7 +107,20 @@ class Form extends \Galahad\Aire\DTD\Form
 			$this->view_data['_token'] = $session_store->token();
 		}
 		
-		$this->initValidation($validation_src);
+		$this->initValidation();
+	}
+	
+	/**
+	 * Enable dev mode
+	 *
+	 * @param bool $dev_mode
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function dev(bool $dev_mode = true) : self
+	{
+		$this->dev_mode = $dev_mode;
+		
+		return $this;
 	}
 	
 	/**
@@ -110,6 +140,17 @@ class Form extends \Galahad\Aire\DTD\Form
 	}
 	
 	/**
+	 * Determine whether the form has any bound data
+	 *
+	 * @return bool
+	 */
+	public function hasBoundData() : bool
+	{
+		return null !== $this->bound_data
+			or ($this->session_store && $this->session_store->hasOldInput());
+	}
+	
+	/**
 	 * Get the bound value for an Element
 	 *
 	 * @param $name
@@ -118,7 +159,9 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function getBoundValue($name, $default = null)
 	{
-		$name = rtrim($name, '[]');
+		if (null === $name) {
+			return value($default);
+		}
 		
 		// If old input is set, use that
 		if ($this->session_store && $this->session_store->hasOldInput($name)) {
@@ -136,7 +179,7 @@ class Form extends \Galahad\Aire\DTD\Form
 			}
 		}
 		
-		return $default;
+		return value($default);
 	}
 	
 	/**
@@ -188,7 +231,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function close() : self
 	{
 		if (!$this->opened) {
-			throw new \BadMethodCallException('Trying to close a form that hasn\'t been opened.');
+			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
 		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
@@ -207,7 +250,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function closeButton() : Button
 	{
 		if (!$this->pending_button) {
-			throw new \BadMethodCallException('Trying to close a button that hasn\'t been opened.');
+			throw new BadMethodCallException('Trying to close a button that hasn\'t been opened.');
 		}
 		
 		$button = $this->pending_button->close();
@@ -237,7 +280,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function get() : self
 	{
-		$this->attributes['method'] = 'GET';
+		$this->attributes->set('method', 'GET');
 		unset($this->view_data['_method']);
 		
 		return $this;
@@ -245,7 +288,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function post() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		unset($this->view_data['_method']);
 		
 		return $this;
@@ -253,7 +296,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function put() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PUT';
 		
 		return $this;
@@ -261,7 +304,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function patch() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PATCH';
 		
 		return $this;
@@ -269,7 +312,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function delete() : self
 	{
-		$this->attributes['method'] = 'POST';
+		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'DELETE';
 		
 		return $this;
@@ -297,11 +340,22 @@ class Form extends \Galahad\Aire\DTD\Form
 	/**
 	 * Enable client-side validation
 	 *
+	 * @param array|string|null $rule_source
 	 * @return $this
 	 */
-	public function validate() : self
+	public function validate($rule_source = null) : self
 	{
 		$this->validate = true;
+		
+		// If we were passed rules, call rules() method
+		if (is_array($rule_source)) {
+			return $this->rules($rule_source);
+		}
+		
+		// If we were passed a FormRequest class name, call formRequest() method
+		if (is_string($rule_source) && is_subclass_of($rule_source, FormRequest::class)) {
+			return $this->formRequest($rule_source);
+		}
 		
 		return $this;
 	}
@@ -318,6 +372,27 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
+	public function rules(array $rules = []) : self
+	{
+		$this->rules = $rules;
+		
+		return $this;
+	}
+	
+	public function formRequest(string $class_name) : self
+	{
+		// TODO: messages() and attributes()
+		
+		$this->form_request = $class_name;
+		$request = new $class_name();
+		
+		if (is_callable([$request, 'rules'])) {
+			$this->rules($request->rules());
+		}
+		
+		return $this;
+	}
+	
 	public function render() : string
 	{
 		if ($this->opened) {
@@ -329,15 +404,15 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	protected function viewData() : array
 	{
-		return array_merge(parent::viewData(), ['validate' => $this->validate]);
+		return array_merge(parent::viewData(), $this->validationData());
 	}
 	
-	protected function initGroup()
+	protected function initGroup() : ?Group
 	{
-		// Ignore for Form
+		return null; // Ignore for Form
 	}
 	
-	protected function inferMethodFromRoute($route_name)
+	protected function inferMethodFromRoute($route_name) : void
 	{
 		if ($this->attributes['method'] !== $this->default_attributes['method']) {
 			return;
@@ -366,14 +441,25 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 	}
 	
-	protected function initValidation(string $validation_src) : void
+	protected function initValidation() : void
 	{
-		$this->data('aire-id', static::$next_form_id++);
-		
 		$this->validate = $this->aire->config('validate_by_default', true);
 		
-		$this->view_data['inline_validation'] = $this->aire->config('inline_validation', true);
-		$this->view_data['validation_script_path'] = $this->aire->config('validation_script_path');
-		$this->view_data['validation_src'] = $validation_src;
+		$this->attributes->registerMutator('data-aire-id', function() {
+			return $this->validate
+				? $this->element_id
+				: null;
+		});
+	}
+	
+	protected function validationData() : array
+	{
+		// TODO: FormRequest
+		
+		$validation = ($this->validate && (count($this->rules) || null !== $this->form_request))
+			? new ClientValidation($this->aire, $this->element_id, $this->rules, $this->dev_mode)
+			: '';
+		
+		return compact('validation');
 	}
 }

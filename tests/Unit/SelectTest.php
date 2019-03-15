@@ -21,18 +21,18 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="patchett"]', 'Ann Patchett');
 	}
 	
-	public function test_a_non_associative_array_maps_value_to_key() : void
+	public function test_a_zero_index_non_associative_array_maps_value_index() : void
 	{
 		$options = [
-			'Ta-Nehisi Coates',
-			'Philip Roth',
-			'Ann Patchett',
+			0 => 'Ta-Nehisi Coates',
+			1 => 'Philip Roth',
+			2 => 'Ann Patchett',
 		];
 		
 		$html = $this->aire()->select($options)->render();
 		
-		$this->assertSelectorTextEquals($html, 'option[value="Ta-Nehisi Coates"]', 'Ta-Nehisi Coates');
-		$this->assertSelectorTextEquals($html, 'option[value="Philip Roth"]', 'Philip Roth');
-		$this->assertSelectorTextEquals($html, 'option[value="Ann Patchett"]', 'Ann Patchett');
+		$this->assertSelectorTextEquals($html, 'option[value="0"]', 'Ta-Nehisi Coates');
+		$this->assertSelectorTextEquals($html, 'option[value="1"]', 'Philip Roth');
+		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
 	}
 }

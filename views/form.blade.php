@@ -1,4 +1,4 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
 <form {{ $attributes }}>
 
@@ -10,16 +10,8 @@
 		<input type="hidden" name="_method" value="{{ $_method }}" />
 	@endisset
 	
-	{{ $fields ?? '' }}
+	{{ $fields }}
 	
-	@if($validate && $inline_validation)
-		
-		<script>{!! file_get_contents($validation_src) !!}</script>
-		
-	@elseif($validate && $validation_script_path)
-		
-		<script src="{{ $validation_script_path }}" async></script>
-		
-	@endif
+	{{ $validation }}
 	
 </form>

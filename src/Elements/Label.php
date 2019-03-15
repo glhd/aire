@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Attributes\ClassNames;
 
 class Label extends \Galahad\Aire\DTD\Label
 {
@@ -13,16 +14,20 @@ class Label extends \Galahad\Aire\DTD\Label
 	
 	public function __construct(Aire $aire, Group $group = null)
 	{
-		parent::__construct($aire);
-		
 		$this->group = $group;
 		
-		$this->attributes->registerMutator('for', function($for) {
-			if (null === $for && $id = optional($this->group)->element->getAttribute('id')) {
-				$for = $id;
+		parent::__construct($aire);
+		
+		$this->attributes->setDefault('for', function() {
+			return optional($this->group)->element->attributes->get('id');
+		});
+		
+		$this->attributes->registerMutator('class', function(ClassNames $class_names) {
+			if ($this->attributes->has('for')) {
+				return $class_names->add('cursor-pointer');
 			}
 			
-			return $for;
+			return $class_names->remove('cursor-pointer');
 		});
 	}
 	

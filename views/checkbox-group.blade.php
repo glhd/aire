@@ -1,16 +1,16 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
-<div {{ $attributes->only('id') }}>
+<div {{ $attributes->wrapper }}>
 	
 	@foreach($options as $option_value => $option_label)
 		
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l">
+		<label {{ $attributes->label }}>
 			<input
 				{{ $attributes->except('id', 'value', 'checked') }}
 				value="{{ $option_value }}"
 				{{ $attributes->isValue($option_value) ? 'checked' : '' }}
 			/>
-			<span class="flex-1 ml-2">
+			<span {{ $attributes->label_wrapper }}>
 				{{ $option_label }}
 			</span>
 		</label>

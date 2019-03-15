@@ -49,10 +49,23 @@ class Group extends Element
 		'prepend' => null,
 		'append' => null,
 		'errors' => [],
+		'label' => null,
 	];
 	
+	/**
+	 * Groups should never be grouped themselves
+	 *
+	 * @var bool
+	 */
 	protected $grouped = false;
 	
+	/**
+	 * Constructor
+	 *
+	 * @param \Galahad\Aire\Aire $aire
+	 * @param \Galahad\Aire\Elements\Form $form
+	 * @param \Galahad\Aire\Elements\Element $element
+	 */
 	public function __construct(Aire $aire, Form $form, Element $element)
 	{
 		parent::__construct($aire, $form);
@@ -60,13 +73,18 @@ class Group extends Element
 		$this->element = $element;
 	}
 	
-	public function label(string $text) : self
+	/**
+	 * Set the group's label
+	 *
+	 * @param string|HtmlString $text
+	 * @return \Galahad\Aire\Elements\Group
+	 */
+	public function label($text) : self
 	{
-		$this->label = (new Label($this->aire, $this))->text($text);
+		// TODO: Is this necessary any more or can we just use attributes?
+		// TODO: Might make sense to have a special innerHTML attribute that doesn't get rendered to the key=value list
 		
-		if ($id = $this->element->attributes->get('id')) {
-			$this->label->for($id);
-		}
+		$this->label = (new Label($this->aire, $this))->text($text);
 		
 		return $this;
 	}
@@ -118,14 +136,16 @@ class Group extends Element
 		return $this;
 	}
 	
+	public function getInputName($default = null) : ?string
+	{
+		return $this->element->getInputName($default);
+	}
+	
 	protected function viewData() : array
 	{
-		$errors = $this->view_data['errors'];
-		
-		if ($name = $this->element->getAttribute('name')) {
-			$session_errors = $this->form->getErrors($name);
-			if (!empty($session_errors)) {
-				$errors = array_merge($errors, $session_errors);
+		if ($name = $this->element->getInputName()) {
+			if (!empty($session_errors = $this->form->getErrors($name))) {
+				$this->view_data['errors'] = array_merge($this->view_data['errors'], $session_errors);
 				$this->invalid();
 			}
 		}
@@ -133,12 +153,14 @@ class Group extends Element
 		return array_merge(parent::viewData(), [
 			'label' => $this->label,
 			'element' => new HtmlString($this->element->render()),
-			'errors' => $errors,
+			'error_view' => $this->aire->applyTheme('_error'),
 		]);
 	}
 	
-	protected function initGroup()
+	protected function initGroup() : ?Group
 	{
-		// Ignore
+		$this->group = $this;
+		
+		return $this;
 	}
 }

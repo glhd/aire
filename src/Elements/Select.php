@@ -3,12 +3,13 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\AutoId;
+use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
-use Illuminate\Support\Arr;
 
 class Select extends \Galahad\Aire\DTD\Select
 {
-	use HasValue;
+	use HasValue, HasOptions, AutoId;
 	
 	public function __construct(Aire $aire, array $options, Form $form = null)
 	{
@@ -18,17 +19,10 @@ class Select extends \Galahad\Aire\DTD\Select
 		
 		$this->attributes->registerMutator('name', function($name) {
 			return $this->attributes->get('multiple', false)
-				? "{$name}[]"
+				? rtrim($name, '[]').'[]'
 				: $name;
 		});
-	}
-	
-	public function setOptions(array $options) : self
-	{
-		$this->view_data['options'] = Arr::isAssoc($options)
-			? $options
-			: array_combine($options, $options);
 		
-		return $this;
+		$this->registerAutoId();
 	}
 }

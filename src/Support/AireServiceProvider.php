@@ -30,6 +30,11 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected $translations_directory;
 	
+	/**
+	 * Resolved path to the built JS directory
+	 *
+	 * @var string
+	 */
 	protected $js_dist_directory;
 	
 	public function __construct(Application $app)
@@ -41,7 +46,6 @@ class AireServiceProvider extends ServiceProvider
 		$this->config_path = "$base_path/config/aire.php";
 		$this->view_directory = "$base_path/views";
 		$this->translations_directory = "$base_path/translations";
-		$this->js_dist_directory = "$base_path/js/dist";
 	}
 	
 	/**
@@ -83,7 +87,6 @@ class AireServiceProvider extends ServiceProvider
 			return new Form(
 				$app['galahad.aire'],
 				$app['url'],
-				"{$this->js_dist_directory}/aire.js",
 				$app->bound('router') ? $app['router'] : null,
 				$app->bound('session.store') ? $app['session.store'] : null
 			);
@@ -123,6 +126,9 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected function bootConfig() : self
 	{
+		// TODO: It may make sense to not publish the default classes/etc so that
+		// TODO: publishing doesn't fix the user to that set of default classes
+		
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),

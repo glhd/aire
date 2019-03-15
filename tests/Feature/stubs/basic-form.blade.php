@@ -9,10 +9,10 @@
 	->helpText('Sample help text')
 	->required() }}
 
-{{ Aire::select(['a', 'b'], 'basic_select', 'Single Select')
+{{ Aire::select(['a' => 'a', 'b' => 'b'], 'basic_select', 'Single Select')
     ->id('basic_select') }}
 
-{{ Aire::select(['a', 'b'], 'multi_select', 'Multi-Select')
+{{ Aire::select(['a' => 'a', 'b' => 'b'], 'multi_select', 'Multi-Select')
 	->id('multi_select')
 	->multiple() }}
 

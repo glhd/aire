@@ -4,11 +4,9 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
-use Galahad\Aire\Elements\Attributes\Attributes;
-use Galahad\Aire\Elements\Attributes\ClassNames;
+use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
@@ -20,9 +18,14 @@ abstract class Element implements Htmlable
 	public $name;
 	
 	/**
-	 * @var \Galahad\Aire\Elements\Attributes\Attributes
+	 * @var \Galahad\Aire\Elements\Attributes\Collection
 	 */
 	public $attributes;
+	
+	/**
+	 * @var int
+	 */
+	public $element_id;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
@@ -37,7 +40,7 @@ abstract class Element implements Htmlable
 	/**
 	 * @var array
 	 */
-	protected $default_attributes = [];
+	protected $default_attributes;
 	
 	/**
 	 * @var array
@@ -54,44 +57,64 @@ abstract class Element implements Htmlable
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->aire = $aire;
-		
-		$this->attributes = new Attributes(array_merge(
-			$this->default_attributes,
-			$aire->config("default_attributes.{$this->name}", []),
-			['class' => new ClassNames($this)]
-		));
+		$this->element_id = $aire->generateElementId();
 		
 		if ($form) {
-			$this->initForm($form);
+			$this->form = $form;
+			$this->initGroup();
 		}
-	}
-	
-	/**
-	 * Get an Element's attribute
-	 *
-	 * @param string $attribute
-	 * @param null $default
-	 * @return mixed
-	 */
-	public function getAttribute(string $attribute, $default = null)
-	{
-		return Arr::get($this->attributes, $attribute, $default);
+		
+		$this->attributes = new Collection($aire, $this, $this->default_attributes);
+		
+		if ($form) {
+			$this->registerMutators();
+		}
 	}
 	
 	/**
 	 * Set a data attribute
 	 *
-	 * @param $key
+	 * @param $data_key
 	 * @param $value
 	 * @return $this
 	 */
-	public function data($key, $value)
+	public function data($data_key, $value) : self
 	{
-		if (null === $value && isset($this->attributes["data-{$key}"])) {
-			unset($this->attributes["data-{$key}"]);
+		$key = "data-{$data_key}";
+		
+		if (null === $value) {
+			if ($this->attributes->has($key)) {
+				$this->attributes->unset($key);
+			}
 		} else {
-			$this->attributes["data-{$key}"] = $value;
+			$this->attributes->set($key, $value);
 		}
+		
+		return $this;
+	}
+	
+	public function getInputName($default = null) : ?string
+	{
+		return rtrim($this->attributes->get('name', $default), '[]');
+	}
+	
+	public function setAttribute($key, $value) : self
+	{
+		$this->attributes->set($key, $value);
+		
+		return $this;
+	}
+	
+	public function addClass(...$class_name) : self
+	{
+		$this->attributes['class']->add(...$class_name);
+		
+		return $this;
+	}
+	
+	public function removeClass(...$class_name) : self
+	{
+		$this->attributes['class']->remove(...$class_name);
 		
 		return $this;
 	}
@@ -114,7 +137,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function toHtml()
+	public function toHtml() : string
 	{
 		return $this->grouped && $this->group
 			? $this->group->render()
@@ -126,7 +149,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function __toString()
+	public function __toString() : string
 	{
 		return $this->toHtml();
 	}
@@ -138,42 +161,32 @@ abstract class Element implements Htmlable
 	 */
 	protected function viewData() : array
 	{
-		$attributes = $this->attributes;
-		
 		return array_merge(
-			$attributes->toArray(), // Provide shortcuts to all attributes
+			$this->attributes->primary()->toArray(), // Provide shortcuts to all attributes
 			$this->view_data, // Override with view data
 			[
-				'attributes' => $attributes, // Ensure that $attributes always exists
+				'attributes' => $this->attributes, // Ensure that $attributes always exists
 				'validate' => $this->form ? $this->form->validate : false, // Set validation flag
 			]
 		);
 	}
 	
 	/**
-	 * Run additional initialization if the Element is associated with a Form
+	 * Register default mutators
 	 *
-	 * @param \Galahad\Aire\Elements\Form $form
 	 * @return \Galahad\Aire\Elements\Element
 	 */
-	protected function initForm(Form $form) : self
+	protected function registerMutators() : self
 	{
-		$this->form = $form;
-		
-		$this->initGroup();
-		
 		if ($this->bind_value) {
-			$this->attributes->registerMutator('value', function($value) {
-				if (null !== $value || !$this->attributes->has('name')) {
-					return $value;
-				}
-				
-				return $this->form->getBoundValue($this->attributes->get('name'));
+			$this->attributes->setDefault('value', function() {
+				return $this->form->getBoundValue($this->getInputName());
 			});
 		}
 		
-		$this->attributes->registerMutator('data-validate', function() {
-			return $this->form->validate ? 'true' : 'false';
+		// TODO: We may want to generate internal IDs to use here if no name exists
+		$this->attributes->registerMutator('data-aire-for', function() {
+			return $this->getInputName();
 		});
 		
 		return $this;

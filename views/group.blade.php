@@ -1,11 +1,11 @@
-<?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
+<?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
 
-<div {{ $attributes->except('class') }} class="{{ $class }}" data-aire-group>
-	{{ $label ?? '' }}
+<div {{ $attributes }}>
+	{{ $label }}
 	
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">
 		@if($prepend)
-			<div class="-mr-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-l-sm">
+			<div {{ $attributes->prepend }}>
 				{{ $prepend }}
 			</div>
 		@endif
@@ -13,29 +13,20 @@
 		{{ $element }}
 			
 		@if($append)
-			<div class="-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm">
+			<div {{ $attributes->append }}>
 				{{ $append }}
 			</div>
 		@endif
 	</div>
 	
+	<ul {{ $attributes->errors }}>
+		@each($error_view, $errors, 'error')
+	</ul>
+	
 	@isset($help_text)
-		<small class="block mt-1 text-grey-dark text-sm font-normal" data-aire-help-text>
+		<small {{ $attributes->help_text }}>
 			{{ $help_text }}
 		</small>
 	@endisset
 	
-	@if(isset($errors) && count($errors))
-		<ul class="list-reset" data-aire-errors>
-			
-			@foreach($errors as $error)
-				
-				<li class="block mt-1 text-red text-sm font-normal">
-					{{ $error }}
-				</li>
-				
-			@endforeach
-			
-		</ul>
-	@endif
 </div>

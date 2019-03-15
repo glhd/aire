@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class Checkbox extends Input
@@ -11,7 +12,11 @@ class Checkbox extends Input
 	
 	protected $default_attributes = [
 		'type' => 'checkbox',
-		'value' => '1',
+		'value' => true,
+	];
+	
+	protected $view_data = [
+		'label_text' => '',
 	];
 	
 	/**
@@ -25,31 +30,35 @@ class Checkbox extends Input
 	{
 		parent::__construct($aire, $form);
 		
-		$this->attributes->registerMutator('checked', function($value) {
-			if (null !== $value || !$this->attributes->has('name')) {
-				return $value;
+		$this->attributes->label->setDefault('for', function() {
+			return $this->attributes->get('id');
+		});
+		
+		$this->attributes->setDefault('checked', function() {
+			if (!$this->form->hasBoundData()) {
+				return null;
 			}
 			
-			$checked_value = $this->attributes['value'];
-			$bound_value = $this->form->getBoundValue($this->attributes->get('name'));
-			
-			return is_array($bound_value)
-				? in_array($checked_value, $bound_value)
-				: $checked_value === $bound_value;
+			return $this->attributes->isValue($this->form->getBoundValue($this->getInputName()));
 		});
 	}
 	
-	public function label(string $text) : self
+	public function label($text) : self
 	{
-		$this->view_data['checkbox_label'] = $text;
+		$this->view_data['label_text'] = $text;
 		
 		return $this;
 	}
 	
+	public function labelHtml($html) : self
+	{
+		return $this->label(new HtmlString($html));
+	}
+	
 	public function name($value = null)
 	{
-		if (!isset($this->view_data['checkbox_label'])) {
-			$this->label(Str::snake($value, ' '));
+		if (!isset($this->view_data['label_text'])) {
+			$this->label(ucfirst(Str::snake($value, ' ')));
 		}
 		
 		return parent::name($value);

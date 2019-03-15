@@ -3,11 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Concerns\AutoId;
 use Galahad\Aire\Elements\Concerns\HasValue;
 
 class Input extends \Galahad\Aire\DTD\Input
 {
-	use HasValue;
+	use HasValue, AutoId;
 	
 	protected $default_attributes = [
 		'type' => 'text',
@@ -29,6 +30,8 @@ class Input extends \Galahad\Aire\DTD\Input
 			
 			return $value;
 		});
+		
+		$this->registerAutoId();
 	}
 	
 	public function type($value = null)

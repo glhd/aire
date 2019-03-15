@@ -39,7 +39,7 @@ class ServerValidationTest extends TestCase
 		$this->assertSelectorClassNames($html, 'label[for="generic_input"]', 'is-invalid');
 		$this->assertSelectorClassNames($html, '#generic_input', 'is-invalid');
 		
-		$this->assertSelectorExists($html, '[data-aire-errors]');
-		$this->assertSelectorContainsText($html, '[data-aire-errors]', 'The generic input field is required');
+		$this->assertSelectorExists($html, '[data-aire-component="errors"]');
+		$this->assertSelectorContainsText($html, '[data-aire-component="errors"]', 'The generic input field is required');
 	}
 }
