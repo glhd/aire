@@ -159,7 +159,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function getBoundValue($name, $default = null)
 	{
-		if (null === $name) {
+		if (empty($name)) {
 			return value($default);
 		}
 		
