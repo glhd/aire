@@ -29,6 +29,13 @@ class ClassNames
 	protected $class_names = [];
 	
 	/**
+	 * Class names that have been explicitly removed
+	 *
+	 * @var array
+	 */
+	protected $removed_class_names = [];
+	
+	/**
 	 * The name of the element that this class list targets
 	 *
 	 * @var string
@@ -109,14 +116,14 @@ class ClassNames
 	}
 	
 	/**
-	 * Remove class(es) from the class list
+	 * Remove class(es) from the final output
 	 *
 	 * @param string[] ...$class_names
 	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
 	 */
 	public function remove(...$class_names) : self
 	{
-		$this->class_names = array_diff($this->class_names, $class_names);
+		$this->removed_class_names = array_unique(array_merge($this->removed_class_names, $class_names));
 		
 		return $this;
 	}
@@ -128,10 +135,10 @@ class ClassNames
 	 */
 	public function __toString()
 	{
-		return implode(' ', array_unique(array_merge(
+		return implode(' ', array_diff(array_unique(array_merge(
 			$this->class_names,
 			$this->validation()
-		)));
+		)), $this->removed_class_names));
 	}
 	
 	/**

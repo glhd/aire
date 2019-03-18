@@ -12,6 +12,7 @@ use Galahad\Aire\Elements\RadioGroup;
 use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
+use Galahad\Aire\Elements\Wysiwyg;
 
 trait CreatesElements
 {
@@ -69,6 +70,21 @@ trait CreatesElements
 	public function textArea($name = null, $label = null) : Textarea
 	{
 		$textarea = new Textarea($this->aire, $this);
+		
+		if ($name) {
+			$textarea->name($name);
+		}
+		
+		if ($label) {
+			$textarea->label($label);
+		}
+		
+		return $textarea;
+	}
+	
+	public function wysiwyg($name = null, $label = null) : Textarea
+	{
+		$textarea = new Wysiwyg($this->aire, $this);
 		
 		if ($name) {
 			$textarea->name($name);

@@ -330,6 +330,11 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 			->implode(' ');
 	}
 	
+	public function __toString()
+	{
+		return $this->toHtml();
+	}
+	
 	/**
 	 * Get a collection of all attributes (after mutation)
 	 *
