@@ -6,11 +6,13 @@ use BadMethodCallException;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 
 class Form extends \Galahad\Aire\DTD\Form
@@ -135,6 +137,35 @@ class Form extends \Galahad\Aire\DTD\Form
 	public function bind($bound_data) : self
 	{
 		$this->bound_data = $bound_data;
+		
+		return $this;
+	}
+	
+	/**
+	 * Bind data with implicit resource controller routing
+	 *
+	 * Form::resourceful(new User()) -> POST route('users.store')
+	 * Form::resourceful($existing_user) -> PUT route('users.update')
+	 *
+	 * @param \Illuminate\Database\Eloquent\Model $model
+	 * @param string $resource_name
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function resourceful(Model $model, $resource_name = null) : self
+	{
+		$this->bind($model);
+		
+		if (null === $resource_name) {
+			$resource_name = Str::kebab(Str::plural($model->getTable()));
+		}
+		
+		if ($model->exists) {
+			$this->action($this->url->route("{$resource_name}.update", $model));
+			$this->put();
+		} else {
+			$this->action($this->url->route("{$resource_name}.store"));
+			$this->post();
+		}
 		
 		return $this;
 	}
