@@ -101,7 +101,13 @@ abstract class Element implements Htmlable
 			return null;
 		}
 		
-		return rtrim($name, '[]');
+		// Trim [] off non-associative array values
+		if ('[]' === substr($name, -2)) {
+			$name = substr($name, 0, -2);
+		}
+		
+		// Then convert foo[bar][baz] to foo.bar.baz
+		return preg_replace('/\[([^\]]+)\]/m', '.$1', $name);
 	}
 	
 	public function setAttribute($key, $value) : self
