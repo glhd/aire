@@ -1,8 +1,9 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
+<?php /** @var \Galahad\Aire\Support\OptionsCollection $options */ ?>
 
 <div {{ $attributes->wrapper }}>
 	
-	@foreach($options as $option_value => $option_label)
+	@foreach($options->getOptions() as $option_value => $option_label)
 		
 		<label {{ $attributes->label }}>
 			<input
@@ -10,7 +11,7 @@
 				value="{{ $option_value }}"
 				{{ $attributes->isValue($option_value) ? 'checked' : '' }}
 			/>
-			<span {{ $attributes->label_wrapper }}>
+			<span {{ $attributes->label_wrappwer }}>
 				{{ $option_label }}
 			</span>
 		</label>

@@ -16,11 +16,23 @@ use Galahad\Aire\Elements\Wysiwyg;
 
 trait CreatesElements
 {
+	/**
+	 * Create a <label> element
+	 *
+	 * @param string $label
+	 * @return \Galahad\Aire\Elements\Label
+	 */
 	public function label(string $label) : Label
 	{
 		return (new Label($this->aire))->text($label);
 	}
 	
+	/**
+	 * Create a <button> element
+	 *
+	 * @param string|null $label
+	 * @return \Galahad\Aire\Elements\Button
+	 */
 	public function button(string $label = null) : Button
 	{
 		$button = new Button($this->aire, $this);
@@ -32,27 +44,53 @@ trait CreatesElements
 		return $button;
 	}
 	
+	/**
+	 * Create a <button type="submit"> element
+	 *
+	 * @param string $label
+	 * @return \Galahad\Aire\Elements\Button
+	 */
 	public function submit(string $label = 'Submit') : Button
 	{
 		return $this->button($label)->type('submit');
 	}
 	
-	public function input($name = null, $label = null) : Input
+	/**
+	 * Create an <input>
+	 *
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @param string|null $type
+	 * @return \Galahad\Aire\Elements\Input
+	 */
+	public function input($name = null, $label = null, $type = null) : Input
 	{
 		$input = new Input($this->aire, $this);
 		
 		if ($name) {
-			$input->name($name);
+			$input->name((string) $name);
 		}
 		
 		if ($label) {
 			$input->label($label);
 		}
 		
+		if ($type) {
+			$input->type((string) $type);
+		}
+		
 		return $input;
 	}
 	
-	public function select(array $options, $name = null, $label = null) : Select
+	/**
+	 * Create a <select> element
+	 *
+	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\Select
+	 */
+	public function select($options, $name = null, $label = null) : Select
 	{
 		$select = new Select($this->aire, $options, $this);
 		
@@ -67,12 +105,19 @@ trait CreatesElements
 		return $select;
 	}
 	
+	/**
+	 * Create a <textarea> element
+	 *
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\Textarea
+	 */
 	public function textArea($name = null, $label = null) : Textarea
 	{
 		$textarea = new Textarea($this->aire, $this);
 		
 		if ($name) {
-			$textarea->name($name);
+			$textarea->name((string) $name);
 		}
 		
 		if ($label) {
@@ -82,12 +127,19 @@ trait CreatesElements
 		return $textarea;
 	}
 	
+	/**
+	 * Create a <textarea> element meant for WYSIWYG use (using JavaScript)
+	 *
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\Textarea
+	 */
 	public function wysiwyg($name = null, $label = null) : Textarea
 	{
 		$textarea = new Wysiwyg($this->aire, $this);
 		
 		if ($name) {
-			$textarea->name($name);
+			$textarea->name((string) $name);
 		}
 		
 		if ($label) {
@@ -97,17 +149,30 @@ trait CreatesElements
 		return $textarea;
 	}
 	
-	public function summary() : Summary
+	/**
+	 * Create a summary view, which will show if there are errors
+	 *
+	 * @param bool $verbose
+	 * @return \Galahad\Aire\Elements\Summary
+	 */
+	public function summary(bool $verbose = true) : Summary
 	{
-		return new Summary($this->aire);
+		return (new Summary($this->aire, $this))->verbose($verbose);
 	}
 	
+	/**
+	 * Create a single <input type="checkbox"> element
+	 *
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\Checkbox
+	 */
 	public function checkbox($name = null, $label = null) : Checkbox
 	{
 		$checkbox = new Checkbox($this->aire, $this);
 		
 		if ($name) {
-			$checkbox->name($name);
+			$checkbox->name((string) $name);
 		}
 		
 		if ($label) {
@@ -117,7 +182,15 @@ trait CreatesElements
 		return $checkbox;
 	}
 	
-	public function checkboxGroup(array $options, $name, $label = null) : CheckboxGroup
+	/**
+	 * Create a group of <input type="checkbox"> elements
+	 *
+	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
+	 * @param string $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\CheckboxGroup
+	 */
+	public function checkboxGroup($options, $name, $label = null) : CheckboxGroup
 	{
 		$checkbox_group = new CheckboxGroup($this->aire, $options, $this);
 		
@@ -130,7 +203,15 @@ trait CreatesElements
 		return $checkbox_group;
 	}
 	
-	public function radioGroup(array $options, $name, $label = null) : RadioGroup
+	/**
+	 * Create a group of <input type="radio"> elements
+	 *
+	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
+	 * @param string $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\RadioGroup
+	 */
+	public function radioGroup($options, $name, $label = null) : RadioGroup
 	{
 		$radio_group = new RadioGroup($this->aire, $options, $this);
 		

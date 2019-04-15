@@ -6,6 +6,8 @@ class Summary extends Element
 {
 	public $name = 'summary';
 	
+	protected $grouped = false;
+	
 	protected $view_data = [
 		'verbose' => false,
 	];
@@ -15,5 +17,10 @@ class Summary extends Element
 		$this->view_data['verbose'] = $verbose;
 		
 		return $this;
+	}
+	
+	public function simple() : self
+	{
+		return $this->verbose(false);
 	}
 }

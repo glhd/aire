@@ -95,7 +95,13 @@ abstract class Element implements Htmlable
 	
 	public function getInputName($default = null) : ?string
 	{
-		return rtrim($this->attributes->get('name', $default), '[]');
+		$name = $this->attributes->get('name', $default);
+		
+		if (null === $name) {
+			return null;
+		}
+		
+		return rtrim($name, '[]');
 	}
 	
 	public function setAttribute($key, $value) : self

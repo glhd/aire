@@ -31,8 +31,8 @@ class ServerValidationTest extends TestCase
 		$html = $this->get('/aire')->getContent();
 		
 		// Summary
-		$this->assertSelectorExists($html, '[data-aire-summary]');
-		$this->assertSelectorContainsText($html, '[data-aire-summary]', 'The generic input field is required');
+		$this->assertSelectorExists($html, '[data-aire-component="summary"]');
+		$this->assertSelectorContainsText($html, '[data-aire-component="summary"]', 'The generic input field is required');
 		
 		// Input validation
 		$this->assertSelectorClassNames($html, '#generic_input_group', 'is-invalid');

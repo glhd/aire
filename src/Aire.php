@@ -14,16 +14,17 @@ use Illuminate\View\Factory;
 // TODO: Aire::scaffold($user) -> generate update form
 
 /**
+ * @method static \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
  * @method static \Galahad\Aire\Elements\Label label(string $label)
  * @method static \Galahad\Aire\Elements\Button button(string $label = null)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Select select(array $options, $name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Select select(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Summary summary()
+ * @method static \Galahad\Aire\Elements\Summary summary(bool $verbose = true)
  * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = null)
- * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = null)
+ * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
+ * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
  * @method static \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
  * @method static \Galahad\Aire\Elements\Input color($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Input date($name = null, $label = null)
@@ -168,6 +169,22 @@ class Aire
 	}
 	
 	/**
+	 * Close a new Form.
+	 *
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function close() : Form
+	{
+		if (!($this->form instanceof Form)) {
+			throw new BadMethodCallException('Trying to close a form before opening one.');
+		}
+		
+		$this->form->close();
+		
+		return $this->form;
+	}
+	
+	/**
 	 * Get a configuration value
 	 *
 	 * @param string $key
@@ -211,6 +228,11 @@ class Aire
 		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
 	}
 	
+	/**
+	 * Get the next globally unique element ID
+	 *
+	 * @return int
+	 */
 	public function generateElementId() : int
 	{
 		return $this->next_element_id++;

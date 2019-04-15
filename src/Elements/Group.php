@@ -76,7 +76,7 @@ class Group extends Element
 	/**
 	 * Set the group's label
 	 *
-	 * @param string|HtmlString $text
+	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
 	 * @return \Galahad\Aire\Elements\Group
 	 */
 	public function label($text) : self

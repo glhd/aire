@@ -11,7 +11,7 @@ class Select extends \Galahad\Aire\DTD\Select
 {
 	use HasValue, HasOptions, AutoId;
 	
-	public function __construct(Aire $aire, array $options, Form $form = null)
+	public function __construct(Aire $aire, $options, Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

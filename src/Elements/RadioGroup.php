@@ -17,7 +17,14 @@ class RadioGroup extends \Galahad\Aire\DTD\Input
 		'type' => 'radio',
 	];
 	
-	public function __construct(Aire $aire, array $options, Form $form = null)
+	/**
+	 * Radio Group
+	 *
+	 * @param \Galahad\Aire\Aire $aire
+	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
+	 * @param \Galahad\Aire\Elements\Form|null $form
+	 */
+	public function __construct(Aire $aire, $options, Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

@@ -1,7 +1,8 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Collection $attributes */ ?>
+<?php /** @var \Galahad\Aire\Support\OptionsCollection $options */ ?>
 
 <div {{ $attributes->wrapper }}>
-	@foreach($options as $option_value => $option_label)
+	@foreach($options->getOptions() as $option_value => $option_label)
 		
 		<label {{ $attributes->label }}>
 			<input

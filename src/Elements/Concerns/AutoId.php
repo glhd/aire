@@ -4,7 +4,7 @@ namespace Galahad\Aire\Elements\Concerns;
 
 trait AutoId
 {
-	protected function registerAutoId()
+	protected function registerAutoId() : void
 	{
 		if (false === $this->aire->config('auto_id', true)) {
 			return;

@@ -31,6 +31,10 @@ class Label extends \Galahad\Aire\DTD\Label
 		});
 	}
 	
+	/**
+	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
+	 * @return \Galahad\Aire\Elements\Label
+	 */
 	public function text($text) : self
 	{
 		$this->view_data['text'] = $text;

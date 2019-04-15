@@ -4,9 +4,10 @@ namespace Galahad\Aire\Elements\Concerns;
 
 use BadMethodCallException;
 use Galahad\Aire\Elements\Group;
+use Illuminate\Contracts\Support\Htmlable;
 
 /**
- * @method \Galahad\Aire\Elements\Group label(string $text)
+ * @method \Galahad\Aire\Elements\Group label(string|Htmlable $text)
  * @method \Galahad\Aire\Elements\Group helpText(string $text)
  * @method \Galahad\Aire\Elements\Group validated($validation_state = 'valid')
  * @method \Galahad\Aire\Elements\Group valid()
