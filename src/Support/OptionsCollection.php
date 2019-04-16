@@ -12,7 +12,7 @@ class OptionsCollection extends Collection
 		return $this
 			->mapWithKeys(function($option, $key) {
 				if ($option instanceof SelectableEntity) {
-					return [$option->getSelectableId() => $option->getSelectableLabel()];
+					return [$option->getSelectableValue() => $option->getSelectableLabel()];
 				}
 				return [$key => $option];
 			})
