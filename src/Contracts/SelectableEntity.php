@@ -9,7 +9,7 @@ interface SelectableEntity
 	 *
 	 * @return mixed
 	 */
-	public function getSelectableId();
+	public function getSelectableValue();
 	
 	/**
 	 * Get the label to be shown in a list for selection

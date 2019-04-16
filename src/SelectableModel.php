@@ -7,7 +7,7 @@ trait SelectableModel
 	/**
 	 * @inheritDoc
 	 */
-	public function getSelectableId()
+	public function getSelectableValue()
 	{
 		return $this->getKey();
 	}
