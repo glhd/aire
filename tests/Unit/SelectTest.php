@@ -67,4 +67,20 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="roth"]', 'Philip Roth');
 		$this->assertSelectorTextEquals($html, 'option[value="patchett"]', 'Ann Patchett');
 	}
+	
+	public function test_an_empty_option_can_be_prepended_to_a_non_associative_array() : void
+	{
+		$options = [
+			0 => 'Ta-Nehisi Coates',
+			1 => 'Philip Roth',
+			2 => 'Ann Patchett',
+		];
+		
+		$html = $this->aire()->select($options)->prependEmptyOption('Empty')->render();
+		
+		$this->assertSelectorTextEquals($html, 'option[value=""]', 'Empty');
+		$this->assertSelectorTextEquals($html, 'option[value="0"]', 'Ta-Nehisi Coates');
+		$this->assertSelectorTextEquals($html, 'option[value="1"]', 'Philip Roth');
+		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
+	}
 }

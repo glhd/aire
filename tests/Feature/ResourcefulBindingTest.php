@@ -51,6 +51,17 @@ class ResourcefulBindingTest extends TestCase
 		
 		$this->assertSelectorAttribute($html, 'form', 'action', URL::to('/foo/bar'));
 	}
+	
+	public function test_route_parameters_are_prepended_when_loading_route() : void
+	{
+		Route::post('/{foo}/users', function() {})->name('foo.users.store');
+		
+		$model = new XResourcefulModel(['id' => 1]);
+		
+		$html = $this->aire()->form()->resourceful($model, 'foo.users', ['baz'])->render();
+		
+		$this->assertSelectorAttribute($html, 'form', 'action', URL::to('/baz/users'));
+	}
 }
 
 class XResourcefulModel extends Model

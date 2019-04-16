@@ -3,6 +3,19 @@
 
 <div {{ $attributes->wrapper }}>
 	
+	@isset($prepend_empty_option)
+		<label {{ $attributes->label }}>
+			<input
+					{{ $attributes->except('id', 'value', 'checked') }}
+					value="{{ $prepend_empty_option->value }}"
+					{{ $attributes->isValue($prepend_empty_option->value) ? 'checked' : '' }}
+			/>
+			<span {{ $attributes->label_wrappwer }}>
+				{{ $prepend_empty_option->label }}
+			</span>
+		</label>
+	@endisset
+	
 	@foreach($options->getOptions() as $option_value => $option_label)
 		
 		<label {{ $attributes->label }}>

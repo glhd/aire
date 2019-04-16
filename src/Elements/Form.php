@@ -149,9 +149,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	 *
 	 * @param \Illuminate\Database\Eloquent\Model $model
 	 * @param string $resource_name
+	 * @param array $prepend_parameters
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function resourceful(Model $model, $resource_name = null) : self
+	public function resourceful(Model $model, $resource_name = null, $prepend_parameters = []) : self
 	{
 		$this->bind($model);
 		
@@ -160,10 +161,13 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		if ($model->exists) {
-			$this->action($this->url->route("{$resource_name}.update", $model));
+			$parameters = $prepend_parameters;
+			$parameters[] = $model;
+			
+			$this->action($this->url->route("{$resource_name}.update", $parameters));
 			$this->put();
 		} else {
-			$this->action($this->url->route("{$resource_name}.store"));
+			$this->action($this->url->route("{$resource_name}.store", $prepend_parameters));
 			$this->post();
 		}
 		

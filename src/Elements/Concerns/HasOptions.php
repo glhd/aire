@@ -39,7 +39,10 @@ trait HasOptions
 	 */
 	public function prependEmptyOption($label, $empty_value = '') : self
 	{
-		$this->view_data['options']->prepend($label, $empty_value);
+		$this->view_data['prepend_empty_option'] = (object) [
+			'value' => $empty_value,
+			'label' => $label,
+		];
 		
 		return $this;
 	}
