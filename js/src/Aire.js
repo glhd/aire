@@ -31,7 +31,7 @@ let booted = false;
 const boot = () => {
 	if (!booted) {
 		Validator.registerMissedRuleValidator(() => true, '');
-		Validator.useLang('en');
+		Validator.useLang('en'); // TODO: Make configurable
 	}
 	
 	booted = true;
@@ -120,7 +120,7 @@ export const supported = (
 	&& 'getAll' in FormData.prototype
 );
 
-export const connect = (target, rules = {}) => {
+export const connect = (target, rules = {}, form_request = null) => {
 	if (!supported) {
 		return null;
 	}
@@ -176,7 +176,7 @@ export const connect = (target, rules = {}) => {
 			// If this is the first run, "touch" anything that has a value
 			if (1 === activeRun) {
 				Object.entries(data).forEach(([key, value]) => {
-					if (null === value || 'undefiined' === typeof value || '' === value) {
+					if (null === value || 'undefined' === typeof value || '' === value) {
 						return;
 					}
 					if (Array.isArray(value) && 0 === value.length) {

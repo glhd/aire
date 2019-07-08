@@ -115,7 +115,7 @@ var boot = function boot() {
     Validator.registerMissedRuleValidator(function () {
       return true;
     }, '');
-    Validator.useLang('en');
+    Validator.useLang('en'); // TODO: Make configurable
   }
 
   booted = true;
@@ -280,7 +280,7 @@ var connect = function connect(target) {
               key = _ref5[0],
               value = _ref5[1];
 
-          if (null === value || 'undefiined' === typeof value || '' === value) {
+          if (null === value || 'undefined' === typeof value || '' === value) {
             return;
           }
 

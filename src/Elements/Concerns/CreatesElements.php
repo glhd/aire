@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements\Concerns;
 
+use DateTimeZone;
 use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Elements\CheckboxGroup;
@@ -13,6 +14,7 @@ use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
 use Galahad\Aire\Elements\Wysiwyg;
+use Illuminate\Support\Collection;
 
 trait CreatesElements
 {
@@ -103,6 +105,24 @@ trait CreatesElements
 		}
 		
 		return $select;
+	}
+	
+	/**
+	 * Create a <select> element populated with all the timezone identifiers listed by DateTimeZone
+	 *
+	 * @param string|null $name
+	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
+	 * @return \Galahad\Aire\Elements\Select
+	 */
+	public function timezoneSelect($name = null, $label = null) : Select
+	{
+		$options = Collection::make(DateTimeZone::listIdentifiers())
+			->mapWithKeys(function($timezone) {
+				$label = str_replace(['/', '_'], [' - ', ' '], $timezone);
+				return [$timezone => $label];
+			});
+		
+		return $this->select($options, $name, $label);
 	}
 	
 	/**

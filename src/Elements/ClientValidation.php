@@ -4,6 +4,8 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Crypt;
 
 class ClientValidation implements Htmlable
 {
@@ -30,15 +32,21 @@ class ClientValidation implements Htmlable
 	protected $rules;
 	
 	/**
+	 * @var string
+	 */
+	protected $form_request;
+	
+	/**
 	 * @var bool
 	 */
 	protected $dev_mode = false;
 	
-	public function __construct(Aire $aire, $element_id, array $rules = [], $dev_mode = false)
+	public function __construct(Aire $aire, $element_id, array $rules = [], string $form_request = null, $dev_mode = false)
 	{
 		$this->aire = $aire;
 		$this->element_id = $element_id;
 		$this->rules = $rules;
+		$this->form_request = $form_request;
 		$this->dev_mode = $dev_mode;
 	}
 	
@@ -50,6 +58,9 @@ class ClientValidation implements Htmlable
 	protected function formHtml() : string
 	{
 		$rules = json_encode($this->rules);
+		$form_request = null === $this->form_request
+			? 'null'
+			: json_encode(Crypt::encrypt($this->form_request)); // TODO: Inject rather than use facade
 		
 		// TODO: Filter out certain server-side rules that could leak sensitive data, like the unique rule
 		// TODO: Add a "validate-on-server" rule that these get replaced with
@@ -57,7 +68,7 @@ class ClientValidation implements Htmlable
 		return "
 			<script defer>
 			document.addEventListener('DOMContentLoaded', function() {
-				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules});
+				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules}, {$form_request});
 			});
 			</script>
 		";

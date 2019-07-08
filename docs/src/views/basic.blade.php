@@ -19,6 +19,8 @@
 
 {{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
     ->label('Demo Select') }}
+			
+{{ Aire::timezoneSelect('timezone', 'Timezone') }}
 
 {{ Aire::textarea()
 	->value('Demo text area') }}
@@ -46,6 +48,8 @@
 	
 	{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
 	    ->label('Demo Select') }}
+	
+	{{ Aire::timezoneSelect('timezone', 'Timezone') }}
 	
 	{{ Aire::textarea()->value('Demo text area') }}
 	
