@@ -6,7 +6,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class ConfiguredClassesTest extends TestCase
 {
-	protected function setUp()
+	protected function setUp() : void
 	{
 		parent::setUp();
 		

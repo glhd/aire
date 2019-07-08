@@ -20,7 +20,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class TestCase extends Orchestra
 {
-	protected function setUp()
+	protected function setUp() : void
 	{
 		parent::setUp();
 		
