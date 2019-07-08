@@ -279,7 +279,6 @@ class TimezoneSelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Pontianak"]', 'Asia - Pontianak');
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Pyongyang"]', 'Asia - Pyongyang');
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Qatar"]', 'Asia - Qatar');
-		$this->assertSelectorTextEquals($html, 'option[value="Asia/Qostanay"]', 'Asia - Qostanay');
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Qyzylorda"]', 'Asia - Qyzylorda');
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Riyadh"]', 'Asia - Riyadh');
 		$this->assertSelectorTextEquals($html, 'option[value="Asia/Sakhalin"]', 'Asia - Sakhalin');
