@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Summary summary()
+ * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = NULL)
  * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = NULL)
  * @method static \Galahad\Aire\Elements\Input hidden($name = NULL, $value = NULL)

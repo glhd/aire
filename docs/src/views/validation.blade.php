@@ -51,6 +51,10 @@ $rules = [
 	'size_number' => 'numeric|size:5',
 	'url' => 'url',
 ];
+
+$messages = [
+	'accepted' => 'You must accept the terms',
+];
 ?>
 
 @section('content')
@@ -59,7 +63,7 @@ $rules = [
 		Javascript Validation Demo
 	</h1>
 	
-	{{ Aire::open()->validate($rules) }}
+	{{ Aire::open()->validate($rules)->messages($messages) }}
 	
 	{{ Aire::checkbox('accepted', 'Accept the terms') }}
 	

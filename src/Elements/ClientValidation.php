@@ -32,6 +32,11 @@ class ClientValidation implements Htmlable
 	protected $rules;
 	
 	/**
+	 * @var array
+	 */
+	protected $messages;
+	
+	/**
 	 * @var string
 	 */
 	protected $form_request;
@@ -41,11 +46,12 @@ class ClientValidation implements Htmlable
 	 */
 	protected $dev_mode = false;
 	
-	public function __construct(Aire $aire, $element_id, array $rules = [], string $form_request = null, $dev_mode = false)
+	public function __construct(Aire $aire, $element_id, array $rules = [], array $messages = [], string $form_request = null, $dev_mode = false)
 	{
 		$this->aire = $aire;
 		$this->element_id = $element_id;
 		$this->rules = $rules;
+		$this->messages = $messages;
 		$this->form_request = $form_request;
 		$this->dev_mode = $dev_mode;
 	}
@@ -58,6 +64,7 @@ class ClientValidation implements Htmlable
 	protected function formHtml() : string
 	{
 		$rules = json_encode($this->rules);
+		$messages = json_encode($this->messages);
 		$form_request = null === $this->form_request
 			? 'null'
 			: json_encode(Crypt::encrypt($this->form_request)); // TODO: Inject rather than use facade
@@ -68,7 +75,7 @@ class ClientValidation implements Htmlable
 		return "
 			<script defer>
 			document.addEventListener('DOMContentLoaded', function() {
-				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules}, {$form_request});
+				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules}, {$messages}, {$form_request});
 			});
 			</script>
 		";

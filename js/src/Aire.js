@@ -120,7 +120,7 @@ export const supported = (
 	&& 'getAll' in FormData.prototype
 );
 
-export const connect = (target, rules = {}, form_request = null) => {
+export const connect = (target, rules = {}, messages = {}, form_request = null) => {
 	if (!supported) {
 		return null;
 	}
@@ -167,7 +167,7 @@ export const connect = (target, rules = {}, form_request = null) => {
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
 			const data = getData(form);
-			validator = new Validator(data, rules, {}); // TODO: Custom messages
+			validator = new Validator(data, rules, messages);
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired

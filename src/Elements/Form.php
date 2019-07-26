@@ -38,7 +38,14 @@ class Form extends \Galahad\Aire\DTD\Form
 	 *
 	 * @var array
 	 */
-	public $rules = [];
+	public $validation_rules = [];
+	
+	/**
+	 * Custom validation messages
+	 *
+	 * @var array
+	 */
+	public $validation_messages = [];
 	
 	/**
 	 * @inheritdoc
@@ -376,9 +383,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * Enable client-side validation
 	 *
 	 * @param array|string|null $rule_source
+	 * @param array $custom_messages
 	 * @return $this
 	 */
-	public function validate($rule_source = null) : self
+	public function validate($rule_source = null, array $custom_messages = null) : self
 	{
 		$this->validate = true;
 		
@@ -390,6 +398,10 @@ class Form extends \Galahad\Aire\DTD\Form
 		// If we were passed a FormRequest class name, call formRequest() method
 		if (is_string($rule_source) && is_subclass_of($rule_source, FormRequest::class)) {
 			return $this->formRequest($rule_source);
+		}
+		
+		if ($custom_messages) {
+			$this->messages($custom_messages);
 		}
 		
 		return $this;
@@ -409,20 +421,33 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function rules(array $rules = []) : self
 	{
-		$this->rules = $rules;
+		$this->validation_rules = $rules;
+		
+		return $this;
+	}
+	
+	public function messages(array $messages = [], bool $overwrite = false) : self
+	{
+		if ($overwrite) {
+			$this->validation_messages = [];
+		}
+		
+		$this->validation_messages = array_merge($this->validation_messages, $messages);
 		
 		return $this;
 	}
 	
 	public function formRequest(string $class_name) : self
 	{
-		// TODO: messages() and attributes()
-		
 		$this->form_request = $class_name;
 		$request = new $class_name();
 		
 		if (is_callable([$request, 'rules'])) {
 			$this->rules($request->rules());
+		}
+		
+		if (is_callable([$request, 'messages'])) {
+			$this->messages($request->messages());
 		}
 		
 		return $this;
@@ -491,8 +516,8 @@ class Form extends \Galahad\Aire\DTD\Form
 	{
 		// TODO: FormRequest
 		
-		$validation = ($this->validate && (count($this->rules) || null !== $this->form_request))
-			? new ClientValidation($this->aire, $this->element_id, $this->rules, $this->form_request, $this->dev_mode)
+		$validation = ($this->validate && (count($this->validation_rules) || null !== $this->form_request))
+			? new ClientValidation($this->aire, $this->element_id, $this->validation_rules, $this->validation_messages, $this->form_request, $this->dev_mode)
 			: '';
 		
 		return compact('validation');

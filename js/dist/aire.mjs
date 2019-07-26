@@ -223,6 +223,7 @@ var setRenderer = function setRenderer(customRenderer) {
 var supported = 'undefined' !== typeof FormData && 'getAll' in FormData.prototype;
 var connect = function connect(target) {
   var rules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var messages = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   if (!supported) {
     return null;
@@ -267,8 +268,7 @@ var connect = function connect(target) {
     clearTimeout(debounce);
     debounce = setTimeout(function () {
       var data = getData(form);
-      validator = new Validator(data, rules, {}); // TODO: Custom messages
-      // Because some validators may run async, we'll store a reference
+      validator = new Validator(data, rules, messages); // Because some validators may run async, we'll store a reference
       // to the run "id" so that we can cancel the callbacks if another
       // validation started before the callbacks were fired
 
