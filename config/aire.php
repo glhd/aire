@@ -85,7 +85,7 @@ return [
 		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-gray-100 text-gray-300 border rounded-r-sm',
 		'group_help_text' => 'block mt-1 text-sm font-normal',
 		'group_errors' => 'list-reset mt-2 mb-3',
-		'label' => 'inline-block mb-2',
+		'label' => 'inline-block mb-2 font-semibold',
 		'input' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm',
 		'checkbox' => 'pr-2',
 		'checkbox_label' => 'flex items-center',

@@ -24,6 +24,8 @@
 	      href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css"
 	      integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ"
 	      crossorigin="anonymous" />
+	
+	@stack('head')
 </head>
 
 <body class="font-sans font-base leading-normal antialiased">
@@ -37,7 +39,7 @@
 		</a>
 	</div>
 	<div class="lg:flex lg:flex-row-reverse">
-		<div class="flex-grow">
+		<div class="flex-auto" style="max-width: 80%;">
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 				@yield('content')
 			</div>

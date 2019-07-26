@@ -21,7 +21,7 @@
 	$main = [
 		['/', 'README', 'file'],
 		['api', 'API Overview', 'code'],
-		// ['customizing', 'Customizing', 'paint-brush'],
+		['components', 'Components', 'cubes'],
 		['themes', 'Theming', 'paint-roller'],
 	];
 	?>
