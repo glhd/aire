@@ -21,7 +21,7 @@
 
 <div class="container mx-auto my-8 flex flex-col sm:flex-row-reverse">
 	
-	<div class="flex-1 border-l border-grey-lighter pl-16 text-grey-darkest">
+	<div class="flex-1 border-l border-gray-300 pl-16 text-gray-900">
 			
 	<h1>
 		Aire API Overview
@@ -33,7 +33,7 @@
 		effort.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Using the <code>Aire</code> facade or <code>aire()</code> helper
 	</h2>
 	
@@ -50,7 +50,7 @@
 		form.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Opening a new <code>Form</code>
 	</h2>
 	
@@ -63,12 +63,12 @@
 		<code>Aire::open($action = null, $bound_data = null)</code>
 	</p>
 	
-	<p class="text-grey-dark ml-4 pl-4 border-l-4 italic">
+	<p class="text-gray-600 ml-4 pl-4 border-l-4 italic">
 		You can instantiate a new form with <code>Aire::form()</code>,
 		but in practice you'll rarely need this step.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Adding an <code>Element</code> to the <code>Form</code>
 	</h2>
 	
@@ -120,7 +120,7 @@
 	</ul>
 	
 	<p>
-		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faus-elements
+		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faux-elements
 		that abstract away managing the values of individual radio buttons or multi-value checkboxes.
 	</p>
 	
@@ -172,7 +172,7 @@
 		<li><code>Aire::checkbox($name = null, $label = null)</code></li>
 	</ul>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Summary Helper
 	</h2>
 	
@@ -183,7 +183,7 @@
 		exist:
 	</p>
 	
-	<div class="border border-red bg-red-lightest text-red font-bold rounded p-4 my-4">
+	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 	</div>
 	
@@ -192,7 +192,7 @@
 		<code>Aire::summary()->verbose()</code>.
 	</p>
 	
-	<div class="border border-red bg-red-lightest text-red font-bold rounded p-4 my-4">
+	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 		<ul class="pt-4">
 			<li>The name is required.</li>
@@ -200,7 +200,7 @@
 		</ul>
 	</div>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Element Groups
 	</h2>
 	
@@ -273,8 +273,8 @@
 	
 		
 	<li class="group mb-6">
-			<i class="fas fa-fw fa-file mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire" class="text-gray-700 no-underline hover:text-gray-900">
 				README
 			</a>
 		</li>
@@ -295,8 +295,8 @@
 		
 			
 		<li class="group mb-6">
-			<i class="fas fa-fw fa-paint-brush mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire/customizing" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-paint-brush mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/customizing" class="text-gray-700 no-underline hover:text-gray-900">
 				Customizing
 			</a>
 		</li>
@@ -306,8 +306,8 @@
 		
 			
 		<li class="group mb-6">
-			<i class="fas fa-fw fa-paint-roller mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire/themes" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-paint-roller mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/themes" class="text-gray-700 no-underline hover:text-gray-900">
 				Theming
 			</a>
 		</li>
@@ -316,7 +316,7 @@
 
 </ul>
 
-<div class="font-bold -mb-3 mt-6 pt-6 border-t border-grey-lighter text-grey text-sm">
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-grey text-sm">
 	Recipes
 </div>
 
@@ -324,8 +324,8 @@
 	
 		
 	<li class="group mb-6">
-			<i class="fas fa-fw fa-file-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire/basic" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/basic" class="text-gray-700 no-underline hover:text-gray-900">
 				Basic Demo
 			</a>
 		</li>
@@ -335,8 +335,8 @@
 		
 			
 		<li class="group mb-6">
-			<i class="fas fa-fw fa-file-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire/validation" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/validation" class="text-gray-700 no-underline hover:text-gray-900">
 				Client-Side Validation
 			</a>
 		</li>
@@ -346,19 +346,19 @@
 		
 			
 		<li class="group mb-6">
-			<i class="fas fa-fw fa-file-code mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="https://glhd.github.io/aire/html-buttons" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/html-buttons" class="text-gray-700 no-underline hover:text-gray-900">
 				HTML in Buttons
 			</a>
 		</li>
 	
 	
 	
-	<li class="group mb-6 mt-6 pt-6 border-t border-grey-lighter">
-		<i class="fab fa-fw fa-github mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-		<a href="https://github.com/glhd/aire" class="text-grey-darker no-underline hover:text-grey-darkest" target="_blank">
+	<li class="group mb-6 mt-6 pt-6 border-t border-gray-300">
+		<i class="fab fa-fw fa-github mr-2 text-gray-600 group-hover:text-gray-700"></i>
+		<a href="https://github.com/glhd/aire" class="text-gray-700 no-underline hover:text-gray-900" target="_blank">
 			Aire on Github
-			<i class="fas fa-external-link-alt text-white group-hover:text-grey-light ml-1"></i>
+			<i class="fas fa-external-link-alt text-white group-hover:text-gray-100 ml-1"></i>
 		</a>
 	</li>
 	

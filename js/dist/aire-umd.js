@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.Aire = {})));
-}(this, (function (exports) { 'use strict';
+  (global = global || self, factory(global.Aire = {}));
+}(this, function (exports) { 'use strict';
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -343,10 +343,10 @@
   };
 
   exports.configure = configure;
+  exports.connect = connect;
   exports.setRenderer = setRenderer;
   exports.supported = supported;
-  exports.connect = connect;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

@@ -28,7 +28,7 @@
 
 </ul>
 
-<div class="font-bold -mb-3 mt-6 pt-6 border-t border-grey-lighter text-grey text-sm">
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-grey text-sm">
 	Recipes
 </div>
 
@@ -44,11 +44,11 @@
 	
 	@include('_menu-items', ['menu' => $recipes])
 	
-	<li class="group mb-6 mt-6 pt-6 border-t border-grey-lighter">
-		<i class="fab fa-fw fa-github mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-		<a href="https://github.com/glhd/aire" class="text-grey-darker no-underline hover:text-grey-darkest" target="_blank">
+	<li class="group mb-6 mt-6 pt-6 border-t border-gray-300">
+		<i class="fab fa-fw fa-github mr-2 text-gray-600 group-hover:text-gray-700"></i>
+		<a href="https://github.com/glhd/aire" class="text-gray-700 no-underline hover:text-gray-900" target="_blank">
 			Aire on Github
-			<i class="fas fa-external-link-alt text-white group-hover:text-grey-light ml-1"></i>
+			<i class="fas fa-external-link-alt text-white group-hover:text-gray-100 ml-1"></i>
 		</a>
 	</li>
 	

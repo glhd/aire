@@ -12,7 +12,7 @@
 		effort.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Using the <code>Aire</code> facade or <code>aire()</code> helper
 	</h2>
 	
@@ -29,7 +29,7 @@
 		form.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Opening a new <code>Form</code>
 	</h2>
 	
@@ -42,12 +42,12 @@
 		<code>Aire::open($action = null, $bound_data = null)</code>
 	</p>
 	
-	<p class="text-grey-dark ml-4 pl-4 border-l-4 italic">
+	<p class="text-gray-600 ml-4 pl-4 border-l-4 italic">
 		You can instantiate a new form with <code>Aire::form()</code>,
 		but in practice you'll rarely need this step.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Adding an <code>Element</code> to the <code>Form</code>
 	</h2>
 	
@@ -99,7 +99,7 @@
 	</ul>
 	
 	<p>
-		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faus-elements
+		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faux-elements
 		that abstract away managing the values of individual radio buttons or multi-value checkboxes.
 	</p>
 	
@@ -151,7 +151,7 @@
 		<li><code>Aire::checkbox($name = null, $label = null)</code></li>
 	</ul>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Summary Helper
 	</h2>
 	
@@ -162,7 +162,7 @@
 		exist:
 	</p>
 	
-	<div class="border border-red bg-red-lightest text-red font-bold rounded p-4 my-4">
+	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 	</div>
 	
@@ -171,7 +171,7 @@
 		<code>Aire::summary()->verbose()</code>.
 	</p>
 	
-	<div class="border border-red bg-red-lightest text-red font-bold rounded p-4 my-4">
+	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 		<ul class="pt-4">
 			<li>The name is required.</li>
@@ -179,7 +179,7 @@
 		</ul>
 	</div>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Element Groups
 	</h2>
 	

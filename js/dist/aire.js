@@ -882,8 +882,8 @@
      *
      * @param {object} attributes
      */
-    _setAttributeNames: function(attributes$$1) {
-      this.attributeNames = attributes$$1;
+    _setAttributeNames: function(attributes) {
+      this.attributeNames = attributes;
     },
 
     /**
@@ -1292,10 +1292,10 @@
   var async = AsyncResolvers;
 
   var Validator$1 = function (input, rules, customMessages) {
-    var lang$$1 = Validator$1.getDefaultLang();
+    var lang$1 = Validator$1.getDefaultLang();
     this.input = input || {};
-    
-    this.messages = lang._make(lang$$1);
+
+    this.messages = lang._make(lang$1);
     this.messages._setCustom(customMessages);
     this.setAttributeFormatter(Validator$1.prototype.attributeFormatter);
 
@@ -1732,8 +1732,8 @@
      * @param {object} attributes
      * @return {void}
      */
-    setAttributeNames: function (attributes$$1) {
-      this.messages._setAttributeNames(attributes$$1);
+    setAttributeNames: function (attributes) {
+      this.messages._setAttributeNames(attributes);
     },
 
     /**
@@ -1762,8 +1762,8 @@
      * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
      * @return {void}
      */
-    stopOnError: function (attributes$$1) {
-      this.stopOnAttributes = attributes$$1;
+    stopOnError: function (attributes) {
+      this.stopOnAttributes = attributes;
     },
 
     /**
@@ -1773,8 +1773,8 @@
      * @return {boolean|undefined}
      */
     passes: function (passes) {
-      var async$$1 = this._checkAsync('passes', passes);
-      if (async$$1) {
+      var async = this._checkAsync('passes', passes);
+      if (async) {
         return this.checkAsync(passes);
       }
       return this.check();
@@ -1787,8 +1787,8 @@
      * @return {boolean|undefined}
      */
     fails: function (fails) {
-      var async$$1 = this._checkAsync('fails', fails);
-      if (async$$1) {
+      var async = this._checkAsync('fails', fails);
+      if (async) {
         return this.checkAsync(function () {}, fails);
       }
       return !this.check();
@@ -1819,8 +1819,8 @@
    * @param {object} messages
    * @return {this}
    */
-  Validator$1.setMessages = function (lang$$1, messages) {
-    lang._set(lang$$1, messages);
+  Validator$1.setMessages = function (lang$1, messages) {
+    lang._set(lang$1, messages);
     return this;
   };
 
@@ -1830,8 +1830,8 @@
    * @param  {string} lang
    * @return {Messages}
    */
-  Validator$1.getMessages = function (lang$$1) {
-    return lang._get(lang$$1);
+  Validator$1.getMessages = function (lang$1) {
+    return lang._get(lang$1);
   };
 
   /**
@@ -1840,8 +1840,8 @@
    * @param {string} lang
    * @return {void}
    */
-  Validator$1.useLang = function (lang$$1) {
-    this.prototype.lang = lang$$1;
+  Validator$1.useLang = function (lang) {
+    this.prototype.lang = lang;
   };
 
   /**
@@ -1869,8 +1869,8 @@
    * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
    * @return {void}
    */
-  Validator$1.stopOnError = function (attributes$$1) {
-    this.prototype.stopOnAttributes = attributes$$1;
+  Validator$1.stopOnError = function (attributes) {
+    this.prototype.stopOnAttributes = attributes;
   };
 
   /**
@@ -1882,9 +1882,9 @@
    * @return {void}
    */
   Validator$1.register = function (name, fn, message) {
-    var lang$$1 = Validator$1.getDefaultLang();
+    var lang$1 = Validator$1.getDefaultLang();
     rules_1.register(name, fn);
-    lang._setRuleMessage(lang$$1, name, message);
+    lang._setRuleMessage(lang$1, name, message);
   };
 
   /**
@@ -1896,9 +1896,9 @@
    * @return {void}
    */
   Validator$1.registerImplicit = function (name, fn, message) {
-    var lang$$1 = Validator$1.getDefaultLang();
+    var lang$1 = Validator$1.getDefaultLang();
     rules_1.registerImplicit(name, fn);
-    lang._setRuleMessage(lang$$1, name, message);
+    lang._setRuleMessage(lang$1, name, message);
   };
 
   /**
@@ -1910,9 +1910,9 @@
    * @return {void}
    */
   Validator$1.registerAsync = function (name, fn, message) {
-    var lang$$1 = Validator$1.getDefaultLang();
+    var lang$1 = Validator$1.getDefaultLang();
     rules_1.registerAsync(name, fn);
-    lang._setRuleMessage(lang$$1, name, message);
+    lang._setRuleMessage(lang$1, name, message);
   };
 
   /**
@@ -1924,9 +1924,9 @@
    * @return {void}
    */
   Validator$1.registerAsyncImplicit = function (name, fn, message) {
-    var lang$$1 = Validator$1.getDefaultLang();
+    var lang$1 = Validator$1.getDefaultLang();
     rules_1.registerAsyncImplicit(name, fn);
-    lang._setRuleMessage(lang$$1, name, message);
+    lang._setRuleMessage(lang$1, name, message);
   };
 
   /**

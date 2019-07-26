@@ -18,7 +18,7 @@
 		using Laravel's package auto-discovery.
 	</p>
 	
-	<h2 class="mt-8 pt-8 border-t border-grey-lighter">
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		<code>Aire::setTheme($namespace = null, $prefix = null)</code>
 	</h2>
 	

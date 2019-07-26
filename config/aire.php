@@ -81,8 +81,8 @@ return [
 	*/
 	'default_classes' => [
 		'group' => 'mb-6',
-		'group_prepend' => '-mr-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-l-sm',
-		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm',
+		'group_prepend' => '-mr-1 block p-2 text-base leading-normal bg-gray-100 text-gray-300 border rounded-l-sm',
+		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-gray-100 text-gray-300 border rounded-r-sm',
 		'group_help_text' => 'block mt-1 text-sm font-normal',
 		'group_errors' => 'list-reset mt-2 mb-3',
 		'label' => 'inline-block mb-2',
@@ -94,10 +94,10 @@ return [
 		'checkbox_group_label_wrapper' => 'flex-1 ml-2',
 		'radio_group_label' => 'flex items-baseline mb-2 ml-2 border-transparent border-l',
 		'radio_group_label_wrapper' => 'flex-1 ml-2',
-		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',
+		'summary' => 'border border-red bg-red-100 text-red font-bold rounded p-4 my-4',
 		'button' => 'inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
-			rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker
-			hover:border-blue-darkest p-2 px-4',
+			rounded font-normal leading-normal text-white bg-blue-600 border-blue-700 hover:bg-blue-700
+			hover:border-blue-900 p-2 px-4',
 		'select' => 'block w-full p-2 leading-normal border rounded-sm bg-white appearance-none',
 		'textarea' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm h-auto',
 	],
@@ -123,11 +123,11 @@ return [
 		|
 		*/
 		'none' => [
-			'input' => 'text-grey-darkest',
-			'select' => 'text-grey-darkest',
-			'textarea' => 'text-grey-darkest', // TODO: This probably needs to be generalized better
+			'input' => 'text-gray-900',
+			'select' => 'text-gray-900',
+			'textarea' => 'text-gray-900', // TODO: This probably needs to be generalized better
 			'group_errors' => 'hidden',
-			'group_help_text' => 'text-grey-dark',
+			'group_help_text' => 'text-gray-600',
 		],
 		
 		/*
@@ -139,12 +139,12 @@ return [
 		|
 		*/
 		'valid' => [
-			'label' => 'text-green-dark',
-			'input' => 'border-green-dark text-green-darker',
-			'select' => 'border-green-dark text-green-darker',
-			'textarea' => 'border-green-dark text-green-darker',
+			'label' => 'text-green-600',
+			'input' => 'border-green-600 text-green-700',
+			'select' => 'border-green-600 text-green-700',
+			'textarea' => 'border-green-600 text-green-700',
 			'group_errors' => 'hidden',
-			'group_help_text' => 'text-green-dark opacity-50',
+			'group_help_text' => 'text-green-600 opacity-50',
 		],
 		
 		/*
@@ -156,11 +156,11 @@ return [
 		|
 		*/
 		'invalid' => [
-			'label' => 'text-red-dark',
-			'input' => 'border-red-dark text-red-darker',
-			'select' => 'border-red-dark text-red-darker',
-			'textarea' => 'border-red-dark text-red-darker',
-			'group_help_text' => 'text-red-dark opacity-50',
+			'label' => 'text-red-600',
+			'input' => 'border-red-600 text-red-700',
+			'select' => 'border-red-600 text-red-700',
+			'textarea' => 'border-red-600 text-red-700',
+			'group_help_text' => 'text-red-600 opacity-50',
 		],
 	],
 	

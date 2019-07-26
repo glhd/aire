@@ -21,7 +21,7 @@
 
 <div class="container mx-auto my-8 flex flex-col sm:flex-row-reverse">
 	
-	<div class="flex-1 border-l border-grey-lighter pl-16 text-grey-darkest">
+	<div class="flex-1 border-l border-gray-300 pl-16 text-gray-900">
 		@yield('content')
 	</div>
 	

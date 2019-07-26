@@ -14,8 +14,8 @@
 	@else
 		
 		<li class="group mb-6">
-			<i class="fas fa-fw fa-{{ $icon }} mr-2 text-grey-dark group-hover:text-grey-darker"></i>
-			<a href="{{ url($path) }}" class="text-grey-darker no-underline hover:text-grey-darkest">
+			<i class="fas fa-fw fa-{{ $icon }} mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="{{ url($path) }}" class="text-gray-700 no-underline hover:text-gray-900">
 				{{ $label }}
 			</a>
 		</li>

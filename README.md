@@ -66,7 +66,7 @@ are fluent, allowing for easy configuration of your form components:
 ## Customization
 
 Aire comes with classes that should work with the default Tailwind class names
-out of the box (`.bg-blue-dark` etc). If you need to change the default class names
+out of the box (`.bg-blue-600` etc). If you need to change the default class names
 for any given element, there are two different ways to go about it.
 
 The first is to publish the `aire.php` config file via `php artisan vendor:publish --tag=config`
@@ -75,7 +75,7 @@ and update the `default_classes` config for the element you'd like to change:
 ```php
 return [
   'default_classes' => [
-    'input' => 'text-grey-darkest bg-white border rounded-sm',
+    'input' => 'text-gray-900 bg-white border rounded-sm',
   ],
 ];
 ```

@@ -1,17 +1,17 @@
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
 
-@tailwind preflight;
+@tailwind base;
 
 h1 {
-	@apply .mt-0 .mb-4 .font-semibold .text-grey-darkest .text-lg;
+	@apply .mt-0 .mb-4 .font-semibold .text-gray-900 .text-lg;
 }
 
 h2 {
-	@apply .mt-4 .mb-4 .font-semibold .text-grey-darkest .text-base;
+	@apply .mt-4 .mb-4 .font-semibold .text-gray-900 .text-base;
 }
 
 h3 {
-	@apply .mt-4 .mb-4 .font-semibold .text-grey-dark .text-base;
+	@apply .mt-4 .mb-4 .font-semibold .text-gray-600 .text-base;
 }
 
 p {
@@ -19,11 +19,11 @@ p {
 }
 
 :not(pre) > code {
-	@apply .bg-grey-lighter .text-salmon .inline-block .px-1 .py-px .mx-1 .text-sm .rounded-sm .shadow-sm;
+	@apply .bg-gray-300 .text-salmon .inline-block .px-1 .py-px .mx-1 .text-sm .rounded-sm .shadow;
 }
 
 pre {
-	@apply .bg-grey-lightest .shadow .rounded-sm .p-2 .my-8;
+	@apply .bg-gray-100 .shadow .rounded-sm .p-2 .my-8;
 }
 
 ul, ol {

@@ -336,4 +336,4 @@ var connect = function connect(target) {
   };
 };
 
-export { configure, setRenderer, supported, connect };
+export { configure, connect, setRenderer, supported };
