@@ -1,8 +1,12 @@
 @extends('_layout')
 
+@section('page-title')
+	Aire Components
+@endsection
+
 @section('content')
 	
-	<h1>
+	<h1 class="text-2xl text-gray-900">
 		Aire Components
 	</h1>
 	
@@ -33,7 +37,7 @@
 	];
 	?>
 	
-	<ul class="pl-8 list-disc mb-6 inline-block" style="column-count: 2; column-gap: 2rem;">
+	<ul class="pl-8 list-disc mb-6 inline-block column-gap-12 columns-2 md:columns-3 lg:columns-4">
 		@foreach ($components as $component => $title)
 			<li>
 				<a href="#component-{{ $component }}">

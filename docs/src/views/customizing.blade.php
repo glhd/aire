@@ -1,5 +1,9 @@
 @extends('_layout')
 
+@section('page-title')
+	Customizing Aire
+@endsection
+
 @section('content')
 	
 	<h1>

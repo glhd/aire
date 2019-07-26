@@ -1,8 +1,12 @@
 @extends('_layout')
 
+@section('page-title')
+	HTML in Buttons
+@endsection
+
 @section('content')
 	
-	<h1>
+	<h1 class="text-2xl text-gray-900">
 		HTML in Buttons
 	</h1>
 	

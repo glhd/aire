@@ -1,14 +1,18 @@
 @extends('_layout')
 
+@section('page-title')
+	Themes
+@endsection
+
 @section('content')
 	
-	<h1>
+	<h1 class="text-2xl text-gray-900">
 		Aire Themes
 	</h1>
 	
 	<div class="mt-4 mb-8 p-6 border rounded leading-normal">
 		<strong>Please note:</strong> Aire themes are mostly meant for package developers. If you
-		just want to customize the look and feel for your project, see <a href="{{ url('customizing') }}">
+		just want to customize the look and feel for your project, see <a href="{{ url('/') }}">
 			customizing Aire</a>.
 	</div>
 	

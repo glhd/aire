@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-		Aire - Documentation &amp; Demos
+			Client-Side Validation
+ - Aire (Laravel Form Builder)
 	</title>
 	
 	<link rel="stylesheet" href="https://glhd.github.io/aire/aire.css" />
@@ -51,12 +52,24 @@
 		</a>
 	</div>
 	<div class="lg:flex lg:flex-row-reverse">
-		<div class="flex-auto" style="max-width: 80%;">
+		<div class="flex-auto lg:max-w-4/5">
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 					
-	<h1>
-		Javascript Validation Demo
+	<h1 class="text-2xl text-gray-900">
+		Client-Side Javascript Validation
 	</h1>
+	
+	<p>
+		Aire has built-in client-side validation that uses Laravel's rule syntax. Just pass
+		an array of Laravel rules to Aire, and any rule that can be validated by the client
+		will be.
+	</p>
+	
+	<p>
+		<a href="#rules" class="bg-blue-500 text-blue-100 rounded no-underline px-4 py-2 inline-block hover:no-underline hover:bg-blue-700 hover:text-white">
+			See the validation rules for this form
+		</a>
+	</p>
 	
 	<form action="" method="POST" class="" data-aire-component="form" data-aire-id="88">
 
@@ -900,6 +913,64 @@
 	
 </form>
 
+	
+	<div class="" id="rules">
+		<h2>
+			Source Rules
+		</h2>
+		
+		<p>
+			The validation in this form was generated from the following code.
+		</p>
+		
+		<p>
+			<em>(Please note that most form fields are named the same as the validation rule.
+				This is simply because this demo was built to show all the rules that
+				Aire supports. You can name your fields anything you like.)</em>
+		</p>
+		
+		<pre><code class="language-php">Aire::open()
+  ->rules([
+    'accepted' => 'accepted',
+    'after_reference' => 'after:reference_date',
+    'after_or_equal_reference' => 'after_or_equal:reference_date',
+    'before_reference' => 'before:reference_date',
+    'before_or_equal_reference' => 'before_or_equal:reference_date',
+    'date' => 'date',
+    'alpha' => 'alpha',
+    'alpha_dash' => 'alpha_dash',
+    'alpha_num' => 'alpha_num',
+    'array' => 'array',
+    'between' => 'numeric|between:2,4',
+    'confirmed' => 'confirmed',
+    'different' => 'different:different_from',
+    'digits' => 'digits:5',
+    'email' => 'email',
+    'in' => 'in:foo,bar,baz',
+    'not_in' => 'not_in:foo,bar,baz',
+    'integer' => 'integer',
+    'min_string' => 'min:5',
+    'min_number' => 'numeric|min:5',
+    'max_string' => 'max:5',
+    'max_number' => 'numeric|max:5',
+    'regex' => 'regex:/^[a-z]\d{4}$/i',
+    'numeric' => 'numeric',
+    'required' => 'required',
+    'required_if' => 'required_if:required,yes',
+    'required_unless' => 'required_unless:required_if,no',
+    'required_with' => 'required_with:required_unless',
+    'required_with_all' => 'required_with_all:required,required_if,required_unless,required_with',
+    'required_without' => 'required_without:required_with_all',
+    'required_without_all' => 'required_without_all:required,required_if,required_unless,required_with,required_with_all,required_without',
+    'same' => 'same:same_target',
+    'size_string' => 'size:5',
+    'size_number' => 'numeric|size:5',
+    'url' => 'url',
+  ])
+  ->messages([
+    'accepted' => 'You must accept the terms',
+  ]);</code></pre>
+	</div>
 
 			</div>
 		</div>

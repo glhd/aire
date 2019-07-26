@@ -1,5 +1,9 @@
 @extends('_layout')
 
+@section('page-title')
+	Client-Side Validation
+@endsection
+
 <?php
 $authors = [
 	'coates' => 'Ta-Nehisi Coates',
@@ -55,15 +59,28 @@ $rules = [
 $messages = [
 	'accepted' => 'You must accept the terms',
 ];
+
 ?>
 
 @section('content')
 	
-	<h1>
-		Javascript Validation Demo
+	<h1 class="text-2xl text-gray-900">
+		Client-Side Javascript Validation
 	</h1>
 	
-	{{ Aire::open()->validate($rules)->messages($messages) }}
+	<p>
+		Aire has built-in client-side validation that uses Laravel's rule syntax. Just pass
+		an array of Laravel rules to Aire, and any rule that can be validated by the client
+		will be.
+	</p>
+	
+	<p>
+		<a href="#rules" class="bg-blue-500 text-blue-100 rounded no-underline px-4 py-2 inline-block hover:no-underline hover:bg-blue-700 hover:text-white">
+			See the validation rules for this form
+		</a>
+	</p>
+	
+	{{ Aire::open()->rules($rules)->messages($messages) }}
 	
 	{{ Aire::checkbox('accepted', 'Accept the terms') }}
 	
@@ -163,5 +180,35 @@ $messages = [
 	--}}
 	
 	{{ Aire::close() }}
+	
+	<div class="" id="rules">
+		<h2>
+			Source Rules
+		</h2>
+		
+		<p>
+			The validation in this form was generated from the following code.
+		</p>
+		
+		<p>
+			<em>(Please note that most form fields are named the same as the validation rule.
+				This is simply because this demo was built to show all the rules that
+				Aire supports. You can name your fields anything you like.)</em>
+		</p>
+		
+		<pre><code class="language-php"><?php
+				echo 'Aire::open()';
+				echo "\n  ->rules([\n";
+				foreach ($rules as $name => $rule) {
+					echo "    '$name' => '$rule',\n";
+				}
+				echo "  ])";
+				echo "\n  ->messages([\n";
+				foreach ($messages as $name => $message) {
+					echo "    '$name' => '$message',\n";
+				}
+				echo "  ]);";
+				?></code></pre>
+	</div>
 
 @endsection

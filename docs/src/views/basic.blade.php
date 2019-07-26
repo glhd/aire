@@ -1,8 +1,12 @@
 @extends('_layout')
 
+@section('page-title')
+	Basic Demo
+@endsection
+
 @section('content')
 	
-	<h1>
+	<h1 class="text-2xl text-gray-900">
 		Basic Demo
 	</h1>
 	

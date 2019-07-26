@@ -1,5 +1,9 @@
 @extends('_layout')
 
+@section('page-title')
+	Aire API Overview
+@endsection
+
 @section('content')
 	
 	<h1 class="text-2xl text-gray-900">

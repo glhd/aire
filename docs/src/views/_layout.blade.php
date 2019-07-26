@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-		Aire - {{ $title ?? 'Documentation & Demos' }}
+		@yield('page-title') - Aire (Laravel Form Builder)
 	</title>
 	
 	<link rel="stylesheet" href="{{ asset('aire.css') }}" />
@@ -39,7 +39,7 @@
 		</a>
 	</div>
 	<div class="lg:flex lg:flex-row-reverse">
-		<div class="flex-auto" style="max-width: 80%;">
+		<div class="flex-auto lg:max-w-4/5">
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 				@yield('content')
 			</div>

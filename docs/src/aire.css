@@ -37,6 +37,24 @@ pre {
 @tailwind components;
 @tailwind utilities;
 
+@responsive {
+	.columns-1 {
+		column-count: 1;
+	}
+	.columns-2 {
+		column-count: 2;
+	}
+	.columns-3 {
+		column-count: 3;
+	}
+	.columns-4 {
+		column-count: 4;
+	}
+	.column-gap-12 {
+		column-gap: theme('spacing.12');
+	}
+}
+
 code,
 pre {
 	font-family: "Fira Code",Consolas,Monaco,"Andale Mono",monospace;
