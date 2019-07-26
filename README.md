@@ -1,24 +1,24 @@
 
-<div class="mb-6 text-right">
-	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="no-underline">
+<div class="mb-6 float-right inline-flex">
+	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="mx-1">
 		<img 
 			src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="no-underline">
+	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="mx-1">
 		<img 
 			src="https://coveralls.io/repos/github/glhd/aire/badge.svg?branch=master" 
 			alt="Coverage Status" 
 		/>
 	</a>
-	<a href="https://packagist.org/packages/glhd/aire" target="_blank" class="no-underline">
+	<a href="https://packagist.org/packages/glhd/aire" target="_blank" class="mx-1">
         <img 
             src="https://poser.pugx.org/glhd/aire/v/stable" 
             alt="Latest Stable Release" 
         />
 	</a>
-	<a href="./LICENSE" target="_blank" class="no-underline">
+	<a href="./LICENSE" target="_blank" class="mx-1">
         <img 
             src="https://poser.pugx.org/glhd/aire/license" 
             alt="MIT Licensed" 
@@ -162,75 +162,20 @@ an error at the top of the page if validation failed.
 
 ## Client-Side Validation
 
-Javascript validation in Aire is currently **work in progress**. Eventually, Aire will
-support automatic client-side validation (just call `rules()` on a field). This will let
-you set the rules on a field-by-field basis, or for the whole form, and will let you
-pass in a `FormRequest` object to automatically inject rules. 
+Javascript validation in Aire is in its early stages. Browser testing is limited, and the
+Javascript code hasn't had an performance optimizations applied. That said, Aire
+supports automatic client-side validation—simply pass an array of rules or a `FormRequest`
+object and Aire will automatically apply most rules on the client side (thanks
+to [validatorjs](https://github.com/skaterdav85/validatorjs)!). 
 
-## Misc. Notes
+## Under Consideration / Feature Ideas
 
-These notes are here mostly to inform development.
+There are a few things that are still either in-the-works or being considered for a 
+later release. These include:
 
-### Considerations/Inspiration
-
-  - Form controls should take sizing config
-  - 'Read-only plain text' http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text
-  - 'Form groups' - Label/input/help text/validation text (config how many errors show)
-  - Multi-column forms (Name: {first} {last})
-  - Configurable support for custom checkboxes and radios?
-  - Custom select support?
-  - File inputs?
-  - Should client-side validation be included?
-  - https://github.com/netojose/laravel-bootstrap-4-forms
-  - https://tailwindcss.com/docs/examples/forms/
-  - https://github.com/glhd/forms
-  - https://github.com/glhd/bootforms
-  - Append/Prepend (input groups)
-
-### Components
-
-  - Button
-  - Checkbox
-  - Date
-  - DateTimeLocal
-  - Email
-  - File
-  - FormControl
-  - FormOpen
-  - FormClose
-  - Hidden
-  - Input
-  - Label
-  - Password
-  - RadioButton
-  - Select
-  - Text
-  - TextArea
-  
-### Input Types
-
-  - button
-  - checkbox
-  - color
-  - date
-  - datetime
-  - datetime-local
-  - email
-  - file
-  - hidden
-  - image
-  - month
-  - number
-  - password
-  - radio
-  - range
-  - reset
-  - search
-  - submit
-  - tel
-  - text
-  - time
-  - url
-  - wee 
-
-
+  - Sizing option for form controls
+  - [Read-only plain text](http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text) 
+  - Cross-browser support for custom checkboxes and radio buttons via a config option
+  - Support for Choices.js or similar `<select>` UI libraries
+  - Better handling of file inputs
+  - Better support for [prepending or appending content to inputs](https://getbootstrap.com/docs/4.0/components/input-group/#basic-example)

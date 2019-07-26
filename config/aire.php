@@ -94,7 +94,7 @@ return [
 		'checkbox_group_label_wrapper' => 'flex-1 ml-2',
 		'radio_group_label' => 'flex items-baseline mb-2 ml-2 border-transparent border-l',
 		'radio_group_label_wrapper' => 'flex-1 ml-2',
-		'summary' => 'border border-red bg-red-100 text-red font-bold rounded p-4 my-4',
+		'summary' => 'border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4',
 		'button' => 'inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
 			rounded font-normal leading-normal text-white bg-blue-600 border-blue-700 hover:bg-blue-700
 			hover:border-blue-900 p-2 px-4',

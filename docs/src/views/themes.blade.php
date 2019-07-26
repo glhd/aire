@@ -51,10 +51,10 @@
 		A basic Aire theme would end up looking something like:
 	</p>
 	
-	<ul>
+	<ul class="pl-8">
 		<li>
 			<code>my-theme/</code>
-			<ul>
+			<ul class="pl-8 pb-8">
 				<li>
 					<a href="#theme-composer.json">
 						<code>composer.json</code>
@@ -62,7 +62,7 @@
 				</li>
 				<li>
 					<code>src/</code>
-					<ul>
+					<ul class="pl-8 pb-8">
 						<li>
 							<a href="#theme-service-provider">
 								<code>MyThemeServiceProvider</code>
@@ -72,7 +72,7 @@
 				</li>
 				<li>
 					<code>views/</code>
-					<ul>
+					<ul class="pl-8">
 						<li>
 							<code>form.blade.php</code>
 						</li>

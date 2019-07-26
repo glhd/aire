@@ -2,6 +2,8 @@
 
 @section('content')
 	
-	{!! $readme !!}
+	<div class="markdown">
+		{!! $readme !!}
+	</div>
 
 @endsection

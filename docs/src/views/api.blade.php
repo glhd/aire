@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	<h1>
+	<h1 class="text-2xl text-gray-900">
 		Aire API Overview
 	</h1>
 	
@@ -61,7 +61,7 @@
 		The elements that Aire provides are:
 	</p>
 	
-	<ul>
+	<ul class="pl-8 pb-8 list-disc">
 		<li><code>&lt;form&gt;</code></li>
 		<li><code>&lt;input&gt;</code></li>
 		<li><code>&lt;select&gt;</code></li>
@@ -73,7 +73,7 @@
 		The <code>Input</code> element supports the following types:
 	</p>
 	
-	<ul>
+	<ul class="pl-8 pb-8 list-disc">
 		<li><code>checkbox</code></li>
 		<li><code>color</code></li>
 		<li><code>date</code></li>
@@ -124,7 +124,7 @@
 		is an overview of each method signature:
 	</p>
 	
-	<ul>
+	<ul class="pl-8 pb-8 list-disc">
 		<li><code>Aire::input($name = null, $label = null)</code></li>
 		<li><code>Aire::hidden($name = null, $value = null)</code></li>
 		<li><code>Aire::color($name = null, $label = null)</code></li>
@@ -162,7 +162,7 @@
 		exist:
 	</p>
 	
-	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
+	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 	</div>
 	
@@ -171,7 +171,7 @@
 		<code>Aire::summary()->verbose()</code>.
 	</p>
 	
-	<div class="border border-red bg-red-100 text-red font-bold rounded p-4 my-4">
+	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
 		There are 2 errors on this page that you must fix before continuing.
 		<ul class="pt-4">
 			<li>The name is required.</li>
@@ -197,7 +197,7 @@
 		it. Groups provide a few additional methods to any element:
 	</p>
 	
-	<ul>
+	<ul class="pl-8 pb-8 list-disc">
 		<li>
 			<code>label(string $text)</code>
 			sets the label text for the element

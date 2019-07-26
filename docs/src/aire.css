@@ -18,20 +18,20 @@ p {
 	@apply .mb-6 .text-base .leading-normal;
 }
 
+a {
+	@apply text-salmon no-underline;
+}
+
+a:hover, a:active {
+	@apply underline;
+}
+
 :not(pre) > code {
-	@apply .bg-gray-300 .text-salmon .inline-block .px-1 .py-px .mx-1 .text-sm .rounded-sm .shadow;
+	@apply .bg-gray-200 .text-salmon .inline-block .px-1 .py-px .mx-1 .text-sm .rounded-sm .shadow;
 }
 
 pre {
-	@apply .bg-gray-100 .shadow .rounded-sm .p-2 .my-8;
-}
-
-ul, ol {
-	@apply .mb-6 .text-base;
-}
-
-li {
-	@apply .mb-2;
+	@apply .bg-gray-100 .border .border-gray-400 .rounded .p-6 .my-8;
 }
 
 @tailwind components;

@@ -631,8 +631,17 @@ p {
   line-height: 1.5;
 }
 
+a {
+  color: #f4645f;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+}
+
 :not(pre) > code {
-  background-color: #e2e8f0;
+  background-color: #edf2f7;
   color: #f4645f;
   display: inline-block;
   padding-left: 0.25rem;
@@ -648,20 +657,12 @@ p {
 
 pre {
   background-color: #f7fafc;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  border-radius: 0.125rem;
-  padding: 0.5rem;
+  border-width: 1px;
+  border-color: #cbd5e0;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-ul, ol {
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-}
-
-li {
-  margin-bottom: 0.5rem;
 }
 
 .container{

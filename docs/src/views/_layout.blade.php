@@ -12,23 +12,40 @@
 	
 	<link rel="stylesheet" href="{{ asset('aire.css') }}" />
 	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css" integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/brands.css" integrity="sha384-BCEeiNUiLzxxoeYaIu7jJqq0aVVz2O2Ig4WbWEmRQ2Dx/AAxNV1wMDBXyyrxw1Zd" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css" integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ" crossorigin="anonymous" />
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css"
+	      integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP"
+	      crossorigin="anonymous" />
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.4.2/css/brands.css"
+	      integrity="sha384-BCEeiNUiLzxxoeYaIu7jJqq0aVVz2O2Ig4WbWEmRQ2Dx/AAxNV1wMDBXyyrxw1Zd"
+	      crossorigin="anonymous" />
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css"
+	      integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ"
+	      crossorigin="anonymous" />
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans font-base leading-normal antialiased">
 
-<div class="container mx-auto my-8 flex flex-col sm:flex-row-reverse">
-	
-	<div class="flex-1 border-l border-gray-300 pl-16 text-gray-900">
-		@yield('content')
+<div class="container mx-auto p-8">
+	<div class="lg:hidden flex justify-between items-center mb-8">
+		@include('_logo')
+		<a class="bg-salmon p-4 text-white rounded-lg" href="#navigation">
+			<i class="fas fa-fw fa-bars mr-2"></i>
+			Menu
+		</a>
 	</div>
-	
-	<div class="flex-no-shrink pr-16">
-		@include('_sidebar')
+	<div class="lg:flex lg:flex-row-reverse">
+		<div class="flex-grow">
+			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
+				@yield('content')
+			</div>
+		</div>
+		<div id="navigation" class="flex-shrink-0 lg:max-w-1/5">
+			@include('_sidebar')
+		</div>
 	</div>
-
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>

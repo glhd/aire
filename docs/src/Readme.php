@@ -30,12 +30,44 @@ class Readme implements Htmlable
 	
 	public function toHtml()
 	{
-		$this->mapCodeBlocks();
+		$this->applyTypeClassNames();
+		$this->applyListClassNames();
+		$this->applyCodeClassNames();
 		
 		return $this->crawler->html();
 	}
 	
-	protected function mapCodeBlocks() : self
+	protected function applyTypeClassNames() : self
+	{
+		foreach ($this->crawler->filter('h1') as $node) {
+			$node->setAttribute('class', 'text-2xl text-gray-900');
+		}
+		
+		foreach ($this->crawler->filter('h2') as $node) {
+			$node->setAttribute('class', 'text-xl text-gray-600 mt-9');
+		}
+		
+		foreach ($this->crawler->filter('h3') as $node) {
+			$node->setAttribute('class', 'text-lg text-gray-800 mt-6');
+		}
+		
+		return $this;
+	}
+	
+	protected function applyListClassNames() : self
+	{
+		foreach ($this->crawler->filter('ul') as $node) {
+			$node->setAttribute('class', 'list-disc pl-8 pb-4');
+		}
+		
+		foreach ($this->crawler->filter('ol') as $node) {
+			$node->setAttribute('class', 'list-decimal pl-8 pb-4');
+		}
+		
+		return $this;
+	}
+	
+	protected function applyCodeClassNames() : self
 	{
 		foreach ($this->crawler->filter('pre > code') as $node) {
 			$node->setAttribute('class', 'language-php');

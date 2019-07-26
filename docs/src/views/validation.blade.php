@@ -77,7 +77,7 @@ $rules = [
 	
 	{{ Aire::checkboxGroup($authors, 'array', 'Must be array:') }}
 	
-	{{ Aire::input('between', 'Must be between 2.0 and 4.0 (floats only for now):') }}
+	{{ Aire::input('between', 'Must be between 2 and 4:') }}
 	
 	<div class="flex">
 		<div class="w-1/2 pr-1">
