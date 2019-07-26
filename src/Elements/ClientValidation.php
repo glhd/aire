@@ -105,7 +105,7 @@ class ClientValidation implements Htmlable
 		}
 		
 		if ($this->aire->config('inline_validation', true)) {
-			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.js');
+			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.min.js');
 			return "<script defer>\n{$aire_src}\n</script>\n{$config_js}";
 		}
 		

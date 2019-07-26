@@ -3,8 +3,9 @@
   "scripts": {
     "css": "tailwind build docs/src/aire.css -c ./tailwind.config.js -o ./docs/src/public/aire.css",
     "dev": "rollup --config --watch",
-    "prod": "rollup --config",
-    "test": "ava js/tests/"
+    "prod": "rollup --config --environment NODE_ENV:production",
+    "test": "ava js/tests/",
+    "build": "php artisan build"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -16,6 +17,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.2",
     "tailwindcss": "^1.0.5",
     "validatorjs": "^3.15.1"
   },
