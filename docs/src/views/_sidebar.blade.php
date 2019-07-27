@@ -1,5 +1,7 @@
 <div class="hidden lg:block">
-	@include('_logo')
+	<a href="{{ url('/') }}">
+		@include('_logo')
+	</a>
 </div>
 
 <div class="lg:hidden mt-6 pt-6 border-t border-salmon">
