@@ -26,7 +26,9 @@
     </a>
 </div>
 
-# Aire
+<h1>
+<img src="https://glhd.github.io/aire/logo.svg" width="192" height="181" alt="Aire" />
+</h1>
 
 Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)) with a
 focus on the same expressive and beautiful code you expect from the Laravel
