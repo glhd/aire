@@ -39,4 +39,26 @@ class ValidationTest extends TestCase
 		$this->assertSelectorTextEquals($input, 'ul li', 'Expected error');
 		$this->assertSelectorMissingText($input, 'ul li', 'Unexpected error');
 	}
+	
+	public function test_adding_rules_enables_client_side_validation() : void
+	{
+		$rules = ['foo' => 'required'];
+		$script_path = str_random().'.js';
+		
+		$this->app['config']->set('aire.inline_validation', false);
+		$this->app['config']->set('aire.validation_script_path', $script_path);
+		
+		$form = $this->aire()->form()->rules($rules);
+		
+		$this->assertSelectorAttribute($form, 'script', 'src', $script_path);
+		$this->assertSelectorContainsText($form, 'script', 'Aire.connect');
+		$this->assertSelectorContainsText($form, 'script', json_encode($rules));
+	}
+	
+	public function test_client_side_validation_can_be_disabled_explicity() : void
+	{
+		$form = $this->aire()->form()->rules(['foo' => 'required'])->withoutValidation();
+		
+		$this->assertSelectorDoesNotExist($form, 'script');
+	}
 }

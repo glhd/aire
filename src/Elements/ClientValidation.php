@@ -98,6 +98,7 @@ class ClientValidation implements Htmlable
 			</script>
 		";
 		
+		// @codeCoverageIgnoreStart
 		if ($this->dev_mode) {
 			$validator_url = asset('validator.js');
 			$aire_url = asset('aire-src.mjs');
@@ -110,6 +111,7 @@ class ClientValidation implements Htmlable
 				$config_js
 			";
 		}
+		// @codeCoverageIgnoreEnd
 		
 		if ($this->aire->config('inline_validation', true)) {
 			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.min.js');

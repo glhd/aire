@@ -310,7 +310,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	{
 		return $this->toCollection()
 			->filter(function($value, $key) {
-				return false !== $value
+				return (false !== $value || (false === $value && 'value' === $key))
 					&& null !== $value
 					&& !('' === $value && 'class' === $key)
 					&& !is_array($value); // Array values have to be handled in associated component
@@ -370,32 +370,5 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		}
 		
 		return $array;
-	}
-	
-	protected function castValueForComparison($check_value, $current_value)
-	{
-		if (!is_string($check_value)) {
-			return $check_value;
-		}
-		
-		$value_type = gettype(is_array($current_value) ? current($current_value) : $current_value);
-		
-		if ('integer' === $value_type && ctype_digit($check_value)) {
-			return (int) $check_value;
-		}
-		
-		if ('float' === $value_type && is_numeric($check_value)) {
-			return (float) $check_value;
-		}
-		
-		if ('boolean' === $value_type && in_array(strtolower($check_value), ['1', 'true'])) {
-			return true;
-		}
-		
-		if ('boolean' === $value_type && in_array(strtolower($check_value), ['0', 'false'])) {
-			return false;
-		}
-		
-		return $check_value;
 	}
 }
