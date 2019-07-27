@@ -10,10 +10,10 @@
 		Aire Themes
 	</h1>
 	
-	<div class="mt-4 mb-8 p-6 border rounded leading-normal">
-		<strong>Please note:</strong> Aire themes are mostly meant for package developers. If you
-		just want to customize the look and feel for your project, see <a href="{{ url('/') }}">
-			customizing Aire</a>.
+	<div class="mt-4 mb-8 p-6 border rounded leading-normal bg-yellow-100 border-yellow-300 text-yellow-800">
+			<strong>Please note:</strong> Aire themes are mostly meant for package developers. If you
+			just want to customize the look and feel for your project, see <a href="{{ url('/') }}">
+				the customization section of the README</a>.
 	</div>
 	
 	<p>

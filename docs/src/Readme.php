@@ -30,11 +30,24 @@ class Readme implements Htmlable
 	
 	public function toHtml()
 	{
+		$this->stripLogo();
 		$this->applyTypeClassNames();
 		$this->applyListClassNames();
 		$this->applyCodeClassNames();
 		
 		return $this->crawler->html();
+	}
+	
+	protected function stripLogo() : self
+	{
+		foreach ($this->crawler->filter('img[src$="logo.svg"]') as $node) {
+			$node->parentNode->appendChild(
+				$node->ownerDocument->createTextNode('Aire')
+			);
+			$node->parentNode->removeChild($node);
+		}
+		
+		return $this;
 	}
 	
 	protected function applyTypeClassNames() : self

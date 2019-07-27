@@ -7,13 +7,12 @@
 		{{ $title }}
 	</h2>
 	
-	<div id="component-{{ $component }}" class="flex items-stretch max-w-full">
+	<div id="component-{{ $component }}" class="md:flex items-stretch max-w-full">
 		
-		<div class="w-1/2 relative flex items-center bg-gray-100 overflow-x-auto">
-			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php"><?php
+		<div class="md:w-1/2 relative flex items-center bg-gray-100 overflow-x-auto">
+			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm"><?php
 					$src = file_get_contents($__env->getFinder()->find("components.{$component}"));
 					$src = trim($src);
-					// $src = preg_replace('/^\s*<\?php\s*echo e\((.*?)\);\s*/is', '$1;', $src);
 					$src = preg_replace('/^\s*<\?php\s*/i', '', $src);
 					$src = preg_replace('/echo e\(([^;]+)\);/ms', '$1;', $src);
 					$src = str_replace("\t", '  ', $src);
@@ -21,7 +20,7 @@
 					?></code></pre>
 		</div>
 		
-		<div class="w-1/2 border-l p-6 flex items-center">
+		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
 				@include("components.{$component}")
 			</div>
