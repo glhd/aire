@@ -418,7 +418,7 @@
 	<div id="component-week" class="md:flex items-stretch max-w-full">
 		
 		<div class="md:w-1/2 relative flex items-center bg-gray-100 overflow-x-auto">
-			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm">Aire::month(&#039;w&#039;, &#039;Pick a week&#039;)
+			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm">Aire::week(&#039;w&#039;, &#039;Pick a week&#039;)
   -&gt;helpText(&#039;Browser-native week picker (minimal browser support)&#039;);</code></pre>
 		</div>
 		
@@ -432,7 +432,7 @@
 	
 	<div class="">
 				
-		<input type="month" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="w" data-aire-for="w" id="__aire-0-w" />
+		<input type="week" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="w" data-aire-for="w" id="__aire-0-w" />
 
 			
 			</div>
@@ -458,7 +458,7 @@
 	<div id="component-email" class="md:flex items-stretch max-w-full">
 		
 		<div class="md:w-1/2 relative flex items-center bg-gray-100 overflow-x-auto">
-			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm">Aire::month(&#039;email&#039;, &#039;Enter Your Email&#039;)
+			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm">Aire::email(&#039;email&#039;, &#039;Enter Your Email&#039;)
   -&gt;pattern(&#039;^.*@gmail\\.com$&#039;)
   -&gt;helpText(&#039;Must be valid and end in gmail.com&#039;);</code></pre>
 		</div>
@@ -473,7 +473,7 @@
 	
 	<div class="">
 				
-		<input type="month" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="email" pattern="^.*@gmail\.com$" data-aire-for="email" id="__aire-0-email" />
+		<input type="email" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="email" pattern="^.*@gmail\.com$" data-aire-for="email" id="__aire-0-email" />
 
 			
 			</div>
@@ -1049,6 +1049,8 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="md:w-1/2 relative flex items-center bg-gray-100 overflow-x-auto">
 			<pre class="my-0 border-0 rounded-none" style="overflow: visible"><code class="language-php text-xs md:text-sm">Aire::color(&#039;color&#039;, &#039;Pick a Color&#039;)
+  -&gt;addClass(&#039;w-16 h-16&#039;)
+  -&gt;removeClass(&#039;w-full&#039;)
   -&gt;helpText(&#039;Pick a color with the browser-native picker&#039;);</code></pre>
 		</div>
 		
@@ -1062,7 +1064,7 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 	
 	<div class="">
 				
-		<input type="color" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="color" data-aire-for="color" id="__aire-0-color" />
+		<input type="color" class="block p-2 text-base leading-normal bg-white border rounded-sm w-16 h-16 text-gray-900" data-aire-component="input" name="color" data-aire-for="color" id="__aire-0-color" />
 
 			
 			</div>
