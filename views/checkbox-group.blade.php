@@ -10,7 +10,7 @@
 					value="{{ $prepend_empty_option->value }}"
 					{{ $attributes->isValue($prepend_empty_option->value) ? 'checked' : '' }}
 			/>
-			<span {{ $attributes->label_wrappwer }}>
+			<span {{ $attributes->label_wrapper }}>
 				{{ $prepend_empty_option->label }}
 			</span>
 		</label>
@@ -24,7 +24,7 @@
 				value="{{ $option_value }}"
 				{{ $attributes->isValue($option_value) ? 'checked' : '' }}
 			/>
-			<span {{ $attributes->label_wrappwer }}>
+			<span {{ $attributes->label_wrapper }}>
 				{{ $option_label }}
 			</span>
 		</label>

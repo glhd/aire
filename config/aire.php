@@ -88,7 +88,7 @@ return [
 		'label' => 'inline-block mb-2 font-semibold',
 		'input' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm',
 		'checkbox' => 'pr-2',
-		'checkbox_label' => 'flex items-center',
+		'checkbox_label' => 'flex items-baseline',
 		'checkbox_wrapper' => 'ml-2 flex-1',
 		'checkbox_group_label' => 'flex items-baseline mb-2 ml-2 border-transparent border-l',
 		'checkbox_group_label_wrapper' => 'flex-1 ml-2',
