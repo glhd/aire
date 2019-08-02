@@ -236,8 +236,8 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 */
 	public function setDefault(string $attribute, $default) : self
 	{
-		// If the default value is callable, register it as a mutator
-		if (is_callable($default)) {
+		// If the default value is a closure, register it as a mutator
+		if ($default instanceof \Closure) {
 			return $this->registerMutator($attribute, function($value) use ($default) {
 				return $value ?? $default();
 			});

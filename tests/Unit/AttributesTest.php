@@ -270,4 +270,26 @@ class AttributesTest extends TestCase
 		
 		$this->assertEquals($expected_in_original, $attributes->toArray());
 	}
+	
+	public function test_default_can_be_set_using_a_closure() : void
+	{
+		$random_value = str_random();
+		
+		$attributes = new Attributes();
+		$attributes->setDefault('value', function() use ($random_value) {
+			return $random_value;
+		});
+		
+		$this->assertEquals($random_value, $attributes->get('value'));
+	}
+	
+	public function test_default_value_cannot_be_injected_with_a_global_function_call() : void
+	{
+		require_once __DIR__.'/global-function-stub.php';
+		
+		$attributes = new Attributes();
+		$attributes->setDefault('value', 'aire_test_global_function');
+		
+		$this->assertEquals('aire_test_global_function', $attributes->get('value'));
+	}
 }
