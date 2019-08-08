@@ -67,6 +67,13 @@ are fluent, allowing for easy configuration of your form components:
 {{ Aire::close() }}
 ```
 
+## Installation
+
+Install via composer with:
+```sh
+composer require glhd/aire
+```
+
 ## Customization
 
 Aire comes with classes that should work with the default Tailwind class names
@@ -177,6 +184,7 @@ to [validatorjs](https://github.com/skaterdav85/validatorjs)!).
 There are a few things that are still either in-the-works or being considered for a 
 later release. These include:
 
+  - Integration with [Tailwind forms](https://github.com/tailwindcss/custom-forms)
   - Sizing option for form controls
   - [Read-only plain text](http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text) 
   - Cross-browser support for custom checkboxes and radio buttons via a config option
