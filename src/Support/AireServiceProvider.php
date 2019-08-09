@@ -4,7 +4,6 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Form;
-use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 

@@ -6,12 +6,13 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
+use Galahad\Aire\Elements\Concerns\HasVariants;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes, Groupable;
+	use HasGlobalAttributes, Groupable, HasVariants;
 	
 	protected static $element_mutators = [];
 	
