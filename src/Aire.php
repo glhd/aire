@@ -113,7 +113,7 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->user_config = $config;
 		
-		$this->setTheme('aire', null, static::getDefaultThemeConfig());
+		$this->resetTheme();
 	}
 	
 	/**
@@ -155,6 +155,18 @@ class Aire
 		$this->config = array_replace_recursive($config, $this->user_config);
 		
 		$this->registerClasses();
+		
+		return $this;
+	}
+	
+	/**
+	 * Reset Aire to the default theme
+	 *
+	 * @return \Galahad\Aire\Aire
+	 */
+	public function resetTheme() : self
+	{
+		$this->setTheme('aire', null, static::getDefaultThemeConfig());
 		
 		return $this;
 	}

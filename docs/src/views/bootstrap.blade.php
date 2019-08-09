@@ -1,9 +1,5 @@
 @extends('_layout')
 
-<?php
-(new \Galahad\AireBootstrap\AireBootstrapServiceProvider(app()))->boot();
-?>
-
 @section('page-title')
 	Twitter Bootstrap Support
 @endsection
@@ -13,6 +9,8 @@
 @endpush
 
 @section('content')
+	
+	<?php (new \Galahad\AireBootstrap\AireBootstrapServiceProvider(app()))->boot(); ?>
 	
 	<h1 class="text-2xl text-gray-900">
 		Twitter Bootstrap Theme
@@ -85,5 +83,7 @@
 		</h2>
 		<iframe class="w-full h-screen" srcdoc="{{ $html }}"></iframe>
 	</div>
+	
+	<?php Aire::resetTheme(); ?>
 
 @endsection

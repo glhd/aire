@@ -1,14 +1,12 @@
 @extends('_layout')
 
-<?php
-(new \Galahad\AireCustomForms\AireCustomFormsServiceProvider(app()))->boot();
-?>
-
 @section('page-title')
 	Tailwind Custom Forms
 @endsection
 
 @section('content')
+	
+	<?php (new \Galahad\AireCustomForms\AireCustomFormsServiceProvider(app()))->boot(); ?>
 	
 	<h1 class="text-2xl text-gray-900">
 		Tailwind Custom Forms
@@ -75,5 +73,7 @@
 			{{ Aire::close() }}
 		</div>
 	</div>
+	
+	<?php Aire::resetTheme(); ?>
 
 @endsection
