@@ -114,8 +114,6 @@ class Aire
 		$this->user_config = $config;
 		
 		$this->setTheme('aire', null, static::getDefaultThemeConfig());
-		
-		$this->registerClasses();
 	}
 	
 	/**
@@ -155,6 +153,8 @@ class Aire
 		$this->view_namespace = $namespace;
 		$this->view_prefix = $prefix;
 		$this->config = array_replace_recursive($config, $this->user_config);
+		
+		$this->registerClasses();
 		
 		return $this;
 	}

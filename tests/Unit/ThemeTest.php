@@ -44,32 +44,44 @@ class ThemeTest extends TestCase
 	
 	public function test_themes_can_override_defaults_but_not_user_config() : void
 	{
-		$config_repo = $this->app->make(Repository::class);
-		$default_theme = Aire::getDefaultThemeConfig();
-		
-		// Set some "user" configuration that should take precedence over themes
-		$config_repo->set('aire.default_classes.group', '__test__');
-		$config_repo->set('aire.validation_classes.none.input', '__test__');
-		$config_repo->set('aire.validation_classes.valid.input', '__test__');
-		$config_repo->set('aire.validation_classes.invalid.input', '__test__');
-		
-		// Clear the singleton so Aire will instantiate with the updated config
-		$this->app->forgetInstance('galahad.aire');
+		// Set up Aire with user config overrides
+		$aire = new Aire(
+			Mockery::mock(Factory::class),
+			$this->app['session.store'],
+			$this->app['galahad.aire.form.resolver'],
+			array_merge(require __DIR__.'/../../config/aire.php', [
+				'default_classes' => [
+					'group' => '__test__',
+				],
+				'validation_classes' => [
+					'none' => [
+						'input' => '__test__',
+					],
+					'valid' => [
+						'input' => '__test__',
+					],
+					'invalid' => [
+						'input' => '__test__',
+					],
+				],
+			])
+		);
 		
 		// Make sure our "user" configuration is set
-		$this->assertEquals('__test__', $this->aire()->config('default_classes.group'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.none.input'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.valid.input'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.invalid.input'));
+		$this->assertEquals('__test__', $aire->config('default_classes.group'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.none.input'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.valid.input'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.invalid.input'));
 		
 		// Other values should match the default config
-		$this->assertEquals(Arr::get($default_theme, 'default_classes.label'), $this->aire()->config('default_classes.label'));
-		$this->assertEquals(Arr::get($default_theme, 'validation_classes.none.select'), $this->aire()->config('validation_classes.none.select'));
-		$this->assertEquals(Arr::get($default_theme, 'validation_classes.valid.select'), $this->aire()->config('validation_classes.valid.select'));
-		$this->assertEquals(Arr::get($default_theme, 'validation_classes.invalid.select'), $this->aire()->config('validation_classes.invalid.select'));
+		$default_theme = Aire::getDefaultThemeConfig();
+		$this->assertEquals(Arr::get($default_theme, 'default_classes.label'), $aire->config('default_classes.label'));
+		$this->assertEquals(Arr::get($default_theme, 'validation_classes.none.select'), $aire->config('validation_classes.none.select'));
+		$this->assertEquals(Arr::get($default_theme, 'validation_classes.valid.select'), $aire->config('validation_classes.valid.select'));
+		$this->assertEquals(Arr::get($default_theme, 'validation_classes.invalid.select'), $aire->config('validation_classes.invalid.select'));
 		
 		// Now set a new custom theme
-		$this->aire()->setTheme('aire', null, [
+		$aire->setTheme('aire', null, [
 			'default_classes' => [
 				'group' => '__test2__',
 				'checkbox' => '__test2__',
@@ -91,15 +103,15 @@ class ThemeTest extends TestCase
 		]);
 		
 		// Values set by the user should remain the same
-		$this->assertEquals('__test__', $this->aire()->config('default_classes.group'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.none.input'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.valid.input'));
-		$this->assertEquals('__test__', $this->aire()->config('validation_classes.invalid.input'));
+		$this->assertEquals('__test__', $aire->config('default_classes.group'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.none.input'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.valid.input'));
+		$this->assertEquals('__test__', $aire->config('validation_classes.invalid.input'));
 		
 		// Values set in the theme should be applied
-		$this->assertEquals('__test2__', $this->aire()->config('default_classes.checkbox'));
-		$this->assertEquals('__test2__', $this->aire()->config('validation_classes.none.group_errors'));
-		$this->assertEquals('__test2__', $this->aire()->config('validation_classes.valid.group_errors'));
-		$this->assertEquals('__test2__', $this->aire()->config('validation_classes.invalid.group_errors'));
+		$this->assertEquals('__test2__', $aire->config('default_classes.checkbox'));
+		$this->assertEquals('__test2__', $aire->config('validation_classes.none.group_errors'));
+		$this->assertEquals('__test2__', $aire->config('validation_classes.valid.group_errors'));
+		$this->assertEquals('__test2__', $aire->config('validation_classes.invalid.group_errors'));
 	}
 }

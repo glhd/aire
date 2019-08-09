@@ -12,6 +12,8 @@ abstract class Element implements Htmlable
 {
 	use HasGlobalAttributes, Groupable;
 	
+	protected static $element_mutators = [];
+	
 	/**
 	 * @var string
 	 */
@@ -67,8 +69,25 @@ abstract class Element implements Htmlable
 		$this->attributes = new Collection($aire, $this, $this->default_attributes);
 		
 		if ($form) {
-			$this->registerMutators();
+			$this->registerAttributeMutators();
 		}
+		
+		$this->applyElementMutators();
+	}
+	
+	/**
+	 * Register a mutator for the entire element
+	 *
+	 * This mutator will be called each time this element is instantiated.
+	 * This is mostly useful for themes that need to apply changes to certain
+	 * elements (when those changes are not possible thru configuration and
+	 * custom views alone).
+	 *
+	 * @param callable $mutator
+	 */
+	public static function registerElementMutator(callable $mutator) : void
+	{
+		self::$element_mutators[static::class][] = $mutator;
 	}
 	
 	/**
@@ -184,11 +203,27 @@ abstract class Element implements Htmlable
 	}
 	
 	/**
-	 * Register default mutators
+	 * Apply any registered mutators to the element
 	 *
 	 * @return \Galahad\Aire\Elements\Element
 	 */
-	protected function registerMutators() : self
+	protected function applyElementMutators() : self
+	{
+		if (isset(static::$element_mutators[static::class])) {
+			foreach (static::$element_mutators[static::class] as $mutator) {
+				$mutator($this);
+			}
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Register default attribute mutators
+	 *
+	 * @return \Galahad\Aire\Elements\Element
+	 */
+	protected function registerAttributeMutators() : self
 	{
 		if ($this->bind_value) {
 			$this->attributes->setDefault('value', function() {
