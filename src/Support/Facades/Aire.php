@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Summary summary()
  * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)

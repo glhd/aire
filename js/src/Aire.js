@@ -82,26 +82,35 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 		Object.entries(refs[name]).forEach(([name, elements]) => {
 			elements.forEach(element => {
 				if (name in classnames.valid) {
-					if (passes) {
-						element.classList.add(...classnames.valid[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.valid[name].split(' '));
+					const passes_classnames = classnames.valid[name].split(' ');
+					if (passes_classnames.length) {
+						if (passes) {
+							element.classList.add(...passes_classnames);
+						} else {
+							element.classList.remove(...passes_classnames);
+						}
 					}
 				}
 				
 				if (name in classnames.invalid) {
-					if (fails) {
-						element.classList.add(...classnames.invalid[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.invalid[name].split(' '));
+					const fails_classnames = classnames.invalid[name].split(' ');
+					if (fails_classnames.length) {
+						if (fails) {
+							element.classList.add(...fails_classnames);
+						} else {
+							element.classList.remove(...fails_classnames);
+						}
 					}
 				}
 				
 				if (name in classnames.none) {
-					if (!passes && !fails) {
-						element.classList.add(...classnames.none[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.none[name].split(' '));
+					const none_classnames = classnames.none[name].split(' ');
+					if (none_classnames.length) {
+						if (!passes && !fails) {
+							element.classList.add(...none_classnames);
+						} else {
+							element.classList.remove(...none_classnames);
+						}
 					}
 				}
 			});

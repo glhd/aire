@@ -31,7 +31,12 @@
     "symfony/dom-crawler": "^4.1",
     "laravel/framework": "^5.7",
     "graham-campbell/markdown": "^10.2",
-    "barryvdh/reflection-docblock": "^2.0"
+    "barryvdh/reflection-docblock": "^2.0",
+    "glhd/aire-tailwind-custom-forms": "^0.1.0",
+    "glhd/aire-bootstrap": "^0.0.1"
+  },
+  "suggest": {
+    "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"
   },
   "autoload": {
     "psr-4": {
@@ -55,7 +60,11 @@
       ],
       "aliases": {
         "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
-      }
+      },
+      "dont-discover": [
+        "glhd/aire-tailwind-custom-forms",
+        "glhd/aire-bootstrap"
+      ]
     }
   }
 }

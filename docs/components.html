@@ -14,16 +14,13 @@
 	<link rel="stylesheet" href="https://glhd.github.io/aire/aire.css" />
 	
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css"
-	      integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/solid.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/brands.css"
-	      integrity="sha384-BCEeiNUiLzxxoeYaIu7jJqq0aVVz2O2Ig4WbWEmRQ2Dx/AAxNV1wMDBXyyrxw1Zd"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/brands.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css"
-	      integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/fontawesome.css"
 	      crossorigin="anonymous" />
 	
 	</head>
@@ -186,26 +183,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="input">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="sample-input-field">
+				<div class="form-group" data-aire-component="group" data-aire-for="input">
+    <label class=" cursor-pointer" data-aire-component="label" for="sample-input-field">
 	Sample Input
 </label>
 
-	
-	<div class="">
-				
-		<input type="text" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="input" id="sample-input-field" required placeholder="Placeholder text" value="Pre-filled with data" data-aire-for="input" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="input">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="input">
-			This is a regular input element
-		</small>
-		
+    <input type="text" class="form-control no-yet-validated" data-aire-component="input" name="input" id="sample-input-field" required placeholder="Placeholder text" value="Pre-filled with data" data-aire-for="input" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="input">
+            This is a regular input element
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="input">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -227,23 +220,19 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="bio">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-bio">
+				<div class="form-group" data-aire-component="group" data-aire-for="bio">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-bio">
 	About You
 </label>
 
-	
-	<div class="">
-				
-		<textarea class="block w-full p-2 text-base leading-normal bg-white border rounded-sm h-auto text-gray-900" data-aire-component="textarea" name="bio" rows="3" cols="40" data-aire-for="bio" id="__aire-0-bio"></textarea>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="bio">
-			</ul>
-	
-		
+    <textarea class="form-control no-yet-validated" data-aire-component="textarea" name="bio" rows="3" cols="40" data-aire-for="bio" id="__aire-22-bio"></textarea>
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="bio">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -264,26 +253,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="date_input">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-date_input">
+				<div class="form-group" data-aire-component="group" data-aire-for="date_input">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-date_input">
 	Choose a Date
 </label>
 
-	
-	<div class="">
-				
-		<input type="date" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="date_input" data-aire-for="date_input" id="__aire-0-date_input" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="date_input">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="date_input">
-			Browser-native date picker (ymmv)
-		</small>
-		
+    <input type="date" class="form-control no-yet-validated" data-aire-component="input" name="date_input" data-aire-for="date_input" id="__aire-22-date_input" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="date_input">
+            Browser-native date picker (ymmv)
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="date_input">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -304,26 +289,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="time">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-time">
+				<div class="form-group" data-aire-component="group" data-aire-for="time">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-time">
 	Time Input
 </label>
 
-	
-	<div class="">
-				
-		<input type="time" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="time" data-aire-for="time" id="__aire-0-time" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="time">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="time">
-			Browser-native time input (minimal browser support)
-		</small>
-		
+    <input type="time" class="form-control no-yet-validated" data-aire-component="input" name="time" data-aire-for="time" id="__aire-22-time" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="time">
+            Browser-native time input (minimal browser support)
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="time">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -344,26 +325,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="dt">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-dt">
+				<div class="form-group" data-aire-component="group" data-aire-for="dt">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-dt">
 	Pick a Date &amp; Time
 </label>
 
-	
-	<div class="">
-				
-		<input type="datetime-local" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="dt" data-aire-for="dt" id="__aire-0-dt" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="dt">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="dt">
-			While Aire does support the &quot;datetime&quot; type as well, &quot;datetime-local&quot; is recommended for better localization support.
-		</small>
-		
+    <input type="datetime-local" class="form-control no-yet-validated" data-aire-component="input" name="dt" data-aire-for="dt" id="__aire-22-dt" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="dt">
+            While Aire does support the &quot;datetime&quot; type as well, &quot;datetime-local&quot; is recommended for better localization support.
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="dt">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -384,26 +361,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="m">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-m">
+				<div class="form-group" data-aire-component="group" data-aire-for="m">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-m">
 	Pick a Month
 </label>
 
-	
-	<div class="">
-				
-		<input type="month" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="m" data-aire-for="m" id="__aire-0-m" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="m">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="m">
-			Browser-native month picker (minimal browser support)
-		</small>
-		
+    <input type="month" class="form-control no-yet-validated" data-aire-component="input" name="m" data-aire-for="m" id="__aire-22-m" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="m">
+            Browser-native month picker (minimal browser support)
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="m">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -424,26 +397,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="w">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-w">
+				<div class="form-group" data-aire-component="group" data-aire-for="w">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-w">
 	Pick a week
 </label>
 
-	
-	<div class="">
-				
-		<input type="week" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="w" data-aire-for="w" id="__aire-0-w" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="w">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="w">
-			Browser-native week picker (minimal browser support)
-		</small>
-		
+    <input type="week" class="form-control no-yet-validated" data-aire-component="input" name="w" data-aire-for="w" id="__aire-22-w" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="w">
+            Browser-native week picker (minimal browser support)
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="w">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -465,26 +434,22 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="email">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-email">
+				<div class="form-group" data-aire-component="group" data-aire-for="email">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-email">
 	Enter Your Email
 </label>
 
-	
-	<div class="">
-				
-		<input type="email" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="email" pattern="^.*@gmail\.com$" data-aire-for="email" id="__aire-0-email" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="email">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="email">
-			Must be valid and end in gmail.com
-		</small>
-		
+    <input type="email" class="form-control no-yet-validated" data-aire-component="input" name="email" pattern="^.*@gmail\.com$" data-aire-for="email" id="__aire-22-email" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="email">
+            Must be valid and end in gmail.com
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="email">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -504,23 +469,19 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="upload">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-upload">
+				<div class="form-group" data-aire-component="group" data-aire-for="upload">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-upload">
 	Upload a File
 </label>
 
-	
-	<div class="">
-				
-		<input type="file" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="upload" data-aire-for="upload" id="__aire-0-upload" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="upload">
-			</ul>
-	
-		
+    <input type="file" class="form-control no-yet-validated" data-aire-component="input" name="upload" data-aire-for="upload" id="__aire-22-upload" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="upload">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -542,23 +503,19 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="num">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-num">
+				<div class="form-group" data-aire-component="group" data-aire-for="num">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-num">
 	Enter a number divisible by 10
 </label>
 
-	
-	<div class="">
-				
-		<input type="number" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="num" value="100" step="10" data-aire-for="num" id="__aire-0-num" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="num">
-			</ul>
-	
-		
+    <input type="number" class="form-control no-yet-validated" data-aire-component="input" name="num" value="100" step="10" data-aire-for="num" id="__aire-22-num" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="num">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -578,23 +535,19 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="password">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-password">
+				<div class="form-group" data-aire-component="group" data-aire-for="password">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-password">
 	Enter your password
 </label>
 
-	
-	<div class="">
-				
-		<input type="password" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="password" data-aire-for="password" id="__aire-0-password" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="password">
-			</ul>
-	
-		
+    <input type="password" class="form-control no-yet-validated" data-aire-component="input" name="password" data-aire-for="password" id="__aire-22-password" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="password">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -615,62 +568,59 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="radio">
-	<label class="inline-block mb-2 font-semibold" data-aire-component="label">
+				<div class="form-group" data-aire-component="group" data-aire-for="radio">
+    <label class="" data-aire-component="label">
 	Radio Group
 </label>
 
-	
-	<div class="">
-				
-		<div class="" data-aire-component="wrapper" data-aire-for="radio">
-	
-		
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
-			<input
-				type="radio" class="" data-aire-component="radio-group" name="radio" data-aire-for="radio"
-				value="1"
-				
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
-				One
-			</span>
-		</label>
-	
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
-			<input
-				type="radio" class="" data-aire-component="radio-group" name="radio" data-aire-for="radio"
-				value="2"
-				checked
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
-				Two
-			</span>
-		</label>
-	
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
-			<input
-				type="radio" class="" data-aire-component="radio-group" name="radio" data-aire-for="radio"
-				value="3"
-				
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
-				Three
-			</span>
-		</label>
-	
-	</div>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="radio">
-			</ul>
-	
-		
+    <div class="custom-control custom-radio" data-aire-component="label_wrapper" data-aire-for="radio">
+        <input
+            type="radio" class="custom-control-input" data-aire-component="radio-group" name="radio" data-aire-for="radio"
+            value="1"
+            
+            id="aire-selection-1"
+        />
+        <label class="custom-control-label" data-aire-component="label" data-aire-for="radio"
+               for="aire-selection-1">
+            One
+        </label>
+    </div>
+
+
+    <div class="custom-control custom-radio" data-aire-component="label_wrapper" data-aire-for="radio">
+        <input
+            type="radio" class="custom-control-input" data-aire-component="radio-group" name="radio" data-aire-for="radio"
+            value="2"
+            checked
+            id="aire-selection-2"
+        />
+        <label class="custom-control-label" data-aire-component="label" data-aire-for="radio"
+               for="aire-selection-2">
+            Two
+        </label>
+    </div>
+
+
+    <div class="custom-control custom-radio" data-aire-component="label_wrapper" data-aire-for="radio">
+        <input
+            type="radio" class="custom-control-input" data-aire-component="radio-group" name="radio" data-aire-for="radio"
+            value="3"
+            
+            id="aire-selection-3"
+        />
+        <label class="custom-control-label" data-aire-component="label" data-aire-for="radio"
+               for="aire-selection-3">
+            Three
+        </label>
+    </div>
+
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="radio">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -691,62 +641,58 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="radio">
-	<label class="inline-block mb-2 font-semibold" data-aire-component="label">
+				<div class="form-group form-check" data-aire-component="group" data-aire-for="radio">
+    <label class="" data-aire-component="label">
 	Checkboxes
 </label>
 
-	
-	<div class="">
-				
-		<div class="" data-aire-component="wrapper" data-aire-for="radio">
+
+    <div class="" data-aire-component="wrapper" data-aire-for="radio">
 	
 		
 			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
+		<label class="" data-aire-component="label" data-aire-for="radio">
 			<input
 				type="checkbox" class="" data-aire-component="checkbox-group" name="radio[]" data-aire-for="radio"
 				value="1"
 				
 			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
+			<span class="" data-aire-component="label_wrappwer" data-aire-for="radio">
 				One
 			</span>
 		</label>
 	
 			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
+		<label class="" data-aire-component="label" data-aire-for="radio">
 			<input
 				type="checkbox" class="" data-aire-component="checkbox-group" name="radio[]" data-aire-for="radio"
 				value="2"
 				checked
 			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
+			<span class="" data-aire-component="label_wrappwer" data-aire-for="radio">
 				Two
 			</span>
 		</label>
 	
 			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="radio">
+		<label class="" data-aire-component="label" data-aire-for="radio">
 			<input
 				type="checkbox" class="" data-aire-component="checkbox-group" name="radio[]" data-aire-for="radio"
 				value="3"
 				checked
 			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="radio">
+			<span class="" data-aire-component="label_wrappwer" data-aire-for="radio">
 				Three
 			</span>
 		</label>
 	
 	</div>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="radio">
-			</ul>
-	
-		
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="radio">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -766,25 +712,20 @@
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="checkbox">
-	
-	
-	<div class="">
-				
-		<label class="flex items-baseline" data-aire-component="label" data-aire-for="checkbox" for="__aire-0-checkbox">
-	<input type="checkbox" value="1" class="pr-2" data-aire-component="checkbox" name="checkbox" data-aire-for="checkbox" id="__aire-0-checkbox" />
-	<span class="ml-2 flex-1" data-aire-component="wrapper" data-aire-for="checkbox">
-		Confirm that you agree
-	</span>
+				<div class="form-group form-check" data-aire-component="group" data-aire-for="checkbox">
+    
+
+    <input type="checkbox" value="1" class="form-check-input" data-aire-component="checkbox" name="checkbox" data-aire-for="checkbox" id="__aire-22-checkbox" />
+
+<label class="form-check-label" data-aire-component="label" data-aire-for="checkbox" for="__aire-22-checkbox">
+    Confirm that you agree
 </label>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="checkbox">
-			</ul>
-	
-		
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="checkbox">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -809,15 +750,13 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="select">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-select">
+				<div class="form-group" data-aire-component="group" data-aire-for="select">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-select">
 	Select
 </label>
 
-	
-	<div class="">
-				
-		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none text-gray-900" data-aire-component="select" name="select" data-aire-for="select" id="__aire-0-select">
+
+    <select class="form-control no-yet-validated" data-aire-component="select" name="select" data-aire-for="select" id="__aire-22-select">
 	
 		
 			
@@ -838,23 +777,19 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 	
 </select>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="select">
-			</ul>
-	
-		
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="select">
+            </div>
+
 </div>
-<div class="mb-6" data-aire-component="group" data-aire-for="select2">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-select2">
+<div class="form-group" data-aire-component="group" data-aire-for="select2">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-select2">
 	Multi-Select
 </label>
 
-	
-	<div class="">
-				
-		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none text-gray-900" data-aire-component="select" name="select2[]" multiple data-aire-for="select2" id="__aire-0-select2">
+
+    <select class="form-control no-yet-validated" data-aire-component="select" name="select2[]" multiple data-aire-for="select2" id="__aire-22-select2">
 	
 		
 			
@@ -875,13 +810,11 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 	
 </select>
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="select2">
-			</ul>
-	
-		
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="select2">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -905,23 +838,19 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="range">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-range">
+				<div class="form-group" data-aire-component="group" data-aire-for="range">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-range">
 	Range
 </label>
 
-	
-	<div class="">
-				
-		<input type="range" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="range" min="50" max="100" step="10" value="70" data-aire-for="range" id="__aire-0-range" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="range">
-			</ul>
-	
-		
+    <input type="range" class="form-control no-yet-validated" data-aire-component="input" name="range" min="50" max="100" step="10" value="70" data-aire-for="range" id="__aire-22-range" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="range">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -941,23 +870,19 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="q">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-q">
+				<div class="form-group" data-aire-component="group" data-aire-for="q">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-q">
 	Enter Your Query
 </label>
 
-	
-	<div class="">
-				
-		<input type="search" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="q" data-aire-for="q" id="__aire-0-q" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="q">
-			</ul>
-	
-		
+    <input type="search" class="form-control no-yet-validated" data-aire-component="input" name="q" data-aire-for="q" id="__aire-22-q" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="q">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -978,26 +903,22 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="phone">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-phone">
+				<div class="form-group" data-aire-component="group" data-aire-for="phone">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-phone">
 	Enter Phone Number
 </label>
 
-	
-	<div class="">
-				
-		<input type="tel" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="phone" data-aire-for="phone" id="__aire-0-phone" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="phone">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="phone">
-			Mostly used on mobile
-		</small>
-		
+    <input type="tel" class="form-control no-yet-validated" data-aire-component="input" name="phone" data-aire-for="phone" id="__aire-22-phone" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="phone">
+            Mostly used on mobile
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="phone">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -1017,23 +938,19 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="href">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-href">
+				<div class="form-group" data-aire-component="group" data-aire-for="href">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-href">
 	Enter a URL
 </label>
 
-	
-	<div class="">
-				
-		<input type="url" class="block w-full p-2 text-base leading-normal bg-white border rounded-sm text-gray-900" data-aire-component="input" name="href" data-aire-for="href" id="__aire-0-href" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="href">
-			</ul>
-	
-		
+    <input type="url" class="form-control no-yet-validated" data-aire-component="input" name="href" data-aire-for="href" id="__aire-22-href" />
+
+
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="href">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -1056,26 +973,22 @@ Aire::select([1 =&gt; &#039;One&#039;, 2 =&gt; &#039;Two&#039;, 3 =&gt; &#039;Th
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<div class="mb-6" data-aire-component="group" data-aire-for="color">
-	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-0-color">
+				<div class="form-group" data-aire-component="group" data-aire-for="color">
+    <label class=" cursor-pointer" data-aire-component="label" for="__aire-22-color">
 	Pick a Color
 </label>
 
-	
-	<div class="">
-				
-		<input type="color" class="block p-2 text-base leading-normal bg-white border rounded-sm w-16 h-16 text-gray-900" data-aire-component="input" name="color" data-aire-for="color" id="__aire-0-color" />
 
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="color">
-			</ul>
-	
-			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text" data-aire-for="color">
-			Pick a color with the browser-native picker
-		</small>
-		
+    <input type="color" class="form-control w-16 h-16 no-yet-validated" data-aire-component="input" name="color" data-aire-for="color" id="__aire-22-color" />
+
+
+            <small class="form-text text-muted no-yet-validated" data-aire-component="help_text" data-aire-for="color">
+            Pick a color with the browser-native picker
+        </small>
+    
+    <div class="invalid-feedback hidden" data-aire-component="errors" data-aire-for="color">
+            </div>
+
 </div>
 			</div>
 		</div>
@@ -1098,14 +1011,10 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 		<div class="border-t md:border-t-0 md:w-1/2 md:border-l p-6 flex items-center">
 			<div class="flex-1">
-				<button class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
-			rounded leading-normal text-white bg-blue-600 border-blue-700 hover:bg-blue-700
-			hover:border-blue-900 p-2 px-4" data-aire-component="button" type="submit">
+				<button class="btn btn-primary" data-aire-component="button" type="submit">
 	Standard Button
 </button>
-<button class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
-			rounded leading-normal text-white bg-blue-600 border-blue-700 hover:bg-blue-700
-			hover:border-blue-900 p-2 px-4 rounded-full" data-aire-component="button" type="submit">
+<button class="btn btn-primary rounded-full" data-aire-component="button" type="submit">
 	Custom Button
 </button>
 			</div>
@@ -1152,7 +1061,7 @@ Aire::submit(&#039;Custom Button&#039;)
 	
 		
 	<li class="group mb-4">
-			<i class="fas fa-fw fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire" class="text-gray-700 no-underline hover:text-gray-900">
 				README
 			</a>
@@ -1163,7 +1072,7 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/api" class="text-gray-700 no-underline hover:text-gray-900">
 				API Overview
 			</a>
@@ -1174,7 +1083,7 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 			
 		<li class="group text-salmon mb-4">
-			<i class="fas fa-fw fa-cubes mr-2"></i>
+			<i class="fa-fw fas fa-cubes mr-2"></i>
 			<a href="https://glhd.github.io/aire/components" class="text-salmon font-bold no-underline cursor-default">
 				Components
 			</a>
@@ -1185,7 +1094,7 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-paint-roller mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-paint-roller mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/themes" class="text-gray-700 no-underline hover:text-gray-900">
 				Theming
 			</a>
@@ -1203,7 +1112,7 @@ Aire::submit(&#039;Custom Button&#039;)
 	
 		
 	<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/basic" class="text-gray-700 no-underline hover:text-gray-900">
 				Basic Demo
 			</a>
@@ -1214,7 +1123,7 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/validation" class="text-gray-700 no-underline hover:text-gray-900">
 				Client-Side Validation
 			</a>
@@ -1225,14 +1134,46 @@ Aire::submit(&#039;Custom Button&#039;)
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/html-buttons" class="text-gray-700 no-underline hover:text-gray-900">
 				HTML in Buttons
 			</a>
 		</li>
 	
 	
+
+</ul>
+
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-gray-500 text-sm">
+	Themes
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
 	
+		
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-fill-drip mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-gray-700 no-underline hover:text-gray-900">
+				Tailwind Forms
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fab fa-bootstrap mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/bootstrap" class="text-gray-700 no-underline hover:text-gray-900">
+				Bootstrap
+			</a>
+		</li>
+	
+	
+
+</ul>
+
+<ul class="list-reset mt-8 font-semibold">
 	<li class="group mb-6 mt-6 pt-6 border-t border-gray-300">
 		<i class="fab fa-fw fa-github mr-2 text-gray-600 group-hover:text-gray-700"></i>
 		<a href="https://github.com/glhd/aire" class="text-gray-700 no-underline hover:text-gray-900" target="_blank">
@@ -1240,7 +1181,6 @@ Aire::submit(&#039;Custom Button&#039;)
 			<i class="fas fa-external-link-alt text-white group-hover:text-gray-100 ml-1"></i>
 		</a>
 	</li>
-	
 </ul>
 		</div>
 	</div>

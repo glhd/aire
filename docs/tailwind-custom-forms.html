@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-			Aire API Overview
+			Tailwind Custom Forms
  - Aire (Laravel Form Builder)
 	</title>
 	
@@ -52,232 +52,291 @@
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 					
 	<h1 class="text-2xl text-gray-900">
-		Aire API Overview
+		Tailwind Custom Forms
 	</h1>
 	
-	<p>
-		Aire is designed to be fluent and expressive. Methods are chainable when
-		possible, and most things &ldquo;<em>just work</em>&rdquo; without too much
-		effort.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Using the <code>Aire</code> facade or <code>aire()</code> helper
-	</h2>
-	
-	<p>
-		For the most part, everything is accessed via the <code>Aire</code> facade
-		or the <code>aire()</code> helper method. All code examples from here on out
-		will use the facade syntax, but the helper works exactly the same.
-	</p>
-	
-	<p>
-		Most calls to <code>Aire</code> are passed down to the currently active form.
-		The first call to any method will instantiate a new Form instance for you.
-		All subsequent calls will be passed to that instance until you create a new
-		form.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Opening a new <code>Form</code>
-	</h2>
-	
-	<p>
-		Typically, the first step to using Aire is to instantiate a new Form and
-		open it. You can do that in a single call, with:
-	</p>
-	
-	<p>
-		<code>Aire::open($action = null, $bound_data = null)</code>
-	</p>
-	
-	<p class="text-gray-600 ml-4 pl-4 border-l-4 italic">
-		You can instantiate a new form with <code>Aire::form()</code>,
-		but in practice you'll rarely need this step.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Adding an <code>Element</code> to the <code>Form</code>
-	</h2>
-	
-	<p>
-		Aire provides most common form elements and has helper methods
-		to quickly instantiate them. All elements are fluent, which means
-		that configuring them is quick and easy.
-	</p>
-	
-	<p>
-		The elements that Aire provides are:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>&lt;form&gt;</code></li>
-		<li><code>&lt;input&gt;</code></li>
-		<li><code>&lt;select&gt;</code></li>
-		<li><code>&lt;textarea&gt;</code></li>
-		<li><code>&lt;button&gt;</code></li>
-	</ul>
-	
-	<p>
-		The <code>Input</code> element supports the following types:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>checkbox</code></li>
-		<li><code>color</code></li>
-		<li><code>date</code></li>
-		<li><code>datetime</code></li>
-		<li><code>datetime-local</code></li>
-		<li><code>email</code></li>
-		<li><code>file</code></li>
-		<li><code>hidden</code></li>
-		<li><code>image</code></li>
-		<li><code>month</code></li>
-		<li><code>number</code></li>
-		<li><code>password</code></li>
-		<li><code>radio</code></li>
-		<li><code>range</code></li>
-		<li><code>reset</code></li>
-		<li><code>search</code></li>
-		<li><code>submit</code></li>
-		<li><code>tel</code></li>
-		<li><code>text</code></li>
-		<li><code>time</code></li>
-		<li><code>url</code></li>
-		<li><code>week</code></li>
-	</ul>
-	
-	<p>
-		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faux-elements
-		that abstract away managing the values of individual radio buttons or multi-value checkboxes.
-	</p>
-	
-	<p>
-		Each element and input type can be instantiated directly from the
-		<code>Aire</code> facade or from the current <code>Form</code>
-		instance.
-	</p>
-	
-	<pre><code class="language-php">{{ Aire::open() }}
-
-{{ Aire::input('name', 'Your Name') }} {{-- Creates a text input --}}
-
-{{ Aire::email('email_address', 'Your Email Address') }} {{-- Creates an email input --}}
-
-{{ Aire::submit('Submit') }} {{-- Creates a button input with type="submit" --}}
-
-{{ Aire::close() }}</code></pre>
-	
-	<p>
-		Each helper method provides the most common properties as parameters. Below
-		is an overview of each method signature:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>Aire::input($name = null, $label = null)</code></li>
-		<li><code>Aire::hidden($name = null, $value = null)</code></li>
-		<li><code>Aire::color($name = null, $label = null)</code></li>
-		<li><code>Aire::date($name = null, $label = null)</code></li>
-		<li><code>Aire::dateTime($name = null, $label = null)</code></li>
-		<li><code>Aire::dateTimeLocal($name = null, $label = null)</code></li>
-		<li><code>Aire::email($name = null, $label = null)</code></li>
-		<li><code>Aire::file($name = null, $label = null)</code></li>
-		<li><code>Aire::image($name = null, $label = null)</code></li>
-		<li><code>Aire::month($name = null, $label = null)</code></li>
-		<li><code>Aire::number($name = null, $label = null)</code></li>
-		<li><code>Aire::password($name = null, $label = null)</code></li>
-		<li><code>Aire::radio($name = null, $label = null)</code></li>
-		<li><code>Aire::range($name = null, $label = null, $min = 0, $max = 100)</code></li>
-		<li><code>Aire::search($name = null, $label = null)</code></li>
-		<li><code>Aire::tel($name = null, $label = null)</code></li>
-		<li><code>Aire::time($name = null, $label = null)</code></li>
-		<li><code>Aire::url($name = null, $label = null)</code></li>
-		<li><code>Aire::week($name = null, $label = null)</code></li>
-		<li><code>Aire::button(string $label = null)</code></li>
-		<li><code>Aire::submit(string $label = 'Submit')</code></li>
-		<li><code>Aire::select(array $options, $name = null, $label = null)</code></li>
-		<li><code>Aire::textArea($name = null, $label = null)</code></li>
-		<li><code>Aire::checkbox($name = null, $label = null)</code></li>
-	</ul>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Summary Helper
-	</h2>
-	
-	<p>
-		Aire comes with a special element that can be added to your form using
-		<code>Aire::summary()</code>. If you're using Laravel form validation,
-		this element will show a short summary of the errors on the page, if any
-		exist:
-	</p>
-	
-	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
-		There are 2 errors on this page that you must fix before continuing.
+	<div class="mt-4 mb-8 p-6 border rounded leading-normal bg-yellow-100 border-yellow-300 text-yellow-800">
+		<strong>Please note:</strong> This theme is a work-in-progress. It is not ready
+		for production&mdash;use at your own risk!
 	</div>
 	
 	<p>
-		You can also add additional information to the summary block with
-		<code>Aire::summary()->verbose()</code>.
+		If you're using the <a href="https://github.com/tailwindcss/custom-forms" target="_blank">Tailwind custom forms</a>
+		plugin, you can use it by adding <code>glhd/aire-tailwind-custom-forms</code> to your project. If
+		you're using Laravel package auto-discovery, there's nothing else you need to do (just make sure you've
+		<a href="https://tailwindcss-custom-forms.netlify.com/" target="_blank">installed the tailwind plugin</a>, too).
 	</p>
 	
-	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
-		There are 2 errors on this page that you must fix before continuing.
-		<ul class="pt-4">
-			<li>The name is required.</li>
-			<li>The email address is required.</li>
-		</ul>
-	</div>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Element Groups
+	<h2>
+		Installation
 	</h2>
 	
-	<p>
-		One of the major benefits of a form builder like Aire is that all the boilerplate
-		markup that wraps around your form elements can be generated for you. All Aire
-		elements are groupable, which allows you to associate things like a <strong>label</strong>,
-		or <strong>help text</strong> to the element without worrying about additional markup.
-	</p>
+	<pre>composer require glhd/aire-tailwind-custom-forms</pre>
 	
 	<p>
-		Where it makes sense, elements are grouped by default. This means that <code>Aire::input()</code>
-		can be passed a <code>->label()</code> and it will just work. You can override these defaults
-		by calling <code>grouped()</code> to enable grouping, or <code>withoutGroup()</code> to disable
-		it. Groups provide a few additional methods to any element:
+		Once the plugin is installed, you can use <code>Aire</code> as you would normally,
+		and all the custom forms classes will be applied:
 	</p>
 	
-	<ul class="pl-8 pb-8 list-disc">
-		<li>
-			<code>label(string $text)</code>
-			sets the label text for the element
-		</li>
-		<li>
-			<code>helpText(string $text)</code>
-			adds help text/instructions below the element
-		</li>
-		<li>
-			<code>valid()</code>
-			marks the group as valid (this is usually handled automatically,
-			but you have the option to manually set it if you like)
-		</li>
-		<li>
-			<code>invalid()</code>
-			marks the group as invalid (this is usually handled automatically,
-			but you have the option to manually set it if you like)
-		</li>
-		<li>
-			<code>errors($message)</code>
-			adds a specific error message to be shown below the element
-		</li>
-		<li>
-			<code>prepend(string $text)</code>
-			prepends text inline before the element
-		</li>
-		<li>
-			<code>append(string $text)</code>
-			appends text inline after the element
-		</li>
-	</ul>
+	<div class="border rounded my-12 relative">
+		<h2 class="m-0 px-6 py-3 border-b text-salmon">
+			Tailwind Custom Form
+		</h2>
+		
+		<div class="p-4">
+			
+			<form action="" method="POST" class="" data-aire-component="form" enctype="multipart/form-data" data-aire-id="110">
+
+		
+		
+	<div class="mb-6" data-aire-component="group">
+	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="demo">
+	Demo Input
+</label>
+
+	
+	<div class="">
+				
+		<input type="text" class="form-input block w-full text-gray-900" data-aire-component="input" id="demo" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors">
+			</ul>
+	
+			<small class="block mt-1 text-sm font-normal text-gray-600" data-aire-component="help_text">
+			This is demo help text.
+		</small>
+		
+</div>
+
+			
+			<div class="mb-6" data-aire-component="group">
+	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-110-114">
+	Demo Select
+</label>
+
+	
+	<div class="">
+				
+		<select class="form-select block w-full text-gray-900" data-aire-component="select" id="__aire-110-114">
+	
+		
+			
+		<option value="one" >
+			Option 1
+		</option>
+	
+			
+		<option value="two" >
+			Option 2
+		</option>
+	
+	
+</select>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors">
+			</ul>
+	
+		
+</div>
+
+			
+			<div class="mb-6" data-aire-component="group" data-aire-for="">
+	<label class="inline-block mb-2 font-semibold cursor-pointer" data-aire-component="label" for="__aire-110-">
+	Demo Multi-Select
+</label>
+
+	
+	<div class="">
+				
+		<select class="block w-full form-multiselect text-gray-900" data-aire-component="select" multiple data-aire-for="" name="[]" id="__aire-110-">
+	
+		
+			
+		<option value="one" >
+			Option 1
+		</option>
+	
+			
+		<option value="two" >
+			Option 2
+		</option>
+	
+	
+</select>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="">
+			</ul>
+	
+		
+</div>
+
+			
+			<div class="mb-6" data-aire-component="group">
+	
+	
+	<div class="">
+				
+		<textarea class="form-textarea block w-full text-gray-900" data-aire-component="textarea" id="__aire-110-120">Demo text area</textarea>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors">
+			</ul>
+	
+		
+</div>
+
+			
+			<div class="mb-6 form-check" data-aire-component="group">
+	
+	
+	<div class="">
+				
+		<label class="flex items-baseline" data-aire-component="label" for="__aire-110-122">
+	<input type="checkbox" value="1" class="form-checkbox" data-aire-component="checkbox" id="__aire-110-122" />
+	<span class="ml-2 flex-1" data-aire-component="wrapper">
+		Demo check box
+	</span>
+</label>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors">
+			</ul>
+	
+		
+</div>
+
+			
+			<div class="mb-6" data-aire-component="group" data-aire-for="foo">
+	<label class="inline-block mb-2 font-semibold" data-aire-component="label">
+	Demo radio group
+</label>
+
+	
+	<div class="">
+				
+		<div class="" data-aire-component="wrapper" data-aire-for="foo">
+	
+		
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="foo">
+			<input
+				type="radio" class="form-radio" data-aire-component="radio-group" name="foo" data-aire-for="foo"
+				value="one"
+				
+			/>
+			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="foo">
+				Option 1
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="foo">
+			<input
+				type="radio" class="form-radio" data-aire-component="radio-group" name="foo" data-aire-for="foo"
+				value="two"
+				checked
+			/>
+			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="foo">
+				Option 2
+			</span>
+		</label>
+	
+	</div>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="foo">
+			</ul>
+	
+		
+</div>
+
+			
+			<div class="mb-6 form-check" data-aire-component="group" data-aire-for="bar">
+	<label class="inline-block mb-2 font-semibold" data-aire-component="label">
+	Demo checkbox group
+</label>
+
+	
+	<div class="">
+				
+		<div class="" data-aire-component="wrapper" data-aire-for="bar">
+	
+		
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="bar">
+			<input
+				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" name="bar[]" data-aire-for="bar"
+				value="one"
+				checked
+			/>
+			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="bar">
+				Option 1
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="bar">
+			<input
+				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" name="bar[]" data-aire-for="bar"
+				value="two"
+				
+			/>
+			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="bar">
+				Option 2
+			</span>
+		</label>
+	
+			
+		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-for="bar">
+			<input
+				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" name="bar[]" data-aire-for="bar"
+				value="three"
+				checked
+			/>
+			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-for="bar">
+				Option 3
+			</span>
+		</label>
+	
+	</div>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-for="bar">
+			</ul>
+	
+		
+</div>
+
+			
+			<button class="inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
+			rounded leading-normal text-white bg-blue-600 border-blue-700 hover:bg-blue-700
+			hover:border-blue-900 p-2 px-4" data-aire-component="button" type="submit">
+	Demo Button
+</button>
+	
+	
+	
+</form>
+
+		</div>
+	</div>
 
 			</div>
 		</div>
@@ -327,9 +386,9 @@
 	
 		
 			
-		<li class="group text-salmon mb-4">
-			<i class="fa-fw fas fa-code mr-2"></i>
-			<a href="https://glhd.github.io/aire/api" class="text-salmon font-bold no-underline cursor-default">
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/api" class="text-gray-700 no-underline hover:text-gray-900">
 				API Overview
 			</a>
 		</li>
@@ -407,9 +466,9 @@
 <ul class="list-reset mt-8 font-semibold">
 	
 		
-	<li class="group mb-4">
-			<i class="fa-fw fas fa-fill-drip mr-2 text-gray-600 group-hover:text-gray-700"></i>
-			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-gray-700 no-underline hover:text-gray-900">
+	<li class="group text-salmon mb-4">
+			<i class="fa-fw fas fa-fill-drip mr-2"></i>
+			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-salmon font-bold no-underline cursor-default">
 				Tailwind Forms
 			</a>
 		</li>

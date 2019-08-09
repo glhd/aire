@@ -183,38 +183,50 @@
 
         elements.forEach(function (element) {
           if (name in classnames.valid) {
-            if (passes) {
-              var _element$classList;
+            var passes_classnames = classnames.valid[name].split(' ');
 
-              (_element$classList = element.classList).add.apply(_element$classList, _toConsumableArray(classnames.valid[name].split(' ')));
-            } else {
-              var _element$classList2;
+            if (passes_classnames.length) {
+              if (passes) {
+                var _element$classList;
 
-              (_element$classList2 = element.classList).remove.apply(_element$classList2, _toConsumableArray(classnames.valid[name].split(' ')));
+                (_element$classList = element.classList).add.apply(_element$classList, _toConsumableArray(passes_classnames));
+              } else {
+                var _element$classList2;
+
+                (_element$classList2 = element.classList).remove.apply(_element$classList2, _toConsumableArray(passes_classnames));
+              }
             }
           }
 
           if (name in classnames.invalid) {
-            if (fails) {
-              var _element$classList3;
+            var fails_classnames = classnames.invalid[name].split(' ');
 
-              (_element$classList3 = element.classList).add.apply(_element$classList3, _toConsumableArray(classnames.invalid[name].split(' ')));
-            } else {
-              var _element$classList4;
+            if (fails_classnames.length) {
+              if (fails) {
+                var _element$classList3;
 
-              (_element$classList4 = element.classList).remove.apply(_element$classList4, _toConsumableArray(classnames.invalid[name].split(' ')));
+                (_element$classList3 = element.classList).add.apply(_element$classList3, _toConsumableArray(fails_classnames));
+              } else {
+                var _element$classList4;
+
+                (_element$classList4 = element.classList).remove.apply(_element$classList4, _toConsumableArray(fails_classnames));
+              }
             }
           }
 
           if (name in classnames.none) {
-            if (!passes && !fails) {
-              var _element$classList5;
+            var none_classnames = classnames.none[name].split(' ');
 
-              (_element$classList5 = element.classList).add.apply(_element$classList5, _toConsumableArray(classnames.none[name].split(' ')));
-            } else {
-              var _element$classList6;
+            if (none_classnames.length) {
+              if (!passes && !fails) {
+                var _element$classList5;
 
-              (_element$classList6 = element.classList).remove.apply(_element$classList6, _toConsumableArray(classnames.none[name].split(' ')));
+                (_element$classList5 = element.classList).add.apply(_element$classList5, _toConsumableArray(none_classnames));
+              } else {
+                var _element$classList6;
+
+                (_element$classList6 = element.classList).remove.apply(_element$classList6, _toConsumableArray(none_classnames));
+              }
             }
           }
         });
@@ -335,6 +347,10 @@
 
       get data() {
         return 'undefined' === typeof validator ? getData(form) : validator.input;
+      },
+
+      get validator() {
+        return validator;
       },
 
       run: run,

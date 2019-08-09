@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-			Aire API Overview
+			Twitter Bootstrap Support
  - Aire (Laravel Form Builder)
 	</title>
 	
@@ -23,7 +23,8 @@
 	      href="https://use.fontawesome.com/releases/v5.10.1/css/fontawesome.css"
 	      crossorigin="anonymous" />
 	
-	</head>
+		<script src="https://unpkg.com/srcdoc-polyfill@1.0.0/srcdoc-polyfill.js"></script>
+</head>
 
 <body class="font-sans font-base leading-normal antialiased">
 
@@ -52,232 +53,264 @@
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 					
 	<h1 class="text-2xl text-gray-900">
-		Aire API Overview
+		Twitter Bootstrap Theme
 	</h1>
 	
-	<p>
-		Aire is designed to be fluent and expressive. Methods are chainable when
-		possible, and most things &ldquo;<em>just work</em>&rdquo; without too much
-		effort.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Using the <code>Aire</code> facade or <code>aire()</code> helper
-	</h2>
-	
-	<p>
-		For the most part, everything is accessed via the <code>Aire</code> facade
-		or the <code>aire()</code> helper method. All code examples from here on out
-		will use the facade syntax, but the helper works exactly the same.
-	</p>
-	
-	<p>
-		Most calls to <code>Aire</code> are passed down to the currently active form.
-		The first call to any method will instantiate a new Form instance for you.
-		All subsequent calls will be passed to that instance until you create a new
-		form.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Opening a new <code>Form</code>
-	</h2>
-	
-	<p>
-		Typically, the first step to using Aire is to instantiate a new Form and
-		open it. You can do that in a single call, with:
-	</p>
-	
-	<p>
-		<code>Aire::open($action = null, $bound_data = null)</code>
-	</p>
-	
-	<p class="text-gray-600 ml-4 pl-4 border-l-4 italic">
-		You can instantiate a new form with <code>Aire::form()</code>,
-		but in practice you'll rarely need this step.
-	</p>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Adding an <code>Element</code> to the <code>Form</code>
-	</h2>
-	
-	<p>
-		Aire provides most common form elements and has helper methods
-		to quickly instantiate them. All elements are fluent, which means
-		that configuring them is quick and easy.
-	</p>
-	
-	<p>
-		The elements that Aire provides are:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>&lt;form&gt;</code></li>
-		<li><code>&lt;input&gt;</code></li>
-		<li><code>&lt;select&gt;</code></li>
-		<li><code>&lt;textarea&gt;</code></li>
-		<li><code>&lt;button&gt;</code></li>
-	</ul>
-	
-	<p>
-		The <code>Input</code> element supports the following types:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>checkbox</code></li>
-		<li><code>color</code></li>
-		<li><code>date</code></li>
-		<li><code>datetime</code></li>
-		<li><code>datetime-local</code></li>
-		<li><code>email</code></li>
-		<li><code>file</code></li>
-		<li><code>hidden</code></li>
-		<li><code>image</code></li>
-		<li><code>month</code></li>
-		<li><code>number</code></li>
-		<li><code>password</code></li>
-		<li><code>radio</code></li>
-		<li><code>range</code></li>
-		<li><code>reset</code></li>
-		<li><code>search</code></li>
-		<li><code>submit</code></li>
-		<li><code>tel</code></li>
-		<li><code>text</code></li>
-		<li><code>time</code></li>
-		<li><code>url</code></li>
-		<li><code>week</code></li>
-	</ul>
-	
-	<p>
-		Aire also supports special <code>RadioGroup</code> and <code>CheckboxGroup</code> faux-elements
-		that abstract away managing the values of individual radio buttons or multi-value checkboxes.
-	</p>
-	
-	<p>
-		Each element and input type can be instantiated directly from the
-		<code>Aire</code> facade or from the current <code>Form</code>
-		instance.
-	</p>
-	
-	<pre><code class="language-php">{{ Aire::open() }}
-
-{{ Aire::input('name', 'Your Name') }} {{-- Creates a text input --}}
-
-{{ Aire::email('email_address', 'Your Email Address') }} {{-- Creates an email input --}}
-
-{{ Aire::submit('Submit') }} {{-- Creates a button input with type="submit" --}}
-
-{{ Aire::close() }}</code></pre>
-	
-	<p>
-		Each helper method provides the most common properties as parameters. Below
-		is an overview of each method signature:
-	</p>
-	
-	<ul class="pl-8 pb-8 list-disc">
-		<li><code>Aire::input($name = null, $label = null)</code></li>
-		<li><code>Aire::hidden($name = null, $value = null)</code></li>
-		<li><code>Aire::color($name = null, $label = null)</code></li>
-		<li><code>Aire::date($name = null, $label = null)</code></li>
-		<li><code>Aire::dateTime($name = null, $label = null)</code></li>
-		<li><code>Aire::dateTimeLocal($name = null, $label = null)</code></li>
-		<li><code>Aire::email($name = null, $label = null)</code></li>
-		<li><code>Aire::file($name = null, $label = null)</code></li>
-		<li><code>Aire::image($name = null, $label = null)</code></li>
-		<li><code>Aire::month($name = null, $label = null)</code></li>
-		<li><code>Aire::number($name = null, $label = null)</code></li>
-		<li><code>Aire::password($name = null, $label = null)</code></li>
-		<li><code>Aire::radio($name = null, $label = null)</code></li>
-		<li><code>Aire::range($name = null, $label = null, $min = 0, $max = 100)</code></li>
-		<li><code>Aire::search($name = null, $label = null)</code></li>
-		<li><code>Aire::tel($name = null, $label = null)</code></li>
-		<li><code>Aire::time($name = null, $label = null)</code></li>
-		<li><code>Aire::url($name = null, $label = null)</code></li>
-		<li><code>Aire::week($name = null, $label = null)</code></li>
-		<li><code>Aire::button(string $label = null)</code></li>
-		<li><code>Aire::submit(string $label = 'Submit')</code></li>
-		<li><code>Aire::select(array $options, $name = null, $label = null)</code></li>
-		<li><code>Aire::textArea($name = null, $label = null)</code></li>
-		<li><code>Aire::checkbox($name = null, $label = null)</code></li>
-	</ul>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Summary Helper
-	</h2>
-	
-	<p>
-		Aire comes with a special element that can be added to your form using
-		<code>Aire::summary()</code>. If you're using Laravel form validation,
-		this element will show a short summary of the errors on the page, if any
-		exist:
-	</p>
-	
-	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
-		There are 2 errors on this page that you must fix before continuing.
+	<div class="mt-4 mb-8 p-6 border rounded leading-normal bg-yellow-100 border-yellow-300 text-yellow-800">
+		<strong>Please note:</strong> This theme is a work-in-progress. It is not ready
+		for production&mdash;use at your own risk!
 	</div>
 	
 	<p>
-		You can also add additional information to the summary block with
-		<code>Aire::summary()->verbose()</code>.
+		Hey, maybe you're still using <a href="https://getbootstrap.com/">Bootstrap</a>. That's OK.
+		Aire has a custom Bootstrap theme just for you.
 	</p>
 	
-	<div class="border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4">
-		There are 2 errors on this page that you must fix before continuing.
-		<ul class="pt-4">
-			<li>The name is required.</li>
-			<li>The email address is required.</li>
-		</ul>
-	</div>
-	
-	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		Element Groups
+	<h2>
+		Installation
 	</h2>
 	
-	<p>
-		One of the major benefits of a form builder like Aire is that all the boilerplate
-		markup that wraps around your form elements can be generated for you. All Aire
-		elements are groupable, which allows you to associate things like a <strong>label</strong>,
-		or <strong>help text</strong> to the element without worrying about additional markup.
-	</p>
+	<pre>composer require glhd/aire-bootstrap</pre>
 	
 	<p>
-		Where it makes sense, elements are grouped by default. This means that <code>Aire::input()</code>
-		can be passed a <code>->label()</code> and it will just work. You can override these defaults
-		by calling <code>grouped()</code> to enable grouping, or <code>withoutGroup()</code> to disable
-		it. Groups provide a few additional methods to any element:
+		Once the plugin is installed, you can use <code>Aire</code> as you would normally,
+		and all the Bootstrap classes will be applied:
 	</p>
 	
-	<ul class="pl-8 pb-8 list-disc">
-		<li>
-			<code>label(string $text)</code>
-			sets the label text for the element
-		</li>
-		<li>
-			<code>helpText(string $text)</code>
-			adds help text/instructions below the element
-		</li>
-		<li>
-			<code>valid()</code>
-			marks the group as valid (this is usually handled automatically,
-			but you have the option to manually set it if you like)
-		</li>
-		<li>
-			<code>invalid()</code>
-			marks the group as invalid (this is usually handled automatically,
-			but you have the option to manually set it if you like)
-		</li>
-		<li>
-			<code>errors($message)</code>
-			adds a specific error message to be shown below the element
-		</li>
-		<li>
-			<code>prepend(string $text)</code>
-			prepends text inline before the element
-		</li>
-		<li>
-			<code>append(string $text)</code>
-			appends text inline after the element
-		</li>
-	</ul>
+		
+	<div class="border rounded my-12 relative">
+		<h2 class="m-0 px-6 py-3 border-b text-salmon">
+			Bootstrap 4 Form
+		</h2>
+		<iframe class="w-full h-screen" srcdoc="	
+	&lt;div style=&quot;padding: 1rem;&quot;&gt;
+		&lt;link rel=&quot;stylesheet&quot;
+		      href=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css&quot;
+		      integrity=&quot;sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO&quot;
+		      crossorigin=&quot;anonymous&quot; /&gt;
+		
+		&lt;form action=&quot;&quot; method=&quot;POST&quot; class=&quot;&quot; data-aire-component=&quot;form&quot; enctype=&quot;multipart/form-data&quot; data-aire-id=&quot;22&quot;&gt;
+
+		
+		
+	&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;demo&quot;&gt;
+	Demo Input
+&lt;/label&gt;
+
+
+    &lt;input type=&quot;text&quot; class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;input&quot; id=&quot;demo&quot; /&gt;
+
+
+            &lt;small class=&quot;form-text text-muted no-yet-validated&quot; data-aire-component=&quot;help_text&quot;&gt;
+            This is demo help text.
+        &lt;/small&gt;
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-26&quot;&gt;
+	Demo Select
+&lt;/label&gt;
+
+
+    &lt;select class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;select&quot; id=&quot;__aire-22-26&quot;&gt;
+	
+		
+			
+		&lt;option value=&quot;one&quot; &gt;
+			Option 1
+		&lt;/option&gt;
+	
+			
+		&lt;option value=&quot;two&quot; &gt;
+			Option 2
+		&lt;/option&gt;
+	
+	
+&lt;/select&gt;
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot; data-aire-for=&quot;&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-&quot;&gt;
+	Demo Multi-Select
+&lt;/label&gt;
+
+
+    &lt;select class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;select&quot; multiple data-aire-for=&quot;&quot; name=&quot;[]&quot; id=&quot;__aire-22-&quot;&gt;
+	
+		
+			
+		&lt;option value=&quot;one&quot; &gt;
+			Option 1
+		&lt;/option&gt;
+	
+			
+		&lt;option value=&quot;two&quot; &gt;
+			Option 2
+		&lt;/option&gt;
+	
+	
+&lt;/select&gt;
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
+    
+
+    &lt;textarea class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;textarea&quot; id=&quot;__aire-22-32&quot;&gt;Demo text area&lt;/textarea&gt;
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group form-check&quot; data-aire-component=&quot;group&quot;&gt;
+    
+
+    &lt;input type=&quot;checkbox&quot; value=&quot;1&quot; class=&quot;form-check-input&quot; data-aire-component=&quot;checkbox&quot; id=&quot;__aire-22-34&quot; /&gt;
+
+&lt;label class=&quot;form-check-label&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-34&quot;&gt;
+    Demo check box
+&lt;/label&gt;
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot; data-aire-for=&quot;foo&quot;&gt;
+    &lt;label class=&quot;&quot; data-aire-component=&quot;label&quot;&gt;
+	Demo radio group
+&lt;/label&gt;
+
+
+    &lt;div class=&quot;custom-control custom-radio&quot; data-aire-component=&quot;label_wrapper&quot; data-aire-for=&quot;foo&quot;&gt;
+        &lt;input
+            type=&quot;radio&quot; class=&quot;custom-control-input&quot; data-aire-component=&quot;radio-group&quot; name=&quot;foo&quot; data-aire-for=&quot;foo&quot;
+            value=&quot;one&quot;
+            
+            id=&quot;aire-selection-one&quot;
+        /&gt;
+        &lt;label class=&quot;custom-control-label&quot; data-aire-component=&quot;label&quot; data-aire-for=&quot;foo&quot;
+               for=&quot;aire-selection-one&quot;&gt;
+            Option 1
+        &lt;/label&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;custom-control custom-radio&quot; data-aire-component=&quot;label_wrapper&quot; data-aire-for=&quot;foo&quot;&gt;
+        &lt;input
+            type=&quot;radio&quot; class=&quot;custom-control-input&quot; data-aire-component=&quot;radio-group&quot; name=&quot;foo&quot; data-aire-for=&quot;foo&quot;
+            value=&quot;two&quot;
+            checked
+            id=&quot;aire-selection-two&quot;
+        /&gt;
+        &lt;label class=&quot;custom-control-label&quot; data-aire-component=&quot;label&quot; data-aire-for=&quot;foo&quot;
+               for=&quot;aire-selection-two&quot;&gt;
+            Option 2
+        &lt;/label&gt;
+    &lt;/div&gt;
+
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;foo&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group form-check&quot; data-aire-component=&quot;group&quot; data-aire-for=&quot;bar&quot;&gt;
+    &lt;label class=&quot;&quot; data-aire-component=&quot;label&quot;&gt;
+	Demo checkbox group
+&lt;/label&gt;
+
+
+    &lt;div class=&quot;&quot; data-aire-component=&quot;wrapper&quot; data-aire-for=&quot;bar&quot;&gt;
+	
+		
+			
+		&lt;label class=&quot;&quot; data-aire-component=&quot;label&quot; data-aire-for=&quot;bar&quot;&gt;
+			&lt;input
+				type=&quot;checkbox&quot; class=&quot;&quot; data-aire-component=&quot;checkbox-group&quot; name=&quot;bar[]&quot; data-aire-for=&quot;bar&quot;
+				value=&quot;one&quot;
+				checked
+			/&gt;
+			&lt;span class=&quot;&quot; data-aire-component=&quot;label_wrappwer&quot; data-aire-for=&quot;bar&quot;&gt;
+				Option 1
+			&lt;/span&gt;
+		&lt;/label&gt;
+	
+			
+		&lt;label class=&quot;&quot; data-aire-component=&quot;label&quot; data-aire-for=&quot;bar&quot;&gt;
+			&lt;input
+				type=&quot;checkbox&quot; class=&quot;&quot; data-aire-component=&quot;checkbox-group&quot; name=&quot;bar[]&quot; data-aire-for=&quot;bar&quot;
+				value=&quot;two&quot;
+				
+			/&gt;
+			&lt;span class=&quot;&quot; data-aire-component=&quot;label_wrappwer&quot; data-aire-for=&quot;bar&quot;&gt;
+				Option 2
+			&lt;/span&gt;
+		&lt;/label&gt;
+	
+			
+		&lt;label class=&quot;&quot; data-aire-component=&quot;label&quot; data-aire-for=&quot;bar&quot;&gt;
+			&lt;input
+				type=&quot;checkbox&quot; class=&quot;&quot; data-aire-component=&quot;checkbox-group&quot; name=&quot;bar[]&quot; data-aire-for=&quot;bar&quot;
+				value=&quot;three&quot;
+				checked
+			/&gt;
+			&lt;span class=&quot;&quot; data-aire-component=&quot;label_wrappwer&quot; data-aire-for=&quot;bar&quot;&gt;
+				Option 3
+			&lt;/span&gt;
+		&lt;/label&gt;
+	
+	&lt;/div&gt;
+
+
+    
+    &lt;div class=&quot;invalid-feedback hidden&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;bar&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;button class=&quot;btn btn-primary&quot; data-aire-component=&quot;button&quot; type=&quot;submit&quot;&gt;
+	Demo Button
+&lt;/button&gt;
+	
+	
+	
+&lt;/form&gt;
+
+	&lt;/div&gt;
+	
+	"></iframe>
+	</div>
 
 			</div>
 		</div>
@@ -327,9 +360,9 @@
 	
 		
 			
-		<li class="group text-salmon mb-4">
-			<i class="fa-fw fas fa-code mr-2"></i>
-			<a href="https://glhd.github.io/aire/api" class="text-salmon font-bold no-underline cursor-default">
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/api" class="text-gray-700 no-underline hover:text-gray-900">
 				API Overview
 			</a>
 		</li>
@@ -418,9 +451,9 @@
 	
 		
 			
-		<li class="group mb-4">
-			<i class="fa-fw fab fa-bootstrap mr-2 text-gray-600 group-hover:text-gray-700"></i>
-			<a href="https://glhd.github.io/aire/bootstrap" class="text-gray-700 no-underline hover:text-gray-900">
+		<li class="group text-salmon mb-4">
+			<i class="fa-fw fab fa-bootstrap mr-2"></i>
+			<a href="https://glhd.github.io/aire/bootstrap" class="text-salmon font-bold no-underline cursor-default">
 				Bootstrap
 			</a>
 		</li>

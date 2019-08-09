@@ -27,6 +27,7 @@
 		'checkbox-group' => 'Checkbox Group',
 		'checkbox' => 'Checkbox',
 		'select' => 'Select',
+		'timezone-select' => 'Timezone Select',
 		'range' => 'Range Selector',
 		'search' => 'Search Input',
 		'tel' => 'Phone Number Input',

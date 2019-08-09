@@ -14,16 +14,13 @@
 	<link rel="stylesheet" href="https://glhd.github.io/aire/aire.css" />
 	
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css"
-	      integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/solid.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/brands.css"
-	      integrity="sha384-BCEeiNUiLzxxoeYaIu7jJqq0aVVz2O2Ig4WbWEmRQ2Dx/AAxNV1wMDBXyyrxw1Zd"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/brands.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css"
-	      integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ"
+	      href="https://use.fontawesome.com/releases/v5.10.1/css/fontawesome.css"
 	      crossorigin="anonymous" />
 	
 	</head>
@@ -71,16 +68,17 @@
 	</p>
 	
 	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		<code>Aire::setTheme($namespace = null, $prefix = null)</code>
+		<code>Aire::setTheme($namespace = null, $prefix = null, $config = [])</code>
 	</h2>
 	
 	<p>
 		Calling <code>setTheme()</code> will tell Aire where to look for its associated
-		templates. By default, Aire loads views in the format <code>&quot;aire::input&quot;</code>.
+		templates &amp; apply any overrides to the configuration. By default, Aire loads views in
+		the format <code>&quot;aire::input&quot;</code>.
 		Calling <code>Aire::setTheme(&quot;mynamespace&quot;, &quot;dark-variant&quot;)</code> would
 		cause Aire to look for the input view at <code>&quot;mynamespace::dark-variant.input&quot;</code>
 		which makes it easy to either publish a single theme, or multiple variants of the same theme
-		nder one package.
+		under one package.
 	</p>
 	
 	<p>
@@ -220,7 +218,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 	
 		
 	<li class="group mb-4">
-			<i class="fas fa-fw fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire" class="text-gray-700 no-underline hover:text-gray-900">
 				README
 			</a>
@@ -231,7 +229,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/api" class="text-gray-700 no-underline hover:text-gray-900">
 				API Overview
 			</a>
@@ -242,7 +240,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-cubes mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-cubes mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/components" class="text-gray-700 no-underline hover:text-gray-900">
 				Components
 			</a>
@@ -253,7 +251,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 		
 			
 		<li class="group text-salmon mb-4">
-			<i class="fas fa-fw fa-paint-roller mr-2"></i>
+			<i class="fa-fw fas fa-paint-roller mr-2"></i>
 			<a href="https://glhd.github.io/aire/themes" class="text-salmon font-bold no-underline cursor-default">
 				Theming
 			</a>
@@ -271,7 +269,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 	
 		
 	<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/basic" class="text-gray-700 no-underline hover:text-gray-900">
 				Basic Demo
 			</a>
@@ -282,7 +280,7 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/validation" class="text-gray-700 no-underline hover:text-gray-900">
 				Client-Side Validation
 			</a>
@@ -293,14 +291,46 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 		
 			
 		<li class="group mb-4">
-			<i class="fas fa-fw fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
 			<a href="https://glhd.github.io/aire/html-buttons" class="text-gray-700 no-underline hover:text-gray-900">
 				HTML in Buttons
 			</a>
 		</li>
 	
 	
+
+</ul>
+
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-gray-500 text-sm">
+	Themes
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
 	
+		
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-fill-drip mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-gray-700 no-underline hover:text-gray-900">
+				Tailwind Forms
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fab fa-bootstrap mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/bootstrap" class="text-gray-700 no-underline hover:text-gray-900">
+				Bootstrap
+			</a>
+		</li>
+	
+	
+
+</ul>
+
+<ul class="list-reset mt-8 font-semibold">
 	<li class="group mb-6 mt-6 pt-6 border-t border-gray-300">
 		<i class="fab fa-fw fa-github mr-2 text-gray-600 group-hover:text-gray-700"></i>
 		<a href="https://github.com/glhd/aire" class="text-gray-700 no-underline hover:text-gray-900" target="_blank">
@@ -308,7 +338,6 @@ class AireBootstrapThemeServiceProvider extends ServiceProvider
 			<i class="fas fa-external-link-alt text-white group-hover:text-gray-100 ml-1"></i>
 		</a>
 	</li>
-	
 </ul>
 		</div>
 	</div>
