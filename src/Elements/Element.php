@@ -7,6 +7,7 @@ use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Arr;
 
 abstract class Element implements Htmlable
 {
@@ -183,6 +184,40 @@ abstract class Element implements Htmlable
 	public function __toString() : string
 	{
 		return $this->toHtml();
+	}
+	
+	/**
+	 * Get either all the current view data or a specific key
+	 *
+	 * This is mostly useful for themes that need to customize behavior
+	 * based on view data. It is NOT RECOMMENDED that you use this
+	 * in day-to-day usage, as it will break if internal code is changed.
+	 *
+	 * @param string|null $key
+	 * @return array|mixed
+	 */
+	public function getViewData(string $key = null)
+	{
+		if (null === $key) {
+			return $this->view_data;
+		}
+		
+		return Arr::get($this->view_data, $key);
+	}
+	
+	/**
+	 * Check if view data is set
+	 *
+	 * This is mostly useful for themes that need to customize behavior
+	 * based on view data. It is NOT RECOMMENDED that you use this
+	 * in day-to-day usage, as it will break if internal code is changed.
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function hasViewData(string $key) : bool
+	{
+		return Arr::has($this->view_data, $key);
 	}
 	
 	/**

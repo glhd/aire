@@ -4,7 +4,7 @@ namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
 
-class ConfiguredClassesTest extends TestCase
+class ClassNamesTest extends TestCase
 {
 	protected function setUp() : void
 	{
@@ -18,7 +18,37 @@ class ConfiguredClassesTest extends TestCase
 		$config->set('aire.validation_classes.invalid.input', 'is-invalid');
 	}
 	
-	public function test_default_classes_can_be_set() : void
+	public function test_class_names_can_export_a_final_list_of_classes() : void
+	{
+		$class_names = $this->aire()->input()->valid()->attributes->primary()->class;
+		
+		$class_names->add('added-1', 'added-2');
+		$class_names->remove('added-2');
+		
+		$this->assertEmpty(array_diff([
+			'is-valid',
+			'input-default',
+			'added-1',
+		], $class_names->all()));
+	}
+	
+	public function test_the_has_method_includes_validation_and_respects_removals() : void
+	{
+		$class_names = $this->aire()->input()->valid()->attributes->primary()->class;
+		
+		$class_names->add('added-1', 'added-2');
+		$class_names->remove('added-2');
+		
+		$this->assertTrue($class_names->has('is-valid'));
+		$this->assertTrue($class_names->has('input-default'));
+		$this->assertTrue($class_names->has('added-1'));
+		$this->assertFalse($class_names->has('added-2'));
+		$this->assertFalse($class_names->has('no-validation'));
+		$this->assertFalse($class_names->has('is-invalid'));
+		$this->assertFalse($class_names->has(str_random()));
+	}
+	
+	public function test_default_classes_are_applied_by_default() : void
 	{
 		$input = $this->aire()->input();
 		

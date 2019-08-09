@@ -129,16 +129,44 @@ class ClassNames
 	}
 	
 	/**
+	 * Get all the computed class names, including defaults and validation-based names
+	 *
+	 * @return array
+	 */
+	public function all() : array
+	{
+		$computed_class_names = array_unique(array_merge($this->class_names, $this->validation()));
+		
+		return array_diff($computed_class_names, $this->removed_class_names);
+	}
+	
+	/**
+	 * Check if a class name is set (including validation & defaults)
+	 *
+	 * @param string ...$class_names
+	 * @return bool
+	 */
+	public function has(string ...$class_names) : bool
+	{
+		$all = $this->all();
+		
+		foreach ($class_names as $class_name) {
+			if (!in_array($class_name, $all)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Apply defaults, configured, and validation class names
 	 *
 	 * @return string
 	 */
 	public function __toString()
 	{
-		return implode(' ', array_diff(array_unique(array_merge(
-			$this->class_names,
-			$this->validation()
-		)), $this->removed_class_names));
+		return implode(' ', $this->all());
 	}
 	
 	/**
