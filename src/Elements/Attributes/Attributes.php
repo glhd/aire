@@ -147,7 +147,10 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		
 		if (isset($this->mutators[$key])) {
 			foreach ($this->mutators[$key] as $mutator) {
-				$value = $mutator($value);
+				$mutated = $mutator($value);
+				if ('class' !== $key || null !== $mutated) {
+					$value = $mutated;
+				}
 			}
 		}
 		

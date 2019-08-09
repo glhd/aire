@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Elements\Attributes\Attributes;
+use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Tests\TestCase;
 
 class AttributesTest extends TestCase
@@ -88,6 +89,20 @@ class AttributesTest extends TestCase
 		});
 		
 		$this->assertEquals('BAR', $attributes->get('foo'));
+	}
+	
+	public function test_class_name_mutator_can_return_null() : void
+	{
+		$attributes = new Attributes([
+			'class' => new ClassNames(''),
+		]);
+		
+		$attributes->registerMutator('class', function(ClassNames $class_names) {
+			$class_names->add('mutated');
+		});
+		
+		$this->assertInstanceOf(ClassNames::class, $attributes->class);
+		$this->assertEquals('mutated', $attributes->get('class'));
 	}
 	
 	public function test_value_equality_helper() : void

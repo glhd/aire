@@ -15,6 +15,13 @@ class ClassNames
 	protected static $default_classes = [];
 	
 	/**
+	 * Configured variant class names
+	 *
+	 * @var array
+	 */
+	protected static $variant_classes = [];
+	
+	/**
 	 * Configured validation class names
 	 *
 	 * @var array
@@ -50,6 +57,13 @@ class ClassNames
 	protected $group;
 	
 	/**
+	 * The current element variant
+	 *
+	 * @var string
+	 */
+	protected $variant;
+	
+	/**
 	 * Constructor
 	 *
 	 * @param string $element_name
@@ -71,6 +85,16 @@ class ClassNames
 	public static function setDefaultClasses(array $default_classes) : void
 	{
 		static::$default_classes = $default_classes;
+	}
+	
+	/**
+	 * Set the configured variant class names
+	 *
+	 * @param array $variant_classes
+	 */
+	public static function setVariantClasses(array $variant_classes) : void
+	{
+		static::$variant_classes = $variant_classes;
 	}
 	
 	/**
@@ -135,7 +159,11 @@ class ClassNames
 	 */
 	public function all() : array
 	{
-		$computed_class_names = array_unique(array_merge($this->class_names, $this->validation()));
+		$computed_class_names = array_unique(array_merge(
+			$this->class_names,
+			$this->variantClassNames(),
+			$this->validationClassNames()
+		));
 		
 		return array_diff($computed_class_names, $this->removed_class_names);
 	}
@@ -157,6 +185,13 @@ class ClassNames
 		}
 		
 		return true;
+	}
+	
+	public function variant(string $variant = null) : self
+	{
+		$this->variant = $variant;
+		
+		return $this;
 	}
 	
 	/**
@@ -192,11 +227,36 @@ class ClassNames
 	}
 	
 	/**
+	 * Get variant class names based on the input's variant setting
+	 *
+	 * @return array
+	 */
+	protected function variantClassNames() : array
+	{
+		$variant = $this->variant ?? 'default';
+		
+		$element_name = $this->element_name;
+		
+		if ('textarea' === $element_name && !isset(static::$validation_classes[$element_name])) {
+			$element_name = 'input';
+		}
+		
+		$key = "{$element_name}.{$variant}";
+		$class_names = Arr::get(static::$variant_classes, $key, []);
+		
+		if (is_string($class_names)) {
+			$class_names = explode(' ', $class_names);
+		}
+		
+		return $class_names;
+	}
+	
+	/**
 	 * Get validation class names based on the group's validation state
 	 *
-	 * @return null|string
+	 * @return array
 	 */
-	protected function validation() : array
+	protected function validationClassNames() : array
 	{
 		if (null === $this->group) {
 			return [];

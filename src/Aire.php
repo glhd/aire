@@ -307,6 +307,7 @@ class Aire
 	protected function registerClasses() : self
 	{
 		ClassNames::setDefaultClasses($this->config('default_classes', []));
+		ClassNames::setVariantClasses($this->config('variant_classes', []));
 		ClassNames::setValidationClasses($this->config('validation_classes', []));
 		
 		return $this;
