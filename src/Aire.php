@@ -47,6 +47,11 @@ use Illuminate\View\Factory;
 class Aire
 {
 	/**
+	 * @var array
+	 */
+	protected static $default_theme_config;
+	
+	/**
 	 * Global store of element IDs
 	 *
 	 * @var int
@@ -108,10 +113,26 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->user_config = $config;
 		
-		$default_theme_config = require dirname(__DIR__).'/config/default-theme.php';
-		$this->setTheme('aire', null, $default_theme_config);
+		$this->setTheme('aire', null, static::getDefaultThemeConfig());
 		
 		$this->registerClasses();
+	}
+	
+	/**
+	 * Get the default Aire theme config.
+	 *
+	 * This is mostly for theme authors who wish to merge the defaults
+	 * into their theme config instead of provided all new class names.
+	 *
+	 * @return array
+	 */
+	public static function getDefaultThemeConfig() : array
+	{
+		if (null === static::$default_theme_config) {
+			static::$default_theme_config = require dirname(__DIR__).'/config/default-theme.php';
+		}
+		
+		return static::$default_theme_config;
 	}
 	
 	/**
