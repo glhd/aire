@@ -66,6 +66,11 @@ class Aire
 	/**
 	 * @var array
 	 */
+	protected $user_config;
+	
+	/**
+	 * @var array
+	 */
 	protected $config;
 	
 	/**
@@ -77,11 +82,6 @@ class Aire
 	 * @var string
 	 */
 	protected $view_prefix;
-	
-	/**
-	 * @var array
-	 */
-	protected $attribute_observers = [];
 	
 	/**
 	 * @var \Closure
@@ -106,13 +106,16 @@ class Aire
 		$this->view_factory = $view_factory;
 		$this->session_store = $session_store;
 		$this->form_resolver = $form_resolver;
-		$this->config = $config;
+		$this->user_config = $config;
+		
+		$default_theme_config = require dirname(__DIR__).'/config/default-theme.php';
+		$this->setTheme('aire', null, $default_theme_config);
 		
 		$this->registerClasses();
 	}
 	
 	/**
-	 * Set where Aire looks for view files
+	 * Set where Aire looks for view files + any config overrides
 	 *
 	 * This is mostly useful for third-party themes. By utilizing package
 	 * auto-discovery, a theme can call this from its service provider's
@@ -123,12 +126,14 @@ class Aire
 	 *
 	 * @param string|null $namespace
 	 * @param string|null $prefix
+	 * @param array|null $config
 	 * @return \Galahad\Aire\Aire
 	 */
-	public function setTheme($namespace = null, $prefix = null) : self
+	public function setTheme($namespace = null, $prefix = null, array $config = []) : self
 	{
 		$this->view_namespace = $namespace;
 		$this->view_prefix = $prefix;
+		$this->config = array_replace_recursive($config, $this->user_config);
 		
 		return $this;
 	}

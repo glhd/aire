@@ -227,6 +227,9 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 				? getData(form)
 				: validator.input;
 		},
+		get validator() {
+			return validator;
+		},
 		run,
 		disconnect,
 	};

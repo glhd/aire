@@ -23,16 +23,17 @@
 	</p>
 	
 	<h2 class="mt-8 pt-8 border-t border-gray-300">
-		<code>Aire::setTheme($namespace = null, $prefix = null)</code>
+		<code>Aire::setTheme($namespace = null, $prefix = null, $config = [])</code>
 	</h2>
 	
 	<p>
 		Calling <code>setTheme()</code> will tell Aire where to look for its associated
-		templates. By default, Aire loads views in the format <code>&quot;aire::input&quot;</code>.
+		templates &amp; apply any overrides to the configuration. By default, Aire loads views in
+		the format <code>&quot;aire::input&quot;</code>.
 		Calling <code>Aire::setTheme(&quot;mynamespace&quot;, &quot;dark-variant&quot;)</code> would
 		cause Aire to look for the input view at <code>&quot;mynamespace::dark-variant.input&quot;</code>
 		which makes it easy to either publish a single theme, or multiple variants of the same theme
-		nder one package.
+		under one package.
 	</p>
 	
 	<p>

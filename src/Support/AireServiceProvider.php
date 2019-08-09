@@ -4,6 +4,7 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Form;
+use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -126,9 +127,6 @@ class AireServiceProvider extends ServiceProvider
 	 */
 	protected function bootConfig() : self
 	{
-		// TODO: It may make sense to not publish the default classes/etc so that
-		// TODO: publishing doesn't fix the user to that set of default classes
-		
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
 				$this->config_path => $this->app->configPath('aire.php'),
@@ -170,37 +168,5 @@ class AireServiceProvider extends ServiceProvider
 		}
 		
 		return $this;
-	}
-	
-	/**
-	 * @inheritdoc
-	 */
-	protected function mergeConfigFrom($path, $key)
-	{
-		$default_config = require $path;
-		$user_config = $this->app['config']->get($key, []);
-		
-		$merged_config = array_merge($default_config, $user_config);
-		
-		$recursive_configs = ['default_attributes', 'default_classes', 'validation_classes'];
-		
-		foreach ($recursive_configs as $config_key) {
-			if (!isset($user_config[$config_key])) {
-				continue;
-			}
-			
-			foreach ($default_config[$config_key] as $subkey => $defaults) {
-				if (is_string($defaults) && !isset($user_config[$config_key][$subkey])) {
-					$merged_config[$config_key][$subkey] = $defaults;
-				} else if (is_array($defaults)) {
-					$merged_config[$config_key][$subkey] = array_merge(
-						$defaults,
-						$user_config[$config_key][$subkey] ?? []
-					);
-				}
-			}
-		}
-		
-		$this->app['config']->set($key, $merged_config);
 	}
 }
