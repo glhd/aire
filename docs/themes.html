@@ -87,7 +87,7 @@
 		method, and your theme will be automatically enabled when installed. This means that running…
 	</p>
 	
-	<pre><code class="language-shell">composer require glhd/aire demo/aire-bootstrap-theme</code></pre>
+	<pre><code class="language-shell">composer require glhd/aire example/aire-sample-theme</code></pre>
 	
 	<p>
 		…is all the end-user needs to do to use Aire and your theme!
@@ -103,7 +103,7 @@
 	
 	<ul class="pl-8">
 		<li>
-			<code>my-theme/</code>
+			<code>aire-sample-theme/</code>
 			<ul class="pl-8 pb-8">
 				<li>
 					<a href="#theme-composer.json">
@@ -115,7 +115,7 @@
 					<ul class="pl-8 pb-8">
 						<li>
 							<a href="#theme-service-provider">
-								<code>MyThemeServiceProvider</code>
+								<code>AireSampleThemeServiceProvider</code>
 							</a>
 						</li>
 					</ul>
@@ -143,20 +143,20 @@
 	</h3>
 	
 	<pre><code class="language-json">{
-  "name": "example/aire-bootstrap-theme",
-  "description": "Aire theme providing Bootstrap 4-compatible markup and styling.",
+  "name": "example/aire-sample-theme",
+  "description": "My custom Aire theme",
   "require": {
-    "glhd/aire": "dev-master",
+    "glhd/aire": "^1.1.0",
   },
   "autoload": {
     "psr-4": {
-      "Example\\AireBootstrapTheme\\": "src/"
+      "Example\\AireSampleTheme\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Example\\AireBootstrapTheme\\AireBootstrapThemeServiceProvider"
+        "Example\\AireSampleTheme\\AireSampleThemeServiceProvider"
       ]
     }
   }
@@ -166,17 +166,27 @@
 		Sample Service Provider
 	</h3>
 	
-	<pre><code class="language-php">namespace Example\AireBootstrapTheme;
+	<pre><code class="language-php">namespace Example\AireSampleTheme;
 
 use Galahad\Aire\Aire;
 use Illuminate\Support\ServiceProvider;
 
-class AireBootstrapThemeServiceProvider extends ServiceProvider
+class AireSampleThemeServiceProvider extends ServiceProvider
 {
 	public function boot()
 	{
-		$this->loadViewsFrom(dirname(__DIR__).'/views', 'example-aire-bootstrap');
-		Aire::setTheme('example-aire-bootstrap');
+		$this->loadViewsFrom(dirname(__DIR__).'/views', 'aire-sample');
+		
+		Aire::setTheme('aire-sample', null, array_replace_recursive(
+			// If you want to merge in the default Aire theme,
+			// you can load it via this static method
+			\Galahad\Aire\Aire::getDefaultThemeConfig(),
+			[
+				'default_classes' => [
+					'input' => 'my-custom-input-class',
+				],
+			]
+		));
 	}
 }</code></pre>
 
