@@ -2,15 +2,21 @@
 
 namespace Docs;
 
+use Galahad\Aire\Support\Facades\Aire;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
 	protected $namespace = 'Docs';
+	
+	public function boot()
+	{
+		parent::boot();
+		
+		Aire::resetTheme();
+	}
 	
 	public function map()
 	{

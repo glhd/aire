@@ -60,11 +60,7 @@
       ],
       "aliases": {
         "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
-      },
-      "dont-discover": [
-        "glhd/aire-tailwind-custom-forms",
-        "glhd/aire-bootstrap"
-      ]
+      }
     }
   }
 }

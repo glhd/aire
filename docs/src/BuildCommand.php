@@ -19,6 +19,7 @@ class BuildCommand extends Command
 		config()->set('app.url', 'https://glhd.github.io/aire/');
 		app('url')->forceRootUrl('https://glhd.github.io/aire/');
 		app('url')->forceScheme('https');
+		app('galahad.aire')->resetTheme();
 		
 		$this->buildJavascript();
 		$this->buildCSS();
