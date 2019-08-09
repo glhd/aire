@@ -2,8 +2,9 @@
 
 namespace Galahad\Aire\Elements\Attributes;
 
-use Galahad\Aire\Elements\Group;
+use Galahad\Aire\Elements\Element;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection as BaseCollection;
 
 class ClassNames
 {
@@ -50,6 +51,11 @@ class ClassNames
 	protected $element_name;
 	
 	/**
+	 * @var \Galahad\Aire\Elements\Element|null
+	 */
+	protected $element;
+	
+	/**
 	 * If the class list is associated with a group, we can pull validation classes as well
 	 *
 	 * @var \Galahad\Aire\Elements\Group
@@ -57,22 +63,16 @@ class ClassNames
 	protected $group;
 	
 	/**
-	 * The current element variant
-	 *
-	 * @var string
-	 */
-	protected $variant;
-	
-	/**
 	 * Constructor
 	 *
 	 * @param string $element_name
-	 * @param \Galahad\Aire\Elements\Group|null $group
+	 * @param \Galahad\Aire\Elements\Element|null $element
 	 */
-	public function __construct($element_name, Group $group = null)
+	public function __construct($element_name, Element $element = null)
 	{
 		$this->element_name = $element_name;
-		$this->group = $group;
+		$this->element = $element;
+		$this->group = $element->group ?? null;
 		
 		$this->class_names = $this->defaults();
 	}
@@ -187,13 +187,6 @@ class ClassNames
 		return true;
 	}
 	
-	public function variant(string $variant = null) : self
-	{
-		$this->variant = $variant;
-		
-		return $this;
-	}
-	
 	/**
 	 * Apply defaults, configured, and validation class names
 	 *
@@ -233,7 +226,17 @@ class ClassNames
 	 */
 	protected function variantClassNames() : array
 	{
-		$variant = $this->variant ?? 'default';
+		if (null === $this->element) {
+			return [];
+		}
+		
+		// Start with default always
+		$variants = collect('default');
+		
+		// Merge in other variants if they're set
+		if ($variant = $this->element->getViewData('variant')) {
+			$variants = $variants->merge((array) $variant);
+		}
 		
 		$element_name = $this->element_name;
 		
@@ -241,14 +244,32 @@ class ClassNames
 			$element_name = 'input';
 		}
 		
-		$key = "{$element_name}.{$variant}";
-		$class_names = Arr::get(static::$variant_classes, $key, []);
-		
-		if (is_string($class_names)) {
-			$class_names = explode(' ', $class_names);
-		}
-		
-		return $class_names;
+		return $variants
+			->map(function($variant) use ($element_name) {
+				$key = "{$element_name}.{$variant}";
+				$class_names = Arr::get(static::$variant_classes, $key, []);
+				
+				$optionallyExplode = function($class_names) {
+					if (is_string($class_names)) {
+						return explode(' ', $class_names);
+					}
+					
+					return $class_names;
+				};
+				
+				if (is_string($class_names) || !Arr::isAssoc($class_names)) {
+					$class_names = [
+						$variant => $class_names,
+					];
+				}
+				
+				return array_map($optionallyExplode, $class_names);
+			})
+			->reduce(function(BaseCollection $combined, $class_names) {
+				return $combined->replaceRecursive($class_names);
+			}, new BaseCollection())
+			->flatten()
+			->toArray();
 	}
 	
 	/**

@@ -89,6 +89,16 @@ class Group extends Element
 		return $this;
 	}
 	
+	public function variant($variant = null)
+	{
+		// Also pass the variant to the group label
+		if ($this->label instanceof Label) {
+			$this->label->variant($variant);
+		}
+		
+		return parent::variant($variant);
+	}
+	
 	public function helpText(string $text) : self
 	{
 		$this->view_data['help_text'] = $text;
@@ -139,6 +149,11 @@ class Group extends Element
 	public function getInputName($default = null) : ?string
 	{
 		return $this->element->getInputName($default);
+	}
+	
+	protected function applyVariantToGroup($variant) : void
+	{
+		// Skip recursion
 	}
 	
 	protected function viewData() : array

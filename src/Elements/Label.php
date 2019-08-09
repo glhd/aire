@@ -41,4 +41,9 @@ class Label extends \Galahad\Aire\DTD\Label
 		
 		return $this;
 	}
+	
+	protected function applyVariantToGroup($variant) : void
+	{
+		// Actually, don't.
+	}
 }

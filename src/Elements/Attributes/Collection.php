@@ -163,7 +163,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * @param array $defaults
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	protected function instance($component, $defaults = [])
+	protected function instance($component, $defaults = []) : Attributes
 	{
 		$key = $component === $this->element->name
 			? $component
@@ -174,7 +174,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 		if (!isset($this->attributes[$key])) {
 			$configured = $this->aire->config("default_attributes.{$key}", []);
 			$computed = [
-				'class' => new ClassNames($key, $this->element->group),
+				'class' => new ClassNames($key, $this->element),
 				'data-aire-component' => $component,
 			];
 			
