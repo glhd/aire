@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -46,10 +46,10 @@ class Textarea extends Element
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true)
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
 		$this->attributes['autofocus'] = $auto_focus;
-		
+
 		return $this;
 	}
 
@@ -59,7 +59,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function cols($value = null)
+	public function cols($value = null) : self
 	{
 		$this->attributes['cols'] = $value;
 
@@ -72,7 +72,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function dirName($value = null)
+	public function dirName($value = null) : self
 	{
 		$this->attributes['dirname'] = $value;
 
@@ -85,10 +85,10 @@ class Textarea extends Element
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true)
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-		
+
 		return $this;
 	}
 
@@ -98,7 +98,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null)
+	public function form($value = null) : self
 	{
 		$this->attributes['form'] = $value;
 
@@ -111,7 +111,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function maxLength($value = null)
+	public function maxLength($value = null) : self
 	{
 		$this->attributes['maxlength'] = $value;
 
@@ -124,7 +124,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null)
+	public function name($value = null) : self
 	{
 		$this->attributes['name'] = $value;
 
@@ -137,7 +137,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function placeholder($value = null)
+	public function placeholder($value = null) : self
 	{
 		$this->attributes['placeholder'] = $value;
 
@@ -150,10 +150,10 @@ class Textarea extends Element
 	 * @param bool $read_only
 	 * @return $this
 	 */
-	public function readOnly(?bool $read_only = true)
+	public function readOnly(?bool $read_only = true) : self
 	{
 		$this->attributes['readonly'] = $read_only;
-		
+
 		return $this;
 	}
 
@@ -163,10 +163,10 @@ class Textarea extends Element
 	 * @param bool $required
 	 * @return $this
 	 */
-	public function required(?bool $required = true)
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-		
+
 		return $this;
 	}
 
@@ -176,7 +176,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function rows($value = null)
+	public function rows($value = null) : self
 	{
 		$this->attributes['rows'] = $value;
 
@@ -194,7 +194,7 @@ class Textarea extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function wrap($value = null)
+	public function wrap($value = null) : self
 	{
 		$this->attributes['wrap'] = $value;
 

@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -42,24 +42,24 @@ use Galahad\Aire\Support\OptionsCollection;
 class Select extends Element
 {
 	public $name = 'select';
-	
+
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		$this->view_data['options'] = new OptionsCollection();
-		
+
 		parent::__construct($aire, $form);
 	}
-	
+
 	/**
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true)
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
 		$this->attributes['autofocus'] = $auto_focus;
-		
+
 		return $this;
 	}
 
@@ -69,10 +69,10 @@ class Select extends Element
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true)
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-		
+
 		return $this;
 	}
 
@@ -82,7 +82,7 @@ class Select extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null)
+	public function form($value = null) : self
 	{
 		$this->attributes['form'] = $value;
 
@@ -95,10 +95,10 @@ class Select extends Element
 	 * @param bool $multiple
 	 * @return $this
 	 */
-	public function multiple(?bool $multiple = true)
+	public function multiple(?bool $multiple = true) : self
 	{
 		$this->attributes['multiple'] = $multiple;
-		
+
 		return $this;
 	}
 
@@ -108,7 +108,7 @@ class Select extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null)
+	public function name($value = null) : self
 	{
 		$this->attributes['name'] = $value;
 
@@ -121,10 +121,10 @@ class Select extends Element
 	 * @param bool $required
 	 * @return $this
 	 */
-	public function required(?bool $required = true)
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-		
+
 		return $this;
 	}
 
@@ -134,7 +134,7 @@ class Select extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function size($value = null)
+	public function size($value = null) : self
 	{
 		$this->attributes['size'] = $value;
 

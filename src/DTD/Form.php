@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -47,7 +47,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function acceptCharset($value = null)
+	public function acceptCharset($value = null) : self
 	{
 		$this->attributes['accept-charset'] = $value;
 
@@ -60,7 +60,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function action($value = null)
+	public function action($value = null) : self
 	{
 		$this->attributes['action'] = $value;
 
@@ -138,7 +138,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function autoComplete($value = null)
+	public function autoComplete($value = null) : self
 	{
 		$this->attributes['autocomplete'] = $value;
 
@@ -157,7 +157,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function encType($value = null)
+	public function encType($value = null) : self
 	{
 		$this->attributes['enctype'] = $value;
 
@@ -175,7 +175,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function method($value = null)
+	public function method($value = null) : self
 	{
 		$this->attributes['method'] = $value
 			? strtoupper($value)
@@ -190,7 +190,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null)
+	public function name($value = null) : self
 	{
 		$this->attributes['name'] = $value;
 
@@ -203,10 +203,10 @@ class Form extends Element
 	 * @param bool $no_validate
 	 * @return $this
 	 */
-	public function noValidate(?bool $no_validate = true)
+	public function noValidate(?bool $no_validate = true) : self
 	{
 		$this->attributes['novalidate'] = $no_validate;
-		
+
 		return $this;
 	}
 
@@ -223,7 +223,7 @@ class Form extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function target($value = null)
+	public function target($value = null) : self
 	{
 		$this->attributes['target'] = $value;
 

@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -40,7 +40,7 @@ use Galahad\Aire\Elements\Element;
 class Button extends Element
 {
 	public $name = 'button';
-	
+
 	protected $view_data = [
 		'slot' => null,
 	];
@@ -51,10 +51,10 @@ class Button extends Element
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true)
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
 		$this->attributes['autofocus'] = $auto_focus;
-		
+
 		return $this;
 	}
 
@@ -64,10 +64,10 @@ class Button extends Element
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true)
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-		
+
 		return $this;
 	}
 
@@ -77,7 +77,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null)
+	public function form($value = null) : self
 	{
 		$this->attributes['form'] = $value;
 
@@ -90,7 +90,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formAction($value = null)
+	public function formAction($value = null) : self
 	{
 		$this->attributes['formaction'] = $value;
 
@@ -109,7 +109,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formEncType($value = null)
+	public function formEncType($value = null) : self
 	{
 		$this->attributes['formenctype'] = $value;
 
@@ -127,7 +127,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formMethod($value = null)
+	public function formMethod($value = null) : self
 	{
 		$this->attributes['formmethod'] = $value;
 
@@ -140,10 +140,10 @@ class Button extends Element
 	 * @param bool $form_no_validate
 	 * @return $this
 	 */
-	public function formNoValidate(?bool $form_no_validate = true)
+	public function formNoValidate(?bool $form_no_validate = true) : self
 	{
 		$this->attributes['formnovalidate'] = $form_no_validate;
-		
+
 		return $this;
 	}
 
@@ -160,7 +160,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formTarget($value = null)
+	public function formTarget($value = null) : self
 	{
 		$this->attributes['formtarget'] = $value;
 
@@ -173,7 +173,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null)
+	public function name($value = null) : self
 	{
 		$this->attributes['name'] = $value;
 
@@ -192,7 +192,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function type($value = null)
+	public function type($value = null) : self
 	{
 		$this->attributes['type'] = $value;
 
@@ -205,7 +205,7 @@ class Button extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function value($value = null)
+	public function value($value = null) : self
 	{
 		$this->attributes['value'] = $value;
 

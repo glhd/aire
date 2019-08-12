@@ -40,7 +40,7 @@ use Galahad\Aire\Elements\Element;
 class Input extends Element
 {
 	public $name = 'input';
-	
+
 	/**
 	 * Set the 'accept' attribute
 	 *
@@ -76,26 +76,26 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function accept($value = null)
+	public function accept($value = null) : self
 	{
 		$this->attributes['accept'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'alt' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function alt($value = null)
+	public function alt($value = null) : self
 	{
 		$this->attributes['alt'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'autocomplete' attribute
 	 *
@@ -167,91 +167,91 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function autoComplete($value = null)
+	public function autoComplete($value = null) : self
 	{
 		$this->attributes['autocomplete'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'autofocus' flag
 	 *
 	 * @param bool $auto_focus
 	 * @return $this
 	 */
-	public function autoFocus(?bool $auto_focus = true)
+	public function autoFocus(?bool $auto_focus = true) : self
 	{
 		$this->attributes['autofocus'] = $auto_focus;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'checked' flag
 	 *
 	 * @param bool $checked
 	 * @return $this
 	 */
-	public function checked(?bool $checked = true)
+	public function checked(?bool $checked = true) : self
 	{
 		$this->attributes['checked'] = $checked;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'dirname' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function dirName($value = null)
+	public function dirName($value = null) : self
 	{
 		$this->attributes['dirname'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'disabled' flag
 	 *
 	 * @param bool $disabled
 	 * @return $this
 	 */
-	public function disabled(?bool $disabled = true)
+	public function disabled(?bool $disabled = true) : self
 	{
 		$this->attributes['disabled'] = $disabled;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'form' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function form($value = null)
+	public function form($value = null) : self
 	{
 		$this->attributes['form'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'formaction' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formAction($value = null)
+	public function formAction($value = null) : self
 	{
 		$this->attributes['formaction'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'formenctype' attribute
 	 *
@@ -264,13 +264,13 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formEncType($value = null)
+	public function formEncType($value = null) : self
 	{
 		$this->attributes['formenctype'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'formmethod' attribute
 	 *
@@ -282,26 +282,26 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formMethod($value = null)
+	public function formMethod($value = null) : self
 	{
 		$this->attributes['formmethod'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'formnovalidate' flag
 	 *
 	 * @param bool $form_no_validate
 	 * @return $this
 	 */
-	public function formNoValidate(?bool $form_no_validate = true)
+	public function formNoValidate(?bool $form_no_validate = true) : self
 	{
 		$this->attributes['formnovalidate'] = $form_no_validate;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'formtarget' attribute
 	 *
@@ -315,195 +315,195 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function formTarget($value = null)
+	public function formTarget($value = null) : self
 	{
 		$this->attributes['formtarget'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'height' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function height($value = null)
+	public function height($value = null) : self
 	{
 		$this->attributes['height'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'list' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function list($value = null)
+	public function list($value = null) : self
 	{
 		$this->attributes['list'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'max' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function max($value = null)
+	public function max($value = null) : self
 	{
 		$this->attributes['max'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'maxlength' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function maxLength($value = null)
+	public function maxLength($value = null) : self
 	{
 		$this->attributes['maxlength'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'min' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function min($value = null)
+	public function min($value = null) : self
 	{
 		$this->attributes['min'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'multiple' flag
 	 *
 	 * @param bool $multiple
 	 * @return $this
 	 */
-	public function multiple(?bool $multiple = true)
+	public function multiple(?bool $multiple = true) : self
 	{
 		$this->attributes['multiple'] = $multiple;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'name' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function name($value = null)
+	public function name($value = null) : self
 	{
 		$this->attributes['name'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'pattern' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function pattern($value = null)
+	public function pattern($value = null) : self
 	{
 		$this->attributes['pattern'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'placeholder' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function placeholder($value = null)
+	public function placeholder($value = null) : self
 	{
 		$this->attributes['placeholder'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'readonly' flag
 	 *
 	 * @param bool $read_only
 	 * @return $this
 	 */
-	public function readOnly(?bool $read_only = true)
+	public function readOnly(?bool $read_only = true) : self
 	{
 		$this->attributes['readonly'] = $read_only;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'required' flag
 	 *
 	 * @param bool $required
 	 * @return $this
 	 */
-	public function required(?bool $required = true)
+	public function required(?bool $required = true) : self
 	{
 		$this->attributes['required'] = $required;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'size' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function size($value = null)
+	public function size($value = null) : self
 	{
 		$this->attributes['size'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'src' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function src($value = null)
+	public function src($value = null) : self
 	{
 		$this->attributes['src'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'step' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function step($value = null)
+	public function step($value = null) : self
 	{
 		$this->attributes['step'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'type' attribute
 	 *
@@ -536,37 +536,37 @@ class Input extends Element
 	 * @param string $value
 	 * @return $this
 	 */
-	public function type($value = null)
+	public function type($value = null) : self
 	{
 		$this->attributes['type'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'value' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function value($value = null)
+	public function value($value = null) : self
 	{
 		$this->attributes['value'] = $value;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Set the 'width' attribute
 	 *
 	 * @param string $value
 	 * @return $this
 	 */
-	public function width($value = null)
+	public function width($value = null) : self
 	{
 		$this->attributes['width'] = $value;
-		
+
 		return $this;
 	}
-	
+
 }
