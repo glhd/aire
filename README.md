@@ -24,6 +24,18 @@
             alt="MIT Licensed" 
         />
     </a>
+    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+        <img 
+            src="https://img.shields.io/twitter/follow/airephp?style=social" 
+            alt="Follow @airephp on Twitter" 
+        />
+    </a>
+    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+        <img 
+            src="https://img.shields.io/twitter/follow/inxilpro?style=social" 
+            alt="Follow @inxilpro on Twitter" 
+        />
+    </a>
 </div>
 
 <h1>

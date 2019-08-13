@@ -278,7 +278,59 @@
 			appends text inline after the element
 		</li>
 	</ul>
-
+	
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
+		Variants
+	</h2>
+	
+	<p>
+		As of Aire <code>1.5.0</code> we now support variants like <code>primary</code> or
+		<code>sm</code>:
+	</p>
+	
+	<pre><code class="language-php">{{ Aire::input()->variant('sm') }}</code></pre>
+	
+	<p>
+		If you're just applying one variant, you can use the syntax above or do it fluently:
+	</p>
+	
+	<pre><code class="language-php">{{ Aire::input()->variant()->sm() }}</code></pre>
+	
+	<p>
+		If you're applying multiple variants, use the <code>variants()</code> method:
+	</p>
+	
+	<pre><code class="language-php">{{ Aire::input()->variants('sm', 'blue') }}</code></pre>
+	
+	<p>
+		When you define your variants, you can use (arbitrary) keys to manage conflict resolution.
+		For example, if this were our config:
+	</p>
+	
+	<pre><code class="language-php">[
+	'variant_classes' => [
+		'input' => [
+			'default' => [
+				'border' => 'border',
+				'size' => 'p-2 text-base rounded',
+				'color' => 'border-gray-200',
+			],
+			'primary' => [
+				'color' => 'border-blue-300',
+			],
+			'sm' => [
+				'size' => 'p-1 text-sm rounded-sm',
+			],
+		],
+	],
+]</code></pre>
+	
+	<p>
+		Using the keys <code>color</code> and <code>size</code> help us manage how
+		<code>variants('sm', 'primary')</code> are applied (in this case, it would
+		result in <code>class=&quot;border p-1 text-sm rounded-sm border-blue-300&quot;</code>).
+	</p>
+	
 			</div>
 		</div>
 		<div id="navigation" class="flex-shrink-0 lg:max-w-1/5">

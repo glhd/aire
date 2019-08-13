@@ -51,6 +51,15 @@
 			->id('demo')
 			->helpText('This is demo help text.') }}
 		
+		{{ Aire::number()
+			->step(1)
+			->defaultValue(20)
+			->label('Input Group')
+			->prepend('$')
+			->append('.00') }}
+		
+		{{ Aire::range('range', 'Range', 1, 10)->defaultValue(5) }}
+		
 		{{ Aire::select(['one' => 'Option 1', 'two' => 'Option 2'])
 			->label('Demo Select') }}
 		
@@ -71,6 +80,8 @@
 			->label('Demo checkbox group') }}
 		
 		{{ Aire::submit('Demo Button') }}
+		
+		{{ Aire::submit('Secondary Button')->variant()->secondary() }}
 		
 		{{ Aire::close() }}
 	</div>

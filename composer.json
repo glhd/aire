@@ -33,7 +33,7 @@
     "graham-campbell/markdown": "^10.2",
     "barryvdh/reflection-docblock": "^2.0",
     "glhd/aire-tailwind-custom-forms": "^1.0.0-beta.1",
-    "glhd/aire-bootstrap": "^1.0.0-beta.1"
+    "glhd/aire-bootstrap": "^1.0.0-beta.3"
   },
   "suggest": {
     "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"

@@ -99,14 +99,14 @@
 &lt;/label&gt;
 
 
-    &lt;input type=&quot;text&quot; class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;input&quot; id=&quot;demo&quot; /&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; data-aire-component=&quot;input&quot; id=&quot;demo&quot; /&gt;
 
-
-            &lt;small class=&quot;form-text text-muted no-yet-validated&quot; data-aire-component=&quot;help_text&quot;&gt;
+    
+            &lt;small class=&quot;form-text text-muted&quot; data-aire-component=&quot;help_text&quot;&gt;
             This is demo help text.
         &lt;/small&gt;
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot;&gt;
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
@@ -114,11 +114,57 @@
 		
 		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
     &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-26&quot;&gt;
+	Input Group
+&lt;/label&gt;
+
+
+            &lt;div class=&quot;input-group&quot; data-aire-component=&quot;input_group&quot;&gt;
+                            &lt;div class=&quot;input-group-prepend&quot; data-aire-component=&quot;prepend&quot;&gt;
+                    &lt;div class=&quot;input-group-text&quot;&gt;
+                        $
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            
+            &lt;input type=&quot;number&quot; class=&quot;form-control&quot; data-aire-component=&quot;input&quot; step=&quot;1&quot; value=&quot;20&quot; id=&quot;__aire-22-26&quot; /&gt;
+
+
+                            &lt;div class=&quot;input-group-append&quot; data-aire-component=&quot;append&quot;&gt;
+                    &lt;div class=&quot;input-group-text&quot;&gt;
+                        .00
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                    &lt;/div&gt;
+    
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot; data-aire-for=&quot;range&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-range29&quot;&gt;
+	Range
+&lt;/label&gt;
+
+
+            &lt;input type=&quot;range&quot; class=&quot;form-control-range&quot; data-aire-component=&quot;input&quot; name=&quot;range&quot; min=&quot;1&quot; max=&quot;10&quot; value=&quot;5&quot; data-aire-for=&quot;range&quot; id=&quot;__aire-22-range29&quot; /&gt;
+
+    
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;range&quot;&gt;
+            &lt;/div&gt;
+
+&lt;/div&gt;
+
+		
+		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-32&quot;&gt;
 	Demo Select
 &lt;/label&gt;
 
 
-    &lt;select class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;select&quot; id=&quot;__aire-22-26&quot;&gt;
+            &lt;select class=&quot;form-control custom-select &quot; data-aire-component=&quot;select&quot; id=&quot;__aire-22-32&quot;&gt;
 	
 		
 			
@@ -134,21 +180,21 @@
 	
 &lt;/select&gt;
 
-
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
 
 		
 		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot; data-aire-for=&quot;&quot;&gt;
-    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-29&quot;&gt;
+    &lt;label class=&quot; cursor-pointer&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-35&quot;&gt;
 	Demo Multi-Select
 &lt;/label&gt;
 
 
-    &lt;select class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;select&quot; multiple data-aire-for=&quot;&quot; name=&quot;[]&quot; id=&quot;__aire-22-29&quot;&gt;
+            &lt;select class=&quot;form-control custom-select &quot; data-aire-component=&quot;select&quot; multiple data-aire-for=&quot;&quot; name=&quot;[]&quot; id=&quot;__aire-22-35&quot;&gt;
 	
 		
 			
@@ -164,9 +210,9 @@
 	
 &lt;/select&gt;
 
-
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
@@ -175,11 +221,11 @@
 		&lt;div class=&quot;form-group&quot; data-aire-component=&quot;group&quot;&gt;
     
 
-    &lt;textarea class=&quot;form-control no-yet-validated&quot; data-aire-component=&quot;textarea&quot; id=&quot;__aire-22-32&quot;&gt;Demo text area&lt;/textarea&gt;
-
+            &lt;textarea class=&quot;form-control&quot; data-aire-component=&quot;textarea&quot; id=&quot;__aire-22-38&quot;&gt;Demo text area&lt;/textarea&gt;
 
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
@@ -188,15 +234,15 @@
 		&lt;div class=&quot;form-group custom-control custom-checkbox&quot; data-aire-component=&quot;group&quot;&gt;
     
 
-    &lt;input type=&quot;checkbox&quot; value=&quot;1&quot; class=&quot;custom-control-input&quot; data-aire-component=&quot;checkbox&quot; id=&quot;__aire-22-34&quot; /&gt;
+            &lt;input type=&quot;checkbox&quot; value=&quot;1&quot; class=&quot;custom-control-input&quot; data-aire-component=&quot;checkbox&quot; id=&quot;__aire-22-40&quot; /&gt;
 
-&lt;label class=&quot;custom-control-label&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-34&quot;&gt;
+&lt;label class=&quot;custom-control-label&quot; data-aire-component=&quot;label&quot; for=&quot;__aire-22-40&quot;&gt;
     Demo check box
 &lt;/label&gt;
 
-
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
@@ -208,7 +254,7 @@
 &lt;/label&gt;
 
 
-    &lt;div class=&quot;custom-control custom-radio&quot; data-aire-component=&quot;label_wrapper&quot; data-aire-for=&quot;foo&quot;&gt;
+            &lt;div class=&quot;custom-control custom-radio&quot; data-aire-component=&quot;label_wrapper&quot; data-aire-for=&quot;foo&quot;&gt;
         &lt;input
             type=&quot;radio&quot; class=&quot;custom-control-input&quot; data-aire-component=&quot;radio-group&quot; name=&quot;foo&quot; data-aire-for=&quot;foo&quot;
             value=&quot;one&quot;
@@ -236,9 +282,9 @@
     &lt;/div&gt;
 
 
-
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;foo&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;foo&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
@@ -250,7 +296,7 @@
 &lt;/label&gt;
 
 
-    &lt;div class=&quot;&quot; data-aire-component=&quot;wrapper&quot; data-aire-for=&quot;bar&quot;&gt;
+            &lt;div class=&quot;&quot; data-aire-component=&quot;wrapper&quot; data-aire-for=&quot;bar&quot;&gt;
 
     
     
@@ -297,16 +343,21 @@
 
     &lt;/div&gt;
 
-
     
-    &lt;div class=&quot;not-yet-validated d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;bar&quot;&gt;
+    
+    &lt;div class=&quot;d-none&quot; data-aire-component=&quot;errors&quot; data-aire-for=&quot;bar&quot;&gt;
             &lt;/div&gt;
 
 &lt;/div&gt;
 
 		
-		&lt;button class=&quot;btn btn-primary&quot; data-aire-component=&quot;button&quot; type=&quot;submit&quot;&gt;
+		&lt;button class=&quot;btn btn-primary &quot; data-aire-component=&quot;button&quot; type=&quot;submit&quot;&gt;
 	Demo Button
+&lt;/button&gt;
+
+		
+		&lt;button class=&quot;btn btn-primary  btn-secondary&quot; data-aire-component=&quot;button&quot; type=&quot;submit&quot;&gt;
+	Secondary Button
 &lt;/button&gt;
 	
 	
