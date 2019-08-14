@@ -54,9 +54,9 @@ The most common usage is via the `Aire` facade in your blade templates. All meth
 are fluent, allowing for easy configuration of your form components:
 
 ```php
-{{ Aire::open()->route('users.update') }}
-
-{{ Aire::bind($user) }}
+{{ Aire::open()
+  ->route('users.update')
+  ->bind($user) }}
 
 <div class="flex flex-col md:flex-row">
 

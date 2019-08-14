@@ -83,9 +83,9 @@ ecosystem.</p>
 <h2 class="text-xl text-gray-600 mt-9">Basic Usage</h2>
 <p>The most common usage is via the <code>Aire</code> facade in your blade templates. All method calls
 are fluent, allowing for easy configuration of your form components:</p>
-<pre><code class="language-php">{{ Aire::open()-&gt;route('users.update') }}
-
-{{ Aire::bind($user) }}
+<pre><code class="language-php">{{ Aire::open()
+  -&gt;route('users.update')
+  -&gt;bind($user) }}
 
 &lt;div class="flex flex-col md:flex-row"&gt;
 
