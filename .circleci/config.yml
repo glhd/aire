@@ -41,7 +41,7 @@ jobs:
 
     - run:
         name: Sending data to Coveralls
-        command: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
+        command: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json || echo 'Unable to upload to Coveralls...'
 
     - store_test_results:
         path: ~/artifacts
