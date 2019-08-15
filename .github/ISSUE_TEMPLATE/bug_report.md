@@ -10,11 +10,15 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-** Have you published the Aire config file? **
+**Have you published the Aire config file?**
 Yes or No
 
-** Have you added custom Aire views? **
+**Have you added custom Aire views?**
 Yes or No
+
+**What version does this affect?**
+ - Laravel Version: [e.g. 5.8.0]
+ - Aire Version: [e.g. 1.5.0]
 
 **To Reproduce**
 Steps to reproduce the behavior:
