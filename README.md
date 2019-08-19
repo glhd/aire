@@ -92,7 +92,7 @@ Aire comes with classes that should work with the default Tailwind class names
 out of the box (`.bg-blue-600` etc). If you need to change the default class names
 for any given element, there are two different ways to go about it.
 
-The first is to publish the `aire.php` config file via `php artisan vendor:publish --tag=config`
+The first is to publish the `aire.php` config file via `php artisan vendor:publish --tag=aire-config`
 and update the `default_classes` config for the element you'd like to change:
 
 ```php
@@ -103,7 +103,7 @@ return [
 ];
 ```
 
-The second option is to publish custom views via `php artisan vendor:publish --tag=views`
+The second option is to publish custom views via `php artisan vendor:publish --tag=aire-views`
 which gives you total control over component rendering. There's a view file for each component
 type (`input.blade.php` etc) as well as for component grouping. This gives you the most
 flexibility, but means that you have the maintain your views as Aire releases add new
@@ -111,7 +111,7 @@ features or change component rendering.
 
 ## Configuration
 
-When you publish the `aire.php` config file via `php artisan vendor:publish --tag=config`,
+When you publish the `aire.php` config file via `php artisan vendor:publish --tag=aire-config`,
 there are a handful of other configuration options. The config file is fully documented,
 so go check it out!
 
