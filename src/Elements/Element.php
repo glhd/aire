@@ -9,10 +9,15 @@ use Galahad\Aire\Elements\Concerns\Groupable;
 use Galahad\Aire\Elements\Concerns\HasVariants;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Macroable;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes, Groupable, HasVariants;
+	use HasGlobalAttributes, Groupable, HasVariants, Macroable {
+		Groupable::__call insteadof Macroable;
+		Macroable::__call as callMacro;
+		Macroable::__callStatic as callStaticMacro;
+	}
 	
 	protected static $element_mutators = [];
 	

@@ -5,6 +5,7 @@ namespace Galahad\Aire\Elements\Concerns;
 use BadMethodCallException;
 use Galahad\Aire\Elements\Group;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Str;
 
 /**
  * @method \Galahad\Aire\Elements\Element label(string|Htmlable $text)
@@ -99,13 +100,17 @@ trait Groupable
 	public function __call($method_name, $arguments)
 	{
 		$group_method = 0 === strpos($method_name, 'group')
-			? camel_case(substr($method_name, 5))
+			? Str::camel(substr($method_name, 5))
 			: $method_name;
 		
 		if ($this->grouped && method_exists($this->group, $group_method)) {
 			$this->group->$group_method(...$arguments);
 			
 			return $this;
+		}
+		
+		if (static::hasMacro($method_name)) {
+			return $this->callMacro($method_name, $arguments);
 		}
 		
 		// @codeCoverageIgnoreStart
