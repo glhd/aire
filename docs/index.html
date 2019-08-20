@@ -115,7 +115,7 @@ are fluent, allowing for easy configuration of your form components:</p>
 <p>Aire comes with classes that should work with the default Tailwind class names
 out of the box (<code>.bg-blue-600</code> etc). If you need to change the default class names
 for any given element, there are two different ways to go about it.</p>
-<p>The first is to publish the <code>aire.php</code> config file via <code>php artisan vendor:publish --tag=config</code>
+<p>The first is to publish the <code>aire.php</code> config file via <code>php artisan vendor:publish --tag=aire-config</code>
 and update the <code>default_classes</code> config for the element you'd like to change:</p>
 <pre><code class="language-php">return [
   'default_classes' =&gt; [
@@ -123,13 +123,13 @@ and update the <code>default_classes</code> config for the element you'd like to
   ],
 ];
 </code></pre>
-<p>The second option is to publish custom views via <code>php artisan vendor:publish --tag=views</code>
+<p>The second option is to publish custom views via <code>php artisan vendor:publish --tag=aire-views</code>
 which gives you total control over component rendering. There's a view file for each component
 type (<code>input.blade.php</code> etc) as well as for component grouping. This gives you the most
 flexibility, but means that you have the maintain your views as Aire releases add new
 features or change component rendering.</p>
 <h2 class="text-xl text-gray-600 mt-9">Configuration</h2>
-<p>When you publish the <code>aire.php</code> config file via <code>php artisan vendor:publish --tag=config</code>,
+<p>When you publish the <code>aire.php</code> config file via <code>php artisan vendor:publish --tag=aire-config</code>,
 there are a handful of other configuration options. The config file is fully documented,
 so go check it out!</p>
 <h2 class="text-xl text-gray-600 mt-9">Data Binding</h2>
