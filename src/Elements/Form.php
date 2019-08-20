@@ -168,7 +168,7 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		if ($model->exists) {
-			$parameters = $prepend_parameters;
+			$parameters = (array) $prepend_parameters;
 			$parameters[] = $model;
 			
 			$this->action($this->url->route("{$resource_name}.update", $parameters));

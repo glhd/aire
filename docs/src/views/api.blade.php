@@ -114,7 +114,7 @@
 	</p>
 	
 	<pre><code class="language-php">@verbatim{{ Aire::open() }}
-
+			
 {{ Aire::input('name', 'Your Name') }} {{-- Creates a text input --}}
 
 {{ Aire::email('email_address', 'Your Email Address') }} {{-- Creates an email input --}}
@@ -235,6 +235,71 @@
 	</ul>
 	
 	<h2 class="mt-8 pt-8 border-t border-gray-300">
+		Resourceful Helper
+	</h2>
+	
+	<p>
+		If you're using standard resourceful routing conventions, you can use
+		the <code>resourceful()</code> helper. It take an instance of a model
+		as its first parameter, and infers the route name, method, and model
+		binding for you. For example, these examples are essentially the
+		same:
+	</p>
+	
+	<div class="border rounded-lg my-6">
+		<div class="font-bold mx-4 mt-2">
+			Update:
+		</div>
+		<div class="md:flex">
+			<pre class="flex-1 m-4 md:mr-2"><code class="language-php">@verbatim{{ Aire::resourceful(User::find(1)) }}@endverbatim</code></pre>
+			<pre class="flex-1 m-4 md:ml-2"><code class="language-php">@verbatim{{ Aire::open()
+	->route('users.update', 1)
+	->bind(User::find(1))
+	->put() }}@endverbatim</code></pre>
+		</div>
+		<div class="font-bold mx-4 mt-2">
+			Create:
+		</div>
+		<div class="md:flex">
+			<pre class="flex-1 m-4 md:mr-2"><code class="language-php">@verbatim{{ Aire::resourceful(new User()) }}@endverbatim</code></pre>
+			<pre class="flex-1 m-4 md:ml-2"><code class="language-php">@verbatim{{ Aire::open()
+	->route('users.store')
+	->post() }}@endverbatim</code></pre>
+		</div>
+	</div>
+	
+	<p>
+		This is particularly useful because you can use the same view partial for both
+		your create and update views, and simple pass a <code>new Model()</code> into
+		your create view.
+	</p>
+	
+	<p>
+		By default, Aire will guess the route name based on the model. <code>User</code>
+		will become <code>users.store</code> and <code>users.update</code> and so forth.
+		If you need your own name, pass it as the second parameter:
+	</p>
+	
+	<pre><code class="language-php">@verbatim{{ Aire::resourceful(User::find(1), 'people') }}@endverbatim</code></pre>
+	
+	<p>
+		Now Aire will use <code>people.store</code> and <code>people.update</code> depending
+		on the state of the model passed in.
+	</p>
+	
+	<p>
+		If you're using a nested route, you can pass route parameters to prepend as the
+		third option:
+	</p>
+	
+	<pre><code class="language-php">@verbatim{{ Aire::resourceful($user, 'teams.users', [$team]) }}@endverbatim</code></pre>
+	
+	<p>
+		Now Aire will use <code>teams.users.update</code> with <code>[$team, $user]</code>
+		as the route parameters.
+	</p>
+	
+	<h2 class="mt-8 pt-8 border-t border-gray-300">
 		Variants
 	</h2>
 	
@@ -285,5 +350,5 @@
 		<code>variants('sm', 'primary')</code> are applied (in this case, it would
 		result in <code>class=&quot;border p-1 text-sm rounded-sm border-blue-300&quot;</code>).
 	</p>
-	
+
 @endsection
