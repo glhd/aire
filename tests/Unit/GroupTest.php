@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class GroupTest extends TestCase
 {
@@ -84,5 +85,14 @@ class GroupTest extends TestCase
 		$html = $this->aire()->input()->append('Foo')->toHtml();
 		
 		$this->assertSelectorTextEquals($html, '[data-aire-component="group"] .flex .rounded-r-sm', 'Foo');
+	}
+	
+	public function test_group_methods_can_be_called_on_the_element() : void
+	{
+		$test_value = Str::random();
+		
+		$html = $this->aire()->input()->groupData('foo', $test_value);
+		
+		$this->assertSelectorAttribute($html, '[data-aire-component=group]', 'data-foo', $test_value);
 	}
 }

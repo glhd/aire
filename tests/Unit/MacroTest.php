@@ -22,14 +22,16 @@ class MacroTest extends TestCase
 		$this->assertSelectorAttribute($this->aire()->input()->macroTest(), 'input', 'x:macro-test', $test_value);
 	}
 	
-	public function test_group_methods_are_applied_before_macros() : void
+	public function test_group_methods_are_applied_instead_of_macros() : void
 	{
-		$test_value = Str::random();
+		$test_class = Str::random();
 		
-		Element::macro('groupAddClass', function() use ($test_value) {
+		Element::macro('groupAddClass', function() {
 			throw new \RuntimeException('Cannot macro groupAddClass');
 		});
 		
-		$this->assertSelectorAttribute($this->aire()->input()->macroTest(), 'input', 'x:macro-test', $test_value);
+		$html = $this->aire()->input()->groupAddClass($test_class);
+		
+		$this->assertSelectorClassNames($html, '[data-aire-component=group]', $test_class);
 	}
 }
