@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Enabling XDebug
+      run: sudo docker-php-ext-enable xdebug
+    - name: Install composer dependencies
+      run: composer install -n --prefer-dist
+    - name: Ensure that the artifacts directory exists
+      run: mkdir -p ~/artifacts
+    - name: Run tests
+      run ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
+    - name: Send data to Coveralls
+      run: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json || echo 'Unable to upload to Coveralls...'
