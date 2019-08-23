@@ -23,7 +23,7 @@ use Illuminate\View\Factory;
  * @method static \Galahad\Aire\Elements\Select select(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Summary summary(bool $verbose = true)
+ * @method static \Galahad\Aire\Elements\Summary summary(?bool $verbose = null)
  * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
  * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)

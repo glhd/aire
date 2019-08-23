@@ -175,9 +175,15 @@ trait CreatesElements
 	 * @param bool $verbose
 	 * @return \Galahad\Aire\Elements\Summary
 	 */
-	public function summary(bool $verbose = true) : Summary
+	public function summary(?bool $verbose = null) : Summary
 	{
-		return (new Summary($this->aire, $this))->verbose($verbose);
+		$summary = new Summary($this->aire, $this);
+		
+		if (null !== $verbose) {
+			$summary->verbose($verbose);
+		}
+		
+		return $summary;
 	}
 	
 	/**

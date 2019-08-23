@@ -29,6 +29,19 @@ return [
 	
 	/*
 	|--------------------------------------------------------------------------
+	| Default to Verbose Summaries
+	|--------------------------------------------------------------------------
+	|
+	| By default, the Summary element will only display a message about the
+	| number of errors that need to be resolved. If you would like, you can
+	| change the default behavior to also include an enumerated list of the
+	| errors in the summary box.
+	|
+	*/
+	'verbose_summaries_by_default' => false,
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Default Client-Side Validation
 	|--------------------------------------------------------------------------
 	|

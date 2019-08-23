@@ -2,6 +2,8 @@
 
 namespace Galahad\Aire\Elements;
 
+use Galahad\Aire\Aire;
+
 class Summary extends Element
 {
 	public $name = 'summary';
@@ -11,6 +13,13 @@ class Summary extends Element
 	protected $view_data = [
 		'verbose' => false,
 	];
+	
+	public function __construct(Aire $aire, Form $form = null)
+	{
+		parent::__construct($aire, $form);
+		
+		$this->view_data['verbose'] = $aire->config('verbose_summaries_by_default', false);
+	}
 	
 	public function verbose(bool $verbose = true) : self
 	{
