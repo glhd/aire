@@ -1,7 +1,7 @@
 @extends('_layout')
 
 @section('page-title')
-	Working with Elements
+	Working w/ Elements
 @endsection
 
 @section('content')
