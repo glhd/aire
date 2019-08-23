@@ -23,6 +23,7 @@
 	$main = [
 		['/', 'README', 'file'],
 		['api', 'API Overview', 'code'],
+		['working-with-elements', 'Working w/ Elements', 'layer-group'],
 		['components', 'Components', 'cubes'],
 		['themes', 'Theming', 'paint-roller'],
 	];

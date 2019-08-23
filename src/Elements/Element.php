@@ -7,9 +7,13 @@ use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
 use Galahad\Aire\Elements\Concerns\HasVariants;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
+use Traversable;
 
 abstract class Element implements Htmlable
 {
@@ -100,8 +104,8 @@ abstract class Element implements Htmlable
 	/**
 	 * Set a data attribute
 	 *
-	 * @param $data_key
-	 * @param $value
+	 * @param string $data_key
+	 * @param mixed $value
 	 * @return $this
 	 */
 	public function data($data_key, $value) : self
@@ -113,6 +117,17 @@ abstract class Element implements Htmlable
 				$this->attributes->unset($key);
 			}
 		} else {
+			// JSON encode value if it's not a scalar
+			if ($value instanceof Jsonable) {
+				$value = $value->toJson();
+			} else if ($value instanceof JsonSerializable) {
+				$value = json_encode($value->jsonSerialize());
+			} else if (is_array($value)) {
+				$value = json_encode($value);
+			} else if ($value instanceof Arrayable) {
+				$value = json_encode($value->toArray());
+			}
+			
 			$this->attributes->set($key, $value);
 		}
 		
