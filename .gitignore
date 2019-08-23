@@ -1,0 +1,15 @@
+/build_local/
+/cache/
+/node_modules/
+/vendor/
+/.idea/
+/.vscode/
+npm-debug.log
+yarn-error.log
+.DS_Store
+/data/
+
+/build_staging/
+/source/assets/build/css/
+/source/assets/build/fonts/
+/source/assets/build/js/
