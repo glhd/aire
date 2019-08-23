@@ -231,7 +231,7 @@ class ClassNames
 		}
 		
 		// Start with default always
-		$variants = collect('default');
+		$variants = new BaseCollection('default');
 		
 		// Merge in other variants if they're set
 		if ($variant = $this->element->getViewData('variant')) {

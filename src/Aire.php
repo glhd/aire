@@ -8,6 +8,7 @@ use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\View\Factory;
 
 // TODO: Aire::scaffold(User::class, $action = null) -> generate a form from User attributes, default action = resource route
@@ -46,6 +47,8 @@ use Illuminate\View\Factory;
  */
 class Aire
 {
+	use ForwardsCalls;
+	
 	/**
 	 * @var array
 	 */
@@ -296,7 +299,7 @@ class Aire
 		}
 		// @codeCoverageIgnoreEnd
 		
-		return $form->$method_name(...$arguments);
+		return $this->forwardCallTo($form, $method_name, $arguments);
 	}
 	
 	/**
