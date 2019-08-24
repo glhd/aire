@@ -9,6 +9,7 @@ $tag_whitelist = [
 	'input',
 	'label',
 	'select',
+	'option',
 	'textarea',
 	'fieldset',
 	'legend',
