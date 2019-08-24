@@ -22,5 +22,10 @@
         "sass-loader": "^7.1.0",
         "vue-template-compiler": "^2.6.10",
         "yargs": "^4.6.0"
+    },
+    "dependencies": {
+        "@tailwindcss/custom-forms": "^0.2.0",
+        "laravel-mix-purgecss": "^4.1.0",
+        "tailwindcss": "^1.1.2"
     }
 }

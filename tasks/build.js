@@ -1,14 +1,15 @@
-let argv = require('yargs').argv;
-let bin = require('./bin');
-let command = require('node-cmd');
+const argv = require('yargs').argv;
+const bin = require('./bin');
+const command = require('node-cmd');
 
-let BrowserSync = require('browser-sync');
-let BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-let ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
+const BrowserSync = require('browser-sync');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
+
+const env = argv.e || argv.env || 'local';
+const port = argv.p || argv.port || 3001;
 
 let browserSyncInstance;
-let env = argv.e || argv.env || 'local';
-let port = argv.p || argv.port || 3000;
 
 module.exports = {
     jigsaw: {
@@ -37,6 +38,7 @@ module.exports = {
             port: port,
             proxy: proxy,
             server: proxy ? null : { baseDir: 'build_' + env + '/' },
+            https: false,
         },
         {
             reload: false,
