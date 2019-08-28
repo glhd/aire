@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
+use BenSampo\Enum\Enum;
 use Galahad\Aire\Tests\TestCase;
 
 class SelectTest extends TestCase
@@ -82,5 +83,36 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="0"]', 'Ta-Nehisi Coates');
 		$this->assertSelectorTextEquals($html, 'option[value="1"]', 'Philip Roth');
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
+	}
+	
+	public function test_an_enum_class_name_will_be_converted_to_a_selectable_array() : void
+	{
+		$html = $this->aire()
+			->select(SelectTestOptionsEnum::class)
+			->defaultValue(SelectTestOptionsEnum::AnnPatchett)
+			->render();
+		
+		$this->assertSelectorTextEquals($html, 'option[value="0"]', 'Ta-Nehisi Coates');
+		$this->assertSelectorTextEquals($html, 'option[value="1"]', 'Philip Roth');
+		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
+		$this->assertSelectorTextEquals($html, 'option[selected]', 'Ann Patchett');
+	}
+}
+
+class SelectTestOptionsEnum extends Enum
+{
+	public const TaNehisiCoates = 0;
+	
+	public const PhilipRoth = 1;
+	
+	public const AnnPatchett = 2;
+	
+	public static function getDescription($value): string
+	{
+		switch ($value) {
+			case static::TaNehisiCoates: return 'Ta-Nehisi Coates';
+			case static::PhilipRoth: return 'Philip Roth';
+			case static::AnnPatchett: return 'Ann Patchett';
+		}
 	}
 }

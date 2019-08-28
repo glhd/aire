@@ -20,7 +20,7 @@ use Illuminate\View\Factory;
  * @method static \Galahad\Aire\Elements\Button button(string $label = null)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Select select(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
+ * @method static \Galahad\Aire\Elements\Select select(string|array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Summary summary(?bool $verbose = null)
