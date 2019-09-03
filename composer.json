@@ -33,8 +33,8 @@
     "laravel/framework": "^5.7",
     "graham-campbell/markdown": "^10.2",
     "barryvdh/reflection-docblock": "^2.0",
-    "glhd/aire-tailwind-custom-forms": "^1.0.0-beta.1",
-    "glhd/aire-bootstrap": "^1.0.0-beta.3",
+    "glhd/aire-tailwind-custom-forms": "^1.0.0-beta.2",
+    "glhd/aire-bootstrap": "^1.0.0-beta.4",
     "bensampo/laravel-enum": "^1.24"
   },
   "suggest": {

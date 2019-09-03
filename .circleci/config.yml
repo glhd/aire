@@ -22,9 +22,9 @@ jobs:
         name: Ensuring that the artifacts directory exists
         command: mkdir -p ~/artifacts
 
-    - run:
-        name: Write version number to JSON file for testing purposes
-        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' > composer.test.json && mv composer.test.json composer.json && cat composer.json"
+#    - run:
+#        name: Write version number to JSON file for testing purposes
+#        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' > composer.test.json && mv composer.test.json composer.json && cat composer.json"
 
     - run:
         name: Installing Composer dependencies
