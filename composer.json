@@ -20,7 +20,8 @@
     "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
     "illuminate/view": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
     "illuminate/events": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "graham-campbell/markdown": "^11.1"
   },
   "require-dev": {
     "orchestra/testbench": "~3.0|~4.0",
@@ -31,7 +32,6 @@
     "symfony/css-selector": "^4.1",
     "symfony/dom-crawler": "^4.1",
     "laravel/framework": "^5.7",
-    "graham-campbell/markdown": "^10.2",
     "barryvdh/reflection-docblock": "^2.0",
     "glhd/aire-tailwind-custom-forms": "^1.0.0-beta.2",
     "glhd/aire-bootstrap": "^1.0.0-beta.4",
