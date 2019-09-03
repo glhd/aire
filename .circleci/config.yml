@@ -27,6 +27,10 @@ jobs:
         command: mkdir -p ~/artifacts
 
     - run:
+        name: Write version number to JSON file for testing purposes
+        command: "sed 's/\"name\":/\"version\":1.999.999,\"name\":/g' composer.json"
+
+    - run:
         name: Installing Composer dependencies
         command: "composer install --dev --prefer-dist"
 
