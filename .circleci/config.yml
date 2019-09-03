@@ -40,7 +40,7 @@ jobs:
 
     - run:
         name: Install Laravel 6.0
-        command: "composer require laravel/framework:^6.0 orchestra/testbench:^4.0"
+        command: "composer require --with-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
 
     - run:
         name: Enable XDebug for test with coverage
