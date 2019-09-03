@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/php:7.1.20-cli-stretch
+    - image: circleci/php:7.2-cli-stretch
 
     working_directory: ~/aire
 
