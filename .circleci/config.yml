@@ -44,7 +44,7 @@ jobs:
 
     - run:
         name: Install Laravel 6.0
-        command: "composer require laravel/framework:^5.8"
+        command: "composer require laravel/framework:^6.0"
 
     - run:
         name: Test on Laravel 6.0
