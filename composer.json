@@ -22,7 +22,7 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "~3.0",
+    "orchestra/testbench": "~3.0|~4.0",
     "phpunit/phpunit": "^7.3",
     "mockery/mockery": "^1.1",
     "php-coveralls/php-coveralls": "^2.1",
