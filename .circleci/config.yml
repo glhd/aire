@@ -28,7 +28,7 @@ jobs:
 
     - run:
         name: Write version number to JSON file for testing purposes
-        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' | sponge composer.json"
+        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' > composer.test.json && mv composer.test.json composer.json"
 
     - run:
         name: Installing Composer dependencies
