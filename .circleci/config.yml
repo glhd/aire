@@ -13,10 +13,6 @@ jobs:
     steps:
     - checkout
 
-    - run:
-        name: Enabling XDebug
-        command: sudo docker-php-ext-enable xdebug
-
     - restore_cache:
         keys:
         - v1-dependencies-{{ checksum "composer.json" }}
@@ -45,6 +41,10 @@ jobs:
     - run:
         name: Install Laravel 6.0
         command: "composer require laravel/framework:^6.0"
+
+    - run:
+        name: Enable XDebug for test with coverage
+        command: sudo docker-php-ext-enable xdebug
 
     - run:
         name: Test on Laravel 6.0
