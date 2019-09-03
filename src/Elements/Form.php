@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
+use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
@@ -214,7 +215,7 @@ class Form extends \Galahad\Aire\DTD\Form
 		if ($bound_data = $this->bound_data) {
 			$bound_value = is_object($bound_data)
 				? object_get($bound_data, $name)
-				: array_get($bound_data, $name);
+				: Arr::get($bound_data, $name);
 			
 			if ($bound_value) {
 				return $bound_value;
