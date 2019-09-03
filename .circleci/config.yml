@@ -24,7 +24,7 @@ jobs:
 
     - run:
         name: Installing Composer dependencies
-        command: "[ -f ./vendor/laravel/framework/composer.json ] || composer install -n --prefer-dist"
+        command: "composer install --dev --prefer-dist"
 
     - save_cache:
         paths:
