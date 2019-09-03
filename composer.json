@@ -1,5 +1,6 @@
 {
   "name": "glhd/aire",
+  "version": "1.6.1",
   "description": "Modern Laravel form builder. Remembers old input, retrieves error messages and comes with beautiful Tailwind-based markup out of the box.",
   "keywords": [
     "laravel",
@@ -23,7 +24,7 @@
   },
   "require-dev": {
     "orchestra/testbench": "~3.0|~4.0",
-    "phpunit/phpunit": "^7.3",
+    "phpunit/phpunit": "^8.0",
     "mockery/mockery": "^1.1",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0",

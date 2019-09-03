@@ -21,8 +21,6 @@ class SelectorContainsText extends CrawlerConstraint
 	
 	public function __construct(string $selector, string $expected_text, bool $match_case = true)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 		$this->expected_text = $expected_text;
 		$this->match_case = $match_case;

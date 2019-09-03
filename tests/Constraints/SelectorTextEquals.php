@@ -21,8 +21,6 @@ class SelectorTextEquals extends CrawlerConstraint
 	
 	public function __construct(string $selector, string $expected_text, bool $trim_actual = true)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 		$this->expected_text = $expected_text;
 		$this->trim_actual = $trim_actual;
