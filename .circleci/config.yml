@@ -28,7 +28,7 @@ jobs:
 
     - run:
         name: Write version number to JSON file for testing purposes
-        command: "sed -i 's/\"license\": \"MIT\"/\"version\":1.999.999,\"license\": \"MIT\"/g' composer.json"
+        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}'"
 
     - run:
         name: Installing Composer dependencies
