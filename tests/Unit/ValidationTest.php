@@ -5,6 +5,7 @@ namespace Galahad\Aire\Tests\Unit;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 
 class ValidationTest extends TestCase
@@ -43,7 +44,7 @@ class ValidationTest extends TestCase
 	public function test_adding_rules_enables_client_side_validation() : void
 	{
 		$rules = ['foo' => 'required'];
-		$script_path = str_random().'.js';
+		$script_path = Str::random().'.js';
 		
 		$this->app['config']->set('aire.inline_validation', false);
 		$this->app['config']->set('aire.validation_script_path', $script_path);

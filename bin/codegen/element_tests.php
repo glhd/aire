@@ -26,8 +26,9 @@ foreach ($tags as $tag => $config) {
 	$class_name = studly_case($tag);
 	
 	echo "use Galahad\\Aire\\DTD\\$class_name;\n";
-	echo "use Galahad\Aire\Tests\TestCase;\n\n";
-	
+	echo "use Galahad\Aire\Tests\TestCase;\n";
+	echo "use use Illuminate\Support\Str;\n\n";
+
 	echo "class {$class_name}Test extends TestCase\n";
 	echo "{\n";
 	

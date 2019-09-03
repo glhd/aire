@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Select;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class SelectTest extends TestCase
 {
@@ -61,7 +62,7 @@ class SelectTest extends TestCase
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$select->form($value);
 		$this->assertSelectorAttribute($select, 'select', 'form', $value);
@@ -85,7 +86,7 @@ class SelectTest extends TestCase
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$select->name($value);
 		$this->assertSelectorAttribute($select, 'select', 'name', $value);
@@ -109,7 +110,7 @@ class SelectTest extends TestCase
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$select->size($value);
 		$this->assertSelectorAttribute($select, 'select', 'size', $value);

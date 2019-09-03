@@ -244,7 +244,7 @@ function print_setter_test($attribute, $attribute_config, $tag = 'form') {
 				echo "\t\t\n";
 			}
 		} else {
-			echo "\t\t\$value = str_random();\n";
+			echo "\t\t\$value = Str::random();\n";
 			echo "\t\t\n";
 			echo "\t\t$target->$method(\$value);\n";
 			echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', \$value);\n";

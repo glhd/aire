@@ -5,6 +5,7 @@ namespace Galahad\Aire\Tests\Unit;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class FormTest extends TestCase
 {
@@ -42,7 +43,7 @@ class FormTest extends TestCase
 	
 	public function test_csrf_token_is_included_if_session_is_set_and_method_is_not_get()
 	{
-		$token = str_random();
+		$token = Str::random();
 		
 		$this->withSession(['_token' => $token]);
 		
@@ -54,7 +55,7 @@ class FormTest extends TestCase
 	
 	public function test_csrf_token_is_not_included_if_session_is_set_but_method_is_get()
 	{
-		$token = str_random();
+		$token = Str::random();
 		
 		$this->withSession(['_token' => $token]);
 		

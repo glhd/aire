@@ -4,12 +4,13 @@ namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class ElementMutatorTest extends TestCase
 {
 	public function test_an_element_can_have_defaults_changed_through_initializers() : void
 	{
-		$test_value = str_random();
+		$test_value = Str::random();
 		
 		// First make sure the default rendering of the element doesn't have our attribute
 		$checkbox = $this->aire()->checkbox();

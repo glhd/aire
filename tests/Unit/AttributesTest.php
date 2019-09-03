@@ -5,6 +5,7 @@ namespace Galahad\Aire\Tests\Unit;
 use Galahad\Aire\Elements\Attributes\Attributes;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class AttributesTest extends TestCase
 {
@@ -288,7 +289,7 @@ class AttributesTest extends TestCase
 	
 	public function test_default_can_be_set_using_a_closure() : void
 	{
-		$random_value = str_random();
+		$random_value = Str::random();
 		
 		$attributes = new Attributes();
 		$attributes->setDefault('value', function() use ($random_value) {

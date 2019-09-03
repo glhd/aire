@@ -17,7 +17,8 @@ echo " */\n\n";
 
 echo "namespace Galahad\Aire\Tests\DTD;\n\n";
 
-echo "use Galahad\Aire\Tests\TestCase;\n\n";
+echo "use Galahad\Aire\Tests\TestCase;\n";
+echo "use Illuminate\Support\Str;\n\n";
 
 echo "class GlobalAttributesTest extends TestCase\n";
 echo "{\n";

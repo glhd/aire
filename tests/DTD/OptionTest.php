@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Option;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class OptionTest extends TestCase
 {
@@ -50,7 +51,7 @@ class OptionTest extends TestCase
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$option->label($value);
 		$this->assertSelectorAttribute($option, 'option', 'label', $value);
@@ -74,7 +75,7 @@ class OptionTest extends TestCase
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$option->value($value);
 		$this->assertSelectorAttribute($option, 'option', 'value', $value);

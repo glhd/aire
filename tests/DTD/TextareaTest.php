@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Textarea;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class TextareaTest extends TestCase
 {
@@ -50,7 +51,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->cols($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'cols', $value);
@@ -63,7 +64,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->dirName($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'dirname', $value);
@@ -87,7 +88,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->form($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'form', $value);
@@ -100,7 +101,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->maxLength($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'maxlength', $value);
@@ -113,7 +114,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->name($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'name', $value);
@@ -126,7 +127,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->placeholder($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'placeholder', $value);
@@ -161,7 +162,7 @@ class TextareaTest extends TestCase
 	{
 		$textarea = new Textarea($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$textarea->rows($value);
 		$this->assertSelectorAttribute($textarea, 'textarea', 'rows', $value);

@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class ClassNamesTest extends TestCase
 {
@@ -45,7 +46,7 @@ class ClassNamesTest extends TestCase
 		$this->assertFalse($class_names->has('added-2'));
 		$this->assertFalse($class_names->has('no-validation'));
 		$this->assertFalse($class_names->has('is-invalid'));
-		$this->assertFalse($class_names->has(str_random()));
+		$this->assertFalse($class_names->has(Str::random()));
 	}
 	
 	public function test_default_classes_are_applied_by_default() : void
