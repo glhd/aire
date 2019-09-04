@@ -1,6 +1,5 @@
 {
   "name": "glhd/aire",
-  "version": "1.6.1",
   "description": "Modern Laravel form builder. Remembers old input, retrieves error messages and comes with beautiful Tailwind-based markup out of the box.",
   "keywords": [
     "laravel",
