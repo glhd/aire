@@ -64,6 +64,8 @@
 			->label('Demo Multi-Select') }}
 		
 		{{ Aire::textarea()->value('Demo text area') }}
+
+		{{ Aire::file()->label('Demo File Input') }}
 		
 		{{ Aire::checkbox()->label('Demo check box') }}
 		
