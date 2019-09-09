@@ -27,12 +27,12 @@ jobs:
 #        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' > composer.test.json && mv composer.test.json composer.json && cat composer.json"
 
     - run:
-        name: Installing Composer dependencies
-        command: "composer install --dev --prefer-dist"
-
-    - run:
         name: Install Laravel 5.8
         command: "composer require --update-with-all-dependencies laravel/framework:^5.8 orchestra/testbench:^3.8"
+
+    - run:
+        name: Installing Composer dependencies
+        command: "composer install --dev --prefer-dist"
 
     - run:
         name: Test on Laravel 5.8
