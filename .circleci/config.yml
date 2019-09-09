@@ -32,7 +32,7 @@ jobs:
 
     - run:
         name: Install Laravel 5.8
-        command: "composer require laravel/framework:^5.8 orchestra/testbench:^3.8"
+        command: "composer require --update-with-all-dependencies laravel/framework:^5.8 orchestra/testbench:^3.8"
 
     - run:
         name: Test on Laravel 5.8
