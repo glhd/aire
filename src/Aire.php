@@ -135,6 +135,21 @@ class Aire
 		
 		return static::$default_theme_config;
 	}
+
+
+    /**
+     * Set the View Factory that Aire will use to resolve views
+     *
+     * @param Factory $view_factory
+     *
+     * @return Aire
+     */
+	public function setViewFactory(Factory $view_factory) : self
+    {
+        $this->view_factory = $view_factory;
+
+        return $this;
+    }
 	
 	/**
 	 * Set where Aire looks for view files + any config overrides
@@ -269,6 +284,21 @@ class Aire
 	{
 		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
 	}
+
+
+    /**
+     * Render the first view that exists
+     *
+     * @param array $views
+     * @param array $data
+     * @param array $merge_data
+     *
+     * @return string
+     */
+    public function renderFirst(array $views, array $data = [], array $merge_data = []) : string
+    {
+        return $this->view_factory->first(array_map([$this, 'applyTheme'], $views), $data, $merge_data)->render();
+    }
 	
 	/**
 	 * Get the next globally unique element ID

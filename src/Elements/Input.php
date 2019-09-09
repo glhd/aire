@@ -44,4 +44,19 @@ class Input extends \Galahad\Aire\DTD\Input
 		
 		return $this;
 	}
+	
+	public function render() : string
+	{
+		$type = $this->attributes->get('type', 'text');
+		
+		$views = [
+			"{$this->name}.{$type}",
+			$this->name,
+		];
+		
+		return $this->aire->renderFirst(
+			$views,
+			$this->viewData()
+		);
+	}
 }

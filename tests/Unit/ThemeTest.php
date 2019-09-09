@@ -17,9 +17,9 @@ class ThemeTest extends TestCase
 		$factory_mock = Mockery::mock(Factory::class);
 		$view_mock = Mockery::mock(View::class);
 		
-		$factory_mock->shouldReceive('make')
+		$factory_mock->shouldReceive('first')
 			->once()
-			->with('theme-namespace::theme-prefix.input', Mockery::andAnyOtherArgs())
+			->with(['theme-namespace::theme-prefix.input.text', 'theme-namespace::theme-prefix.input'], Mockery::andAnyOtherArgs())
 			->andReturn($view_mock);
 		
 		$view_mock->shouldReceive('render')

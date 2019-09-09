@@ -151,6 +151,26 @@ class Group extends Element
 		return $this->element->getInputName($default);
 	}
 	
+	public function render() : string
+	{
+		$element_name = $this->element->name;
+		
+		$views = [
+			"{$this->name}.{$element_name}",
+			$this->name,
+		];
+		
+		// If our grouped element has a "type" attribute, check for that first
+		if ($element_type = $this->element->attributes->get('type')) {
+			array_unshift($views, "{$this->name}.{$element_name}.{$element_type}");
+		}
+		
+		return $this->aire->renderFirst(
+			$views,
+			$this->viewData()
+		);
+	}
+	
 	protected function applyVariantToGroup($variant) : void
 	{
 		// Skip recursion

@@ -119,7 +119,6 @@ return [
 	| be not validated, invalid, or valid. You can configure these class names
 	| on an element-by-element basis here.
 	|
-	|
 	| These should be in the format '[element]_[sub element]' => '[class names]'
 	| e.g. 'checkbox_label' => 'font-bold'
 	|

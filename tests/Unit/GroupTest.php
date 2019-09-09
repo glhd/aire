@@ -3,7 +3,10 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Str;
+use Illuminate\View\Factory;
+use Mockery;
 
 class GroupTest extends TestCase
 {
