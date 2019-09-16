@@ -16,6 +16,7 @@ use Illuminate\View\Factory;
 
 /**
  * @method static \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
+ * @method static \Galahad\Aire\Elements\Form resourceful(\Illuminate\Database\Eloquent\Model $model, $resource_name = null, $prepend_parameters = [])
  * @method static \Galahad\Aire\Elements\Label label(string $label)
  * @method static \Galahad\Aire\Elements\Button button(string $label = null)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
@@ -53,6 +54,16 @@ class Aire
 	 * @var array
 	 */
 	protected static $default_theme_config;
+	
+	/**
+	 * These methods will implicitly open a form and then call it
+	 *
+	 * @var array
+	 */
+	protected static $implicit_open = [
+		'route',
+		'resourceful',
+	];
 	
 	/**
 	 * Global store of element IDs
@@ -320,6 +331,10 @@ class Aire
 	public function __call($method_name, $arguments)
 	{
 		$form = $this->form ?? $this->form();
+		
+		if (!$form->isOpened() && in_array($method_name, static::$implicit_open)) {
+			$form->open();
+		}
 		
 		// @codeCoverageIgnoreStart
 		if (!method_exists($form, $method_name)) {

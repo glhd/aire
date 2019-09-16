@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -90,5 +91,37 @@ class FormTest extends TestCase
 		$this->assertSelectorExists($form, 'input[name="_method"]');
 		$this->assertSelectorAttribute($form, 'input[name="_method"]', 'value', 'DELETE');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
+	}
+	
+	public function test_calling_route_implicitly_opens_the_form() : void
+	{
+		Route::get('/foo/bar')->name('demo-route');
+		
+		$form = $this->aire()->form();
+		
+		$this->assertFalse($form->isOpened());
+		
+		$this->aire()->route('demo-route');
+		
+		$this->assertTrue($form->isOpened());
+		
+		$form->close();
+	}
+	
+	public function test_calling_resourceful_implicitly_opens_the_form() : void
+	{
+		Route::post('/tests')->name('tests.store');
+		
+		$form = $this->aire()->form();
+		
+		$this->assertFalse($form->isOpened());
+		
+		$this->aire()->resourceful(new class extends Model {
+			protected $table = 'test';
+		});
+		
+		$this->assertTrue($form->isOpened());
+		
+		$form->close();
 	}
 }

@@ -273,7 +273,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function close() : self
 	{
-		if (!$this->opened) {
+		if (!$this->isOpened()) {
 			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
@@ -281,6 +281,11 @@ class Form extends \Galahad\Aire\DTD\Form
 		$this->opened = false;
 		
 		return $this;
+	}
+	
+	public function isOpened() : bool
+	{
+		return true === $this->opened;
 	}
 	
 	public function openButton() : Button
@@ -456,7 +461,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function render() : string
 	{
-		if ($this->opened) {
+		if ($this->isOpened()) {
 			return '';
 		}
 		
