@@ -21,7 +21,6 @@
     "illuminate/events": "5.7.*|5.8.*|6.0.*",
     "ext-json": "*",
     "graham-campbell/markdown": "^11.1",
-    "laravel/framework": "^6.0",
     "orchestra/testbench": "^4.0"
   },
   "require-dev": {
