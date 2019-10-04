@@ -21,25 +21,29 @@ jobs:
     - run:
         name: Ensuring that the artifacts directory exists
         command: mkdir -p ~/artifacts
-
-#    - run:
-#        name: Write version number to JSON file for testing purposes
-#        command: "cat composer.json | jq --arg version 1.999.999 '. + {version: $version}' > composer.test.json && mv composer.test.json composer.json && cat composer.json"
+        
+    - run:
+        name: Install Laravel 5.7
+        command: "composer require --update-with-all-dependencies laravel/framework:^5.7 orchestra/testbench:^3.7"
+        
+    - run:
+        name: Installing Composer dependencies
+        command: "composer install --dev --prefer-dist"
+        
+    - run:
+        name: Test on Laravel 5.7
+        command: ./vendor/bin/phpunit -c phpunit.xml
 
     - run:
         name: Install Laravel 5.8
         command: "composer require --update-with-all-dependencies laravel/framework:^5.8 orchestra/testbench:^3.8"
 
     - run:
-        name: Installing Composer dependencies
-        command: "composer install --dev --prefer-dist"
-
-    - run:
         name: Test on Laravel 5.8
         command: ./vendor/bin/phpunit -c phpunit.xml
 
     - run:
-        name: Install Laravel 6.0
+        name: Install Laravel 6.x
         command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
 
     - run:
@@ -47,7 +51,7 @@ jobs:
         command: sudo docker-php-ext-enable xdebug
 
     - run:
-        name: Test on Laravel 6.0
+        name: Test on Laravel 6.x
         command: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
     - save_cache:
