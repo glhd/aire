@@ -207,8 +207,8 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && $this->session_store->hasOldInput($name)) {
-			return $this->session_store->getOldInput($name);
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::exists($old, $name)) {
+			return Arr::get($old, $name);
 		}
 		
 		// If form has bound data, use that
