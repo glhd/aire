@@ -19,7 +19,7 @@ class Select extends \Galahad\Aire\DTD\Select
 		
 		$this->attributes->registerMutator('name', function($name) {
 			return $this->attributes->get('multiple', false)
-				? rtrim($name, '[]').'[]'
+				? preg_replace('/\[\]$/', '', $name).'[]'
 				: $name;
 		});
 		
