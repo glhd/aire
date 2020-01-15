@@ -70,11 +70,8 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 		
 		if ('errors' in refs[name]) {
 			if (passes) {
-				refs[name].errors[0].classList.add('hidden');
 				refs[name].errors[0].innerHTML = '';
 			} else if (fails) {
-				// TODO: Maybe hide help text
-				refs[name].errors[0].classList.remove('hidden');
 				refs[name].errors[0].innerHTML = errors[name].map(message => `${ templates.error.prefix }${ message }${ templates.error.suffix }`).join('');
 			}
 		}
@@ -86,7 +83,7 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 					if (passes_classnames.length) {
 						if (passes) {
 							element.classList.add(...passes_classnames);
-						} else {
+						} else if (fails) {
 							element.classList.remove(...passes_classnames);
 						}
 					}
@@ -97,7 +94,7 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 					if (fails_classnames.length) {
 						if (fails) {
 							element.classList.add(...fails_classnames);
-						} else {
+						} else if (passes) {
 							element.classList.remove(...fails_classnames);
 						}
 					}
@@ -139,17 +136,23 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 	const form = resolveElement(target);
 	
 	const refs = {};
+	const storeRef = (parent, component, element) => {
+		refs[parent] = refs[parent] || {};
+		refs[parent][component] = refs[parent][component] || [];
+		refs[parent][component].push(element);
+	};
+	
 	form.querySelectorAll('[data-aire-component]').forEach(element => {
 		if ('aireFor' in element.dataset) {
 			const parent = element.dataset.aireFor;
 			const component = element.dataset.aireComponent;
 			
-			refs[parent] = refs[parent] || {};
+			// Add the component to the refs
+			storeRef(parent, component, element);
 			
-			if (component in refs[parent]) {
-				refs[parent][component].push(element);
-			} else {
-				refs[parent][component] = [element];
+			// If we have a validation key, let the element also be referenced by it
+			if ('aireValidationKey' in element.dataset && component !== element.dataset.aireValidationKey) {
+				storeRef(parent, element.dataset.aireValidationKey, element);
 			}
 		}
 	});
@@ -189,6 +192,11 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 						return;
 					}
 					if (Array.isArray(value) && 0 === value.length) {
+						return;
+					}
+					
+					// Don't mark as touched if it has errors in it
+					if ('errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
 						return;
 					}
 					touched.add(key);

@@ -178,6 +178,10 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 				'data-aire-component' => $component,
 			];
 			
+			if ($key !== $component) {
+				$computed['data-aire-validation-key'] = $key;
+			}
+			
 			$this->attributes[$key] = tap(new Attributes($defaults, $configured, $computed))
 				->registerMutator('data-aire-for', function() {
 					return $this->element->getInputName();
