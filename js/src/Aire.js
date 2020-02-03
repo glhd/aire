@@ -191,12 +191,13 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 					if (null === value || 'undefined' === typeof value || '' === value) {
 						return;
 					}
+					
 					if (Array.isArray(value) && 0 === value.length) {
 						return;
 					}
 					
 					// Don't mark as touched if it has errors in it
-					if ('errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
+					if (key in refs && 'errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
 						return;
 					}
 					touched.add(key);

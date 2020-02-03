@@ -310,7 +310,7 @@
             } // Don't mark as touched if it has errors in it
 
 
-            if ('errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
+            if (key in refs && 'errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
               return;
             }
 
