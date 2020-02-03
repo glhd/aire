@@ -2,9 +2,11 @@
 
 namespace Docs;
 
+use Galahad\Aire\Elements\ClientValidation;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use ReflectionProperty;
 use Symfony\Component\Process\Process;
 
 class BuildCommand extends Command
@@ -65,7 +67,11 @@ class BuildCommand extends Command
 		$dist = dirname(__DIR__);
 		$files = File::glob(__DIR__.'/views/*.blade.php');
 		
+		$reflect = new ReflectionProperty(ClientValidation::class, 'aire_loaded');
+		$reflect->setAccessible(true);
+		
 		foreach ($files as $filename) {
+			$reflect->setValue(ClientValidation::class, false);
 			$view = basename($filename, '.blade.php');
 			
 			// Skip partials
