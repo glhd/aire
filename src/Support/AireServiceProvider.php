@@ -46,6 +46,7 @@ class AireServiceProvider extends ServiceProvider
 		$this->config_path = "$base_path/config/aire.php";
 		$this->view_directory = "$base_path/views";
 		$this->translations_directory = "$base_path/translations";
+		$this->js_dist_directory = "$base_path/js/dist";
 	}
 	
 	/**
