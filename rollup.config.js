@@ -2,6 +2,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { uglify } from 'rollup-plugin-uglify';
+import copy from 'rollup-plugin-copy';
 
 const plugins = [
 	resolve(),
@@ -10,7 +11,15 @@ const plugins = [
 	}),
 	babel({
 		exclude: 'node_modules/**'
-	})
+	}),
+	copy({
+		targets: [
+			{
+				src: 'node_modules/validatorjs/dist/lang/',
+				dest: 'js/dist/validatorjs/'
+			},
+		],
+	}),
 ];
 
 const targets = [
