@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements;
 
+use App;
 use Galahad\Aire\Aire;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Encryption\Encrypter;
@@ -88,9 +89,13 @@ class ClientValidation implements Htmlable
 		}
 		
 		static::$aire_loaded = true;
+
+		$locale = App::getLocale();
+		$locale_path = url("/vendor/aire/js/validatorjs/lang/${locale}.js");
 		
 		$config = json_encode($this->config());
 		$config_js = "
+			<script defer src=\"${locale_path}\"></script>
 			<script defer>
 			document.addEventListener('DOMContentLoaded', function() {
 				Aire.configure({$config});
@@ -135,6 +140,7 @@ class ClientValidation implements Htmlable
 				],
 			],
 			'classnames' => $this->aire->config('validation_classes', []),
+			'locale'   => App::getLocale(),
 		];
 	}
 }

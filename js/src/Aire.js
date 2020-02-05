@@ -31,7 +31,6 @@ let booted = false;
 const boot = () => {
 	if (!booted) {
 		Validator.registerMissedRuleValidator(() => true, '');
-		Validator.useLang('en'); // TODO: Make configurable
 	}
 	
 	booted = true;
@@ -49,10 +48,17 @@ let config = {
 		'valid': {},
 		'invalid': {},
 	},
+	'locale': 'en',
 };
 
 export const configure = (customConfig) => {
 	config = customConfig;
+
+	// Use configured language
+	const locale = config.locale;
+	const localeMessages = require("./lang/" + locale);
+	Validator.setMessages(locale, localeMessages);
+	Validator.useLang(locale);
 };
 
 // FIXME: This still needs major perf work

@@ -119,7 +119,6 @@ var boot = function boot() {
     Validator.registerMissedRuleValidator(function () {
       return true;
     }, '');
-    Validator.useLang('en'); // TODO: Make configurable
   }
 
   booted = true;
@@ -136,10 +135,18 @@ var config = {
     'none': {},
     'valid': {},
     'invalid': {}
-  }
+  },
+  'locale': 'en'
 };
 var configure = function configure(customConfig) {
-  config = customConfig;
+  config = customConfig; // Use configured language
+
+  var locale = config.locale;
+
+  var localeMessages = require("./lang/" + locale);
+
+  Validator.setMessages(locale, localeMessages);
+  Validator.useLang(locale);
 }; // FIXME: This still needs major perf work
 
 var defaultRenderer = function defaultRenderer(_ref) {
