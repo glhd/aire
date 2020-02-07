@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (global = global || self, factory(global.Aire = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -29,6 +29,10 @@
   }
 
   function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -121,7 +125,6 @@
       Validator.registerMissedRuleValidator(function () {
         return true;
       }, '');
-      Validator.useLang('en'); // TODO: Make configurable
     }
 
     booted = true;
@@ -138,10 +141,18 @@
       'none': {},
       'valid': {},
       'invalid': {}
-    }
+    },
+    'locale': 'en',
+    'customAttributes': {}
   };
   var configure = function configure(customConfig) {
     config = customConfig;
+
+    if (config.locale !== 'en') {
+      Validator.setMessages(config.locale, require("./lang/".concat(config.locale)));
+    }
+
+    Validator.useLang(config.locale);
   }; // FIXME: This still needs major perf work
 
   var defaultRenderer = function defaultRenderer(_ref) {
@@ -289,7 +300,8 @@
       clearTimeout(debounce);
       debounce = setTimeout(function () {
         var data = getData(form);
-        validator = new Validator(data, rules, messages); // Because some validators may run async, we'll store a reference
+        validator = new Validator(data, rules, messages);
+        validator.setAttributeNames(config.customAttributes); // Because some validators may run async, we'll store a reference
         // to the run "id" so that we can cancel the callbacks if another
         // validation started before the callbacks were fired
 
@@ -373,4 +385,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));

@@ -31,7 +31,6 @@ let booted = false;
 const boot = () => {
 	if (!booted) {
 		Validator.registerMissedRuleValidator(() => true, '');
-		Validator.useLang('en'); // TODO: Make configurable
 	}
 	
 	booted = true;
@@ -49,10 +48,16 @@ let config = {
 		'valid': {},
 		'invalid': {},
 	},
+	'locale': 'en',
+	'customAttributes': {},
 };
 
 export const configure = (customConfig) => {
 	config = customConfig;
+	if(config.locale !== 'en') {
+		Validator.setMessages(config.locale, require(`./lang/${config.locale}`));
+	}
+	Validator.useLang(config.locale);
 };
 
 // FIXME: This still needs major perf work
@@ -180,6 +185,7 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 		debounce = setTimeout(() => {
 			const data = getData(form);
 			validator = new Validator(data, rules, messages);
+			validator.setAttributeNames(config.customAttributes);
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired

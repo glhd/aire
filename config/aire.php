@@ -61,10 +61,38 @@ return [
 	| For easiest integration, Aire will inline the javascript necessary to
 	| perform client-side validation. You can instead publish the JS scripts
 	| and load them via `<script>` tags to take advantage of HTTP caching.
+	| 
+	| If you need a language other than the default English, 
+	| you can get a language file from 
+	| https://unpkg.com/browse/validatorjs/dist/lang/
+	| and point us to it with validation_lang_path.
+	| Also set validation_lang_locale to the locale downloaded.
 	|
 	*/
-	'inline_validation' => true,
-	'validation_script_path' => env('APP_URL').'/vendor/aire/js/aire.js',
+	'inline_validation'            => true,
+	'validation_script_path'       => env('APP_URL').'/vendor/aire/js/aire.js',
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Client-Side Validation Localization
+	|--------------------------------------------------------------------------
+	|
+	| The client-side validation of aire is English by default.
+	| If you wish to change it you can download a language file from:
+	| https://unpkg.com/browse/validatorjs/dist/lang/
+	|
+	| Aire uses this script when validation_lang_path is changed to it's URL
+	| and validation_lang_locale is changed to the desired locale.
+	|
+	| Aire also allows you to change the attribute names to something more
+	| "friendly" in error messages by adding them to validation_custom_attributes.
+	| The keys should be the actual attribute name and the values will be what is
+	| displayed.
+	|
+	*/
+	'validation_lang_locale'       => 'en',
+	'validation_lang_path'         => null,
+	'validation_custom_attributes' => [],
 	
 	/*
 	|--------------------------------------------------------------------------
