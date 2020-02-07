@@ -54,6 +54,8 @@ let config = {
 
 export const configure = (customConfig) => {
 	config = customConfig;
+
+	// Load in language messages if the locale is not the default english
 	if(config.locale !== 'en') {
 		Validator.setMessages(config.locale, require(`./lang/${config.locale}`));
 	}
@@ -185,7 +187,9 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 		debounce = setTimeout(() => {
 			const data = getData(form);
 			validator = new Validator(data, rules, messages);
+			// Let validator use the custom attribute names specified in the config
 			validator.setAttributeNames(config.customAttributes);
+			
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired

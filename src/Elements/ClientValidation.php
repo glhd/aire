@@ -113,6 +113,8 @@ class ClientValidation implements Htmlable
 		}
 
 		// @codeCoverageIgnoreEnd
+
+		// Load in custom validation language if specified in config
 		$lang_script = '';
 		if ($this->aire->config('validation_lang_path', null) !== null) {
 			$lang_script = '<script defer src="'.$this->aire->config('validation_lang_path').'"></script>';
@@ -142,8 +144,8 @@ class ClientValidation implements Htmlable
 				],
 			],
 			'classnames'       => $this->aire->config('validation_classes', []),
-			'locale'           => $this->aire->config('validation_lang_locale'),
-			'customAttributes' => $this->aire->config('validation_custom_attributes'),
+			'locale'           => $this->aire->config('validation_lang_locale', 'en'),
+			'customAttributes' => $this->aire->config('validation_custom_attributes', []),
 		];
 	}
 }
