@@ -61,12 +61,6 @@ return [
 	| For easiest integration, Aire will inline the javascript necessary to
 	| perform client-side validation. You can instead publish the JS scripts
 	| and load them via `<script>` tags to take advantage of HTTP caching.
-	| 
-	| If you need a language other than the default English, 
-	| you can get a language file from 
-	| https://unpkg.com/browse/validatorjs/dist/lang/
-	| and point us to it with validation_lang_path.
-	| Also set validation_lang_locale to the locale downloaded.
 	|
 	*/
 	'inline_validation'            => true,
