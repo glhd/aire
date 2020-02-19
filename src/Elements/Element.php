@@ -74,15 +74,13 @@ abstract class Element implements Htmlable
 		
 		if ($form) {
 			$this->form = $form;
+			$form->registerElement($this);
 			$this->initGroup();
 		}
 		
 		$this->attributes = new Collection($aire, $this, $this->default_attributes);
 		
-		if ($form) {
-			$this->registerAttributeMutators();
-		}
-		
+		$this->registerAttributeMutators();
 		$this->applyElementMutators();
 	}
 	
@@ -149,6 +147,11 @@ abstract class Element implements Htmlable
 		
 		// Then convert foo[bar][baz] to foo.bar.baz
 		return preg_replace('/\[([^\]]+)\]/m', '.$1', $name);
+	}
+	
+	public function getValue($default = null)
+	{
+		return $this->attributes->get('value', $default);
 	}
 	
 	public function setAttribute($key, $value) : self
@@ -281,7 +284,7 @@ abstract class Element implements Htmlable
 	 */
 	protected function registerAttributeMutators() : self
 	{
-		if ($this->bind_value) {
+		if ($this->form && $this->bind_value) {
 			$this->attributes->setDefault('value', function() {
 				return $this->form->getBoundValue($this->getInputName());
 			});
@@ -290,6 +293,12 @@ abstract class Element implements Htmlable
 		// TODO: We may want to generate internal IDs to use here if no name exists
 		$this->attributes->registerMutator('data-aire-for', function() {
 			return $this->getInputName();
+		});
+		
+		$this->attributes->registerMutator('x-model', function() {
+			return $this->form && $this->form->isAlpineComponent() 
+				? $this->getInputName()
+				: null;
 		});
 		
 		return $this;

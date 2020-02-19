@@ -43,6 +43,11 @@ class Checkbox extends Input
 		});
 	}
 	
+	public function getValue($default = null)
+	{
+		return true === $this->attributes->get('checked', $default);
+	}
+	
 	public function label($text) : self
 	{
 		$this->view_data['label_text'] = $text;

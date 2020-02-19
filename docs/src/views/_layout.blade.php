@@ -13,13 +13,13 @@
 	<link rel="stylesheet" href="{{ asset('aire.css') }}" />
 	
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.10.1/css/solid.css"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/solid.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.10.1/css/brands.css"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/brands.css"
 	      crossorigin="anonymous" />
 	<link rel="stylesheet"
-	      href="https://use.fontawesome.com/releases/v5.10.1/css/fontawesome.css"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/fontawesome.css"
 	      crossorigin="anonymous" />
 	
 	@stack('head')
