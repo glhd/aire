@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	
 	<title>
-			Tailwind Custom Forms
+			Aire + Alpine.js
  - Aire (Laravel Form Builder)
 	</title>
 	
@@ -23,7 +23,8 @@
 	      href="https://use.fontawesome.com/releases/v5.12.1/css/fontawesome.css"
 	      crossorigin="anonymous" />
 	
-	</head>
+		<script src="https://unpkg.com/alpinejs@1.12.0/dist/alpine-ie11.js" defer></script>
+</head>
 
 <body class="font-sans font-base leading-normal antialiased">
 
@@ -51,87 +52,99 @@
 		<div class="flex-auto lg:max-w-4/5">
 			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
 					
-		
 	<h1 class="text-2xl text-gray-900">
-		Tailwind Custom Forms
+		Aire + Alpine.js
 	</h1>
 	
-	<div class="mt-4 mb-8 p-6 border rounded leading-normal bg-yellow-100 border-yellow-300 text-yellow-800">
-		<strong>Please note:</strong> This theme is a work-in-progress. It is not ready
-		for production&mdash;use at your own risk!
-	</div>
-	
 	<p>
-		If you're using the <a href="https://github.com/tailwindcss/custom-forms" target="_blank">Tailwind custom forms</a>
-		plugin, you can use it by adding <code>glhd/aire-tailwind-custom-forms</code> to your project. If
-		you're using Laravel package auto-discovery, there's nothing else you need to do (just make sure you've
-		<a href="https://tailwindcss-custom-forms.netlify.com/" target="_blank">installed the tailwind plugin</a>, too).
+		Aire comes with built-in support for <a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</a>,
+		a reactive JavaScript library built for server-generated markup. Alpine lets you add sophisticated
+		interactions to your forms without committing to a full-scale single page app. 
 	</p>
 	
-	<h2>
-		Installation
+	<p>
+		All you need to do to enable Alpine integration is use the <code>asAlpineComponent()</code> method:
+	</p>
+	
+	<pre><code class="language-php">{{ Aire::route('demo.store')->asAlpineComponent() }}</code></pre>
+	
+	<p>
+		This will do two things for you:
+	</p>
+	
+	<ol class="pl-8 mb-8 list-decimal">
+		<li class="my-2">
+			Set up the <code>x-data</code> attribute on your <code>&lt;form&gt;</code> tag.
+		</li>
+		<li class="my-2">
+			Add <code>x-model</code> attributes to each of your elements.
+		</li>
+	</ol>
+	
+	<p>
+		Aire uses all the same data binding logic for <code>x-data</code>, so that you’re ready
+		to go without any additional work:
+	</p>
+	
+	<h2 class="mb-0">
+		Sample Code:
 	</h2>
+	<pre class="mt-2"><code class="language-php">{{ Aire::open()->bind(['comment' => 'Alpine.js is great.'])->asAlpineComponent() }}
+{{ Aire::input('comment', 'Your Comment') }}
+{{ Aire::select(['5' => '5 stars', '11' => '11 stars'], 'alpine_rating')->defaultValue('5') }}
+
+&lt;div class="my-4 p-2 border rounded"&gt;
+  &lt;div class="font-bold mb-1"&gt;Preview Your Review&lt;/div&gt;
+  &lt;div class="italic text-lg font-serif"&gt;“&lt;span x-text="comment"&gt;&lt;/span&gt;”&lt;/div&gt;
+  &lt;div class="text-sm font-bold"&gt;&lt;span x-text="rating"&gt;&lt;/span&gt; stars&lt;/div&gt;
+&lt;/div&gt;
+
+{{ Aire::submit('Submit Review') }}
+{{ Aire::close() }}</code></pre>
 	
-	<pre>composer require glhd/aire-tailwind-custom-forms</pre>
-	
-	<p>
-		Once the plugin is installed, you can use <code>Aire</code> as you would normally,
-		and all the custom forms classes will be applied:
-	</p>
-	
-	<div class="border rounded my-12 relative">
-		<h2 class="m-0 px-6 py-3 border-b text-salmon">
-			Tailwind Custom Form
-		</h2>
-		
-		<div class="p-4">
-			
-			<form action="" method="POST" class="" data-aire-component="form" enctype="multipart/form-data" data-aire-id="158">
+	<h2 class="mb-0">
+		Resulting Form:
+	</h2>
+	<div class="border rounded p-2 my-4">
+	<form action="" method="POST" class="" data-aire-component="form" data-aire-id="0" x-data="{&quot;comment&quot;:&quot;Alpine.js is great.&quot;,&quot;rating&quot;:&quot;5&quot;}">
 
 		
 		
-	<div class="mb-6" data-aire-component="group">
-	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="demo">
-	Demo Input
+	<div class="mb-6" data-aire-component="group" data-aire-for="comment" value="Alpine.js is great." x-model="comment">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-0-comment1">
+	Your Comment
 </label>
 
 	
 	<div class="">
 				
-		<input type="text" class="form-input block w-full p-2 text-base rounded-sm text-gray-900" data-aire-component="input" id="demo" />
+		<input type="text" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="comment" data-aire-for="comment" value="Alpine.js is great." x-model="comment" id="__aire-0-comment1" />
 
 			
 			</div>
 	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors">
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="comment">
 			</ul>
 	
-			<small class="block mt-1 font-normal text-sm text-gray-600" data-aire-component="help_text" data-aire-validation-key="group_help_text">
-			This is demo help text.
-		</small>
 		
 </div>
 
-			
-			<div class="mb-6" data-aire-component="group">
-	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-158-162">
-	Demo Select
-</label>
-
+	<div class="mb-6" data-aire-component="group" data-aire-for="rating" x-model="rating">
+	
 	
 	<div class="">
 				
-		<select class="form-select block w-full text-gray-900" data-aire-component="select" id="__aire-158-162">
+		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none text-gray-900" data-aire-component="select" name="rating" data-aire-for="rating" x-model="rating" id="__aire-0-rating4">
 	
 		
 			
-		<option value="one" >
-			Option 1
+		<option value="5" selected>
+			5 stars
 		</option>
 	
 			
-		<option value="two" >
-			Option 2
+		<option value="11" >
+			11 stars
 		</option>
 	
 	
@@ -140,204 +153,44 @@
 			
 			</div>
 	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors">
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="rating">
 			</ul>
 	
 		
 </div>
 
-			
-			<div class="mb-6" data-aire-component="group" data-aire-for="">
-	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-158-165">
-	Demo Multi-Select
-</label>
-
-	
-	<div class="">
-				
-		<select class="block w-full form-multiselect text-gray-900" data-aire-component="select" multiple data-aire-for="" name="[]" id="__aire-158-165">
-	
-		
-			
-		<option value="one" >
-			Option 1
-		</option>
-	
-			
-		<option value="two" >
-			Option 2
-		</option>
-	
-	
-</select>
-
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="">
-			</ul>
-	
-		
-</div>
-
-			
-			<div class="mb-6" data-aire-component="group">
-	
-	
-	<div class="">
-				
-		<textarea class="form-textarea block w-full p-2 text-base rounded-sm text-gray-900" data-aire-component="textarea" id="__aire-158-168">Demo text area</textarea>
-
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors">
-			</ul>
-	
-		
-</div>
-
-			
-			<div class="mb-6 custom-control custom-checkbox" data-aire-component="group">
-	
-	
-	<div class="">
-				
-		<label class="flex items-baseline" data-aire-component="label" data-aire-validation-key="checkbox_label" for="__aire-158-170">
-	<input type="checkbox" value="1" class="form-checkbox" data-aire-component="checkbox" id="__aire-158-170" />
-	<span class="ml-2 flex-1" data-aire-component="wrapper" data-aire-validation-key="checkbox_wrapper">
-		Demo check box
-	</span>
-</label>
-
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors">
-			</ul>
-	
-		
-</div>
-
-			
-			<div class="mb-6" data-aire-component="group" data-aire-for="foo">
-	<label class="inline-block mb-2 font-semibold text-base" data-aire-component="label">
-	Demo radio group
-</label>
-
-	
-	<div class="">
-				
-		<div class="" data-aire-component="wrapper" data-aire-validation-key="radio_group_wrapper" data-aire-for="foo">
-	
-		
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-validation-key="radio_group_label" data-aire-for="foo">
-			<input
-				type="radio" class="form-radio" data-aire-component="radio-group" data-aire-validation-key="radio_group" name="foo" data-aire-for="foo"
-				value="one"
-				
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-validation-key="radio_group_label_wrapper" data-aire-for="foo">
-				Option 1
-			</span>
-		</label>
-	
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-validation-key="radio_group_label" data-aire-for="foo">
-			<input
-				type="radio" class="form-radio" data-aire-component="radio-group" data-aire-validation-key="radio_group" name="foo" data-aire-for="foo"
-				value="two"
-				checked
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-validation-key="radio_group_label_wrapper" data-aire-for="foo">
-				Option 2
-			</span>
-		</label>
-	
+	<div class="my-4 p-2 border rounded">
+		<div class="font-bold mb-1">Preview Your Review</div>
+		<div class="italic text-lg font-serif">“<span x-text="comment"></span>”</div>
+		<div class="text-sm font-bold"><span x-text="rating"></span> stars</div>
 	</div>
-
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="foo">
-			</ul>
-	
-		
-</div>
-
-			
-			<div class="mb-6" data-aire-component="group" data-aire-for="bar">
-	<label class="inline-block mb-2 font-semibold text-base" data-aire-component="label">
-	Demo checkbox group
-</label>
-
-	
-	<div class="">
-				
-		<div class="" data-aire-component="wrapper" data-aire-validation-key="checkbox_group_wrapper" data-aire-for="bar">
-	
-		
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-validation-key="checkbox_group_label" data-aire-for="bar">
-			<input
-				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" data-aire-validation-key="checkbox_group" name="bar[]" data-aire-for="bar"
-				value="one"
-				checked
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-validation-key="checkbox_group_label_wrapper" data-aire-for="bar">
-				Option 1
-			</span>
-		</label>
-	
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-validation-key="checkbox_group_label" data-aire-for="bar">
-			<input
-				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" data-aire-validation-key="checkbox_group" name="bar[]" data-aire-for="bar"
-				value="two"
-				
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-validation-key="checkbox_group_label_wrapper" data-aire-for="bar">
-				Option 2
-			</span>
-		</label>
-	
-			
-		<label class="flex items-baseline mb-2 ml-2 border-transparent border-l" data-aire-component="label" data-aire-validation-key="checkbox_group_label" data-aire-for="bar">
-			<input
-				type="checkbox" class="form-checkbox" data-aire-component="checkbox-group" data-aire-validation-key="checkbox_group" name="bar[]" data-aire-for="bar"
-				value="three"
-				checked
-			/>
-			<span class="flex-1 ml-2" data-aire-component="label_wrapper" data-aire-validation-key="checkbox_group_label_wrapper" data-aire-for="bar">
-				Option 3
-			</span>
-		</label>
-	
-	</div>
-
-			
-			</div>
-	
-	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="bar">
-			</ul>
-	
-		
-</div>
-
-			
-			<button class="font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal inline-block text-base rounded p-2 px-4 text-white bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-900" data-aire-component="button" type="submit">
-	Demo Button
+	<button class="font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal inline-block text-base rounded p-2 px-4 text-white bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-900" data-aire-component="button" type="submit">
+	Submit Review
 </button>
 	
 	
 	
 </form>
 
-		</div>
 	</div>
 	
-	
+	<h2 class="mb-0">
+		Effective HTML (just showing Alpine-specific portions):
+	</h2>
+	<pre class="mt-2"><code class="language-php">&lt;form x-data="{'comment': 'Alpine.js is great.', 'rating': '5'}"&gt;
+&lt;input name="comment" x-model="comment" /&gt;
+&lt;select name="rating" x-model="rating"&gt;
+  &lt;option value="5"&gt;5 stars&lt;/option&gt;
+  &lt;option value="11"&gt;11 stars&lt;/option&gt;
+&lt;/select&gt;
+&lt;div class="my-4 p-2 border rounded"&gt;
+  &lt;div class="font-bold mb-1"&gt;Preview Your Review&lt;/div&gt;
+  &lt;div class="italic text-lg font-serif"&gt;“&lt;span x-text="comment"&gt;&lt;/span&gt;”&lt;/div&gt;
+  &lt;div class="text-sm font-bold"&gt;&lt;span x-text="rating"&gt;&lt;/span&gt; stars&lt;/div&gt;
+&lt;/div&gt;
+&lt;button type="submit"&gt;Submit Review&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
 			</div>
 		</div>
 		<div id="navigation" class="flex-shrink-0 lg:max-w-1/5">
@@ -408,9 +261,9 @@
 	
 		
 			
-		<li class="group mb-4">
-			<i class="fa-fw fab fa-js-square mr-2 text-gray-600 group-hover:text-gray-700"></i>
-			<a href="https://glhd.github.io/aire/alpine-components" class="text-gray-700 no-underline hover:text-gray-900">
+		<li class="group text-salmon mb-4">
+			<i class="fa-fw fab fa-js-square mr-2"></i>
+			<a href="https://glhd.github.io/aire/alpine-components" class="text-salmon font-bold no-underline cursor-default">
 				Alpine.js
 			</a>
 		</li>
@@ -488,9 +341,9 @@
 <ul class="list-reset mt-8 font-semibold">
 	
 		
-	<li class="group text-salmon mb-4">
-			<i class="fa-fw fas fa-fill-drip mr-2"></i>
-			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-salmon font-bold no-underline cursor-default">
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-fill-drip mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-gray-700 no-underline hover:text-gray-900">
 				Tailwind Forms
 			</a>
 		</li>
