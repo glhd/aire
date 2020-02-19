@@ -3,10 +3,11 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
-class Checkbox extends Input
+class Checkbox extends Input implements HasJsonValue
 {
 	public $name = 'checkbox';
 	
@@ -41,6 +42,11 @@ class Checkbox extends Input
 			
 			return $this->attributes->isValue($this->form->getBoundValue($this->getInputName()));
 		});
+	}
+	
+	public function getJsonValue()
+	{
+		return $this->attributes->get('checked');
 	}
 	
 	public function label($text) : self
