@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Database\Eloquent\Model;
@@ -119,7 +120,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * 
 	 * @var array 
 	 */
-	protected $elements = [];
+	protected $json_serializable_elements = [];
 	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
@@ -138,9 +139,8 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function registerElement(Element $element) : self 
 	{
-		// There should be a better way to do this, probably via HasValue-ish
-		if (!$element instanceof Group) {
-			$this->elements[] = $element;
+		if ($element instanceof HasJsonValue) {
+			$this->json_serializable_elements[] = $element;
 		}
 		
 		return $this;
@@ -225,13 +225,13 @@ class Form extends \Galahad\Aire\DTD\Form
 				return null;
 			}
 			
-			return collect($this->elements)
+			return collect($this->json_serializable_elements)
 				->reject(function(Element $element) {
 					return empty($element->getInputName());
 				})
 				->mapWithKeys(function(Element $element) {
 					$key = $element->getInputName();
-					$value = $element->getValue();
+					$value = $element->getJsonValue();
 					return [$key => $value];
 				})
 				->toJson();

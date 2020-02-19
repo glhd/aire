@@ -149,11 +149,6 @@ abstract class Element implements Htmlable
 		return preg_replace('/\[([^\]]+)\]/m', '.$1', $name);
 	}
 	
-	public function getValue($default = null)
-	{
-		return $this->attributes->get('value', $default);
-	}
-	
 	public function setAttribute($key, $value) : self
 	{
 		$this->attributes->set($key, $value);
