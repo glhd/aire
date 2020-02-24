@@ -47,9 +47,13 @@ jobs:
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
 
+      # This is only necessary until we move docs to its own repo
+      - name: Remove docs-only packages for tests
+        run: composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap
+
       - name: Install dependencies
         run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-        
+
       - name: Set dependency version
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
