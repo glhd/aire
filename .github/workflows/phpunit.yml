@@ -44,6 +44,11 @@ jobs:
       # This is only necessary until we move docs to its own repo
       - name: Remove docs-only packages for tests
         run: composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap
+        
+      # Remove after a few weeks
+      - name: Remove not-yet-upgraded packages
+        run: composer remove --dev bensampo/laravel-enum
+        if: ^7.0 == matrix.laravel 
 
       - name: Install dependencies
         run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
