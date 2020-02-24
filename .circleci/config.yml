@@ -24,7 +24,7 @@ jobs:
 
     - run:
         name: Remove docs-only packages for tests
-        command: "composer remove glhd/aire-tailwind-custom-forms glhd/aire-bootstrap"
+        command: "composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap"
         
     - run:
         name: Install Laravel 5.7
