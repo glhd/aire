@@ -11,9 +11,12 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.4, 7.3, 7.2]
-        laravel: [^7.0, ^6.0, ~5.8.28]
-        dependency-version: [lowest, stable]
+        # php: [7.4, 7.3, 7.2]
+        php: [7.3]
+        # laravel: [^7.0, ^6.0, ~5.8.28]
+        laravel: [^6.0]
+        # dependency-version: [lowest, stable]
+        dependency-version: [stable]
         include:
           - laravel: ^7.0
             testbench: ^5.0
@@ -59,8 +62,8 @@ jobs:
       - name: Set dependency version
         run: composer update --prefer-${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
-      - name: Execute tests with coverage
-        run: vendor/bin/phpunit --coverage-clover ~/clover.xml
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover ${{ github.workspace }}/clover.xml
 
       - if: matrix.coverage == 'pcov'
         name: Publish code coverage
@@ -69,5 +72,6 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: echo "ok"
+          debug: true
           coverageLocations:
             "${{github.workspace}}/clover.xml:clover"
