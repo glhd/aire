@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: [7.4, 7.3, 7.2]
-        laravel: [^7.0, ^6.0, 5.8.*, 5.7.*]
+        laravel: [^7.0, ^6.0, ~5.8.0]
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: ^7.0
@@ -21,17 +21,11 @@ jobs:
           - laravel: ^6.0
             testbench: ^4.0
             minimum-stability: stable
-          - laravel: 5.8.*
-            testbench: 3.8.*
+          - laravel: ^5.8
+            testbench: ^3.8
             minimum-stability: stable
-          - laravel: 5.7.*
-            testbench: 3.7.*
-            minimum-stability: stable
-        exclude:
-          - laravel: 5.7.*
-            php: 7.4
 
-    name: "PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
+    name: "P${{ matrix.php }} / L${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
     steps:
       - name: Checkout code
