@@ -11,12 +11,9 @@ jobs:
 
     strategy:
       matrix:
-        # php: [7.4, 7.3, 7.2]
-        php: [7.3]
-        # laravel: [^7.0, ^6.0, ~5.8.28]
-        laravel: [^6.0]
-        # dependency-version: [lowest, stable]
-        dependency-version: [stable]
+        php: [7.4, 7.3, 7.2]
+        laravel: [^7.0, ^6.0, ~5.8.28]
+        dependency-version: [lowest, stable]
         include:
           - laravel: ^7.0
             testbench: ^5.0
@@ -41,7 +38,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: ${{ matrix.coverage }}
 
       - name: Set minimum stability
@@ -53,7 +50,7 @@ jobs:
 
       # Remove after a few weeks
       - if: matrix.laravel == '^7.0'
-        name: Remove not-yet-upgraded packages
+        name: Remove not-yet-upgraded packages (Laravel 7 only)
         run: composer remove --dev bensampo/laravel-enum
 
       - name: Install dependencies
