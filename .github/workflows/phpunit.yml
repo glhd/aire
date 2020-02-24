@@ -31,8 +31,8 @@ jobs:
           - laravel: 5.7.*
             php: 7.4
 
-    name: [${{ matrix.os }}] PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
-
+    name: "[${{ matrix.os }}] PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
