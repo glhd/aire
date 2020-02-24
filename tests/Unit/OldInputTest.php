@@ -16,7 +16,8 @@ class OldInputTest extends TestCase
 		
 		$input = $this->aire()
 			->form()
-			->input('foo');
+			->input('foo')
+			->defaultValue('not bar');
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
 	}
@@ -32,9 +33,27 @@ class OldInputTest extends TestCase
 		$input = $this->aire()
 			->form()
 			->bind(['foo' => 'definitely not bar'])
-			->input('foo');
+			->input('foo')
+			->defaultValue('also not bar');
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'bar');
+	}
+	
+	public function test_old_input_is_preserved_even_if_it_is_a_blank_string() : void
+	{
+		$this->withSession([
+			'_old_input' => [
+				'foo' => null,
+			],
+		]);
+		
+		$input = $this->aire()
+			->form()
+			->bind(['foo' => 'definitely not bar'])
+			->input('foo')
+			->defaultValue('also not bar');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', '');
 	}
 	
 	public function test_explicit_value_supercedes_old_input() : void
@@ -48,7 +67,8 @@ class OldInputTest extends TestCase
 		$input = $this->aire()
 			->form()
 			->input('foo')
-			->value('baz');
+			->value('baz')
+			->defaultValue('not baz');
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'baz');
 	}
