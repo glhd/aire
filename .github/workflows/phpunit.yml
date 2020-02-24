@@ -49,9 +49,9 @@ jobs:
         run: composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap
 
       # Remove after a few weeks
-      - name: Remove not-yet-upgraded packages
+      - if: matrix.laravel == '^7.0'
+        name: Remove not-yet-upgraded packages
         run: composer remove --dev bensampo/laravel-enum
-        if: '^7.0' == matrix.laravel
 
       - name: Install dependencies
         run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
@@ -62,9 +62,9 @@ jobs:
       - name: Execute tests with coverage
         run: vendor/bin/phpunit --coverage-clover ~/clover.xml
 
-      - name: Publish code coverage
+      - if: matrix.coverage == 'pcov'
+        name: Publish code coverage
         uses: paambaati/codeclimate-action@v2.4.0
-        if: 'pcov' == matrix.coverage
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
