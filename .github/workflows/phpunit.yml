@@ -54,10 +54,10 @@ jobs:
         run: composer remove --dev bensampo/laravel-enum
 
       - name: Install dependencies
-        run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+        run: composer require --no-progress --no-interaction --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
 
       - name: Set dependency version
-        run: composer update --prefer-${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        run: composer update --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover ${{ github.workspace }}/clover.xml
