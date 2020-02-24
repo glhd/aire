@@ -31,7 +31,7 @@ jobs:
           - laravel: 5.7.*
             php: 7.4
 
-    name: "[${{ matrix.os }}] PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
+    name: "PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
     steps:
       - name: Checkout code
@@ -47,11 +47,11 @@ jobs:
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
 
-      - name: Set dependency version
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
-
       - name: Install dependencies
         run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+        
+      - name: Set dependency version
+        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: vendor/bin/phpunit
