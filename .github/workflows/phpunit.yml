@@ -69,5 +69,5 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: echo "ok"
-          coverageLocations: 
-            - ~/clover.xml
+          coverageLocations:
+            "${{github.workspace}}/clover.xml:clover"
