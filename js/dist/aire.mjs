@@ -159,11 +159,8 @@ var defaultRenderer = function defaultRenderer(_ref) {
 
     if ('errors' in refs[name]) {
       if (passes) {
-        refs[name].errors[0].classList.add('hidden');
         refs[name].errors[0].innerHTML = '';
       } else if (fails) {
-        // TODO: Maybe hide help text
-        refs[name].errors[0].classList.remove('hidden');
         refs[name].errors[0].innerHTML = errors[name].map(function (message) {
           return "".concat(templates.error.prefix).concat(message).concat(templates.error.suffix);
         }).join('');
@@ -184,7 +181,7 @@ var defaultRenderer = function defaultRenderer(_ref) {
               var _element$classList;
 
               (_element$classList = element.classList).add.apply(_element$classList, _toConsumableArray(passes_classnames));
-            } else {
+            } else if (fails) {
               var _element$classList2;
 
               (_element$classList2 = element.classList).remove.apply(_element$classList2, _toConsumableArray(passes_classnames));
@@ -200,7 +197,7 @@ var defaultRenderer = function defaultRenderer(_ref) {
               var _element$classList3;
 
               (_element$classList3 = element.classList).add.apply(_element$classList3, _toConsumableArray(fails_classnames));
-            } else {
+            } else if (passes) {
               var _element$classList4;
 
               (_element$classList4 = element.classList).remove.apply(_element$classList4, _toConsumableArray(fails_classnames));
@@ -244,16 +241,22 @@ var connect = function connect(target) {
   boot();
   var form = resolveElement(target);
   var refs = {};
+
+  var storeRef = function storeRef(parent, component, element) {
+    refs[parent] = refs[parent] || {};
+    refs[parent][component] = refs[parent][component] || [];
+    refs[parent][component].push(element);
+  };
+
   form.querySelectorAll('[data-aire-component]').forEach(function (element) {
     if ('aireFor' in element.dataset) {
       var parent = element.dataset.aireFor;
-      var component = element.dataset.aireComponent;
-      refs[parent] = refs[parent] || {};
+      var component = element.dataset.aireComponent; // Add the component to the refs
 
-      if (component in refs[parent]) {
-        refs[parent][component].push(element);
-      } else {
-        refs[parent][component] = [element];
+      storeRef(parent, component, element); // If we have a validation key, let the element also be referenced by it
+
+      if ('aireValidationKey' in element.dataset && component !== element.dataset.aireValidationKey) {
+        storeRef(parent, element.dataset.aireValidationKey, element);
       }
     }
   });
@@ -297,6 +300,11 @@ var connect = function connect(target) {
           }
 
           if (Array.isArray(value) && 0 === value.length) {
+            return;
+          } // Don't mark as touched if it has errors in it
+
+
+          if (key in refs && 'errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
             return;
           }
 

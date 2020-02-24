@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Database\Eloquent\Model;
@@ -105,6 +106,22 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $dev_mode = false;
 	
+	/**
+	 * If true, we'll set up x-data and x-model attributes for Alpine.js
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @var bool 
+	 */
+	protected $is_alpine_component = false;
+	
+	/**
+	 * We'll store a reference to all the elements created in the form
+	 * so that if we need to serialize them for Alpine we can. 
+	 * 
+	 * @var array 
+	 */
+	protected $json_serializable_elements = [];
+	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
@@ -118,6 +135,15 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		$this->initValidation();
+	}
+	
+	public function registerElement(Element $element) : self 
+	{
+		if ($element instanceof HasJsonValue) {
+			$this->json_serializable_elements[] = $element;
+		}
+		
+		return $this;
 	}
 	
 	/**
@@ -180,6 +206,50 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		return $this;
+	}
+	
+	/**
+	 * Configure the form for use as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @param bool $alpine_component
+	 * @return $this
+	 */
+	public function asAlpineComponent(bool $alpine_component = true) : self 
+	{
+		$this->is_alpine_component = $alpine_component;
+		
+		$this->attributes->registerMutator('x-data', function() {
+			if (!$this->isAlpineComponent()) {
+				return null;
+			}
+			
+			return collect($this->json_serializable_elements)
+				->reject(function(Element $element) {
+					return empty($element->getInputName());
+				})
+				->mapWithKeys(function(Element $element) {
+					$key = $element->getInputName();
+					$value = $element->getJsonValue();
+					return [$key => $value];
+				})
+				->toJson();
+		});
+		
+		return $this;
+	}
+	
+	/**
+	 * Determine whether the form is configured as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @return bool
+	 */
+	public function isAlpineComponent() : bool 
+	{
+		return $this->is_alpine_component;
 	}
 	
 	/**

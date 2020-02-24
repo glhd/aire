@@ -3,13 +3,15 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\AppliesIdToWrapper;
 use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
+use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
-class RadioGroup extends \Galahad\Aire\DTD\Input
+class RadioGroup extends \Galahad\Aire\DTD\Input implements HasJsonValue
 {
-	use HasValue, HasOptions, AppliesIdToWrapper;
+	use HasValue, HasOptions, AppliesIdToWrapper, MapsValueToJsonValue;
 	
 	public $name = 'radio-group';
 	
