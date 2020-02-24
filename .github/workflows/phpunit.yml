@@ -18,12 +18,15 @@ jobs:
           - laravel: ^7.0
             testbench: ^5.0
             minimum-stability: dev
+            coverage: none
           - laravel: ^6.0
             testbench: ^4.0
             minimum-stability: stable
+            coverage: pcov
           - laravel: ~5.8.28
             testbench: ~3.8.0
             minimum-stability: stable
+            coverage: none
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
@@ -36,7 +39,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extension-csv: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: none
+          coverage: ${{ matrix.coverage }}
 
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
@@ -56,5 +59,14 @@ jobs:
       - name: Set dependency version
         run: composer update --prefer-${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
-      - name: Execute tests
-        run: vendor/bin/phpunit
+      - name: Execute tests with coverage
+        run: vendor/bin/phpunit --coverage-clover ~/clover.xml
+
+      - name: Publish code coverage
+          uses: paambaati/codeclimate-action@v2.4.0
+          if: pcov == matrix.coverage
+          env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          with:
+            coverageCommand: echo "ok"
+            coverageLocations: [~/clover.xml]
