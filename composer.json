@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "require": {
-    "illuminate/support": "^5.7|^6.0}^7.0",
+    "illuminate/support": "^5.7|^6.0|^7.0",
     "illuminate/view": "^5.7|^6.0|^7.0",
     "illuminate/events": "^5.7|^6.0|^7.0",
     "ext-json": "*"
@@ -31,8 +31,8 @@
     "symfony/css-selector": "^4.1",
     "symfony/dom-crawler": "^4.1",
     "barryvdh/reflection-docblock": "^2.0",
-    "glhd/aire-tailwind-custom-forms": "dev-*",
-    "glhd/aire-bootstrap": "dev-*",
+    "glhd/aire-tailwind-custom-forms": "dev-master",
+    "glhd/aire-bootstrap": "dev-master",
     "bensampo/laravel-enum": "^1.24"
   },
   "suggest": {
