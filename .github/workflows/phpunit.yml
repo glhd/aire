@@ -1,0 +1,54 @@
+name: PHPUnit
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  php-tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php: [7.4, 7.3, 7.2]
+        laravel: [^7.0@dev, ^6.0, 5.8.*, 5.7.*, 5.6.*, 5.5.*]
+        dependency-version: [prefer-lowest, prefer-stable]
+        minimum-stability: [dev, stable]
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - laravel: ^7.0
+            testbench: ^5.0
+          - laravel: ^6.0
+            testbench: ^4.0
+          - laravel: 5.8.*
+            testbench: 3.8.*
+          - laravel: 5.7.*
+            testbench: 3.7.*
+        exclude:
+          - laravel: ^7.0
+            minimum-stability: stable
+          - laravel: 5.7.*
+            php: 7.4
+
+    name: [${{ matrix.os }}] PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer config minimum-stability ${{ matrix.minimum-stability }}
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
