@@ -6,78 +6,90 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/php:7.2-cli-stretch
+      - image: circleci/php:7.2-cli-stretch
 
     working_directory: ~/aire
 
     steps:
-    - checkout
+      - checkout
 
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "composer.json" }}
-        - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
 
-    - run:
-        name: Ensuring that the artifacts directory exists
-        command: mkdir -p ~/artifacts
+      - run:
+          name: Ensuring that the artifacts directory exists
+          command: mkdir -p ~/artifacts
 
-    - run:
-        name: Remove docs-only packages for tests
-        command: "composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap"
-        
-    - run:
-        name: Install Laravel 5.7
-        command: "composer require --update-with-all-dependencies laravel/framework:^5.7 orchestra/testbench:^3.7"
-        
-    - run:
-        name: Installing Composer dependencies
-        command: "composer install --dev --prefer-dist"
-        
-    - run:
-        name: Test on Laravel 5.7
-        command: ./vendor/bin/phpunit -c phpunit.xml
+      - run:
+          name: Remove docs-only packages for tests
+          command: "composer remove --dev glhd/aire-tailwind-custom-forms glhd/aire-bootstrap"
 
-    - run:
-        name: Install Laravel 5.8
-        command: "composer require --update-with-all-dependencies laravel/framework:^5.8 orchestra/testbench:^3.8"
+      - run:
+          name: Install Laravel 5.7
+          command: "composer require --update-with-all-dependencies laravel/framework:^5.7 orchestra/testbench:^3.7"
 
-    - run:
-        name: Test on Laravel 5.8
-        command: ./vendor/bin/phpunit -c phpunit.xml
+      - run:
+          name: Installing Composer dependencies
+          command: "composer install --dev --prefer-dist"
 
-    - run:
-        name: Install Laravel 7
-        command: "composer require --update-with-all-dependencies laravel/framework:^7.0@dev orchestra/testbench:^5.0@dev"
+      - run:
+          name: Test on Laravel 5.7
+          command: ./vendor/bin/phpunit -c phpunit.xml
 
-    - run:
-        name: Test on Laravel 7
-        command: ./vendor/bin/phpunit -c phpunit.xml
+      - run:
+          name: Install Laravel 5.8
+          command: "composer require --update-with-all-dependencies laravel/framework:^5.8 orchestra/testbench:^3.8"
 
-    - run:
-        name: Install Laravel 6
-        command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
+      - run:
+          name: Test on Laravel 5.8
+          command: ./vendor/bin/phpunit -c phpunit.xml
 
-    - run:
-        name: Enable XDebug for test with coverage
-        command: sudo docker-php-ext-enable xdebug
+      - run:
+          name: Remove packages that aren't compatible with Laravel 7
+          command: "composer remove --dev bensampo/laravel-enum"
 
-    - run:
-        name: Test on Laravel 6.x
-        command: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
+      - run:
+          name: Install Laravel 7
+          command: "composer require --update-with-all-dependencies laravel/framework:^7.0@dev orchestra/testbench:^5.0@dev"
 
-    - save_cache:
-        paths:
-          - ./vendor
-        key: v1-dependencies-{{ checksum "composer.json" }}
+      - run:
+          name: Attempt to re-install incompatible packages
+          command: "composer require --dev bensampo/laravel-enum || echo 'Skipping'"
 
-    - run:
-        name: Sending data to Coveralls
-        command: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json || echo 'Unable to upload to Coveralls...'
+      - run:
+          name: Test on Laravel 7
+          command: ./vendor/bin/phpunit -c phpunit.xml
 
-    - store_test_results:
-        path: ~/artifacts
+      - run:
+          name: Re-install packages for Laravel 6
+          command: "composer require --dev bensampo/laravel-enum"
 
-    - store_artifacts:
-        path: ~/artifacts
+      - run:
+          name: Install Laravel 6
+          command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
+
+      - run:
+          name: Enable XDebug for test with coverage
+          command: sudo docker-php-ext-enable xdebug
+
+      - run:
+          name: Test on Laravel 6.x
+          command: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      - run:
+          name: Sending data to Coveralls
+          command: php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json || echo 'Unable to upload to Coveralls...'
+
+      - store_test_results:
+          path: ~/artifacts
+
+      - store_artifacts:
+          path: ~/artifacts
 
