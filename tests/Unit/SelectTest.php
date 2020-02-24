@@ -87,6 +87,11 @@ class SelectTest extends TestCase
 	
 	public function test_an_enum_class_name_will_be_converted_to_a_selectable_array() : void
 	{
+		if (!class_exists('BenSampo\Enum\Enum')) {
+			$this->markTestSkipped();
+			return;
+		}
+		
 		$html = $this->aire()
 			->select(SelectTestOptionsEnum::class)
 			->defaultValue(SelectTestOptionsEnum::AnnPatchett)
@@ -99,20 +104,25 @@ class SelectTest extends TestCase
 	}
 }
 
-class SelectTestOptionsEnum extends Enum
-{
-	public const TaNehisiCoates = 0;
-	
-	public const PhilipRoth = 1;
-	
-	public const AnnPatchett = 2;
-	
-	public static function getDescription($value): string
+if (class_exists('BenSampo\Enum\Enum')) {
+	class SelectTestOptionsEnum extends Enum
 	{
-		switch ($value) {
-			case static::TaNehisiCoates: return 'Ta-Nehisi Coates';
-			case static::PhilipRoth: return 'Philip Roth';
-			case static::AnnPatchett: return 'Ann Patchett';
+		public const TaNehisiCoates = 0;
+		
+		public const PhilipRoth = 1;
+		
+		public const AnnPatchett = 2;
+		
+		public static function getDescription($value) : string
+		{
+			switch ($value) {
+				case static::TaNehisiCoates:
+					return 'Ta-Nehisi Coates';
+				case static::PhilipRoth:
+					return 'Philip Roth';
+				case static::AnnPatchett:
+					return 'Ann Patchett';
+			}
 		}
 	}
 }
