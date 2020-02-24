@@ -49,10 +49,14 @@ jobs:
       - run:
           name: Remove packages that aren't compatible with Laravel 7
           command: "composer remove --dev bensampo/laravel-enum"
+          
+      - run:
+          name: Switch to dev stability for Laravel 7 tests
+          command: "composer config minimum-stability dev"
 
       - run:
           name: Install Laravel 7
-          command: "composer require --update-with-all-dependencies laravel/framework:^7.0@dev orchestra/testbench:^5.0@dev orchestra/testbench-core:^5.0@dev"
+          command: "composer require --update-with-all-dependencies laravel/framework:^7.0 orchestra/testbench:^5.0"
 
       - run:
           name: Attempt to re-install incompatible packages
@@ -61,10 +65,14 @@ jobs:
       - run:
           name: Test on Laravel 7
           command: ./vendor/bin/phpunit -c phpunit.xml
+          
+      - run:
+          name: Switch to stable mode for Laravel 6 tests
+          command: "composer config minimum-stability stable"
 
       - run:
           name: Install Laravel 6
-          command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0 orchestra/testbench-core:^4.0"
+          command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
 
       - run:
           name: Re-install packages for Laravel 6
@@ -75,7 +83,7 @@ jobs:
           command: sudo docker-php-ext-enable xdebug
 
       - run:
-          name: Test on Laravel 6.x
+          name: Test on Laravel 6
           command: ./vendor/bin/phpunit -c phpunit.xml --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
       - save_cache:
