@@ -15,17 +15,17 @@
   ],
   "license": "MIT",
   "require": {
-    "illuminate/support": "^5.7|^6.0|^7.0",
-    "illuminate/view": "^5.7|^6.0|^7.0",
-    "illuminate/events": "^5.7|^6.0|^7.0",
-    "ext-json": "*"
+    "illuminate/support": "~5.8.28|^6.0|^7.0",
+    "illuminate/view": "~5.8.0|^6.0|^7.0",
+    "illuminate/events": "~5.8.0|^6.0|^7.0",
+    "ext-json": "*",
+    "mockery/mockery": "^1.3"
   },
   "require-dev": {
     "graham-campbell/markdown": "^11.1",
     "laravel/framework": "^6.0",
     "orchestra/testbench": "^4.0",
     "phpunit/phpunit": "^8.0",
-    "mockery/mockery": "^1.1",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0",
     "symfony/css-selector": "^4.1",

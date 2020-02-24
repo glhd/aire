@@ -1,14 +1,14 @@
 
 <div class="mb-6 float-right inline-flex">
-	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="mx-1">
+	<a href="https://github.com/glhd/aire/actions" target="_blank" class="mx-1">
 		<img 
-			src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
+			src="https://github.com/glhd/aire/workflows/PHPUnit/badge.svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="mx-1">
+	<a href="https://codeclimate.com/github/glhd/aire/test_coverage" target="_blank" class="mx-1">
 		<img 
-			src="https://coveralls.io/repos/github/glhd/aire/badge.svg?branch=master" 
+			src="https://api.codeclimate.com/v1/badges/f597a6e8d9f968a55f03/test_coverage" 
 			alt="Coverage Status" 
 		/>
 	</a>
