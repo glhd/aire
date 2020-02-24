@@ -13,7 +13,7 @@ jobs:
       matrix:
         php: [7.4, 7.3, 7.2]
         laravel: [^7.0, ^6.0, ~5.8.0]
-        dependency-version: [prefer-lowest, prefer-stable]
+        dependency-version: [lowest, stable]
         include:
           - laravel: ^7.0
             testbench: ^5.0
@@ -21,8 +21,8 @@ jobs:
           - laravel: ^6.0
             testbench: ^4.0
             minimum-stability: stable
-          - laravel: ^5.8
-            testbench: ^3.8
+          - laravel: ~5.8.0
+            testbench: ~3.8.0
             minimum-stability: stable
 
     name: "P${{ matrix.php }} / L${{ matrix.laravel }} (${{ matrix.dependency-version }})"
@@ -49,7 +49,7 @@ jobs:
         run: composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
 
       - name: Set dependency version
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        run: composer update --prefer-${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: vendor/bin/phpunit
