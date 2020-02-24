@@ -43,7 +43,15 @@ jobs:
         command: ./vendor/bin/phpunit -c phpunit.xml
 
     - run:
-        name: Install Laravel 6.x
+        name: Install Laravel 7
+        command: "composer require --update-with-all-dependencies laravel/framework:^7.0 orchestra/testbench:^5.0"
+
+    - run:
+        name: Test on Laravel 7
+        command: ./vendor/bin/phpunit -c phpunit.xml
+
+    - run:
+        name: Install Laravel 6
         command: "composer require --update-with-all-dependencies laravel/framework:^6.0 orchestra/testbench:^4.0"
 
     - run:
