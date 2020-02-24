@@ -48,7 +48,7 @@ jobs:
 
     - run:
         name: Install Laravel 7
-        command: "composer require --update-with-all-dependencies laravel/framework:^7.0 orchestra/testbench:^5.0"
+        command: "composer require --update-with-all-dependencies laravel/framework:^7.0@dev orchestra/testbench:^5.0@dev"
 
     - run:
         name: Test on Laravel 7
