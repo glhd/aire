@@ -54,9 +54,13 @@ jobs:
         run: composer remove --dev bensampo/laravel-enum
 
       - name: Install dependencies
+        env:
+          COMPOSER_DISCARD_CHANGES: true
         run: composer require --no-progress --no-interaction --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
 
       - name: Set dependency version
+        env:
+          COMPOSER_DISCARD_CHANGES: true
         run: composer update --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
