@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Scaffolding;
 
 use Galahad\Aire\Contracts\ConfiguresForm;
+use Galahad\Aire\Elements\Element;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Support\Htmlable;
@@ -47,8 +48,18 @@ trait ScaffoldsForms
 	protected function scaffoldConfiguredForm(ConfiguresForm $config) : Htmlable
 	{
 		$form = $this->form();
+		
+		// Because we want to allow for a number of use-cases, the "configure" step
+		// is run independently of the "build fields" step.
 		$config->configureForm($form, $this);
 		
-		return FieldBuilder::buildAndRender($form, $config->formFields($this));
+		// If the configuration is also a builder object, just use that (in the case
+		// of a Model builder, for example). Otherwise, we'll need to pass the fields 
+		// to a builder to ensure that everything is normalized to Aire Elements.
+		$builder = $config instanceof ConfigurationBuilder
+			? $config
+			: new ConfigurationBuilder($this, $config->formFields($this));
+		
+		return $form->setFieldsHtml($builder->toHtml());
 	}
 }

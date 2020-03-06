@@ -21,60 +21,30 @@ class FormScaffoldingTest extends TestCase
 			->scaffold(ScaffoldingModel::class)
 			->render();
 		
-		dd($html);
-		
 		$this->assertSelectorAttribute($html, 'form', 'action', url('/test-store-route'));
 		$this->assertSelectorAttribute($html, 'form', 'method', 'POST');
+		
+		$this->assertSelectorAttribute($html, '[name=config_text]', 'type', 'text');
+		
+		$this->assertSelectorExists($html, 'select[name=author]');
+		$this->assertSelectorContainsText($html, '[data-aire-for=author] label', 'Pick an Author');
 		
 		$this->assertSelectorAttribute($html, '[name=annotated_string]', 'type', 'text');
 		$this->assertSelectorAttribute($html, '[name=annotated_int]', 'type', 'number');
 		$this->assertSelectorAttribute($html, '[name=annotated_float]', 'type', 'number');
 		$this->assertSelectorAttribute($html, '[name=annotated_bool]', 'type', 'checkbox');
 		$this->assertSelectorAttribute($html, '[name=annotated_boolean]', 'type', 'checkbox');
-		$this->assertSelectorAttribute($html, '[name=annotated_array]', 'type', 'select');
-		$this->assertSelectorAttribute($html, '[name=annotated_collection]', 'type', 'select');
-		
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_string]', 'type', 'text');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_int]', 'type', 'number');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_float]', 'type', 'number');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_bool]', 'type', 'checkbox');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_boolean]', 'type', 'checkbox');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_array]', 'type', 'select');
-		$this->assertSelectorAttribute($html, '[name=annotated_read_only_collection]', 'type', 'select');
 		
 		$this->assertSelectorAttribute($html, '[name=cast_string]', 'type', 'text');
 		$this->assertSelectorAttribute($html, '[name=cast_int]', 'type', 'number');
 		$this->assertSelectorAttribute($html, '[name=cast_float]', 'type', 'number');
 		$this->assertSelectorAttribute($html, '[name=cast_bool]', 'type', 'checkbox');
 		$this->assertSelectorAttribute($html, '[name=cast_boolean]', 'type', 'checkbox');
-		$this->assertSelectorAttribute($html, '[name=cast_array]', 'type', 'select');
-		$this->assertSelectorAttribute($html, '[name=cast_collection]', 'type', 'select');
 		
-		// input
-		// select
-		// text area
-		// checkbox
-		// checkbox group
-		// color
-		// date
-		// dateTimeLocal
-		// email
-		// file
-		// image
-		// number
-		// password
-		// tel
-		// url
+		$this->assertSelectorContainsText($html, '[data-aire-for=cast_string] label', 'Custom Label');
 		
-		// integer, real, float, double, decimal:<digits>, string, boolean, object, array, collection, date, datetime, and timestamp.
-		// When casting to decimal, you must define the number of digits (decimal:2).
-		
-		// Should use @property annotations
-		// Should use @property-read annotations
-		// Should use $casts
-		// Should honor $hidden
-		
-		$this->markTestIncomplete();
+		// TODO: Not sure how to handle array attributes. I guess we could use a multi-select.
+		// TODO: There needs to be an easy way to set the order of fields
 	}
 	
 	public function test_it_intelligently_scaffolds_forms_for_model_instances() : void
@@ -127,19 +97,13 @@ class FormScaffoldingTest extends TestCase
  * @property float $annotated_float
  * @property bool $annotated_bool
  * @property boolean $annotated_boolean
- * @property array $annotated_array
- * @property \Illuminate\Support\Collection $annotated_collection
- *
- * @property-read string $annotated_read_only_string
- * @property-read int $annotated_read_only_int
- * @property-read float $annotated_read_only_float
- * @property-read bool $annotated_read_only_bool
- * @property-read boolean $annotated_read_only_boolean
- * @property-read array $annotated_read_only_array
- * @property-read \Illuminate\Support\Collection $annotated_read_only_collection
  */
 class ScaffoldingModel extends Model
 {
+	public $form_config = [
+		'config_text' => 'text',
+	];
+	
 	protected $guarded = [];
 	
 	protected $casts = [
@@ -148,9 +112,19 @@ class ScaffoldingModel extends Model
 		'cast_float' => 'float',
 		'cast_bool' => 'bool',
 		'cast_boolean' => 'boolean',
-		'cast_array' => 'array',
-		'cast_collection' => 'collection',
 	];
+	
+	public function getCastStringFormLabel() : string
+	{
+		return 'Custom Label';
+	}
+	
+	public function configureAuthorFormField(Aire $aire)
+	{
+		$authors = ['nkj' => 'N.K. Jemisin', 'esjm' => 'Emily St. John Mandel'];
+		
+		return $aire->select($authors, 'author', 'Pick an Author');
+	}
 }
 
 class TestConfiguredForm implements ConfiguresForm
