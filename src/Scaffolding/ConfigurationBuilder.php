@@ -5,7 +5,10 @@ namespace Galahad\Aire\Scaffolding;
 use Closure;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Button;
+use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Input;
+use Galahad\Aire\Elements\Select;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -68,6 +71,60 @@ class ConfigurationBuilder implements Htmlable
 			$elements->push($this->aire->submit());
 		}
 		
+		$elements = $elements->sortBy(function(Element $element) {
+			// TODO: Make this configurable
+			if ($element instanceof Input) {
+				switch ($element->attributes->get('type')) {
+					case 'search':
+						return 100;
+					
+					case 'email':
+						return 200;
+					
+					case 'password':
+						return 300;
+						
+					case 'text':
+						return 350;
+					
+					case 'tel':
+					case 'url':
+					case 'number':
+						return 400;
+					
+					case 'file':
+						return 500;
+					
+					case 'month':
+					case 'week':
+					case 'date':
+					case 'datetime':
+					case 'datetime-local':
+					case 'time':
+						return 800;
+					
+					case 'image':
+					case 'button':
+					case 'submit':
+						return PHP_INT_MAX;
+				}
+			}
+			
+			if ($element instanceof Select) {
+				return 600;
+			}
+			
+			if ($element instanceof Checkbox) {
+				return 700;
+			}
+			
+			if ($element instanceof Button) {
+				return PHP_INT_MAX;
+			}
+			
+			return 900;
+		});
+		
 		return $elements;
 	}
 	
@@ -90,10 +147,10 @@ class ConfigurationBuilder implements Htmlable
 			
 			case 'checkbox':
 				return $this->aire->checkbox($field_name, $label);
-				
+			
 			case 'datetime-local':
 				return $this->aire->dateTimeLocal($field_name, $label);
-				
+			
 			case 'date':
 				return $this->aire->date($field_name, $label);
 			

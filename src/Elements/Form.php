@@ -8,6 +8,7 @@ use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Galahad\Aire\Scaffolding\ModelConfigurationBuilder;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -15,7 +16,6 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 
 class Form extends \Galahad\Aire\DTD\Form
@@ -109,17 +109,18 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	/**
 	 * If true, we'll set up x-data and x-model attributes for Alpine.js
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
-	 * @var bool 
+	 *
+	 * @var bool
 	 */
 	protected $is_alpine_component = false;
 	
 	/**
 	 * We'll store a reference to all the elements created in the form
-	 * so that if we need to serialize them for Alpine we can. 
-	 * 
-	 * @var array 
+	 * so that if we need to serialize them for Alpine we can.
+	 *
+	 * @var array
 	 */
 	protected $json_serializable_elements = [];
 	
@@ -138,7 +139,7 @@ class Form extends \Galahad\Aire\DTD\Form
 		$this->initValidation();
 	}
 	
-	public function registerElement(Element $element) : self 
+	public function registerElement(Element $element) : self
 	{
 		if ($element instanceof HasJsonValue) {
 			$this->json_serializable_elements[] = $element;
@@ -201,13 +202,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	/**
 	 * Configure the form for use as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @param bool $alpine_component
 	 * @return $this
 	 */
-	public function asAlpineComponent(bool $alpine_component = true) : self 
+	public function asAlpineComponent(bool $alpine_component = true) : self
 	{
 		$this->is_alpine_component = $alpine_component;
 		
@@ -233,12 +234,12 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	/**
 	 * Determine whether the form is configured as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @return bool
 	 */
-	public function isAlpineComponent() : bool 
+	public function isAlpineComponent() : bool
 	{
 		return $this->is_alpine_component;
 	}
@@ -344,9 +345,11 @@ class Form extends \Galahad\Aire\DTD\Form
 		return $this;
 	}
 	
-	public function setFieldsHtml(string $fields) : self 
+	public function setFieldsHtml($fields) : self
 	{
-		$this->view_data['fields'] = new HtmlString($fields);
+		$this->view_data['fields'] = $fields instanceof Htmlable
+			? $fields
+			: new HtmlString($fields);
 		
 		return $this;
 	}

@@ -3,10 +3,9 @@
 namespace Galahad\Aire\Scaffolding;
 
 use Galahad\Aire\Contracts\ConfiguresForm;
-use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Form;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use RuntimeException;
 
@@ -18,7 +17,7 @@ trait ScaffoldsForms
 	 * @param string|\Galahad\Aire\Contracts\ConfiguresForm|\Illuminate\Database\Eloquent\Model $source
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function scaffold($source) : Htmlable
+	public function scaffold($source) : Form
 	{
 		if ($source instanceof ConfiguresForm) {
 			return $this->scaffoldConfiguredForm($source);
@@ -35,7 +34,7 @@ trait ScaffoldsForms
 		throw new RuntimeException('Aire::scaffold() must be passed an Eloquent model or an instance of ConfiguresForm.');
 	}
 	
-	protected function scaffoldModel(Model $model) : Htmlable
+	protected function scaffoldModel(Model $model) : Form
 	{
 		// FIXME: Dependency injection is tricky here
 		$url = Container::getInstance()->make(UrlGenerator::class);
@@ -45,7 +44,7 @@ trait ScaffoldsForms
 		);
 	}
 	
-	protected function scaffoldConfiguredForm(ConfiguresForm $config) : Htmlable
+	protected function scaffoldConfiguredForm(ConfiguresForm $config) : Form
 	{
 		$form = $this->form();
 		
@@ -60,6 +59,6 @@ trait ScaffoldsForms
 			? $config
 			: new ConfigurationBuilder($this, $config->formFields($this));
 		
-		return $form->setFieldsHtml($builder->toHtml());
+		return $form->setFieldsHtml($builder);
 	}
 }
