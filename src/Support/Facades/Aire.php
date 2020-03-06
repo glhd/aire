@@ -43,10 +43,13 @@ use Illuminate\Support\Facades\Facade;
 class Aire extends Facade
 {
 	/**
-	 * Get the registered name of the component.
-	 *
-	 * @return string
+	 * @return \Galahad\Aire\Aire
 	 */
+	public static function getFacadeRoot()
+	{
+		return parent::getFacadeRoot();
+	}
+	
 	protected static function getFacadeAccessor()
 	{
 		return 'galahad.aire';

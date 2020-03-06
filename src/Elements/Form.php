@@ -7,6 +7,7 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Galahad\Aire\Scaffolding\ModelConfigurationBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -190,20 +191,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	{
 		$this->bind($model);
 		
-		if (null === $resource_name) {
-			$resource_name = Str::kebab(Str::plural($model->getTable()));
-		}
+		$config = ModelConfigurationBuilder::inferRoute($model, $resource_name, $prepend_parameters);
 		
-		if ($model->exists) {
-			$parameters = (array) $prepend_parameters;
-			$parameters[] = $model;
-			
-			$this->action($this->url->route("{$resource_name}.update", $parameters));
-			$this->put();
-		} else {
-			$this->action($this->url->route("{$resource_name}.store", $prepend_parameters));
-			$this->post();
-		}
+		$this->action($this->url->route($config['name'], $config['parameters']));
+		$this->method($config['method']);
 		
 		return $this;
 	}
@@ -347,8 +338,15 @@ class Form extends \Galahad\Aire\DTD\Form
 			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
-		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
+		$this->setFieldsHtml(trim(ob_get_clean()));
 		$this->opened = false;
+		
+		return $this;
+	}
+	
+	public function setFieldsHtml(string $fields) : self 
+	{
+		$this->view_data['fields'] = new HtmlString($fields);
 		
 		return $this;
 	}
