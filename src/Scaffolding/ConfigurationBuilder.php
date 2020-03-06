@@ -4,6 +4,7 @@ namespace Galahad\Aire\Scaffolding;
 
 use Closure;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Elements\Button;
 use Galahad\Aire\Elements\Element;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
@@ -36,7 +37,7 @@ class ConfigurationBuilder implements Htmlable
 	 */
 	public function buildElements() : Collection
 	{
-		return Collection::make($this->fields_config)
+		$elements = Collection::make($this->fields_config)
 			->map(function($element_config, $field_name) {
 				// Strings will be build from pre-defined named configurations
 				if (is_string($element_config)) {
@@ -57,6 +58,17 @@ class ConfigurationBuilder implements Htmlable
 					throw new \InvalidArgumentException("A form field cannot be configured with a '{$invalid_type}'");
 				}
 			});
+		
+		$contains_submit_button = $elements->contains(function(Element $element) {
+			return $element instanceof Button
+				&& 'submit' === $element->attributes->get('type');
+		});
+		
+		if (!$contains_submit_button) {
+			$elements->push($this->aire->submit());
+		}
+		
+		return $elements;
 	}
 	
 	public function toHtml() : string

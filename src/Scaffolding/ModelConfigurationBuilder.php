@@ -71,6 +71,8 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 		
 		$form->action($this->url->route($route_config['name'], $route_config['parameters']));
 		$form->method($route_config['method']);
+		
+		$form->bind($this->model);
 	}
 	
 	public function buildElements() : Collection
@@ -93,6 +95,7 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 			->merge($this->inferDocBlocks())
 			->merge($this->loadConfigurationAttribute())
 			->merge($this->loadMagicMethods())
+			->merge($this->buildSubmitButton())
 			->map(function($element_config, $element_name) {
 				// Look for configure[Attribute]FormField on the model and use that
 				// if it exists. This lets the end user apply special configuration logic
@@ -150,7 +153,6 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 		$dates->setAccessible(true);
 		
 		return Collection::make($dates->getValue($this->model))
-			->keys()
 			->mapWithKeys(function($attribute) {
 				return [$attribute => 'datetime-local'];
 			});
@@ -186,7 +188,7 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 	
 	/**
 	 * Load any field configuration method and add that field to the list to be configured
-	 * 
+	 *
 	 * @return \Illuminate\Support\Collection
 	 */
 	protected function loadMagicMethods() : Collection
@@ -203,6 +205,21 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 				
 				return [$name => null];
 			});
+	}
+	
+	protected function buildSubmitButton() : Collection
+	{
+		$key = 'submit_'.Str::kebab($this->model->getTable());
+		
+		$resource_name = Str::title(Str::singular(str_replace('_', ' ', $this->model->getTable())));
+		
+		$label = $this->model->exists
+			? "Save Changes to {$resource_name}"
+			: "Create New {$resource_name}";
+		
+		return Collection::make([
+			$key => $this->aire->submit($label),
+		]);
 	}
 	
 	/**
@@ -261,7 +278,7 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 			case 'integer':
 			case 'float':
 				return 'number';
-				
+			
 			case 'bool':
 			case 'boolean':
 				return 'checkbox';

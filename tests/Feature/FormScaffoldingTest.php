@@ -45,6 +45,7 @@ class FormScaffoldingTest extends TestCase
 		
 		// TODO: Not sure how to handle array attributes. I guess we could use a multi-select.
 		// TODO: There needs to be an easy way to set the order of fields
+		// TODO: Test submit button logic
 	}
 	
 	public function test_it_intelligently_scaffolds_forms_for_model_instances() : void

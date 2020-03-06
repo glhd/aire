@@ -24,6 +24,7 @@
 		['/', 'README', 'file'],
 		['api', 'API Overview', 'code'],
 		['working-with-elements', 'Working w/ Elements', 'layer-group'],
+		['scaffolding', 'Scaffolding Forms', 'hammer'],
 		['alpine-components', 'Alpine.js', 'fab fa-js-square'],
 		['components', 'Components', 'cubes'],
 		['themes', 'Theming', 'paint-roller'],

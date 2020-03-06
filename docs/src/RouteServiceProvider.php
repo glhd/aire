@@ -34,6 +34,10 @@ class RouteServiceProvider extends ServiceProvider
 			]);
 		});
 		
+		// These are just for sample code
+		Route::post('/authors', 'AuthorsController@store')->name('authors.store');
+		Route::put('/authors/{author}', 'AuthorsController@update')->name('authors.update');
+		
 		foreach ($files as $filename) {
 			$view = basename($filename, '.blade.php');
 			
