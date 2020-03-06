@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+	<title>
+			Scaffolding Forms
+ - Aire (Laravel Form Builder)
+	</title>
+	
+	<link rel="stylesheet" href="https://glhd.github.io/aire/aire.css" />
+	
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/solid.css"
+	      crossorigin="anonymous" />
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/brands.css"
+	      crossorigin="anonymous" />
+	<link rel="stylesheet"
+	      href="https://use.fontawesome.com/releases/v5.12.1/css/fontawesome.css"
+	      crossorigin="anonymous" />
+	
+	</head>
+
+<body class="font-sans font-base leading-normal antialiased">
+
+<div class="container mx-auto p-8">
+	<div class="lg:hidden flex justify-between items-center mb-8">
+		<svg class="w-32 md:w-48 h-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 305.86">
+	<g fill="#666" fill-rule="evenodd">
+		<path d="M225 5.82H97.64c-3.34 0-6.67.06-10 .15a144.81 144.81 0 0 0-21.78 1.91 73.54 73.54 0 0 0-20.69 6.82 69.63 69.63 0 0 0-30.43 30.43 73.58 73.58 0 0 0-6.83 20.71A145.74 145.74 0 0 0 6 87.6c-.09 3.34-.13 6.67-.15 10s0 6.62 0 9.93H0V95.21c0-3.46.06-6.91.15-10.37a150.11 150.11 0 0 1 2-22.58 76.17 76.17 0 0 1 7.07-21.47A72.24 72.24 0 0 1 40.78 9.24a75.79 75.79 0 0 1 21.46-7.07 150.12 150.12 0 0 1 22.59-2C88.28.07 91.74.04 95.2.01H225zM5.81 224.37H.02v-7.89h5.79q-.02 3.95 0 7.89zm-.47-9.84h.45v1.94H0V107.54h5.79v106.94z"/>
+		<path d="M2.89 221.15a2.9 2.9 0 1 1-2.89 2.9 2.89 2.89 0 0 1 2.89-2.9zM225.32.01a2.9 2.9 0 1 1-2.89 2.89 2.89 2.89 0 0 1 2.89-2.89z"/>
+	</g>
+	<path fill="#feefef" fill-rule="evenodd" d="M309.13 111.72v40.38L12.46 236.69c-.06-1.44-.11-2.87-.15-4.31-.09-3.16-.12-6.33-.14-9.5V111.72v-11.29c0-3.17 0-6.34.14-9.51a155.77 155.77 0 0 1 1.82-22 61.87 61.87 0 0 1 6.51-18.37c3.15-6.19 6.63-13.13 11.53-18s9.93-7.74 16.12-10.89 14-5.24 21-6.48a136.89 136.89 0 0 1 20.7-1.82c3.17-.09 6.34-.13 9.51-.15H221.92c3.17 0 6.34 0 9.51.14a136.89 136.89 0 0 1 20.7 1.82 69.73 69.73 0 0 1 19.67 6.48 66.18 66.18 0 0 1 28.84 28.9 69.79 69.79 0 0 1 6.48 19.68 138.06 138.06 0 0 1 1.82 20.69c.09 3.17.12 6.34.14 9.51v11.29z"/>
+	<g fill="#f4645f">
+		<path d="M60.74 110.3l-4-1.66-1.75-2.95 2.49-7.82h21.54l2.21 7.27-1.47 3.78-4.88 1.38v6.17h28.76v-6.46l-6-2.21-18.3-55.69H62.77L44.26 107.9l-5.8 2.12v6.45h22.28zm3.68-34.9l2.67-12h2.21l2.67 12 4.42 14.37H59.91zM118.03 61.41c4.69 0 8.19-3.32 8.19-7.64s-3.5-7.65-8.19-7.65-8.2 3.32-8.2 7.65 3.5 7.64 8.2 7.64zm-12.53 55.06h26.43v-5.62l-4.24-.92-2.11-4V68.4H105.5v5.61l4.7.92 2.12 4v27.08l-2.12 4-4.7.92zM161.86 110.85l-4.88-.92-2.12-4V93.36c0-6.17 2.3-11.24 7.37-14.83l4.51 4.88c4.79.28 9.94-2.67 9.94-8.65a7.4 7.4 0 0 0-7.73-7.55c-4.88 0-9.76 4.23-14.27 15.56l-.74-.37.92-11.69V68.4h-19.79v5.61l4.42.92 2.11 4v27.08l-2.11 4-4.42.92v5.62h26.79zM222.09 111.01l-2.67-5.34c-5.25 2.31-9.21 3.59-13.45 3.59-8.1 0-12.24-4.32-13-14.27h30v-2.94c0-14.64-6.72-25.14-20.72-25.14-13.53 0-23.48 11.14-23.48 26.24 0 14.18 8.66 24.77 23.48 24.77 6.76.02 13.21-2.38 19.84-6.91zm-20.81-37.75c5.71 0 7.55 5.53 7.73 15.84H192.9c.28-10.75 3.22-15.82 8.38-15.82z"/>
+	</g>
+	<path fill="#666" fill-rule="evenodd" d="M323.98 102.11v7.36h-5.79v-7.89h.05a2.88 2.88 0 0 1 5.72 0v.32c0 .07.02.11.02.21zm-5.78 7.36h5.79V272.4h-5.76V111.42c-.02-.65-.03-1.3-.03-1.95zm0 162.94h5.76v7.89h-.06a2.87 2.87 0 0 1-5.7 0v-.11-.22-.2c.03-2.45.02-4.91.02-7.36z"/>
+	<path fill="#fff" fill-rule="evenodd" stroke="#f4645f" stroke-miterlimit="10" stroke-width="5" d="M44.28 138.87h104.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14zM179.28 138.87h104.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H179.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14zM44.28 199.87h238.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14z"/>
+	<path fill="#f4645f" fill-rule="evenodd" d="M44.28 260.87h151.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14z"/>
+</svg>
+		<a class="bg-salmon p-4 text-white rounded-lg" href="#navigation">
+			<i class="fas fa-fw fa-bars mr-2"></i>
+			Menu
+		</a>
+	</div>
+	<div class="lg:flex lg:flex-row-reverse">
+		<div class="flex-auto lg:max-w-4/5">
+			<div class="border-gray-300 text-gray-900 lg:ml-8 lg:pl-8 lg:border-l">
+					
+	<h1 class="text-2xl text-gray-900">
+		Scaffolding Forms (upcoming feature)
+	</h1>
+	
+	<p>
+		If you need to get started quickly, or just want a basic CRUD form that
+		doesn't have sophisticated design needs, you can use Aire's scaffolding
+		to generate an entire form in seconds:
+	</p>
+	
+	<div class="flex">
+		<div class="w-3/5 px-1">
+			<h2 class="mb-0">
+				Eloquent Model
+			</h2>
+			<pre class="mt-2"><code class="language-php">&lt;?php
+
+namespace Docs\Samples;
+
+use Galahad\Aire\Aire;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * DocBlock annotations are used to infer field type
+ *
+ * @property string $name
+ */
+class Author extends Model
+{
+	protected $dateFormat = &#039;Y-m-d H:i:s&#039;;
+	
+	// Standard Laravel $casts are used to infer field type
+	protected $casts = [
+		&#039;is_favorite&#039; =&gt; &#039;bool&#039;,
+	];
+	
+	// $dates are also used to infer field type
+	protected $dates = [
+		&#039;last_read_at&#039;,
+	];
+	
+	// Or you can add a custom function to configure a field to your heart&#039;s content
+	public function configureGenreFormField(Aire $aire)
+	{
+		$genres = [
+			&#039;cb&#039; =&gt; &#039;Cookbooks&#039;,
+			&#039;dm&#039; =&gt; &#039;Detective and Mystery&#039;,
+			&#039;fa&#039; =&gt; &#039;Fantasy&#039;,
+			&#039;lf&#039; =&gt; &#039;Literary Fiction&#039;,
+		];
+		
+		return $aire-&gt;select($genres, &#039;genre&#039;, &#039;Genre Best Known For&#039;)
+			-&gt;defaultValue(&#039;lf&#039;)
+			-&gt;addClass(&#039;bg-pink-100&#039;);
+	}
+	
+	// If you&#039;re happy with Aire&#039;s inferred field but you need to change the label
+	// text you can do so without having to give up all the other magic
+	public function getIsFavoriteFormLabel() : string
+	{
+		return &#039;This is one of my favorite authors&#039;;
+	}
+}
+</code></pre>
+		</div>
+		<div class="w-2/5 px-1">
+			<h2 class="mb-0">
+				Create Form
+			</h2>
+			
+			<pre class="mt-2 mb-0"><code class="language-php">{{ Aire::scaffold(Author::class) }}</code></pre>
+			<div class="border rounded p-2 mt-2">
+				<form action="https://glhd.github.io/aire/authors" method="POST" class="" data-aire-component="form" data-aire-id="158">
+
+		
+		
+	<div class="mb-6" data-aire-component="group" data-aire-for="name">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-158-name169">
+	Name
+</label>
+
+	
+	<div class="">
+				
+		<input type="text" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="name" data-aire-for="name" id="__aire-158-name169" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="name">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6" data-aire-component="group" data-aire-for="genre">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-158-genre161">
+	Genre Best Known For
+</label>
+
+	
+	<div class="">
+				
+		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none bg-pink-100 text-gray-900" data-aire-component="select" name="genre" data-aire-for="genre" id="__aire-158-genre161">
+	
+		
+			
+		<option value="cb" >
+			Cookbooks
+		</option>
+	
+			
+		<option value="dm" >
+			Detective and Mystery
+		</option>
+	
+			
+		<option value="fa" >
+			Fantasy
+		</option>
+	
+			
+		<option value="lf" selected>
+			Literary Fiction
+		</option>
+	
+	
+</select>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="genre">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6 custom-control custom-checkbox" data-aire-component="group" data-aire-for="is_favorite">
+	
+	
+	<div class="">
+				
+		<label class="flex items-baseline" data-aire-component="label" data-aire-validation-key="checkbox_label" data-aire-for="is_favorite" for="__aire-158-is_favorite167">
+	<input type="checkbox" value="1" class="pr-2" data-aire-component="checkbox" name="is_favorite" data-aire-for="is_favorite" id="__aire-158-is_favorite167" />
+	<span class="ml-2 flex-1" data-aire-component="wrapper" data-aire-validation-key="checkbox_wrapper" data-aire-for="is_favorite">
+		This is one of my favorite authors
+	</span>
+</label>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="is_favorite">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6" data-aire-component="group" data-aire-for="last_read_at">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-158-last_read_at164">
+	Last Read At
+</label>
+
+	
+	<div class="">
+				
+		<input type="datetime-local" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="last_read_at" data-aire-for="last_read_at" id="__aire-158-last_read_at164" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="last_read_at">
+			</ul>
+	
+		
+</div>
+
+<button class="font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal inline-block text-base rounded p-2 px-4 text-white bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-900" data-aire-component="button" type="submit">
+	Create New Author
+</button>
+
+	
+	
+	
+</form>
+
+			</div>
+			
+			<h2 class="mb-0 mt-10 pt-10 border-t">
+				Update Form
+			</h2>
+			
+			<pre class="mt-2 mb-0"><code class="language-php">{{ Aire::scaffold(Author::find(1)) }}</code></pre>
+						
+			<div class="border rounded p-2 mt-2">
+				<form action="https://glhd.github.io/aire/authors/1" method="POST" class="" data-aire-component="form" data-aire-id="172">
+
+		
+			<input type="hidden" name="_method" value="PUT" />
+		
+	<div class="mb-6" data-aire-component="group" data-aire-for="name" value="N.K. Jemisin">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-172-name183">
+	Name
+</label>
+
+	
+	<div class="">
+				
+		<input type="text" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="name" data-aire-for="name" value="N.K. Jemisin" id="__aire-172-name183" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="name">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6" data-aire-component="group" data-aire-for="genre" value="fa">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-172-genre175">
+	Genre Best Known For
+</label>
+
+	
+	<div class="">
+				
+		<select class="block w-full p-2 leading-normal border rounded-sm bg-white appearance-none bg-pink-100 text-gray-900" data-aire-component="select" name="genre" data-aire-for="genre" id="__aire-172-genre175">
+	
+		
+			
+		<option value="cb" >
+			Cookbooks
+		</option>
+	
+			
+		<option value="dm" >
+			Detective and Mystery
+		</option>
+	
+			
+		<option value="fa" selected>
+			Fantasy
+		</option>
+	
+			
+		<option value="lf" >
+			Literary Fiction
+		</option>
+	
+	
+</select>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="genre">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6 custom-control custom-checkbox" data-aire-component="group" data-aire-for="is_favorite" value="1">
+	
+	
+	<div class="">
+				
+		<label class="flex items-baseline" data-aire-component="label" data-aire-validation-key="checkbox_label" data-aire-for="is_favorite" for="__aire-172-is_favorite181">
+	<input type="checkbox" value="1" class="pr-2" data-aire-component="checkbox" name="is_favorite" data-aire-for="is_favorite" id="__aire-172-is_favorite181" checked />
+	<span class="ml-2 flex-1" data-aire-component="wrapper" data-aire-validation-key="checkbox_wrapper" data-aire-for="is_favorite">
+		This is one of my favorite authors
+	</span>
+</label>
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="is_favorite">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6" data-aire-component="group" data-aire-for="last_read_at" value="2020-03-06 14:24:46">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-172-last_read_at178">
+	Last Read At
+</label>
+
+	
+	<div class="">
+				
+		<input type="datetime-local" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="last_read_at" data-aire-for="last_read_at" value="2020-03-06T14:24" id="__aire-172-last_read_at178" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="last_read_at">
+			</ul>
+	
+		
+</div>
+
+<button class="font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal inline-block text-base rounded p-2 px-4 text-white bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-900" data-aire-component="button" type="submit">
+	Save Changes to Author
+</button>
+
+	
+	
+	
+</form>
+
+			</div>
+		</div>
+	</div>
+	
+	<h2>
+		Custom Forms
+	</h2>
+	
+	<p>
+		If you need more control or want to build custom form objects that are not
+		tied to an Eloquent model, you can implement the <code>ConfiguresForm</code> interface:
+	</p>
+	
+	<div class="flex">
+		<div class="w-3/5 px-1">
+			<h2 class="mb-0">
+				Sample Custom Form
+			</h2>
+			
+			<pre class="mt-2"><code class="language-php">&lt;?php
+
+namespace Docs\Samples;
+
+use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\ConfiguresForm;
+use Galahad\Aire\Elements\Form;
+
+class CustomForm implements ConfiguresForm
+{
+	// Use configureForm to set properties on the form object itself
+	public function configureForm(Form $form, Aire $aire) : void
+	{
+		$form-&gt;action(&#039;/book-demo&#039;)
+			-&gt;patch()
+			-&gt;rules([
+				&#039;title&#039; =&gt; &#039;required|min:5&#039;,
+				&#039;author&#039; =&gt; &#039;required&#039;,
+				&#039;edition&#039; =&gt; &#039;nullable|int|min1&#039;,
+			]);
+	}
+	
+	public function formFields(Aire $aire) : array
+	{
+		return [
+			&#039;title&#039; =&gt; $aire-&gt;input(&#039;title&#039;, &#039;Book Title&#039;)
+				-&gt;placeholder(&#039;Enter the book title here&#039;),
+			&#039;author&#039; =&gt; $aire-&gt;input(&#039;author&#039;, &#039;Author Name&#039;)
+				-&gt;helpText(&#039;Please try to be consistent in the formatting of author names&#039;),
+			&#039;edition&#039; =&gt; $aire-&gt;number(&#039;edition&#039;, &#039;Book Edition&#039;)
+				-&gt;groupAddClass(&#039;w-48&#039;)
+				-&gt;step(1),
+		];
+	}
+}
+</code></pre>
+		</div>
+		<div class="w-2/5 px-1">
+			<h2 class="mb-0">
+				Sample Output
+			</h2>
+			
+			<pre class="mt-2 mb-0"><code class="language-php">{{ Aire::scaffold(new CustomForm())
+	->bind([
+		'title' => 'Radical Candor',
+		'author' => 'Kim Scott',
+		'edition' => 2,
+	]) }}</code></pre>
+			<div class="border rounded p-2 mt-2">
+				<form action="/book-demo" method="POST" class="" data-aire-component="form" data-aire-id="186">
+
+		
+			<input type="hidden" name="_method" value="PATCH" />
+		
+	<div class="mb-6" data-aire-component="group" data-aire-for="title" value="Radical Candor">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-186-title187">
+	Book Title
+</label>
+
+	
+	<div class="">
+				
+		<input type="text" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="title" placeholder="Enter the book title here" data-aire-for="title" value="Radical Candor" id="__aire-186-title187" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="title">
+			</ul>
+	
+		
+</div>
+
+<div class="mb-6" data-aire-component="group" data-aire-for="author" value="Kim Scott">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-186-author190">
+	Author Name
+</label>
+
+	
+	<div class="">
+				
+		<input type="text" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="author" data-aire-for="author" value="Kim Scott" id="__aire-186-author190" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="author">
+			</ul>
+	
+			<small class="block mt-1 font-normal text-sm text-gray-600" data-aire-component="help_text" data-aire-validation-key="group_help_text" data-aire-for="author">
+			Please try to be consistent in the formatting of author names
+		</small>
+		
+</div>
+
+<div class="mb-6 w-48" data-aire-component="group" data-aire-for="edition" value="2">
+	<label class="inline-block mb-2 font-semibold cursor-pointer text-base" data-aire-component="label" for="__aire-186-edition193">
+	Book Edition
+</label>
+
+	
+	<div class="">
+				
+		<input type="number" class="block w-full leading-normal bg-white border rounded-sm p-2 text-base text-gray-900" data-aire-component="input" name="edition" step="1" data-aire-for="edition" value="2" id="__aire-186-edition193" />
+
+			
+			</div>
+	
+	<ul class="list-reset mt-2 mb-3 hidden" data-aire-component="errors" data-aire-validation-key="group_errors" data-aire-for="edition">
+			</ul>
+	
+		
+</div>
+
+<button class="font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal inline-block text-base rounded p-2 px-4 text-white bg-blue-600 border-blue-700 hover:bg-blue-700 hover:border-blue-900" data-aire-component="button" type="submit">
+	Submit
+</button>
+
+	
+	<script defer>
+!function(){"use strict";function a(e){if("string"==typeof e){var t=e.indexOf(".");0<t&&t<=6&&(e=e.replace(/\./g,"-"))}var r,i=new Date(e),a=i.getFullYear(),n=i.getMonth(),s=i.getDate(),u=[31,(r=a)%4==0&&r%100!=0||r%400==0?29:28,31,30,31,30,31,31,30,31,30,31];return!(a<1e3)&&(!isNaN(n)&&(!(12<n+1)&&(!isNaN(s)&&!(u[n]<s))))}var r,n={required:function(e){return null!=e&&0<String(e).replace(/\s/g,"").length},required_if:function(e,t,r){return t=this.getParameters(),this.validator._objectPath(this.validator.input,t[0])!==t[1]||this.validator.getRule("required").validate(e)},required_unless:function(e,t,r){return t=this.getParameters(),this.validator._objectPath(this.validator.input,t[0])===t[1]||this.validator.getRule("required").validate(e)},required_with:function(e,t,r){return!this.validator._objectPath(this.validator.input,t)||this.validator.getRule("required").validate(e)},required_with_all:function(e,t,r){t=this.getParameters();for(var i=0;i<t.length;i++)if(!this.validator._objectPath(this.validator.input,t[i]))return!0;return this.validator.getRule("required").validate(e)},required_without:function(e,t,r){return!!this.validator._objectPath(this.validator.input,t)||this.validator.getRule("required").validate(e)},required_without_all:function(e,t,r){t=this.getParameters();for(var i=0;i<t.length;i++)if(this.validator._objectPath(this.validator.input,t[i]))return!0;return this.validator.getRule("required").validate(e)},boolean:function(e){return!0===e||!1===e||0===e||1===e||"0"===e||"1"===e||"true"===e||"false"===e},size:function(e,t,r){return!e||(t=parseFloat(t),this.getSize()===t)},string:function(e,t,r){return"string"==typeof e},sometimes:function(e){return!0},min:function(e,t,r){return t<=this.getSize()},max:function(e,t,r){return this.getSize()<=t},between:function(e,t,r){t=this.getParameters();var i=this.getSize(),a=parseFloat(t[0],10),n=parseFloat(t[1],10);return a<=i&&i<=n},email:function(e){return/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e)},numeric:function(e){var t;return"number"==typeof(t=Number(e))&&!isNaN(t)&&"boolean"!=typeof e},array:function(e){return e instanceof Array},url:function(e){return/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i.test(e)},alpha:function(e){return/^[a-zA-Z]+$/.test(e)},alpha_dash:function(e){return/^[a-zA-Z0-9_\-]+$/.test(e)},alpha_num:function(e){return/^[a-zA-Z0-9]+$/.test(e)},same:function(e,t){return this.validator._flattenObject(this.validator.input)[t]===e},different:function(e,t){return this.validator._flattenObject(this.validator.input)[t]!==e},in:function(e,t){var r,i;if(e&&(r=this.getParameters()),e&&!(e instanceof Array)){var a=e;for(i=0;i<r.length;i++)if("string"==typeof r[i]&&(a=String(e)),a===r[i])return!0;return!1}if(e&&e instanceof Array)for(i=0;i<e.length;i++)if(r.indexOf(e[i])<0)return!1;return!0},not_in:function(e,t){for(var r=this.getParameters(),i=r.length,a=!0,n=0;n<i;n++){var s=e;if("string"==typeof r[n]&&(s=String(e)),s===r[n]){a=!1;break}}return a},accepted:function(e){return"on"===e||"yes"===e||1===e||"1"===e||!0===e},confirmed:function(e,t,r){var i=r+"_confirmation";return this.validator.input[i]===e},integer:function(e){return String(parseInt(e,10))===String(e)},digits:function(e,t){return!(!this.validator.getRule("numeric").validate(e)||String(e).length!==parseInt(t))},regex:function(e,t){var r=/[g|i|m]{1,3}$/,i=t.match(r);return i=i?i[0]:"",t=t.replace(r,"").slice(1,-1),!!(t=new RegExp(t,i)).test(e)},date:function(e,t){return a(e)},present:function(e){return void 0!==e},after:function(e,t){var r=this.validator.input[t],i=e;return!!a(r)&&(!!a(i)&&new Date(r).getTime()<new Date(i).getTime())},after_or_equal:function(e,t){var r=this.validator.input[t],i=e;return!!a(r)&&(!!a(i)&&new Date(r).getTime()<=new Date(i).getTime())},before:function(e,t){var r=this.validator.input[t],i=e;return!!a(r)&&(!!a(i)&&new Date(r).getTime()>new Date(i).getTime())},before_or_equal:function(e,t){var r=this.validator.input[t],i=e;return!!a(r)&&(!!a(i)&&new Date(r).getTime()>=new Date(i).getTime())},hex:function(e){return/^[0-9a-f]+$/i.test(e)}},s=function(){throw new Error("Validator `"+this.name+"` is not defined!")};function u(e,t,r){this.name=e,this.fn=t,this.passes=null,this._customMessage=void 0,this.async=r}u.prototype={validate:function(e,t,r,i){var a=this;if(this._setValidatingData(r,e,t),"function"!=typeof i)return this._apply(e,t,r);this.callback=i;function n(e,t){a.response(e,t)}return this.async?this._apply(e,t,r,n):n(this._apply(e,t,r))},_apply:function(e,t,r,i){return(this.isMissed()?s:this.fn).apply(this,[e,t,r,i])},_setValidatingData:function(e,t,r){this.attribute=e,this.inputValue=t,this.ruleValue=r},getParameters:function(){var e=[];return"string"==typeof this.ruleValue&&(e=this.ruleValue.split(",")),"number"==typeof this.ruleValue&&e.push(this.ruleValue),this.ruleValue instanceof Array&&(e=this.ruleValue),e},getSize:function(){var e=this.inputValue;return e instanceof Array?e.length:"number"==typeof e?e:this.validator._hasNumericRule(this.attribute)?parseFloat(e,10):e.length},_getValueType:function(){return"number"==typeof this.inputValue||this.validator._hasNumericRule(this.attribute)?"numeric":"string"},response:function(e,t){this.passes=void 0===e||!0===e,this._customMessage=t,this.callback(this.passes,t)},setValidator:function(e){this.validator=e},isMissed:function(){return"function"!=typeof this.fn},get customMessage(){return this.isMissed()?r:this._customMessage}};var o={asyncRules:[],implicitRules:["required","required_if","required_unless","required_with","required_with_all","required_without","required_without_all","accepted","present"],make:function(e,t){var r=this.isAsync(e),i=new u(e,n[e],r);return i.setValidator(t),i},isAsync:function(e){for(var t=0,r=this.asyncRules.length;t<r;t++)if(this.asyncRules[t]===e)return!0;return!1},isImplicit:function(e){return-1<this.implicitRules.indexOf(e)},register:function(e,t){n[e]=t},registerImplicit:function(e,t){this.register(e,t),this.implicitRules.push(e)},registerAsync:function(e,t){this.register(e,t),this.asyncRules.push(e)},registerAsyncImplicit:function(e,t){this.registerImplicit(e,t),this.asyncRules.push(e)},registerMissedRuleValidator:function(e,t){s=e,r=t}};function e(e,t){this.lang=e,this.messages=t,this.customMessages={},this.attributeNames={}}var i={replacements:{between:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{min:r[0],max:r[1]})},required_if:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{other:this._getAttributeName(r[0]),value:r[1]})},required_unless:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{other:this._getAttributeName(r[0]),value:r[1]})},required_with:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{field:this._getAttributeName(r[0])})},required_with_all:function(e,t){var r=t.getParameters(),i=this._getAttributeName.bind(this);return this._replacePlaceholders(t,e,{fields:r.map(i).join(", ")})},required_without:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{field:this._getAttributeName(r[0])})},required_without_all:function(e,t){var r=t.getParameters(),i=this._getAttributeName.bind(this);return this._replacePlaceholders(t,e,{fields:r.map(i).join(", ")})},after:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{after:this._getAttributeName(r[0])})},before:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{before:this._getAttributeName(r[0])})},after_or_equal:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{after_or_equal:this._getAttributeName(r[0])})},before_or_equal:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{before_or_equal:this._getAttributeName(r[0])})},same:function(e,t){var r=t.getParameters();return this._replacePlaceholders(t,e,{same:this._getAttributeName(r[0])})}},formatter:function(e){return e.replace(/[_\[]/g," ").replace(/]/g,"")}};e.prototype={constructor:e,_setCustom:function(e){this.customMessages=e||{}},_setAttributeNames:function(e){this.attributeNames=e},_setAttributeFormatter:function(e){this.attributeFormatter=e},_getAttributeName:function(e){var t=e;return this.attributeNames.hasOwnProperty(e)?this.attributeNames[e]:(this.messages.attributes.hasOwnProperty(e)&&(t=this.messages.attributes[e]),this.attributeFormatter&&(t=this.attributeFormatter(t)),t)},all:function(){return this.messages},render:function(e){if(e.customMessage)return e.customMessage;var t=this._getTemplate(e);return i.replacements[e.name]?i.replacements[e.name].apply(this,[t,e]):this._replacePlaceholders(e,t,{})},_getTemplate:function(e){for(var t,r=this.messages,i=r.def,a=this.customMessages,n=[e.name+"."+e.attribute,e.name],s=0;s<n.length;s++){if(t=n[s],a.hasOwnProperty(t)){i=a[t];break}if(r.hasOwnProperty(t)){i=r[t];break}}return"object"==typeof i&&(i=i[e._getValueType()]),i},_replacePlaceholders:function(e,t,r){var i,a;if(r.attribute=this._getAttributeName(e.attribute),r[e.name]=r[e.name]||e.getParameters().join(","),"string"==typeof t&&"object"==typeof r)for(a in i=t,r)i=i.replace(new RegExp(":"+a,"g"),r[a]);return i}};function t(){this.errors={}}var l=e,h=function(){throw new Error("Dynamic requires are not currently supported by rollup-plugin-commonjs")},c={messages:{},_set:function(e,t){this.messages[e]=t},_setRuleMessage:function(e,t,r){this._load(e),void 0===r&&(r=this.messages[e].def),this.messages[e][t]=r},_load:function(e){if(!this.messages[e])try{var t=h("./lang/"+e);this._set(e,t)}catch(e){}},_get:function(e){return this._load(e),this.messages[e]},_make:function(e){return this._load(e),new l(e,this.messages[e])}};t.prototype={constructor:t,add:function(e,t){this.has(e)||(this.errors[e]=[]),-1===this.errors[e].indexOf(t)&&this.errors[e].push(t)},get:function(e){return this.has(e)?this.errors[e]:[]},first:function(e){return!!this.has(e)&&this.errors[e][0]},all:function(){return this.errors},has:function(e){return!!this.errors.hasOwnProperty(e)}};var f=t;function d(e,t){this.onResolvedAll=t,this.onFailedOne=e,this.resolvers={},this.resolversCount=0,this.passed=[],this.failed=[],this.firing=!1}d.prototype={add:function(e){var t=this.resolversCount;return this.resolvers[t]=e,this.resolversCount++,t},resolve:function(e){var t=this.resolvers[e];!0===t.passes?this.passed.push(t):!1===t.passes&&(this.failed.push(t),this.onFailedOne(t)),this.fire()},isAllResolved:function(){return this.passed.length+this.failed.length===this.resolversCount},fire:function(){this.firing&&this.isAllResolved()&&this.onResolvedAll(0===this.failed.length)},enableFiring:function(){this.firing=!0}};var p=d,m=function(e,t,r){var i=m.getDefaultLang();this.input=e||{},this.messages=c._make(i),this.messages._setCustom(r),this.setAttributeFormatter(m.prototype.attributeFormatter),this.errors=new f,this.errorCount=0,this.hasAsync=!1,this.rules=this._parseRules(t)};m.prototype={constructor:m,lang:"en",numericRules:["integer","numeric"],attributeFormatter:i.formatter,check:function(){for(var e in this.rules){var t=this.rules[e],r=this._objectPath(this.input,e);if(!this._hasRule(e,["sometimes"])||this._suppliedWithData(e))for(var i,a,n,s=0,u=t.length;s<u&&(a=t[s],i=this.getRule(a.name),!this._isValidatable(i,r)||((n=i.validate(r,a.value,e))||this._addFailure(i),!this._shouldStopValidating(e,n)));s++);}return 0===this.errorCount},checkAsync:function(t,r){var i=this;t=t||function(){},r=r||function(){};function e(t,r,i,a){return function(){var e=n.add(a);a.validate(t,r.value,i,function(){n.resolve(e)})}}var n=new p(function(e,t){i._addFailure(e,t)},function(e){(e?t:r)()});for(var a in this.rules){var s=this.rules[a],u=this._objectPath(this.input,a);if(!this._hasRule(a,["sometimes"])||this._suppliedWithData(a))for(var o,l,h=0,c=s.length;h<c;h++)l=s[h],o=this.getRule(l.name),this._isValidatable(o,u)&&e(u,l,a,o)()}n.enableFiring(),n.fire()},_addFailure:function(e){var t=this.messages.render(e);this.errors.add(e.attribute,t),this.errorCount++},_flattenObject:function(e){var n={};return e&&function e(t,r){if(r||0!==Object.getOwnPropertyNames(t).length)if(Object(t)!==t||Array.isArray(t))n[r]=t;else{var i=!0;for(var a in t)i=!1,e(t[a],r?r+"."+a:a);i&&(n[r]={})}}(e),n},_objectPath:function(e,t){if(Object.prototype.hasOwnProperty.call(e,t))return e[t];var r=t.replace(/\[(\w+)\]/g,".$1").replace(/^\./,"").split("."),i={};for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&(i[a]=e[a]);for(var n=0,s=r.length;n<s;n++){if(!Object.hasOwnProperty.call(i,r[n]))return;i=i[r[n]]}return i},_parseRules:function(e){var t={};for(var r in e=this._flattenObject(e)){var i=e[r];this._parseRulesCheck(r,i,t)}return t},_parseRulesCheck:function(e,t,r,i){-1<e.indexOf("*")?this._parsedRulesRecurse(e,t,r,i):this._parseRulesDefault(e,t,r,i)},_parsedRulesRecurse:function(e,t,r,i){var a=e.substr(0,e.indexOf("*")-1),n=this._objectPath(this.input,a);if(n)for(var s=0;s<n.length;s++){var u=i?i.slice():[];u.push(s),this._parseRulesCheck(e.replace("*",s),t,r,u)}},_parseRulesDefault:function(e,t,r,i){var a=[];t instanceof Array&&(t=this._prepareRulesArray(t)),"string"==typeof t&&(t=t.split("|"));for(var n,s=0,u=t.length;s<u;s++)(n="string"==typeof t[s]?this._extractRuleAndRuleValue(t[s]):t[s]).value&&(n.value=this._replaceWildCards(n.value,i),this._replaceWildCardsMessages(i)),o.isAsync(n.name)&&(this.hasAsync=!0),a.push(n);r[e]=a},_replaceWildCards:function(e,t){if(!t)return e;var r=e;return t.forEach(function(e){if(Array.isArray(r)&&(r=r[0]),pos=r.indexOf("*"),-1===pos)return r;r=r.substr(0,pos)+e+r.substr(pos+1)}),Array.isArray(e)&&(e[0]=r,r=e),r},_replaceWildCardsMessages:function(r){var i=this.messages.customMessages,a=this;Object.keys(i).forEach(function(e){if(r){var t=a._replaceWildCards(e,r);i[t]=i[e]}}),this.messages._setCustom(i)},_prepareRulesArray:function(e){for(var t=[],r=0,i=e.length;r<i;r++)if("object"==typeof e[r])for(var a in e[r])t.push({name:a,value:e[r][a]});else t.push(e[r]);return t},_suppliedWithData:function(e){return this.input.hasOwnProperty(e)},_extractRuleAndRuleValue:function(e){var t,r={};return 0<=(r.name=e).indexOf(":")&&(t=e.split(":"),r.name=t[0],r.value=t.slice(1).join(":")),r},_hasRule:function(e,t){for(var r=this.rules[e]||[],i=0,a=r.length;i<a;i++)if(-1<t.indexOf(r[i].name))return!0;return!1},_hasNumericRule:function(e){return this._hasRule(e,this.numericRules)},_isValidatable:function(e,t){return!!o.isImplicit(e.name)||this.getRule("required").validate(t)},_shouldStopValidating:function(e,t){var r=this.stopOnAttributes;return void 0!==r&&!1!==r&&!0!==t&&(!(r instanceof Array)||-1<r.indexOf(e))},setAttributeNames:function(e){this.messages._setAttributeNames(e)},setAttributeFormatter:function(e){this.messages._setAttributeFormatter(e)},getRule:function(e){return o.make(e,this)},stopOnError:function(e){this.stopOnAttributes=e},passes:function(e){return this._checkAsync("passes",e)?this.checkAsync(e):this.check()},fails:function(e){return this._checkAsync("fails",e)?this.checkAsync(function(){},e):!this.check()},_checkAsync:function(e,t){var r="function"==typeof t;if(this.hasAsync&&!r)throw e+" expects a callback when async rules are being tested.";return this.hasAsync||r}},m.setMessages=function(e,t){return c._set(e,t),this},m.getMessages=function(e){return c._get(e)},m.useLang=function(e){this.prototype.lang=e},m.getDefaultLang=function(){return this.prototype.lang},m.setAttributeFormatter=function(e){this.prototype.attributeFormatter=e},m.stopOnError=function(e){this.prototype.stopOnAttributes=e},m.register=function(e,t,r){var i=m.getDefaultLang();o.register(e,t),c._setRuleMessage(i,e,r)},m.registerImplicit=function(e,t,r){var i=m.getDefaultLang();o.registerImplicit(e,t),c._setRuleMessage(i,e,r)},m.registerAsync=function(e,t,r){var i=m.getDefaultLang();o.registerAsync(e,t),c._setRuleMessage(i,e,r)},m.registerAsyncImplicit=function(e,t,r){var i=m.getDefaultLang();o.registerAsyncImplicit(e,t),c._setRuleMessage(i,e,r)},m.registerMissedRuleValidator=function(e,t){o.registerMissedRuleValidator(e,t)};var g=m;function v(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var r=[],i=!0,a=!1,n=void 0;try{for(var s,u=e[Symbol.iterator]();!(i=(s=u.next()).done)&&(r.push(s.value),!t||r.length!==t);i=!0);}catch(e){a=!0,n=e}finally{try{i||null==u.return||u.return()}finally{if(a)throw n}}return r}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}()}function b(e){return function(e){if(Array.isArray(e)){for(var t=0,r=new Array(e.length);t<e.length;t++)r[t]=e[t];return r}}(e)||function(e){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e))return Array.from(e)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}function _(e){var t=new FormData(e),r={},i=!0,a=!1,n=void 0;try{for(var s,u=t.entries()[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var o=v(s.value,2),l=o[0],h=o[1],c=l.replace(/\[]$/,""),f=c!==l;r[c]?(r[c]instanceof Array||(r[c]=[r[c]]),r[c].push(h)):r[c]=f?[h]:h}}catch(e){a=!0,n=e}finally{try{i||null==u.return||u.return()}finally{if(a)throw n}}return r}var y=!1,A={templates:{error:{prefix:"<li>",suffix:"</li>"}},classnames:{none:{},valid:{},invalid:{}}},w=function(e){e.form;var t=e.errors,r=e.data,i=e.rules,a=e.refs,n=e.touched,s=A.templates,d=A.classnames;Object.keys(i).forEach(function(e){if(e in a){var c=n.has(e)&&e in t,f=n.has(e)&&!c&&e in r;"errors"in a[e]&&(f?a[e].errors[0].innerHTML="":c&&(a[e].errors[0].innerHTML=t[e].map(function(e){return"".concat(s.error.prefix).concat(e).concat(s.error.suffix)}).join(""))),Object.entries(a[e]).forEach(function(e){var t=v(e,2),h=t[0];t[1].forEach(function(e){if(h in d.valid){var t,r=d.valid[h].split(" ");if(r.length)if(f)(t=e.classList).add.apply(t,b(r));else if(c){var i;(i=e.classList).remove.apply(i,b(r))}}if(h in d.invalid){var a,n=d.invalid[h].split(" ");if(n.length)if(c)(a=e.classList).add.apply(a,b(n));else if(f){var s;(s=e.classList).remove.apply(s,b(n))}}if(h in d.none){var u,o,l=d.none[h].split(" ");if(l.length)if(f||c)(u=e.classList).remove.apply(u,b(l));else(o=e.classList).add.apply(o,b(l))}})})}})},R="undefined"!=typeof FormData&&"getAll"in FormData.prototype,T=Object.freeze({configure:function(e){A=e},setRenderer:function(e){w=e},supported:R,connect:function(e,t,r){var a=1<arguments.length&&void 0!==t?t:{},n=2<arguments.length&&void 0!==r?r:{};if(!R)return null;y||(Validator.registerMissedRuleValidator(function(){return!0},""),Validator.useLang("en")),y=!0;function i(e,t,r){l[e]=l[e]||{},l[e][t]=l[e][t]||[],l[e][t].push(r)}var s,u,o="string"==typeof(s=e)?document.querySelector(s):s,l={};o.querySelectorAll("[data-aire-component]").forEach(function(e){if("aireFor"in e.dataset){var t=e.dataset.aireFor,r=e.dataset.aireComponent;i(t,r,e),"aireValidationKey"in e.dataset&&r!==e.dataset.aireValidationKey&&i(t,e.dataset.aireValidationKey,e)}});function h(e){var t=e.target.getAttribute("name");t&&p.add(t.replace(/\[]$/,""))}function c(e){void 0!==e&&"target"in e&&h(e);var i=0;clearTimeout(f),f=setTimeout(function(){var e=_(o);u=new Validator(e,a,n);var t=++i;1==t&&Object.entries(e).forEach(function(e){var t=v(e,2),r=t[0],i=t[1];null!=i&&""!==i&&(Array.isArray(i)&&0===i.length||r in l&&"errors"in l[r]&&0<l[r].errors[0].childElementCount||p.add(r))});function r(){d&&t===i&&w({form:o,rules:a,touched:p,refs:l,data:e,errors:u.errors.all()})}u.checkAsync(r,r)},250)}var f,d=!0,p=new Set;o.addEventListener("change",c,!0),o.addEventListener("keyup",c,!0),o.addEventListener("focus",h,!0),c();return{get valid(){return void 0!==u&&0===Object.keys(u.errors.all()).length},get data(){return void 0===u?_(o):u.input},get validator(){return u},run:c,disconnect:function(){d=!1,clearTimeout(f),o.removeEventListener("change",c),o.removeEventListener("keyup",c),o.removeEventListener("focus",h)}}}});g.setMessages("en",{accepted:"The :attribute must be accepted.",after:"The :attribute must be after :after.",after_or_equal:"The :attribute must be equal or after :after_or_equal.",alpha:"The :attribute field must contain only alphabetic characters.",alpha_dash:"The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.",alpha_num:"The :attribute field must be alphanumeric.",before:"The :attribute must be before :before.",before_or_equal:"The :attribute must be equal or before :before_or_equal.",between:"The :attribute field must be between :min and :max.",confirmed:"The :attribute confirmation does not match.",email:"The :attribute format is invalid.",date:"The :attribute is not a valid date format.",def:"The :attribute attribute has errors.",digits:"The :attribute must be :digits digits.",different:"The :attribute and :different must be different.",in:"The selected :attribute is invalid.",integer:"The :attribute must be an integer.",hex:"The :attribute field should have hexadecimal format",min:{numeric:"The :attribute must be at least :min.",string:"The :attribute must be at least :min characters."},max:{numeric:"The :attribute may not be greater than :max.",string:"The :attribute may not be greater than :max characters."},not_in:"The selected :attribute is invalid.",numeric:"The :attribute must be a number.",present:"The :attribute field must be present (but can be empty).",required:"The :attribute field is required.",required_if:"The :attribute field is required when :other is :value.",required_unless:"The :attribute field is required when :other is not :value.",required_with:"The :attribute field is required when :field is not empty.",required_with_all:"The :attribute field is required when :fields are not empty.",required_without:"The :attribute field is required when :field is empty.",required_without_all:"The :attribute field is required when :fields are empty.",same:"The :attribute and :same fields must match.",size:{numeric:"The :attribute must be :size.",string:"The :attribute must be :size characters."},string:"The :attribute must be a string.",url:"The :attribute format is invalid.",regex:"The :attribute format is invalid.",attributes:{}}),window.Validator=g,window.Aire=T}();
+
+</script>
+
+			<script defer>
+			document.addEventListener('DOMContentLoaded', function() {
+				Aire.configure({"templates":{"error":{"prefix":"<li class=\"block mt-1 text-red-500 text-sm font-bold\">","suffix":"<\/li>"}},"classnames":{"none":{"input":"text-gray-900","select":"text-gray-900","textarea":"text-gray-900","group_errors":"hidden","group_help_text":"text-gray-600"},"valid":{"label":"text-green-600","input":"border-green-600 text-green-700","select":"border-green-600 text-green-700","textarea":"border-green-600 text-green-700","group_errors":"hidden","group_help_text":"text-green-600 opacity-50"},"invalid":{"label":"text-red-600","input":"border-red-600 text-red-700","select":"border-red-600 text-red-700","textarea":"border-red-600 text-red-700","group_help_text":"text-red-600 opacity-50"}}});
+			});
+			</script>
+		
+			<script defer>
+			document.addEventListener('DOMContentLoaded', function() {
+				window.$aire186 = Aire.connect('[data-aire-id="186"]', {"title":"required|min:5","author":"required","edition":"nullable|int|min1"}, [], null);
+			});
+			</script>
+		
+	
+</form>
+
+			</div>
+		</div>
+	</div>
+	
+			</div>
+		</div>
+		<div id="navigation" class="flex-shrink-0 lg:max-w-1/5">
+			<div class="hidden lg:block">
+	<a href="https://glhd.github.io/aire">
+		<svg class="w-32 md:w-48 h-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 305.86">
+	<g fill="#666" fill-rule="evenodd">
+		<path d="M225 5.82H97.64c-3.34 0-6.67.06-10 .15a144.81 144.81 0 0 0-21.78 1.91 73.54 73.54 0 0 0-20.69 6.82 69.63 69.63 0 0 0-30.43 30.43 73.58 73.58 0 0 0-6.83 20.71A145.74 145.74 0 0 0 6 87.6c-.09 3.34-.13 6.67-.15 10s0 6.62 0 9.93H0V95.21c0-3.46.06-6.91.15-10.37a150.11 150.11 0 0 1 2-22.58 76.17 76.17 0 0 1 7.07-21.47A72.24 72.24 0 0 1 40.78 9.24a75.79 75.79 0 0 1 21.46-7.07 150.12 150.12 0 0 1 22.59-2C88.28.07 91.74.04 95.2.01H225zM5.81 224.37H.02v-7.89h5.79q-.02 3.95 0 7.89zm-.47-9.84h.45v1.94H0V107.54h5.79v106.94z"/>
+		<path d="M2.89 221.15a2.9 2.9 0 1 1-2.89 2.9 2.89 2.89 0 0 1 2.89-2.9zM225.32.01a2.9 2.9 0 1 1-2.89 2.89 2.89 2.89 0 0 1 2.89-2.89z"/>
+	</g>
+	<path fill="#feefef" fill-rule="evenodd" d="M309.13 111.72v40.38L12.46 236.69c-.06-1.44-.11-2.87-.15-4.31-.09-3.16-.12-6.33-.14-9.5V111.72v-11.29c0-3.17 0-6.34.14-9.51a155.77 155.77 0 0 1 1.82-22 61.87 61.87 0 0 1 6.51-18.37c3.15-6.19 6.63-13.13 11.53-18s9.93-7.74 16.12-10.89 14-5.24 21-6.48a136.89 136.89 0 0 1 20.7-1.82c3.17-.09 6.34-.13 9.51-.15H221.92c3.17 0 6.34 0 9.51.14a136.89 136.89 0 0 1 20.7 1.82 69.73 69.73 0 0 1 19.67 6.48 66.18 66.18 0 0 1 28.84 28.9 69.79 69.79 0 0 1 6.48 19.68 138.06 138.06 0 0 1 1.82 20.69c.09 3.17.12 6.34.14 9.51v11.29z"/>
+	<g fill="#f4645f">
+		<path d="M60.74 110.3l-4-1.66-1.75-2.95 2.49-7.82h21.54l2.21 7.27-1.47 3.78-4.88 1.38v6.17h28.76v-6.46l-6-2.21-18.3-55.69H62.77L44.26 107.9l-5.8 2.12v6.45h22.28zm3.68-34.9l2.67-12h2.21l2.67 12 4.42 14.37H59.91zM118.03 61.41c4.69 0 8.19-3.32 8.19-7.64s-3.5-7.65-8.19-7.65-8.2 3.32-8.2 7.65 3.5 7.64 8.2 7.64zm-12.53 55.06h26.43v-5.62l-4.24-.92-2.11-4V68.4H105.5v5.61l4.7.92 2.12 4v27.08l-2.12 4-4.7.92zM161.86 110.85l-4.88-.92-2.12-4V93.36c0-6.17 2.3-11.24 7.37-14.83l4.51 4.88c4.79.28 9.94-2.67 9.94-8.65a7.4 7.4 0 0 0-7.73-7.55c-4.88 0-9.76 4.23-14.27 15.56l-.74-.37.92-11.69V68.4h-19.79v5.61l4.42.92 2.11 4v27.08l-2.11 4-4.42.92v5.62h26.79zM222.09 111.01l-2.67-5.34c-5.25 2.31-9.21 3.59-13.45 3.59-8.1 0-12.24-4.32-13-14.27h30v-2.94c0-14.64-6.72-25.14-20.72-25.14-13.53 0-23.48 11.14-23.48 26.24 0 14.18 8.66 24.77 23.48 24.77 6.76.02 13.21-2.38 19.84-6.91zm-20.81-37.75c5.71 0 7.55 5.53 7.73 15.84H192.9c.28-10.75 3.22-15.82 8.38-15.82z"/>
+	</g>
+	<path fill="#666" fill-rule="evenodd" d="M323.98 102.11v7.36h-5.79v-7.89h.05a2.88 2.88 0 0 1 5.72 0v.32c0 .07.02.11.02.21zm-5.78 7.36h5.79V272.4h-5.76V111.42c-.02-.65-.03-1.3-.03-1.95zm0 162.94h5.76v7.89h-.06a2.87 2.87 0 0 1-5.7 0v-.11-.22-.2c.03-2.45.02-4.91.02-7.36z"/>
+	<path fill="#fff" fill-rule="evenodd" stroke="#f4645f" stroke-miterlimit="10" stroke-width="5" d="M44.28 138.87h104.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14zM179.28 138.87h104.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H179.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14zM44.28 199.87h238.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14z"/>
+	<path fill="#f4645f" fill-rule="evenodd" d="M44.28 260.87h151.79a5.14 5.14 0 0 1 5.14 5.14v34.71a5.15 5.15 0 0 1-5.14 5.15H44.28a5.15 5.15 0 0 1-5.14-5.15v-34.71a5.14 5.14 0 0 1 5.14-5.14z"/>
+</svg>
+	</a>
+</div>
+
+<div class="lg:hidden mt-6 pt-6 border-t border-salmon">
+	<h2 class="text-2xl text-salmon mt-0">
+		Menu
+	</h2>
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
+	
+	<li class="group mb-4 lg:hidden">
+		<i class="fas fa-fw fa-arrow-up mr-2 text-gray-600 group-hover:text-gray-700"></i>
+		<a href="#" class="text-gray-700 no-underline hover:text-gray-900">
+			Back to top of page
+		</a>
+	</li>
+	
+		
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-file mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire" class="text-gray-700 no-underline hover:text-gray-900">
+				README
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/api" class="text-gray-700 no-underline hover:text-gray-900">
+				API Overview
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-layer-group mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/working-with-elements" class="text-gray-700 no-underline hover:text-gray-900">
+				Working w/ Elements
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fab fa-js-square mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/alpine-components" class="text-gray-700 no-underline hover:text-gray-900">
+				Alpine.js
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-cubes mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/components" class="text-gray-700 no-underline hover:text-gray-900">
+				Components
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-paint-roller mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/themes" class="text-gray-700 no-underline hover:text-gray-900">
+				Theming
+			</a>
+		</li>
+	
+	
+
+</ul>
+
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-gray-500 text-sm">
+	Recipes
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
+	
+		
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/basic" class="text-gray-700 no-underline hover:text-gray-900">
+				Basic Demo
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/validation" class="text-gray-700 no-underline hover:text-gray-900">
+				Client-Side Validation
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fas fa-file-code mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/html-buttons" class="text-gray-700 no-underline hover:text-gray-900">
+				HTML in Buttons
+			</a>
+		</li>
+	
+	
+
+</ul>
+
+<div class="font-bold -mb-3 mt-6 pt-6 border-t border-gray-300 text-gray-500 text-sm">
+	Themes
+</div>
+
+<ul class="list-reset mt-8 font-semibold">
+	
+		
+	<li class="group mb-4">
+			<i class="fa-fw fas fa-fill-drip mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/tailwind-custom-forms" class="text-gray-700 no-underline hover:text-gray-900">
+				Tailwind Forms
+			</a>
+		</li>
+	
+	
+	
+		
+			
+		<li class="group mb-4">
+			<i class="fa-fw fab fa-bootstrap mr-2 text-gray-600 group-hover:text-gray-700"></i>
+			<a href="https://glhd.github.io/aire/bootstrap" class="text-gray-700 no-underline hover:text-gray-900">
+				Bootstrap
+			</a>
+		</li>
+	
+	
+
+</ul>
+
+<ul class="list-reset mt-8 font-semibold">
+	<li class="group mb-6 mt-6 pt-6 border-t border-gray-300">
+		<i class="fab fa-fw fa-github mr-2 text-gray-600 group-hover:text-gray-700"></i>
+		<a href="https://github.com/glhd/aire" class="text-gray-700 no-underline hover:text-gray-900" target="_blank">
+			Aire on Github
+			<i class="fas fa-external-link-alt text-white group-hover:text-gray-100 ml-1"></i>
+		</a>
+	</li>
+</ul>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-markup-templating.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-php.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-php-extras.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-javascript.min.js"></script>
+
+</body>
+
+</html>
