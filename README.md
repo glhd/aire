@@ -39,12 +39,12 @@
 </div>
 
 <h1>
-	<a href="https://glhd.github.io/aire/">
-		<img src="https://glhd.github.io/aire/logo.svg" width="192" height="181" alt="Aire" border="0" />
+	<a href="https://airephp.com">
+		<img src="https://airephp.com/logo.svg" width="192" height="181" alt="Aire" border="0" />
 	</a>
 </h1>
 
-Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)) with a
+Aire is a modern Laravel form builder ([demo](https://airephp.com)) with a
 focus on the same expressive and beautiful code you expect from the Laravel
 ecosystem.
 
@@ -196,8 +196,6 @@ to [validatorjs](https://github.com/skaterdav85/validatorjs)!).
 There are a few things that are still either in-the-works or being considered for a 
 later release. These include:
 
-  - Integration with [Tailwind forms](https://github.com/tailwindcss/custom-forms)
-  - Sizing option for form controls
   - [Read-only plain text](http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text) 
   - Cross-browser support for custom checkboxes and radio buttons via a config option
   - Support for Choices.js or similar `<select>` UI libraries
