@@ -71,60 +71,6 @@ class ConfigurationBuilder implements Htmlable
 			$elements->push($this->aire->submit());
 		}
 		
-		$elements = $elements->sortBy(function(Element $element) {
-			// TODO: Make this configurable
-			if ($element instanceof Input) {
-				switch ($element->attributes->get('type')) {
-					case 'search':
-						return 100;
-					
-					case 'email':
-						return 200;
-					
-					case 'password':
-						return 300;
-						
-					case 'text':
-						return 350;
-					
-					case 'tel':
-					case 'url':
-					case 'number':
-						return 400;
-					
-					case 'file':
-						return 500;
-					
-					case 'month':
-					case 'week':
-					case 'date':
-					case 'datetime':
-					case 'datetime-local':
-					case 'time':
-						return 800;
-					
-					case 'image':
-					case 'button':
-					case 'submit':
-						return PHP_INT_MAX;
-				}
-			}
-			
-			if ($element instanceof Select) {
-				return 600;
-			}
-			
-			if ($element instanceof Checkbox) {
-				return 700;
-			}
-			
-			if ($element instanceof Button) {
-				return PHP_INT_MAX;
-			}
-			
-			return 900;
-		});
-		
 		return $elements;
 	}
 	

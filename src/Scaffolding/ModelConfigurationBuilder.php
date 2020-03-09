@@ -3,10 +3,15 @@
 namespace Galahad\Aire\Scaffolding;
 
 use Barryvdh\Reflection\DocBlock;
+use Closure;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\ConfiguresForm;
+use Galahad\Aire\Elements\Button;
+use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
+use Galahad\Aire\Elements\Input;
+use Galahad\Aire\Elements\Select;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -81,7 +86,7 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 			$this->fields_config = $this->formFields($this->aire);
 		}
 		
-		return parent::buildElements();
+		return parent::buildElements()->sortBy($this->sortingMethod());
 	}
 	
 	public function formFields(Aire $aire) : array
@@ -109,6 +114,73 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 			})
 			->filter()
 			->toArray();
+	}
+	
+	protected function sortingMethod() : Closure
+	{
+		$configured_order = $this->model->form_order ?? null;
+		
+		return function(Element $element, $name) use ($configured_order) {
+			// If the order is defined and this element is in it, use that
+			if ($configured_order) {
+				$position = array_search($name, $configured_order);
+				if (false !== $position) {
+					return $position;
+				}
+			}
+			
+			// This applies some (relatively arbitrary) sorting logic if none is supplied
+			if ($element instanceof Input) {
+				switch ($element->attributes->get('type')) {
+					case 'search':
+						return 100;
+					
+					case 'email':
+						return 200;
+					
+					case 'password':
+						return 300;
+					
+					case 'text':
+						return 350;
+					
+					case 'tel':
+					case 'url':
+					case 'number':
+						return 400;
+					
+					case 'file':
+						return 500;
+					
+					case 'month':
+					case 'week':
+					case 'date':
+					case 'datetime':
+					case 'datetime-local':
+					case 'time':
+						return 800;
+					
+					case 'image':
+					case 'button':
+					case 'submit':
+						return PHP_INT_MAX;
+				}
+			}
+			
+			if ($element instanceof Select) {
+				return 600;
+			}
+			
+			if ($element instanceof Checkbox) {
+				return 700;
+			}
+			
+			if ($element instanceof Button) {
+				return PHP_INT_MAX;
+			}
+			
+			return 900;
+		};
 	}
 	
 	protected function buildElement(string $field_name, string $element_name) : Element
