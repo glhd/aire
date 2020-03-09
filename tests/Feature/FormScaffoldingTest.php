@@ -37,6 +37,7 @@ class FormScaffoldingTest extends TestCase
 		$this->assertSelectorAttribute($html, 'form', 'action', url('/test/scaffolding-models'));
 		$this->assertSelectorAttribute($html, 'form', 'method', 'POST');
 		
+		$this->assertSelectorContainsText($html, '[data-aire-for=config_text] label', 'Custom label');
 		$this->assertSelectorAttribute($html, '[name=config_text]', 'type', 'text');
 		
 		$this->assertSelectorExists($html, 'select[name=author]');
@@ -249,7 +250,7 @@ class ScaffoldingModel extends Model
 	];
 	
 	public $form_config = [
-		'config_text' => 'text',
+		'config_text' => 'text|Custom label',
 	];
 	
 	protected $guarded = [];

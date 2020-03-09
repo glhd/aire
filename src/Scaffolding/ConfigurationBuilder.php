@@ -85,7 +85,8 @@ class ConfigurationBuilder implements Htmlable
 	
 	protected function buildElement(string $field_name, string $element_name) : Element
 	{
-		$label = Str::title(str_replace('_', ' ', $field_name));
+		$element_config = explode('|', $element_name, 2);
+		$label = $element_config[1] ?? Str::title(str_replace('_', ' ', $field_name));
 		
 		switch ($element_name) {
 			case 'number':
