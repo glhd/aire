@@ -118,15 +118,22 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 	
 	protected function sortingMethod() : Closure
 	{
-		$configured_order = $this->model->form_order ?? $this->model->formOrder ?? null;
+		$form_order = $this->model->form_order ?? $this->model->formOrder ?? null;
+		$config_order = array_keys($this->model->form_config ?? $this->model->formConfig ?? []);
 		
-		return function(Element $element, $name) use ($configured_order) {
+		return function(Element $element, $name) use ($form_order, $config_order) {
 			// If the order is defined and this element is in it, use that
-			if ($configured_order) {
-				$position = array_search($name, $configured_order);
+			if ($form_order) {
+				$position = array_search($name, $form_order);
 				if (false !== $position) {
 					return $position;
 				}
+			}
+			
+			// If it's in the config object, use that order
+			$config_position = array_search($name, $config_order);
+			if (false !== $config_position) {
+				return $config_position;
 			}
 			
 			// This applies some (relatively arbitrary) sorting logic if none is supplied

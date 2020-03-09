@@ -86,6 +86,8 @@ class ConfigurationBuilder implements Htmlable
 	protected function buildElement(string $field_name, string $element_name) : Element
 	{
 		$element_config = explode('|', $element_name, 2);
+		
+		$element_name = $element_config[0];
 		$label = $element_config[1] ?? Str::title(str_replace('_', ' ', $field_name));
 		
 		switch ($element_name) {
@@ -100,6 +102,9 @@ class ConfigurationBuilder implements Htmlable
 			
 			case 'date':
 				return $this->aire->date($field_name, $label);
+			
+			case 'textarea':
+				return $this->aire->textArea($field_name, $label);
 			
 			case 'text':
 			default:

@@ -25,6 +25,7 @@ class FormScaffoldingTest extends TestCase
 		
 		Route::post('/test/scaffolding-models', $ok)->name('scaffolding_models.store');
 		Route::post('/test/camel-syntax-models', $ok)->name('camel_syntax_models.store');
+		Route::post('/test/config-order-models', $ok)->name('config_order_models.store');
 		Route::put('/test/scaffolding-models/{scaffolding_model}', $ok)->name('scaffolding_models.update');
 	}
 	
@@ -37,8 +38,10 @@ class FormScaffoldingTest extends TestCase
 		$this->assertSelectorAttribute($html, 'form', 'action', url('/test/scaffolding-models'));
 		$this->assertSelectorAttribute($html, 'form', 'method', 'POST');
 		
-		$this->assertSelectorContainsText($html, '[data-aire-for=config_text] label', 'Custom label');
-		$this->assertSelectorAttribute($html, '[name=config_text]', 'type', 'text');
+		$this->assertSelectorContainsText($html, '[data-aire-for=config_int] label', 'Custom label');
+		$this->assertSelectorAttribute($html, '[name=config_int]', 'type', 'number');
+		
+		$this->assertSelectorExists($html, 'textarea[name=config_textarea]');
 		
 		$this->assertSelectorExists($html, 'select[name=author]');
 		$this->assertSelectorContainsText($html, '[data-aire-for=author] label', 'Pick an Author');
@@ -62,7 +65,8 @@ class FormScaffoldingTest extends TestCase
 	
 	public function test_it_intelligently_scaffolds_forms_for_model_instances() : void
 	{
-		$config_text = Str::random();
+		$config_int = 37;
+		$config_textarea = Str::random();
 		
 		$cast_string = Str::random();
 		$cast_int = 77;
@@ -78,7 +82,8 @@ class FormScaffoldingTest extends TestCase
 		
 		$model = new ScaffoldingModel([
 			'id' => 99,
-			'config_text' => $config_text,
+			'config_int' => $config_int,
+			'config_textarea' => $config_textarea,
 			'cast_string' => $cast_string,
 			'cast_int' => $cast_int,
 			'cast_float' => $cast_float,
@@ -101,9 +106,13 @@ class FormScaffoldingTest extends TestCase
 		$this->assertSelectorAttribute($html, 'form', 'method', 'POST');
 		$this->assertSelectorAttribute($html, 'input[name=_method]', 'value', 'PUT');
 		
-		// config_text
-		$this->assertSelectorAttribute($html, '[name=config_text]', 'type', 'text');
-		$this->assertSelectorAttribute($html, '[name=config_text]', 'value', $config_text);
+		// config_int
+		$this->assertSelectorAttribute($html, '[name=config_int]', 'type', 'number');
+		$this->assertSelectorAttribute($html, '[name=config_int]', 'value', $config_int);
+		
+		// config_textarea
+		$this->assertSelectorExists($html, 'textarea[name=config_textarea]');
+		$this->assertSelectorContainsText($html, 'textarea[name=config_textarea]', $config_textarea);
 		
 		// cast_string
 		$this->assertSelectorAttribute($html, '[name=cast_string]', 'type', 'text');
@@ -188,7 +197,7 @@ class FormScaffoldingTest extends TestCase
 		$cast_boolean_position = strpos($html, 'name="cast_boolean"');
 		$cast_string_position = strpos($html, 'name="cast_string"');
 		$annotated_string_position = strpos($html, 'name="annotated_string"');
-		$config_text_position = strpos($html, 'name="config_text"');
+		$config_int_position = strpos($html, 'name="config_int"');
 		$cast_int_position = strpos($html, 'name="cast_int"');
 		$cast_float_position = strpos($html, 'name="cast_float"');
 		$annotated_int_position = strpos($html, 'name="annotated_int"');
@@ -200,8 +209,8 @@ class FormScaffoldingTest extends TestCase
 		$this->assertNotEquals(0, $cast_boolean_position);
 		$this->assertTrue($cast_string_position > $cast_boolean_position);
 		$this->assertTrue($annotated_string_position > $cast_string_position);
-		$this->assertTrue($config_text_position > $annotated_string_position);
-		$this->assertTrue($cast_int_position > $config_text_position);
+		$this->assertTrue($config_int_position > $annotated_string_position);
+		$this->assertTrue($cast_int_position > $config_int_position);
 		$this->assertTrue($cast_float_position > $cast_int_position);
 		$this->assertTrue($annotated_int_position > $cast_float_position);
 		$this->assertTrue($annotated_bool_position > $annotated_int_position);
@@ -224,6 +233,18 @@ class FormScaffoldingTest extends TestCase
 		
 		$this->assertTrue($b_position < $a_position);
 	}
+	
+	public function test_it_applies_the_sorting_of_the_config() : void
+	{
+		$html = $this->aire()
+			->scaffold(ConfigOrderModel::class)
+			->render();
+		
+		$a_position = strpos($html, 'name="a"');
+		$b_position = strpos($html, 'name="b"');
+		
+		$this->assertTrue($b_position < $a_position);
+	}
 }
 
 /**
@@ -239,7 +260,7 @@ class ScaffoldingModel extends Model
 		'cast_boolean',
 		'cast_string',
 		'annotated_string',
-		'config_text',
+		'config_int',
 		'cast_int',
 		'cast_float',
 		'annotated_int',
@@ -250,7 +271,8 @@ class ScaffoldingModel extends Model
 	];
 	
 	public $form_config = [
-		'config_text' => 'text|Custom label',
+		'config_int' => 'number|Custom label',
+		'config_textarea' => 'textarea',
 	];
 	
 	protected $guarded = [];
@@ -286,6 +308,14 @@ class CamelSyntaxModel extends Model
 	public $formConfig = [
 		'a' => 'text',
 		'b' => 'number',
+	];
+}
+
+class ConfigOrderModel extends Model
+{
+	public $form_config = [
+		'b' => 'checkbox',
+		'a' => 'search',
 	];
 }
 
