@@ -24,6 +24,7 @@ class FormScaffoldingTest extends TestCase
 		};
 		
 		Route::post('/test/scaffolding-models', $ok)->name('scaffolding_models.store');
+		Route::post('/test/camel-syntax-models', $ok)->name('camel_syntax_models.store');
 		Route::put('/test/scaffolding-models/{scaffolding_model}', $ok)->name('scaffolding_models.update');
 	}
 	
@@ -207,6 +208,21 @@ class FormScaffoldingTest extends TestCase
 		$this->assertTrue($annotated_float_position > $cast_bool_position);
 		$this->assertTrue($annotated_boolean_position > $annotated_float_position);
 	}
+	
+	public function test_camel_cased_properties() : void
+	{
+		$html = $this->aire()
+			->scaffold(CamelSyntaxModel::class)
+			->render();
+		
+		$a_position = strpos($html, 'name="a"');
+		$b_position = strpos($html, 'name="b"');
+		
+		$this->assertSelectorAttribute($html, '[name=a]', 'type', 'text');
+		$this->assertSelectorAttribute($html, '[name=b]', 'type', 'number');
+		
+		$this->assertTrue($b_position < $a_position);
+	}
 }
 
 /**
@@ -257,6 +273,19 @@ class ScaffoldingModel extends Model
 		
 		return $aire->select($authors, 'author', 'Pick an Author');
 	}
+}
+
+class CamelSyntaxModel extends Model
+{
+	public $formOrder = [
+		'b',
+		'a',
+	];
+	
+	public $formConfig = [
+		'a' => 'text',
+		'b' => 'number',
+	];
 }
 
 class TestConfiguredForm implements ConfiguresForm

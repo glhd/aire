@@ -118,7 +118,7 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 	
 	protected function sortingMethod() : Closure
 	{
-		$configured_order = $this->model->form_order ?? null;
+		$configured_order = $this->model->form_order ?? $this->model->formOrder ?? null;
 		
 		return function(Element $element, $name) use ($configured_order) {
 			// If the order is defined and this element is in it, use that
@@ -249,13 +249,13 @@ class ModelConfigurationBuilder extends ConfigurationBuilder implements Configur
 	}
 	
 	/**
-	 * Load the model's $form_config property if one exists
+	 * Load the model's $form_config (or $formConfig) property if one exists
 	 *
 	 * @return \Illuminate\Support\Collection
 	 */
 	protected function loadConfigurationAttribute() : Collection
 	{
-		return Collection::make($this->model->form_config ?? []);
+		return Collection::make($this->model->form_config ?? $this->model->formConfig ?? []);
 	}
 	
 	/**
