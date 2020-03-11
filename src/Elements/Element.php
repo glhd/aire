@@ -290,7 +290,7 @@ abstract class Element implements Htmlable
 			return $this->getInputName();
 		});
 		
-		$this->attributes->registerMutator('x-model', function() {
+		$this->attributes->setDefault('x-model', function() {
 			return $this->form && $this->form->isAlpineComponent() 
 				? $this->getInputName()
 				: null;

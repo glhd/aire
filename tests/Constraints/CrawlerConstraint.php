@@ -7,6 +7,19 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class CrawlerConstraint extends Constraint
 {
+	public function evaluate($other, string $description = '', bool $returnResult = false)
+	{
+		try {
+			return parent::evaluate($other, $description, $returnResult);
+		} catch (\InvalidArgumentException $exception) {
+			if ($returnResult) {
+				return false;
+			}
+			
+			$this->fail($other, $description);
+		}
+	}
+	
 	protected function crawl($html, $selector = null) : Crawler
 	{
 		$crawler = $html instanceof Crawler
@@ -26,6 +39,13 @@ abstract class CrawlerConstraint extends Constraint
 			? $this->selector
 			: null;
 		
-		return $this->crawl($other, $selector)->html() . ' ' . $this->toString();
+		try {
+			return $this->crawl($other, $selector)->html().' '.$this->toString();
+		} catch (\InvalidArgumentException $exception) {
+			// Crawler throws an InvalidArgumentException if the selector returns an
+			// empty Node list (which happens any time the selector can't be found).
+		}
+		
+		return $other.' '.$this->toString();
 	}
 }
