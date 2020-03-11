@@ -4,9 +4,11 @@ namespace Galahad\Aire;
 
 use BadMethodCallException;
 use Closure;
+use Galahad\Aire\Contracts\ConfiguresForm;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Form;
 use Galahad\Aire\Scaffolding\ScaffoldsForms;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\ForwardsCalls;
@@ -212,6 +214,8 @@ class Aire
 	public function form($action = null, $bound_data = null) : Form
 	{
 		$this->form = call_user_func($this->form_resolver);
+		
+		// FIXME: Scaffold here
 		
 		if ($action) {
 			$this->form->action($action);

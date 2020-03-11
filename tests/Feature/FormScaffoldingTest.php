@@ -245,6 +245,21 @@ class FormScaffoldingTest extends TestCase
 		
 		$this->assertTrue($b_position < $a_position);
 	}
+	
+	public function test_an_attribute_named_password_is_set_as_a_password_element() : void
+	{
+		$this->markTestIncomplete();
+	}
+	
+	public function test_an_attribute_named_email_is_set_as_an_email_element() : void
+	{
+		$this->markTestIncomplete();
+	}
+	
+	public function test_an_attribute_named_url_is_set_as_a_url_element() : void
+	{
+		$this->markTestIncomplete();
+	}
 }
 
 /**
