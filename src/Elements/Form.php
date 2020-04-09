@@ -109,16 +109,16 @@ class Form extends \Galahad\Aire\DTD\Form
 	/**
 	 * If true, we'll set up x-data and x-model attributes for Alpine.js
 	 * @see https://github.com/alpinejs/alpine
-	 * 
-	 * @var bool 
+	 *
+	 * @var bool
 	 */
 	protected $is_alpine_component = false;
 	
 	/**
 	 * We'll store a reference to all the elements created in the form
-	 * so that if we need to serialize them for Alpine we can. 
-	 * 
-	 * @var array 
+	 * so that if we need to serialize them for Alpine we can.
+	 *
+	 * @var array
 	 */
 	protected $json_serializable_elements = [];
 	
@@ -137,7 +137,7 @@ class Form extends \Galahad\Aire\DTD\Form
 		$this->initValidation();
 	}
 	
-	public function registerElement(Element $element) : self 
+	public function registerElement(Element $element) : self
 	{
 		if ($element instanceof HasJsonValue) {
 			$this->json_serializable_elements[] = $element;
@@ -210,13 +210,13 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	/**
 	 * Configure the form for use as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @param bool $alpine_component
 	 * @return $this
 	 */
-	public function asAlpineComponent(bool $alpine_component = true) : self 
+	public function asAlpineComponent(bool $alpine_component = true) : self
 	{
 		$this->is_alpine_component = $alpine_component;
 		
@@ -225,13 +225,21 @@ class Form extends \Galahad\Aire\DTD\Form
 				return null;
 			}
 			
+			$nested_array = [];
+			
 			return collect($this->json_serializable_elements)
 				->reject(function(Element $element) {
 					return empty($element->getInputName());
 				})
-				->mapWithKeys(function(Element $element) {
+				->mapWithKeys(function(Element $element) use (&$nested_array) {
 					$key = $element->getInputName();
 					$value = $element->getJsonValue();
+					
+					if (Str::contains($key, '.')) {
+						Arr::set($nested_array, $key, $value);
+						return $nested_array;
+					}
+					
 					return [$key => $value];
 				})
 				->toJson();
@@ -242,12 +250,12 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	/**
 	 * Determine whether the form is configured as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @return bool
 	 */
-	public function isAlpineComponent() : bool 
+	public function isAlpineComponent() : bool
 	{
 		return $this->is_alpine_component;
 	}

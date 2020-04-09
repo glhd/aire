@@ -3,7 +3,6 @@
 namespace Galahad\Aire\Tests\Feature;
 
 use Galahad\Aire\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -18,6 +17,14 @@ class AlpineJsTest extends TestCase
 			'check_box' => true,
 			'checkbox_group' => ['a', 'b'],
 			'radio_group' => null,
+			'nested_input' => [
+				'a' => [
+					'b' => [
+						'c' => 'd',
+					],
+					'foo' => 'bar',
+				],
+			],
 		];
 		
 		Session::flashInput([
@@ -28,6 +35,7 @@ class AlpineJsTest extends TestCase
 		$bound_data = [
 			'check_box' => $expected_x_data['check_box'],
 			'checkbox_group' => $expected_x_data['checkbox_group'],
+			'nested_input' => $expected_x_data['nested_input'],
 		];
 		
 		ob_start();
@@ -40,7 +48,9 @@ class AlpineJsTest extends TestCase
 		echo $form->checkbox('check_box');
 		echo $form->checkboxGroup(['a' => 'a', 'b' => 'b'], 'checkbox_group');
 		echo $form->radioGroup(['a' => 'a', 'b' => 'b'], 'radio_group');
-			
+		echo $form->input('nested_input[a][b][c]')->value('d');
+		echo $form->input('nested_input[a][foo]')->value('bar');
+		
 		echo $form->close();
 		
 		$html = ob_get_clean();
@@ -53,8 +63,10 @@ class AlpineJsTest extends TestCase
 		$this->assertSelectorAttribute($html, '[name="checkbox_group[]"][value=b]', 'x-model', 'checkbox_group');
 		$this->assertSelectorAttribute($html, '[name=radio_group][value=a]', 'x-model', 'radio_group');
 		$this->assertSelectorAttribute($html, '[name=radio_group][value=b]', 'x-model', 'radio_group');
+		$this->assertSelectorAttribute($html, '[name="nested_input[a][b][c]"][value=d]', 'x-model', 'nested_input.a.b.c');
+		$this->assertSelectorAttribute($html, '[name="nested_input[a][foo]"][value=bar]', 'x-model', 'nested_input.a.foo');
 		
 		$data = (new Crawler($html))->filter('form')->attr('x-data');
-		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data), $data);
+		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data, JSON_PRETTY_PRINT), $data);
 	}
 }
