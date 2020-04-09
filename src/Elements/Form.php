@@ -225,16 +225,17 @@ class Form extends \Galahad\Aire\DTD\Form
 				return null;
 			}
 			
-			return collect($this->json_serializable_elements)
+			$data = [];
+			
+			collect($this->json_serializable_elements)
 				->reject(function(Element $element) {
 					return empty($element->getInputName());
 				})
-				->mapWithKeys(function(Element $element) {
-					$key = $element->getInputName();
-					$value = $element->getJsonValue();
-					return [$key => $value];
-				})
-				->toJson();
+				->each(function(Element $element) use (&$data) {
+					Arr::set($data, $element->getInputName(), $element->getJsonValue());
+				});
+			
+			return json_encode($data, JSON_THROW_ON_ERROR);
 		});
 		
 		return $this;

@@ -18,6 +18,13 @@ class AlpineJsTest extends TestCase
 			'check_box' => true,
 			'checkbox_group' => ['a', 'b'],
 			'radio_group' => null,
+			'nested_values' => [
+				'first' => 'yes',
+				'deeply_nested' => [
+					'one' => 1,
+					'two' => 2,
+				],
+			],
 		];
 		
 		Session::flashInput([
@@ -28,6 +35,13 @@ class AlpineJsTest extends TestCase
 		$bound_data = [
 			'check_box' => $expected_x_data['check_box'],
 			'checkbox_group' => $expected_x_data['checkbox_group'],
+			'nested_values' => [
+				'first' => 'yes',
+				'deeply_nested' => [
+					'one' => 1,
+					'two' => 2,
+				],
+			],
 		];
 		
 		ob_start();
@@ -40,6 +54,9 @@ class AlpineJsTest extends TestCase
 		echo $form->checkbox('check_box');
 		echo $form->checkboxGroup(['a' => 'a', 'b' => 'b'], 'checkbox_group');
 		echo $form->radioGroup(['a' => 'a', 'b' => 'b'], 'radio_group');
+		echo $form->input('nested_values[first]');
+		echo $form->input('nested_values[deeply_nested][one]');
+		echo $form->input('nested_values[deeply_nested][two]');
 			
 		echo $form->close();
 		
@@ -53,6 +70,9 @@ class AlpineJsTest extends TestCase
 		$this->assertSelectorAttribute($html, '[name="checkbox_group[]"][value=b]', 'x-model', 'checkbox_group');
 		$this->assertSelectorAttribute($html, '[name=radio_group][value=a]', 'x-model', 'radio_group');
 		$this->assertSelectorAttribute($html, '[name=radio_group][value=b]', 'x-model', 'radio_group');
+		$this->assertSelectorAttribute($html, '[name="nested_values[first]"]', 'x-model', 'nested_values.first');
+		$this->assertSelectorAttribute($html, '[name="nested_values[deeply_nested][one]"]', 'x-model', 'nested_values.deeply_nested.one');
+		$this->assertSelectorAttribute($html, '[name="nested_values[deeply_nested][two]"]', 'x-model', 'nested_values.deeply_nested.two');
 		
 		$data = (new Crawler($html))->filter('form')->attr('x-data');
 		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data), $data);
