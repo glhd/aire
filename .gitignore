@@ -1,6 +1,7 @@
 vendor/
 composer.phar
 composer.lock
+.phpunit.result.cache
 
 .DS_Store
 .idea/
@@ -12,9 +13,3 @@ data/
 node_modules
 mix-manifest.json
 yarn-error.log
-
-docs/src/storage
-docs/src/cache/*
-!docs/src/cache/.gitkeep
-docs/src/bootstrap/cache/*
-!docs/src/bootstrap/cache/.gitkeep

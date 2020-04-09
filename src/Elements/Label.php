@@ -31,10 +31,19 @@ class Label extends \Galahad\Aire\DTD\Label
 		});
 	}
 	
+	/**
+	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
+	 * @return \Galahad\Aire\Elements\Label
+	 */
 	public function text($text) : self
 	{
-		$this->view_data['text'] = $text;
+		$this->view_data['text'] = __($text);
 		
 		return $this;
+	}
+	
+	protected function applyVariantToGroup($variant) : void
+	{
+		// Actually, don't.
 	}
 }

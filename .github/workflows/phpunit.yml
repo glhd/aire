@@ -1,0 +1,78 @@
+name: PHPUnit
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [7.4, 7.3, 7.2]
+        laravel: [^7.0, ^6.0, ~5.8.28]
+        dependency-version: [lowest, stable]
+        include:
+#          - laravel: ^8.0
+#            testbench: ^6.0
+#            minimum-stability: dev
+#            coverage: none
+          - laravel: ^7.0
+            testbench: ^5.0
+            minimum-stability: stable
+            coverage: none
+          - laravel: ^6.0
+            testbench: ^4.0
+            minimum-stability: stable
+            coverage: pcov
+          - laravel: ~5.8.28
+            testbench: ~3.8.0
+            minimum-stability: stable
+            coverage: none
+
+    name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+          coverage: ${{ matrix.coverage }}
+
+      - name: Set minimum stability
+        run: composer config minimum-stability ${{ matrix.minimum-stability }}
+
+      # Remove after a few weeks
+      - if: matrix.laravel == '^8.0'
+        name: Remove not-yet-upgraded packages (Laravel 8 only)
+        run: composer remove --dev bensampo/laravel-enum
+
+      - name: Install dependencies
+        env:
+          COMPOSER_DISCARD_CHANGES: true
+        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+
+      - name: Set dependency version
+        env:
+          COMPOSER_DISCARD_CHANGES: true
+        run: composer update --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover ${{ github.workspace }}/clover.xml
+
+      - if: matrix.coverage == 'pcov'
+        name: Publish code coverage
+        uses: paambaati/codeclimate-action@v2.4.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: echo "ok"
+          debug: true
+          coverageLocations:
+            "${{github.workspace}}/clover.xml:clover"

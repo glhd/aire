@@ -5,7 +5,8 @@ namespace Galahad\Aire\Support\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Galahad\Aire\Aire setTheme($namespace = NULL, $prefix = NULL)
+ * @method static \Galahad\Aire\Aire setTheme(string $namespace = NULL, string $prefix = NULL, array $config = [])
+ * @method static \Galahad\Aire\Aire resetTheme()
  * @method static string applyTheme(string $view)
  * @method static \Galahad\Aire\Elements\Form form($action = NULL, $bound_data = NULL)
  * @method static \Galahad\Aire\Elements\Form open($action = NULL, $bound_data = NULL)
@@ -14,10 +15,11 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Elements\Button button(string $label = NULL)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Select select(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Summary summary()
- * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = NULL)
  * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = NULL)
  * @method static \Galahad\Aire\Elements\Input hidden($name = NULL, $value = NULL)

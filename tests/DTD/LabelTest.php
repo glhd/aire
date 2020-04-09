@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Label;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class LabelTest extends TestCase
 {
@@ -39,7 +40,7 @@ class LabelTest extends TestCase
 	{
 		$label = new Label($this->aire());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$label->for($value);
 		$this->assertSelectorAttribute($label, 'label', 'for', $value);
@@ -52,7 +53,7 @@ class LabelTest extends TestCase
 	{
 		$label = new Label($this->aire());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$label->form($value);
 		$this->assertSelectorAttribute($label, 'label', 'form', $value);

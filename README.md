@@ -1,34 +1,50 @@
 
-<div class="mb-6 text-right">
-	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="no-underline">
+<div class="mb-6 float-right inline-flex">
+	<a href="https://github.com/glhd/aire/actions" target="_blank" class="mx-1">
 		<img 
-			src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
+			src="https://github.com/glhd/aire/workflows/PHPUnit/badge.svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="no-underline">
+	<a href="https://codeclimate.com/github/glhd/aire/test_coverage" target="_blank" class="mx-1">
 		<img 
-			src="https://coveralls.io/repos/github/glhd/aire/badge.svg?branch=master" 
+			src="https://api.codeclimate.com/v1/badges/f597a6e8d9f968a55f03/test_coverage" 
 			alt="Coverage Status" 
 		/>
 	</a>
-	<a href="https://packagist.org/packages/glhd/aire" target="_blank" class="no-underline">
+	<a href="https://packagist.org/packages/glhd/aire" target="_blank" class="mx-1">
         <img 
             src="https://poser.pugx.org/glhd/aire/v/stable" 
             alt="Latest Stable Release" 
         />
 	</a>
-	<a href="./LICENSE" target="_blank" class="no-underline">
+	<a href="./LICENSE" target="_blank" class="mx-1">
         <img 
             src="https://poser.pugx.org/glhd/aire/license" 
             alt="MIT Licensed" 
         />
     </a>
+    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+        <img 
+            src="https://img.shields.io/twitter/follow/airephp?style=social" 
+            alt="Follow @airephp on Twitter" 
+        />
+    </a>
+    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+        <img 
+            src="https://img.shields.io/twitter/follow/inxilpro?style=social" 
+            alt="Follow @inxilpro on Twitter" 
+        />
+    </a>
 </div>
 
-# Aire
+<h1>
+	<a href="https://airephp.com">
+		<img src="https://airephp.com/logo.svg" width="192" height="181" alt="Aire" border="0" />
+	</a>
+</h1>
 
-Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)) with a
+Aire is a modern Laravel form builder ([demo](https://airephp.com)) with a
 focus on the same expressive and beautiful code you expect from the Laravel
 ecosystem.
 
@@ -38,9 +54,9 @@ The most common usage is via the `Aire` facade in your blade templates. All meth
 are fluent, allowing for easy configuration of your form components:
 
 ```php
-{{ Aire::open()->route('users.update') }}
-
-{{ Aire::bind($user) }}
+{{ Aire::open()
+  ->route('users.update')
+  ->bind($user) }}
 
 <div class="flex flex-col md:flex-row">
 
@@ -63,24 +79,31 @@ are fluent, allowing for easy configuration of your form components:
 {{ Aire::close() }}
 ```
 
+## Installation
+
+Install via composer with:
+```sh
+composer require glhd/aire
+```
+
 ## Customization
 
 Aire comes with classes that should work with the default Tailwind class names
-out of the box (`.bg-blue-dark` etc). If you need to change the default class names
+out of the box (`.bg-blue-600` etc). If you need to change the default class names
 for any given element, there are two different ways to go about it.
 
-The first is to publish the `aire.php` config file via `php artisan vendor:publish --tag=config`
+The first is to publish the `aire.php` config file via `php artisan vendor:publish --tag=aire-config`
 and update the `default_classes` config for the element you'd like to change:
 
 ```php
 return [
   'default_classes' => [
-    'input' => 'text-grey-darkest bg-white border rounded-sm',
+    'input' => 'text-gray-900 bg-white border rounded-sm',
   ],
 ];
 ```
 
-The second option is to publish custom views via `php artisan vendor:publish --tag=views`
+The second option is to publish custom views via `php artisan vendor:publish --tag=aire-views`
 which gives you total control over component rendering. There's a view file for each component
 type (`input.blade.php` etc) as well as for component grouping. This gives you the most
 flexibility, but means that you have the maintain your views as Aire releases add new
@@ -88,7 +111,7 @@ features or change component rendering.
 
 ## Configuration
 
-When you publish the `aire.php` config file via `php artisan vendor:publish --tag=config`,
+When you publish the `aire.php` config file via `php artisan vendor:publish --tag=aire-config`,
 there are a handful of other configuration options. The config file is fully documented,
 so go check it out!
 
@@ -162,75 +185,19 @@ an error at the top of the page if validation failed.
 
 ## Client-Side Validation
 
-Javascript validation in Aire is currently **work in progress**. Eventually, Aire will
-support automatic client-side validation (just call `rules()` on a field). This will let
-you set the rules on a field-by-field basis, or for the whole form, and will let you
-pass in a `FormRequest` object to automatically inject rules. 
+Javascript validation in Aire is in its early stages. Browser testing is limited, and the
+Javascript code hasn't had an performance optimizations applied. That said, Aire
+supports automatic client-side validation—simply pass an array of rules or a `FormRequest`
+object and Aire will automatically apply most rules on the client side (thanks
+to [validatorjs](https://github.com/skaterdav85/validatorjs)!). 
 
-## Misc. Notes
+## Under Consideration / Feature Ideas
 
-These notes are here mostly to inform development.
+There are a few things that are still either in-the-works or being considered for a 
+later release. These include:
 
-### Considerations/Inspiration
-
-  - Form controls should take sizing config
-  - 'Read-only plain text' http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text
-  - 'Form groups' - Label/input/help text/validation text (config how many errors show)
-  - Multi-column forms (Name: {first} {last})
-  - Configurable support for custom checkboxes and radios?
-  - Custom select support?
-  - File inputs?
-  - Should client-side validation be included?
-  - https://github.com/netojose/laravel-bootstrap-4-forms
-  - https://tailwindcss.com/docs/examples/forms/
-  - https://github.com/glhd/forms
-  - https://github.com/glhd/bootforms
-  - Append/Prepend (input groups)
-
-### Components
-
-  - Button
-  - Checkbox
-  - Date
-  - DateTimeLocal
-  - Email
-  - File
-  - FormControl
-  - FormOpen
-  - FormClose
-  - Hidden
-  - Input
-  - Label
-  - Password
-  - RadioButton
-  - Select
-  - Text
-  - TextArea
-  
-### Input Types
-
-  - button
-  - checkbox
-  - color
-  - date
-  - datetime
-  - datetime-local
-  - email
-  - file
-  - hidden
-  - image
-  - month
-  - number
-  - password
-  - radio
-  - range
-  - reset
-  - search
-  - submit
-  - tel
-  - text
-  - time
-  - url
-  - wee 
-
-
+  - [Read-only plain text](http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text) 
+  - Cross-browser support for custom checkboxes and radio buttons via a config option
+  - Support for Choices.js or similar `<select>` UI libraries
+  - Better handling of file inputs
+  - Better support for [prepending or appending content to inputs](https://getbootstrap.com/docs/4.0/components/input-group/#basic-example)

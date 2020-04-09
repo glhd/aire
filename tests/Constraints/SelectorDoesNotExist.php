@@ -11,8 +11,6 @@ class SelectorDoesNotExist extends CrawlerConstraint
 	
 	public function __construct(string $selector)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 	}
 	

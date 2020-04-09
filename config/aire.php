@@ -29,6 +29,19 @@ return [
 	
 	/*
 	|--------------------------------------------------------------------------
+	| Default to Verbose Summaries
+	|--------------------------------------------------------------------------
+	|
+	| By default, the Summary element will only display a message about the
+	| number of errors that need to be resolved. If you would like, you can
+	| change the default behavior to also include an enumerated list of the
+	| errors in the summary box.
+	|
+	*/
+	'verbose_summaries_by_default' => false,
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Default Client-Side Validation
 	|--------------------------------------------------------------------------
 	|
@@ -78,29 +91,24 @@ return [
 	| you can do so here (for example, changing all <input> elements to have
 	| the class .form-control for Bootstrap compatibility).
 	|
+	| These should be in the format '[element]' => '[class names]'
+	| e.g. 'checkbox_label' => 'font-bold'
+	|
+	| See default-theme.php for a full example of configuring class names.
+	|
 	*/
-	'default_classes' => [
-		'group' => 'mb-6',
-		'group_prepend' => '-mr-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-l-sm',
-		'group_append' => '-ml-1 block p-2 text-base leading-normal bg-grey-100 text-grey-300 border rounded-r-sm',
-		'group_help_text' => 'block mt-1 text-sm font-normal',
-		'group_errors' => 'list-reset mt-2 mb-3',
-		'label' => 'inline-block mb-2',
-		'input' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm',
-		'checkbox' => 'pr-2',
-		'checkbox_label' => 'flex items-center',
-		'checkbox_wrapper' => 'ml-2 flex-1',
-		'checkbox_group_label' => 'flex items-baseline mb-2 ml-2 border-transparent border-l',
-		'checkbox_group_label_wrapper' => 'flex-1 ml-2',
-		'radio_group_label' => 'flex items-baseline mb-2 ml-2 border-transparent border-l',
-		'radio_group_label_wrapper' => 'flex-1 ml-2',
-		'summary' => 'border border-red bg-red-lightest text-red font-bold rounded p-4 my-4',
-		'button' => 'inline-block font-normal text-center whitespace-no-wrap align-middle select-none border
-			rounded font-normal leading-normal text-white bg-blue-dark border-blue-darker hover:bg-blue-darker
-			hover:border-blue-darkest p-2 px-4',
-		'select' => 'block w-full p-2 leading-normal border rounded-sm bg-white appearance-none',
-		'textarea' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm h-auto',
-	],
+	'default_classes' => [],
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Variant Classes
+	|--------------------------------------------------------------------------
+	|
+	| Some themes may define variants, such as "sm" or "lg" or "primary".
+	| If you need to override any of these, do so here.
+	|
+	*/
+	'variant_classes' => [],
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -110,6 +118,11 @@ return [
 	| A grouped element can optionally have a validation state set. This can
 	| be not validated, invalid, or valid. You can configure these class names
 	| on an element-by-element basis here.
+	|
+	| These should be in the format '[element]_[sub element]' => '[class names]'
+	| e.g. 'checkbox_label' => 'font-bold'
+	|
+	| See default-theme.php for a full example of configuring class names.
 	|
 	*/
 	'validation_classes' => [
@@ -121,14 +134,13 @@ return [
 		|
 		| These classes will be applied to elements that have not been validated.
 		|
+		| These should be in the format '[element]' => '[class names]'
+		| e.g. 'checkbox_label' => 'font-bold'
+		|
+		| See default-theme.php for a full example of configuring class names.
+		|
 		*/
-		'none' => [
-			'input' => 'text-grey-darkest',
-			'select' => 'text-grey-darkest',
-			'textarea' => 'text-grey-darkest', // TODO: This probably needs to be generalized better
-			'group_errors' => 'hidden',
-			'group_help_text' => 'text-grey-dark',
-		],
+		'none' => [],
 		
 		/*
 		|--------------------------------------------------------------------------
@@ -137,15 +149,13 @@ return [
 		|
 		| These classes will be applied to elements that have passed validation.
 		|
+		| These should be in the format '[element]' => '[class names]'
+		| e.g. 'checkbox_label' => 'font-bold'
+		|
+		| See default-theme.php for a full example of configuring class names.
+		|
 		*/
-		'valid' => [
-			'label' => 'text-green-dark',
-			'input' => 'border-green-dark text-green-darker',
-			'select' => 'border-green-dark text-green-darker',
-			'textarea' => 'border-green-dark text-green-darker',
-			'group_errors' => 'hidden',
-			'group_help_text' => 'text-green-dark opacity-50',
-		],
+		'valid' => [],
 		
 		/*
 		|--------------------------------------------------------------------------
@@ -154,14 +164,13 @@ return [
 		|
 		| These classes will be applied to elements that failed validation.
 		|
+		| These should be in the format '[element]' => '[class names]'
+		| e.g. 'checkbox_label' => 'font-bold'
+		|
+		| See default-theme.php for a full example of configuring class names.
+		|
 		*/
-		'invalid' => [
-			'label' => 'text-red-dark',
-			'input' => 'border-red-dark text-red-darker',
-			'select' => 'border-red-dark text-red-darker',
-			'textarea' => 'border-red-dark text-red-darker',
-			'group_help_text' => 'text-red-dark opacity-50',
-		],
+		'invalid' => [],
 	],
 	
 ];

@@ -3,12 +3,14 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\AutoId;
 use Galahad\Aire\Elements\Concerns\HasValue;
+use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
-class Input extends \Galahad\Aire\DTD\Input
+class Input extends \Galahad\Aire\DTD\Input implements HasJsonValue
 {
-	use HasValue, AutoId;
+	use HasValue, AutoId, MapsValueToJsonValue;
 	
 	protected $default_attributes = [
 		'type' => 'text',
@@ -43,5 +45,20 @@ class Input extends \Galahad\Aire\DTD\Input
 		}
 		
 		return $this;
+	}
+	
+	public function render() : string
+	{
+		$type = $this->attributes->get('type', 'text');
+		
+		$views = [
+			"{$this->name}.{$type}",
+			$this->name,
+		];
+		
+		return $this->aire->renderFirst(
+			$views,
+			$this->viewData()
+		);
 	}
 }

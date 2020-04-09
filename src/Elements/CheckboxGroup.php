@@ -3,13 +3,15 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\AppliesIdToWrapper;
 use Galahad\Aire\Elements\Concerns\HasOptions;
 use Galahad\Aire\Elements\Concerns\HasValue;
+use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
-class CheckboxGroup extends \Galahad\Aire\DTD\Input
+class CheckboxGroup extends \Galahad\Aire\DTD\Input implements HasJsonValue
 {
-	use HasValue, HasOptions, AppliesIdToWrapper;
+	use HasValue, HasOptions, AppliesIdToWrapper, MapsValueToJsonValue;
 	
 	public $name = 'checkbox-group';
 	
@@ -17,7 +19,7 @@ class CheckboxGroup extends \Galahad\Aire\DTD\Input
 		'type' => 'checkbox',
 	];
 	
-	public function __construct(Aire $aire, array $options, Form $form = null)
+	public function __construct(Aire $aire, $options, Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

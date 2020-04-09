@@ -16,8 +16,6 @@ class SelectorHasClassNames extends CrawlerConstraint
 	
 	public function __construct(string $selector, $class_names)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 		$this->class_names = (array) $class_names;
 	}

@@ -3,7 +3,7 @@
 
 @if (isset($errors) && $errors->any())
 	
-	<div {{ $attributes }} data-aire-summary>
+	<div {{ $attributes }}>
 		
 		{{ trans_choice('aire::common.summary', $errors->count()) }}
 		

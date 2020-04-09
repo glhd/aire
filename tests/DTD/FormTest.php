@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Form;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class FormTest extends TestCase
 {
@@ -39,7 +40,7 @@ class FormTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->acceptCharset($value);
 		$this->assertSelectorAttribute($form, 'form', 'accept-charset', $value);
@@ -52,7 +53,7 @@ class FormTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->action($value);
 		$this->assertSelectorAttribute($form, 'form', 'action', $value);
@@ -290,7 +291,7 @@ class FormTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->name($value);
 		$this->assertSelectorAttribute($form, 'form', 'name', $value);

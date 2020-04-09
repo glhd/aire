@@ -4,13 +4,17 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
+use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 
 class Form extends \Galahad\Aire\DTD\Form
@@ -36,7 +40,14 @@ class Form extends \Galahad\Aire\DTD\Form
 	 *
 	 * @var array
 	 */
-	public $rules = [];
+	public $validation_rules = [];
+	
+	/**
+	 * Custom validation messages
+	 *
+	 * @var array
+	 */
+	public $validation_messages = [];
 	
 	/**
 	 * @inheritdoc
@@ -95,6 +106,22 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $dev_mode = false;
 	
+	/**
+	 * If true, we'll set up x-data and x-model attributes for Alpine.js
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @var bool 
+	 */
+	protected $is_alpine_component = false;
+	
+	/**
+	 * We'll store a reference to all the elements created in the form
+	 * so that if we need to serialize them for Alpine we can. 
+	 * 
+	 * @var array 
+	 */
+	protected $json_serializable_elements = [];
+	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
@@ -108,6 +135,15 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		$this->initValidation();
+	}
+	
+	public function registerElement(Element $element) : self 
+	{
+		if ($element instanceof HasJsonValue) {
+			$this->json_serializable_elements[] = $element;
+		}
+		
+		return $this;
 	}
 	
 	/**
@@ -140,6 +176,83 @@ class Form extends \Galahad\Aire\DTD\Form
 	}
 	
 	/**
+	 * Bind data with implicit resource controller routing
+	 *
+	 * Form::resourceful(new User()) -> POST route('users.store')
+	 * Form::resourceful($existing_user) -> PUT route('users.update')
+	 *
+	 * @param \Illuminate\Database\Eloquent\Model $model
+	 * @param string $resource_name
+	 * @param array $prepend_parameters
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function resourceful(Model $model, $resource_name = null, $prepend_parameters = []) : self
+	{
+		$this->bind($model);
+		
+		if (null === $resource_name) {
+			$resource_name = Str::kebab(Str::plural($model->getTable()));
+		}
+		
+		if ($model->exists) {
+			$parameters = (array) $prepend_parameters;
+			$parameters[] = $model;
+			
+			$this->action($this->url->route("{$resource_name}.update", $parameters));
+			$this->put();
+		} else {
+			$this->action($this->url->route("{$resource_name}.store", $prepend_parameters));
+			$this->post();
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Configure the form for use as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @param bool $alpine_component
+	 * @return $this
+	 */
+	public function asAlpineComponent(bool $alpine_component = true) : self 
+	{
+		$this->is_alpine_component = $alpine_component;
+		
+		$this->attributes->registerMutator('x-data', function() {
+			if (!$this->isAlpineComponent()) {
+				return null;
+			}
+			
+			return collect($this->json_serializable_elements)
+				->reject(function(Element $element) {
+					return empty($element->getInputName());
+				})
+				->mapWithKeys(function(Element $element) {
+					$key = $element->getInputName();
+					$value = $element->getJsonValue();
+					return [$key => $value];
+				})
+				->toJson();
+		});
+		
+		return $this;
+	}
+	
+	/**
+	 * Determine whether the form is configured as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @return bool
+	 */
+	public function isAlpineComponent() : bool 
+	{
+		return $this->is_alpine_component;
+	}
+	
+	/**
 	 * Determine whether the form has any bound data
 	 *
 	 * @return bool
@@ -159,20 +272,20 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function getBoundValue($name, $default = null)
 	{
-		if (null === $name) {
+		if (empty($name)) {
 			return value($default);
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && $this->session_store->hasOldInput($name)) {
-			return $this->session_store->getOldInput($name);
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::exists($old, $name)) {
+			return Arr::get($old, $name) ?? '';
 		}
 		
 		// If form has bound data, use that
 		if ($bound_data = $this->bound_data) {
 			$bound_value = is_object($bound_data)
 				? object_get($bound_data, $name)
-				: array_get($bound_data, $name);
+				: Arr::get($bound_data, $name);
 			
 			if ($bound_value) {
 				return $bound_value;
@@ -230,7 +343,7 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	public function close() : self
 	{
-		if (!$this->opened) {
+		if (!$this->isOpened()) {
 			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
 		}
 		
@@ -238,6 +351,11 @@ class Form extends \Galahad\Aire\DTD\Form
 		$this->opened = false;
 		
 		return $this;
+	}
+	
+	public function isOpened() : bool
+	{
+		return true === $this->opened;
 	}
 	
 	public function openButton() : Button
@@ -341,9 +459,10 @@ class Form extends \Galahad\Aire\DTD\Form
 	 * Enable client-side validation
 	 *
 	 * @param array|string|null $rule_source
+	 * @param array $custom_messages
 	 * @return $this
 	 */
-	public function validate($rule_source = null) : self
+	public function validate($rule_source = null, array $custom_messages = null) : self
 	{
 		$this->validate = true;
 		
@@ -355,6 +474,10 @@ class Form extends \Galahad\Aire\DTD\Form
 		// If we were passed a FormRequest class name, call formRequest() method
 		if (is_string($rule_source) && is_subclass_of($rule_source, FormRequest::class)) {
 			return $this->formRequest($rule_source);
+		}
+		
+		if ($custom_messages) {
+			$this->messages($custom_messages);
 		}
 		
 		return $this;
@@ -374,15 +497,24 @@ class Form extends \Galahad\Aire\DTD\Form
 	
 	public function rules(array $rules = []) : self
 	{
-		$this->rules = $rules;
+		$this->validation_rules = $rules;
+		
+		return $this;
+	}
+	
+	public function messages(array $messages = [], bool $overwrite = false) : self
+	{
+		if ($overwrite) {
+			$this->validation_messages = [];
+		}
+		
+		$this->validation_messages = array_merge($this->validation_messages, $messages);
 		
 		return $this;
 	}
 	
 	public function formRequest(string $class_name) : self
 	{
-		// TODO: messages() and attributes()
-		
 		$this->form_request = $class_name;
 		$request = new $class_name();
 		
@@ -390,12 +522,16 @@ class Form extends \Galahad\Aire\DTD\Form
 			$this->rules($request->rules());
 		}
 		
+		if (is_callable([$request, 'messages'])) {
+			$this->messages($request->messages());
+		}
+		
 		return $this;
 	}
 	
 	public function render() : string
 	{
-		if ($this->opened) {
+		if ($this->isOpened()) {
 			return '';
 		}
 		
@@ -456,8 +592,8 @@ class Form extends \Galahad\Aire\DTD\Form
 	{
 		// TODO: FormRequest
 		
-		$validation = ($this->validate && (count($this->rules) || null !== $this->form_request))
-			? new ClientValidation($this->aire, $this->element_id, $this->rules, $this->dev_mode)
+		$validation = ($this->validate && (count($this->validation_rules) || null !== $this->form_request))
+			? new ClientValidation($this->aire, $this->element_id, $this->validation_rules, $this->validation_messages, $this->form_request, $this->dev_mode)
 			: '';
 		
 		return compact('validation');

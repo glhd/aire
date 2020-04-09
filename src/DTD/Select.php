@@ -30,7 +30,10 @@
 
 namespace Galahad\Aire\DTD;
 
+use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Form;
+use Galahad\Aire\Support\OptionsCollection;
 
 /**
  * Represents a control that provides a menu of options:
@@ -40,10 +43,13 @@ class Select extends Element
 {
 	public $name = 'select';
 	
-	protected $view_data = [
-		'options' => [],
-	];
-
+	public function __construct(Aire $aire, Form $form = null)
+	{
+		$this->view_data['options'] = new OptionsCollection();
+		
+		parent::__construct($aire, $form);
+	}
+	
 	/**
 	 * Set the 'autofocus' flag
 	 *

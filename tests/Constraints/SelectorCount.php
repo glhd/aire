@@ -16,8 +16,6 @@ class SelectorCount extends CrawlerConstraint
 	
 	public function __construct(string $selector, int $expected_count)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 		$this->expected_count = $expected_count;
 	}

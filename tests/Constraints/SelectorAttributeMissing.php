@@ -16,8 +16,6 @@ class SelectorAttributeMissing extends CrawlerConstraint
 	
 	public function __construct(string $selector, string $attribute)
 	{
-		parent::__construct();
-		
 		$this->selector = $selector;
 		$this->attribute = $attribute;
 	}

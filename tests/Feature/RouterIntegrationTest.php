@@ -13,7 +13,7 @@ class RouterIntegrationTest extends TestCase
 	{
 		Route::post('foo')->name('foo');
 		
-		$html = $this->aire()->route('foo')->render();
+		$html = $this->aire()->route('foo')->close()->render();
 		
 		$this->assertSelectorAttribute($html, 'form', 'action', route('foo'));
 	}
@@ -22,7 +22,7 @@ class RouterIntegrationTest extends TestCase
 	{
 		Route::put('foo')->name('foo');
 		
-		$html = $this->aire()->route('foo')->render();
+		$html = $this->aire()->route('foo')->close()->render();
 		
 		$this->assertSelectorAttribute($html, 'form', 'method', 'POST');
 		$this->assertSelectorAttribute($html, 'input[name="_method"]', 'value', 'PUT');
@@ -32,7 +32,7 @@ class RouterIntegrationTest extends TestCase
 	{
 		Route::any('foo')->name('foo');
 		
-		$html = $this->aire()->route('foo')->render();
+		$html = $this->aire()->route('foo')->close()->render();
 		
 		$this->assertSelectorDoesNotExist($html, 'input[name="_method"]');
 	}
@@ -41,7 +41,7 @@ class RouterIntegrationTest extends TestCase
 	{
 		Route::get('foo')->name('foo');
 		
-		$html = $this->aire()->route('foo')->render();
+		$html = $this->aire()->route('foo')->close()->render();
 		
 		$this->assertSelectorAttribute($html, 'form', 'method', 'GET');
 		$this->assertSelectorDoesNotExist($html, 'input[name="_method"]');

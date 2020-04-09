@@ -6,8 +6,15 @@ use Galahad\Aire\Elements\Input;
 
 trait CreatesInputTypes
 {
-	abstract public function input($name = null, $label = null) : Input;
+	abstract public function input($name = null, $label = null, $type = null) : Input;
 	
+	/**
+	 * Create <input type="hidden"> element
+	 *
+	 * @param string|null $name
+	 * @param mixed $value
+	 * @return \Galahad\Aire\Elements\Input
+	 */
 	public function hidden($name = null, $value = null) : Input
 	{
 		$input = $this->input($name);

@@ -31,7 +31,7 @@ let booted = false;
 const boot = () => {
 	if (!booted) {
 		Validator.registerMissedRuleValidator(() => true, '');
-		Validator.useLang('en');
+		Validator.useLang('en'); // TODO: Make configurable
 	}
 	
 	booted = true;
@@ -70,11 +70,8 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 		
 		if ('errors' in refs[name]) {
 			if (passes) {
-				refs[name].errors[0].classList.add('hidden');
 				refs[name].errors[0].innerHTML = '';
 			} else if (fails) {
-				// TODO: Maybe hide help text
-				refs[name].errors[0].classList.remove('hidden');
 				refs[name].errors[0].innerHTML = errors[name].map(message => `${ templates.error.prefix }${ message }${ templates.error.suffix }`).join('');
 			}
 		}
@@ -82,26 +79,35 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 		Object.entries(refs[name]).forEach(([name, elements]) => {
 			elements.forEach(element => {
 				if (name in classnames.valid) {
-					if (passes) {
-						element.classList.add(...classnames.valid[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.valid[name].split(' '));
+					const passes_classnames = classnames.valid[name].split(' ');
+					if (passes_classnames.length) {
+						if (passes) {
+							element.classList.add(...passes_classnames);
+						} else if (fails) {
+							element.classList.remove(...passes_classnames);
+						}
 					}
 				}
 				
 				if (name in classnames.invalid) {
-					if (fails) {
-						element.classList.add(...classnames.invalid[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.invalid[name].split(' '));
+					const fails_classnames = classnames.invalid[name].split(' ');
+					if (fails_classnames.length) {
+						if (fails) {
+							element.classList.add(...fails_classnames);
+						} else if (passes) {
+							element.classList.remove(...fails_classnames);
+						}
 					}
 				}
 				
 				if (name in classnames.none) {
-					if (!passes && !fails) {
-						element.classList.add(...classnames.none[name].split(' '));
-					} else {
-						element.classList.remove(...classnames.none[name].split(' '));
+					const none_classnames = classnames.none[name].split(' ');
+					if (none_classnames.length) {
+						if (!passes && !fails) {
+							element.classList.add(...none_classnames);
+						} else {
+							element.classList.remove(...none_classnames);
+						}
 					}
 				}
 			});
@@ -120,7 +126,7 @@ export const supported = (
 	&& 'getAll' in FormData.prototype
 );
 
-export const connect = (target, rules = {}) => {
+export const connect = (target, rules = {}, messages = {}, form_request = null) => {
 	if (!supported) {
 		return null;
 	}
@@ -130,17 +136,23 @@ export const connect = (target, rules = {}) => {
 	const form = resolveElement(target);
 	
 	const refs = {};
+	const storeRef = (parent, component, element) => {
+		refs[parent] = refs[parent] || {};
+		refs[parent][component] = refs[parent][component] || [];
+		refs[parent][component].push(element);
+	};
+	
 	form.querySelectorAll('[data-aire-component]').forEach(element => {
 		if ('aireFor' in element.dataset) {
 			const parent = element.dataset.aireFor;
 			const component = element.dataset.aireComponent;
 			
-			refs[parent] = refs[parent] || {};
+			// Add the component to the refs
+			storeRef(parent, component, element);
 			
-			if (component in refs[parent]) {
-				refs[parent][component].push(element);
-			} else {
-				refs[parent][component] = [element];
+			// If we have a validation key, let the element also be referenced by it
+			if ('aireValidationKey' in element.dataset && component !== element.dataset.aireValidationKey) {
+				storeRef(parent, element.dataset.aireValidationKey, element);
 			}
 		}
 	});
@@ -167,7 +179,7 @@ export const connect = (target, rules = {}) => {
 		clearTimeout(debounce);
 		debounce = setTimeout(() => {
 			const data = getData(form);
-			validator = new Validator(data, rules, {}); // TODO: Custom messages
+			validator = new Validator(data, rules, messages);
 			// Because some validators may run async, we'll store a reference
 			// to the run "id" so that we can cancel the callbacks if another
 			// validation started before the callbacks were fired
@@ -176,10 +188,16 @@ export const connect = (target, rules = {}) => {
 			// If this is the first run, "touch" anything that has a value
 			if (1 === activeRun) {
 				Object.entries(data).forEach(([key, value]) => {
-					if (null === value || 'undefiined' === typeof value || '' === value) {
+					if (null === value || 'undefined' === typeof value || '' === value) {
 						return;
 					}
+					
 					if (Array.isArray(value) && 0 === value.length) {
+						return;
+					}
+					
+					// Don't mark as touched if it has errors in it
+					if (key in refs && 'errors' in refs[key] && refs[key].errors[0].childElementCount > 0) {
 						return;
 					}
 					touched.add(key);
@@ -226,6 +244,9 @@ export const connect = (target, rules = {}) => {
 			return 'undefined' === typeof validator
 				? getData(form)
 				: validator.input;
+		},
+		get validator() {
+			return validator;
 		},
 		run,
 		disconnect,

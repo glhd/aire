@@ -76,7 +76,7 @@ class Group extends Element
 	/**
 	 * Set the group's label
 	 *
-	 * @param string|HtmlString $text
+	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
 	 * @return \Galahad\Aire\Elements\Group
 	 */
 	public function label($text) : self
@@ -87,6 +87,16 @@ class Group extends Element
 		$this->label = (new Label($this->aire, $this))->text($text);
 		
 		return $this;
+	}
+	
+	public function variant($variant = null)
+	{
+		// Also pass the variant to the group label
+		if ($this->label instanceof Label) {
+			$this->label->variant($variant);
+		}
+		
+		return parent::variant($variant);
 	}
 	
 	public function helpText(string $text) : self
@@ -139,6 +149,31 @@ class Group extends Element
 	public function getInputName($default = null) : ?string
 	{
 		return $this->element->getInputName($default);
+	}
+	
+	public function render() : string
+	{
+		$element_name = $this->element->name;
+		
+		$views = [
+			"{$this->name}.{$element_name}",
+			$this->name,
+		];
+		
+		// If our grouped element has a "type" attribute, check for that first
+		if ($element_type = $this->element->attributes->get('type')) {
+			array_unshift($views, "{$this->name}.{$element_name}.{$element_type}");
+		}
+		
+		return $this->aire->renderFirst(
+			$views,
+			$this->viewData()
+		);
+	}
+	
+	protected function applyVariantToGroup($variant) : void
+	{
+		// Skip recursion
 	}
 	
 	protected function viewData() : array

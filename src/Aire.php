@@ -8,42 +8,63 @@ use Galahad\Aire\Elements\Attributes\ClassNames;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\View\Factory;
 
 // TODO: Aire::scaffold(User::class, $action = null) -> generate a form from User attributes, default action = resource route
 // TODO: Aire::scaffold($user) -> generate update form
 
 /**
- * @method static \Galahad\Aire\Elements\Label label(string $label)
- * @method static \Galahad\Aire\Elements\Button button(string $label = null)
- * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
- * @method static \Galahad\Aire\Elements\Input input($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Select select(array $options, $name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Summary summary()
- * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array $options, $name, $label = null)
- * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array $options, $name, $label = null)
- * @method static \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
- * @method static \Galahad\Aire\Elements\Input color($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input date($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input dateTime($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input dateTimeLocal($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input email($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input file($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input image($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input month($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input number($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input password($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input range($name = null, $label = null, $min = 0, $max = 100)
- * @method static \Galahad\Aire\Elements\Input search($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input tel($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input time($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input url($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input week($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
+ * @method \Galahad\Aire\Elements\Form resourceful(\Illuminate\Database\Eloquent\Model $model, $resource_name = null, $prepend_parameters = [])
+ * @method \Galahad\Aire\Elements\Label label(string $label)
+ * @method \Galahad\Aire\Elements\Button button(string $label = null)
+ * @method \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
+ * @method \Galahad\Aire\Elements\Input input($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Select select(string|array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Summary summary(?bool $verbose = null)
+ * @method \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
+ * @method \Galahad\Aire\Elements\RadioGroup radioGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
+ * @method \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
+ * @method \Galahad\Aire\Elements\Input color($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input date($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input dateTime($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input dateTimeLocal($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input email($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input file($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input image($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input month($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input number($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input password($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input range($name = null, $label = null, $min = 0, $max = 100)
+ * @method \Galahad\Aire\Elements\Input search($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input tel($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input time($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input url($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input week($name = null, $label = null)
  */
 class Aire
 {
+	use ForwardsCalls;
+	
+	/**
+	 * @var array
+	 */
+	protected static $default_theme_config;
+	
+	/**
+	 * These methods will implicitly open a form and then call it
+	 *
+	 * @var array
+	 */
+	protected static $implicit_open = [
+		'route',
+		'resourceful',
+	];
+	
 	/**
 	 * Global store of element IDs
 	 *
@@ -64,6 +85,11 @@ class Aire
 	/**
 	 * @var array
 	 */
+	protected $user_config;
+	
+	/**
+	 * @var array
+	 */
 	protected $config;
 	
 	/**
@@ -75,11 +101,6 @@ class Aire
 	 * @var string
 	 */
 	protected $view_prefix;
-	
-	/**
-	 * @var array
-	 */
-	protected $attribute_observers = [];
 	
 	/**
 	 * @var \Closure
@@ -104,13 +125,45 @@ class Aire
 		$this->view_factory = $view_factory;
 		$this->session_store = $session_store;
 		$this->form_resolver = $form_resolver;
-		$this->config = $config;
+		$this->user_config = $config;
 		
-		$this->registerClasses();
+		$this->resetTheme();
 	}
 	
 	/**
-	 * Set where Aire looks for view files
+	 * Get the default Aire theme config.
+	 *
+	 * This is mostly for theme authors who wish to merge the defaults
+	 * into their theme config instead of provided all new class names.
+	 *
+	 * @return array
+	 */
+	public static function getDefaultThemeConfig() : array
+	{
+		if (null === static::$default_theme_config) {
+			static::$default_theme_config = require dirname(__DIR__).'/config/default-theme.php';
+		}
+		
+		return static::$default_theme_config;
+	}
+
+
+    /**
+     * Set the View Factory that Aire will use to resolve views
+     *
+     * @param Factory $view_factory
+     *
+     * @return Aire
+     */
+	public function setViewFactory(Factory $view_factory) : self
+    {
+        $this->view_factory = $view_factory;
+
+        return $this;
+    }
+	
+	/**
+	 * Set where Aire looks for view files + any config overrides
 	 *
 	 * This is mostly useful for third-party themes. By utilizing package
 	 * auto-discovery, a theme can call this from its service provider's
@@ -121,12 +174,28 @@ class Aire
 	 *
 	 * @param string|null $namespace
 	 * @param string|null $prefix
+	 * @param array|null $config
 	 * @return \Galahad\Aire\Aire
 	 */
-	public function setTheme($namespace = null, $prefix = null) : self
+	public function setTheme($namespace = null, $prefix = null, array $config = []) : self
 	{
 		$this->view_namespace = $namespace;
 		$this->view_prefix = $prefix;
+		$this->config = array_replace_recursive($config, $this->user_config);
+		
+		$this->registerClasses();
+		
+		return $this;
+	}
+	
+	/**
+	 * Reset Aire to the default theme
+	 *
+	 * @return \Galahad\Aire\Aire
+	 */
+	public function resetTheme() : self
+	{
+		$this->setTheme('aire', null, static::getDefaultThemeConfig());
 		
 		return $this;
 	}
@@ -163,6 +232,22 @@ class Aire
 	public function open($action = null, $bound_data = null) : Form
 	{
 		$this->form($action, $bound_data)->open();
+		
+		return $this->form;
+	}
+	
+	/**
+	 * Close a new Form.
+	 *
+	 * @return \Galahad\Aire\Elements\Form
+	 */
+	public function close() : Form
+	{
+		if (!($this->form instanceof Form)) {
+			throw new BadMethodCallException('Trying to close a form before opening one.');
+		}
+		
+		$this->form->close();
 		
 		return $this->form;
 	}
@@ -210,7 +295,27 @@ class Aire
 	{
 		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
 	}
+
+
+    /**
+     * Render the first view that exists
+     *
+     * @param array $views
+     * @param array $data
+     * @param array $merge_data
+     *
+     * @return string
+     */
+    public function renderFirst(array $views, array $data = [], array $merge_data = []) : string
+    {
+        return $this->view_factory->first(array_map([$this, 'applyTheme'], $views), $data, $merge_data)->render();
+    }
 	
+	/**
+	 * Get the next globally unique element ID
+	 *
+	 * @return int
+	 */
 	public function generateElementId() : int
 	{
 		return $this->next_element_id++;
@@ -227,6 +332,10 @@ class Aire
 	{
 		$form = $this->form ?? $this->form();
 		
+		if (!$form->isOpened() && in_array($method_name, static::$implicit_open)) {
+			$form->open();
+		}
+		
 		// @codeCoverageIgnoreStart
 		if (!method_exists($form, $method_name)) {
 			throw new BadMethodCallException(sprintf(
@@ -235,7 +344,7 @@ class Aire
 		}
 		// @codeCoverageIgnoreEnd
 		
-		return $form->$method_name(...$arguments);
+		return $this->forwardCallTo($form, $method_name, $arguments);
 	}
 	
 	/**
@@ -246,6 +355,7 @@ class Aire
 	protected function registerClasses() : self
 	{
 		ClassNames::setDefaultClasses($this->config('default_classes', []));
+		ClassNames::setVariantClasses($this->config('variant_classes', []));
 		ClassNames::setValidationClasses($this->config('validation_classes', []));
 		
 		return $this;

@@ -4,6 +4,8 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Crypt;
 
 class ClientValidation implements Htmlable
 {
@@ -30,15 +32,27 @@ class ClientValidation implements Htmlable
 	protected $rules;
 	
 	/**
+	 * @var array
+	 */
+	protected $messages;
+	
+	/**
+	 * @var string
+	 */
+	protected $form_request;
+	
+	/**
 	 * @var bool
 	 */
 	protected $dev_mode = false;
 	
-	public function __construct(Aire $aire, $element_id, array $rules = [], $dev_mode = false)
+	public function __construct(Aire $aire, $element_id, array $rules = [], array $messages = [], string $form_request = null, $dev_mode = false)
 	{
 		$this->aire = $aire;
 		$this->element_id = $element_id;
 		$this->rules = $rules;
+		$this->messages = $messages;
+		$this->form_request = $form_request;
 		$this->dev_mode = $dev_mode;
 	}
 	
@@ -50,6 +64,10 @@ class ClientValidation implements Htmlable
 	protected function formHtml() : string
 	{
 		$rules = json_encode($this->rules);
+		$messages = json_encode($this->messages);
+		$form_request = null === $this->form_request
+			? 'null'
+			: json_encode(Crypt::encrypt($this->form_request)); // TODO: Inject rather than use facade
 		
 		// TODO: Filter out certain server-side rules that could leak sensitive data, like the unique rule
 		// TODO: Add a "validate-on-server" rule that these get replaced with
@@ -57,7 +75,7 @@ class ClientValidation implements Htmlable
 		return "
 			<script defer>
 			document.addEventListener('DOMContentLoaded', function() {
-				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules});
+				window.\$aire{$this->element_id} = Aire.connect('[data-aire-id=\"{$this->element_id}\"]', {$rules}, {$messages}, {$form_request});
 			});
 			</script>
 		";
@@ -80,6 +98,7 @@ class ClientValidation implements Htmlable
 			</script>
 		";
 		
+		// @codeCoverageIgnoreStart
 		if ($this->dev_mode) {
 			$validator_url = asset('validator.js');
 			$aire_url = asset('aire-src.mjs');
@@ -92,9 +111,10 @@ class ClientValidation implements Htmlable
 				$config_js
 			";
 		}
+		// @codeCoverageIgnoreEnd
 		
 		if ($this->aire->config('inline_validation', true)) {
-			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.js');
+			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.min.js');
 			return "<script defer>\n{$aire_src}\n</script>\n{$config_js}";
 		}
 		

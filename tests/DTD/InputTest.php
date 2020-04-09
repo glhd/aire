@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Input;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class InputTest extends TestCase
 {
@@ -125,7 +126,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->alt($value);
 		$this->assertSelectorAttribute($input, 'input', 'alt', $value);
@@ -354,7 +355,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->dirName($value);
 		$this->assertSelectorAttribute($input, 'input', 'dirname', $value);
@@ -378,7 +379,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->form($value);
 		$this->assertSelectorAttribute($input, 'input', 'form', $value);
@@ -391,7 +392,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->formAction($value);
 		$this->assertSelectorAttribute($input, 'input', 'formaction', $value);
@@ -466,7 +467,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->height($value);
 		$this->assertSelectorAttribute($input, 'input', 'height', $value);
@@ -479,7 +480,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->list($value);
 		$this->assertSelectorAttribute($input, 'input', 'list', $value);
@@ -492,7 +493,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->max($value);
 		$this->assertSelectorAttribute($input, 'input', 'max', $value);
@@ -505,7 +506,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->maxLength($value);
 		$this->assertSelectorAttribute($input, 'input', 'maxlength', $value);
@@ -518,7 +519,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->min($value);
 		$this->assertSelectorAttribute($input, 'input', 'min', $value);
@@ -542,7 +543,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->name($value);
 		$this->assertSelectorAttribute($input, 'input', 'name', $value);
@@ -555,7 +556,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->pattern($value);
 		$this->assertSelectorAttribute($input, 'input', 'pattern', $value);
@@ -568,7 +569,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->placeholder($value);
 		$this->assertSelectorAttribute($input, 'input', 'placeholder', $value);
@@ -603,7 +604,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->size($value);
 		$this->assertSelectorAttribute($input, 'input', 'size', $value);
@@ -616,7 +617,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->src($value);
 		$this->assertSelectorAttribute($input, 'input', 'src', $value);
@@ -629,7 +630,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->step($value);
 		$this->assertSelectorAttribute($input, 'input', 'step', $value);
@@ -719,7 +720,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->value($value);
 		$this->assertSelectorAttribute($input, 'input', 'value', $value);
@@ -732,7 +733,7 @@ class InputTest extends TestCase
 	{
 		$input = new Input($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$input->width($value);
 		$this->assertSelectorAttribute($input, 'input', 'width', $value);

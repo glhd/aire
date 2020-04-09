@@ -6,11 +6,24 @@ use Galahad\Aire\Aire;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
+use Galahad\Aire\Elements\Concerns\HasVariants;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
+use Traversable;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes, Groupable;
+	use HasGlobalAttributes, Groupable, HasVariants, Macroable {
+		Groupable::__call insteadof Macroable;
+		Macroable::__call as callMacro;
+		Macroable::__callStatic as callStaticMacro;
+	}
+	
+	protected static $element_mutators = [];
 	
 	/**
 	 * @var string
@@ -61,21 +74,36 @@ abstract class Element implements Htmlable
 		
 		if ($form) {
 			$this->form = $form;
+			$form->registerElement($this);
 			$this->initGroup();
 		}
 		
 		$this->attributes = new Collection($aire, $this, $this->default_attributes);
 		
-		if ($form) {
-			$this->registerMutators();
-		}
+		$this->registerAttributeMutators();
+		$this->applyElementMutators();
+	}
+	
+	/**
+	 * Register a mutator for the entire element
+	 *
+	 * This mutator will be called each time this element is instantiated.
+	 * This is mostly useful for themes that need to apply changes to certain
+	 * elements (when those changes are not possible thru configuration and
+	 * custom views alone).
+	 *
+	 * @param callable $mutator
+	 */
+	public static function registerElementMutator(callable $mutator) : void
+	{
+		self::$element_mutators[static::class][] = $mutator;
 	}
 	
 	/**
 	 * Set a data attribute
 	 *
-	 * @param $data_key
-	 * @param $value
+	 * @param string $data_key
+	 * @param mixed $value
 	 * @return $this
 	 */
 	public function data($data_key, $value) : self
@@ -87,6 +115,17 @@ abstract class Element implements Htmlable
 				$this->attributes->unset($key);
 			}
 		} else {
+			// JSON encode value if it's not a scalar
+			if ($value instanceof Jsonable) {
+				$value = $value->toJson();
+			} else if ($value instanceof JsonSerializable) {
+				$value = json_encode($value->jsonSerialize());
+			} else if (is_array($value)) {
+				$value = json_encode($value);
+			} else if ($value instanceof Arrayable) {
+				$value = json_encode($value->toArray());
+			}
+			
 			$this->attributes->set($key, $value);
 		}
 		
@@ -95,7 +134,19 @@ abstract class Element implements Htmlable
 	
 	public function getInputName($default = null) : ?string
 	{
-		return rtrim($this->attributes->get('name', $default), '[]');
+		$name = $this->attributes->get('name', $default);
+		
+		if (null === $name) {
+			return null;
+		}
+		
+		// Trim [] off non-associative array values
+		if ('[]' === substr($name, -2)) {
+			$name = substr($name, 0, -2);
+		}
+		
+		// Then convert foo[bar][baz] to foo.bar.baz
+		return preg_replace('/\[([^\]]+)\]/m', '.$1', $name);
 	}
 	
 	public function setAttribute($key, $value) : self
@@ -155,6 +206,40 @@ abstract class Element implements Htmlable
 	}
 	
 	/**
+	 * Get either all the current view data or a specific key
+	 *
+	 * This is mostly useful for themes that need to customize behavior
+	 * based on view data. It is NOT RECOMMENDED that you use this
+	 * in day-to-day usage, as it will break if internal code is changed.
+	 *
+	 * @param string|null $key
+	 * @return array|mixed
+	 */
+	public function getViewData(string $key = null)
+	{
+		if (null === $key) {
+			return $this->view_data;
+		}
+		
+		return Arr::get($this->view_data, $key);
+	}
+	
+	/**
+	 * Check if view data is set
+	 *
+	 * This is mostly useful for themes that need to customize behavior
+	 * based on view data. It is NOT RECOMMENDED that you use this
+	 * in day-to-day usage, as it will break if internal code is changed.
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function hasViewData(string $key) : bool
+	{
+		return Arr::has($this->view_data, $key);
+	}
+	
+	/**
 	 * Get the Element's view data
 	 *
 	 * @return array
@@ -172,13 +257,29 @@ abstract class Element implements Htmlable
 	}
 	
 	/**
-	 * Register default mutators
+	 * Apply any registered mutators to the element
 	 *
 	 * @return \Galahad\Aire\Elements\Element
 	 */
-	protected function registerMutators() : self
+	protected function applyElementMutators() : self
 	{
-		if ($this->bind_value) {
+		if (isset(static::$element_mutators[static::class])) {
+			foreach (static::$element_mutators[static::class] as $mutator) {
+				$mutator($this);
+			}
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Register default attribute mutators
+	 *
+	 * @return \Galahad\Aire\Elements\Element
+	 */
+	protected function registerAttributeMutators() : self
+	{
+		if ($this->form && $this->bind_value) {
 			$this->attributes->setDefault('value', function() {
 				return $this->form->getBoundValue($this->getInputName());
 			});
@@ -187,6 +288,12 @@ abstract class Element implements Htmlable
 		// TODO: We may want to generate internal IDs to use here if no name exists
 		$this->attributes->registerMutator('data-aire-for', function() {
 			return $this->getInputName();
+		});
+		
+		$this->attributes->setDefault('x-model', function() {
+			return $this->form && $this->form->isAlpineComponent() 
+				? $this->getInputName()
+				: null;
 		});
 		
 		return $this;

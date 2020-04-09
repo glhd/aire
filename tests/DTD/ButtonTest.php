@@ -32,6 +32,7 @@ namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\DTD\Button;
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class ButtonTest extends TestCase
 {
@@ -61,7 +62,7 @@ class ButtonTest extends TestCase
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$button->form($value);
 		$this->assertSelectorAttribute($button, 'button', 'form', $value);
@@ -74,7 +75,7 @@ class ButtonTest extends TestCase
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$button->formAction($value);
 		$this->assertSelectorAttribute($button, 'button', 'formaction', $value);
@@ -149,7 +150,7 @@ class ButtonTest extends TestCase
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$button->name($value);
 		$this->assertSelectorAttribute($button, 'button', 'name', $value);
@@ -179,7 +180,7 @@ class ButtonTest extends TestCase
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$button->value($value);
 		$this->assertSelectorAttribute($button, 'button', 'value', $value);

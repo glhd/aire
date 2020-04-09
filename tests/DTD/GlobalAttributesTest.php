@@ -31,6 +31,7 @@
 namespace Galahad\Aire\Tests\DTD;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class GlobalAttributesTest extends TestCase
 {
@@ -38,7 +39,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->accessKey($value);
 		$this->assertSelectorAttribute($form, 'form', 'accesskey', $value);
@@ -51,7 +52,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->class($value);
 		$this->assertSelectorAttribute($form, 'form', 'class', $value);
@@ -75,7 +76,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->contextMenu($value);
 		$this->assertSelectorAttribute($form, 'form', 'contextmenu', $value);
@@ -147,7 +148,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->id($value);
 		$this->assertSelectorAttribute($form, 'form', 'id', $value);
@@ -808,7 +809,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->style($value);
 		$this->assertSelectorAttribute($form, 'form', 'style', $value);
@@ -821,7 +822,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->tabIndex($value);
 		$this->assertSelectorAttribute($form, 'form', 'tabindex', $value);
@@ -834,7 +835,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->title($value);
 		$this->assertSelectorAttribute($form, 'form', 'title', $value);
@@ -847,7 +848,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaActiveDescendant($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-activedescendant', $value);
@@ -888,7 +889,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaControls($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-controls', $value);
@@ -901,7 +902,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaDescribedBy($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-describedby', $value);
@@ -954,7 +955,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaFlowTo($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-flowto', $value);
@@ -1032,7 +1033,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaLabel($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-label', $value);
@@ -1045,7 +1046,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaLabelledBy($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-labelledby', $value);
@@ -1075,7 +1076,7 @@ class GlobalAttributesTest extends TestCase
 	{
 		$form = $this->aire()->form();
 		
-		$value = str_random();
+		$value = Str::random();
 		
 		$form->ariaOwns($value);
 		$this->assertSelectorAttribute($form, 'form', 'aria-owns', $value);
