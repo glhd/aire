@@ -235,7 +235,7 @@ class Form extends \Galahad\Aire\DTD\Form
 					Arr::set($data, $element->getInputName(), $element->getJsonValue());
 				});
 			
-			return json_encode($data, JSON_THROW_ON_ERROR);
+			return json_encode($data);
 		});
 		
 		return $this;
