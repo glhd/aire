@@ -31,6 +31,10 @@ jobs:
             testbench: ~3.8.0
             minimum-stability: stable
             coverage: none
+          - laravel: ~5.7
+            testbench: ~3.7.0
+            minimum-stability: stable
+            coverage: none
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
