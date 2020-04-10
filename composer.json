@@ -15,9 +15,9 @@
   ],
   "license": "MIT",
   "require": {
-    "illuminate/support": "~5.8.28|^6.0|^7.0",
-    "illuminate/view": "~5.8.0|^6.0|^7.0",
-    "illuminate/events": "~5.8.0|^6.0|^7.0",
+    "illuminate/support": "~5.7.0|~5.8.28|^6.0|^7.0",
+    "illuminate/view": "~5.7.0|~5.8.0|^6.0|^7.0",
+    "illuminate/events": "~5.7.0|~5.8.0|^6.0|^7.0",
     "ext-json": "*",
     "mockery/mockery": "^1.3"
   },

@@ -266,7 +266,7 @@ class ClassNames
 				return array_map($optionallyExplode, $class_names);
 			})
 			->reduce(function(BaseCollection $combined, $class_names) {
-				return $combined->replaceRecursive($class_names);
+				return collect(array_replace_recursive($combined->all(), $class_names));
 			}, new BaseCollection())
 			->flatten()
 			->toArray();
