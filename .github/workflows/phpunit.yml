@@ -21,18 +21,22 @@ jobs:
 #            coverage: none
           - laravel: ^7.0
             testbench: ^5.0
+            phpunit: ^8.0
             minimum-stability: stable
             coverage: none
           - laravel: ^6.0
             testbench: ^4.0
+            phpunit: ^8.0
             minimum-stability: stable
             coverage: pcov
           - laravel: ~5.8.28
             testbench: ~3.8.0
+            phpunit: ^8.0
             minimum-stability: stable
             coverage: none
           - laravel: ~5.7
             testbench: ~3.7.0
+            phpunit: ^7.0
             minimum-stability: stable
             coverage: none
 
@@ -60,7 +64,7 @@ jobs:
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}"
 
       - name: Set dependency version
         env:
