@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
@@ -279,21 +280,25 @@ abstract class Element implements Htmlable
 	 */
 	protected function registerAttributeMutators() : self
 	{
-		if ($this->form && $this->bind_value) {
-			$this->attributes->setDefault('value', function() {
-				return $this->form->getBoundValue($this->getInputName());
+		// Certain default bindings only should apply to elements that are
+		// inputs bound to a form
+		if ($this->form && !$this instanceof NonInput) {
+			if ($this->bind_value) {
+				$this->attributes->setDefault('value', function() {
+					return $this->form->getBoundValue($this->getInputName());
+				});
+			}
+			
+			$this->attributes->setDefault('x-model', function() {
+				return $this->form->isAlpineComponent()
+					? $this->getInputName()
+					: null;
 			});
 		}
 		
 		// TODO: We may want to generate internal IDs to use here if no name exists
 		$this->attributes->registerMutator('data-aire-for', function() {
 			return $this->getInputName();
-		});
-		
-		$this->attributes->setDefault('x-model', function() {
-			return $this->form && $this->form->isAlpineComponent() 
-				? $this->getInputName()
-				: null;
 		});
 		
 		return $this;
