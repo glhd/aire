@@ -72,4 +72,19 @@ class OldInputTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'baz');
 	}
+
+    public function test_nested_old_input_can_be_accessed() : void
+    {
+        $this->withSession([
+            '_old_input' => [
+                'foo' => ['bar' => ['baz' => 'foo-bar-baz']],
+            ],
+        ]);
+
+        $input = $this->aire()
+            ->form()
+            ->input('foo[bar][baz]');
+
+        $this->assertSelectorAttribute($input, 'input', 'value', 'foo-bar-baz');
+    }
 }
