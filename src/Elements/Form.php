@@ -279,7 +279,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::exists($old, $name)) {
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::has($old, $name)) {
 			return Arr::get($old, $name) ?? '';
 		}
 		
