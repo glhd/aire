@@ -177,6 +177,13 @@ class Aire
 		return $this;
 	}
 	
+	/**
+	 * Generate an ID value for an element
+	 * 
+	 * @param \Galahad\Aire\Elements\Element $element
+	 * @param \Galahad\Aire\Elements\Form|null $form
+	 * @return string
+	 */
 	public function generateAutoId(Element $element, Form $form = null) : string
 	{
 		return (string) call_user_func($this->id_generator, $element, $form);

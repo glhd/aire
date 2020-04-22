@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Aire setTheme(string $namespace = NULL, string $prefix = NULL, array $config = [])
  * @method static \Galahad\Aire\Aire resetTheme()
  * @method static string applyTheme(string $view)
+ * @method static \Galahad\Aire\Aire setIdGenerator(\Closure $id_generator)
  * @method static \Galahad\Aire\Elements\Form form($action = NULL, $bound_data = NULL)
  * @method static \Galahad\Aire\Elements\Form open($action = NULL, $bound_data = NULL)
  * @method static mixed config(string $key, $default = NULL)
