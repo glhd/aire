@@ -5,6 +5,7 @@ namespace Galahad\Aire;
 use BadMethodCallException;
 use Closure;
 use Galahad\Aire\Elements\Attributes\ClassNames;
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
@@ -73,6 +74,14 @@ class Aire
 	protected $next_element_id = 0;
 	
 	/**
+	 * This will be called to generate an element's ID if auto_id is
+	 * enabled and the element doesn't have an ID set
+	 * 
+	 * @var Closure
+	 */
+	protected $id_generator;
+	
+	/**
 	 * @var \Illuminate\View\Factory
 	 */
 	protected $view_factory;
@@ -127,6 +136,14 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->user_config = $config;
 		
+		$this->setIdGenerator(function(Element $element, Form $form = null) {
+			$form_id = $form->element_id ?? null;
+			$element_name = $element->getInputName();
+			$element_id = $element->element_id;
+			
+			return "__aire-{$form_id}-{$element_name}{$element_id}";
+		});
+		
 		$this->resetTheme();
 	}
 	
@@ -146,8 +163,25 @@ class Aire
 		
 		return static::$default_theme_config;
 	}
-
-
+	
+	/**
+	 * Set the method by which IDs are generated
+	 * 
+	 * @param \Closure $id_generator
+	 * @return $this
+	 */
+	public function setIdGenerator(Closure $id_generator) : self 
+	{
+		$this->id_generator = $id_generator;
+		
+		return $this;
+	}
+	
+	public function generateAutoId(Element $element, Form $form = null) : string
+	{
+		return (string) call_user_func($this->id_generator, $element, $form);
+	}
+	
     /**
      * Set the View Factory that Aire will use to resolve views
      *
