@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\BindsToForm;
 use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
@@ -279,12 +280,16 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::exists($old, $name)) {
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::has($old, $name)) {
 			return Arr::get($old, $name) ?? '';
 		}
 		
 		// If form has bound data, use that
-		if ($bound_data = $this->bound_data) {
+		$bound_data = $this->bound_data instanceof BindsToForm
+			? $this->bound_data->getAireFormData()
+			: $this->bound_data;
+		
+		if ($bound_data) {
 			$bound_value = is_object($bound_data)
 				? object_get($bound_data, $name)
 				: Arr::get($bound_data, $name);
