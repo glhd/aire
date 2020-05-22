@@ -12,6 +12,10 @@ class Textarea extends \Galahad\Aire\DTD\Textarea implements HasJsonValue
 {
 	use HasValue, AutoId, MapsValueToJsonValue;
 	
+	protected $view_data = [
+		'auto_size' => false,
+	];
+	
 	public function __construct(Aire $aire, Form $form = null)
 	{
 		parent::__construct($aire, $form);
