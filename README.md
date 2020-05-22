@@ -30,7 +30,7 @@
             alt="Follow @airephp on Twitter" 
         />
     </a>
-    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+    <a href="https://twitter.com/inxilpro" target="_blank" class="mx-1">
         <img 
             src="https://img.shields.io/twitter/follow/inxilpro?style=social" 
             alt="Follow @inxilpro on Twitter" 
