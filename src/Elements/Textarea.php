@@ -18,4 +18,11 @@ class Textarea extends \Galahad\Aire\DTD\Textarea implements HasJsonValue
 		
 		$this->registerAutoId();
 	}
+	
+	public function autoSize(bool $auto_size = true) : self 
+	{
+		$this->view_data['auto_size'] = $auto_size;
+		
+		return $this;
+	}
 }
