@@ -2,7 +2,7 @@
 
 <textarea {{ $attributes->except('value') }}>{{ $attributes->get('value') }}</textarea>
 
-@if ($auto_size && $attributes->has('id'))
+@if (isset($auto_size) && $auto_size && $attributes->has('id'))
 	<script>
 	(function(s, h) {
 		try {

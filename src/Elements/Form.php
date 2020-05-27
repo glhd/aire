@@ -215,14 +215,14 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * 
 	 * @see https://github.com/alpinejs/alpine
 	 * 
-	 * @param bool $alpine_component
+	 * @param bool|array $x_data
 	 * @return $this
 	 */
-	public function asAlpineComponent(bool $alpine_component = true) : self 
+	public function asAlpineComponent($x_data = []) : self 
 	{
-		$this->is_alpine_component = $alpine_component;
+		$this->is_alpine_component = is_array($x_data) || $x_data;
 		
-		$this->attributes->registerMutator('x-data', function() {
+		$this->attributes->registerMutator('x-data', function() use ($x_data) {
 			if (!$this->isAlpineComponent()) {
 				return null;
 			}
@@ -237,7 +237,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 					Arr::set($data, $element->getInputName(), $element->getJsonValue());
 				});
 			
-			return json_encode($data);
+			return json_encode(array_merge($data, $x_data));
 		});
 		
 		return $this;
