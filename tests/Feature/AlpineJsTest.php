@@ -77,4 +77,36 @@ class AlpineJsTest extends TestCase
 		$data = (new Crawler($html))->filter('form')->attr('x-data');
 		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data), $data);
 	}
+	
+	public function test_explicit_x_data() : void
+	{
+		$expected_x_data = [
+			'bound' => 'foo',
+			'bound_override' => 'bar',
+			'x_data' => 'baz',
+		];
+		
+		$bound_data = [
+			'bound' => 'foo',
+			'bound_override' => 'also foo',
+		];
+		
+		$x_data = [
+			'bound_override' => 'bar',
+			'x_data' => 'baz',
+		];
+		
+		ob_start();
+		
+		$form = $this->aire()->form()->bind($bound_data)->asAlpineComponent($x_data)->open();
+		
+		echo $form->input('bound');
+		echo $form->input('bound_override');
+		
+		echo $form->close();
+		
+		$data = (new Crawler(ob_get_clean()))->filter('form')->attr('x-data');
+		
+		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data), $data);
+	}
 }
