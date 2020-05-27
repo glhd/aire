@@ -49,7 +49,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
+          key: composer-${{ hashFiles('composer.json') }}
             
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
