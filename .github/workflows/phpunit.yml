@@ -44,13 +44,13 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: ${{ matrix.coverage }}
-          
+      
       - name: Cache dependencies
-          uses: actions/cache@v2
-          with:
-            path: vendor
-            key: composer-${{ hashFiles('composer.lock') }}
-
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+            
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
 
