@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\BindsToForm;
 use Galahad\Aire\Contracts\HasJsonValue;
 use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
@@ -214,14 +215,14 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * 
 	 * @see https://github.com/alpinejs/alpine
 	 * 
-	 * @param bool $alpine_component
+	 * @param bool|array $x_data
 	 * @return $this
 	 */
-	public function asAlpineComponent(bool $alpine_component = true) : self 
+	public function asAlpineComponent($x_data = []) : self 
 	{
-		$this->is_alpine_component = $alpine_component;
+		$this->is_alpine_component = is_array($x_data) || $x_data;
 		
-		$this->attributes->registerMutator('x-data', function() {
+		$this->attributes->registerMutator('x-data', function() use ($x_data) {
 			if (!$this->isAlpineComponent()) {
 				return null;
 			}
@@ -236,7 +237,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 					Arr::set($data, $element->getInputName(), $element->getJsonValue());
 				});
 			
-			return json_encode($data);
+			return json_encode(array_merge($data, $x_data));
 		});
 		
 		return $this;
@@ -279,12 +280,16 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::exists($old, $name)) {
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::has($old, $name)) {
 			return Arr::get($old, $name) ?? '';
 		}
 		
 		// If form has bound data, use that
-		if ($bound_data = $this->bound_data) {
+		$bound_data = $this->bound_data instanceof BindsToForm
+			? $this->bound_data->getAireFormData()
+			: $this->bound_data;
+		
+		if ($bound_data) {
 			$bound_value = is_object($bound_data)
 				? object_get($bound_data, $name)
 				: Arr::get($bound_data, $name);

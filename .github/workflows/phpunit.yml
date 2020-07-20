@@ -36,15 +36,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: ${{ matrix.coverage }}
-
+      
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.json') }}
+            
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
 
@@ -56,12 +62,12 @@ jobs:
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+        run: composer require --no-suggest --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
 
       - name: Set dependency version
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer update --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+        run: composer update --no-suggest --no-progress --no-interaction --no-suggest --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover ${{ github.workspace }}/clover.xml

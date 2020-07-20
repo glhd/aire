@@ -29,7 +29,7 @@ return [
 		'summary' => 'border border-red-500 bg-red-100 text-red-500 font-bold rounded p-4 my-4',
 		'button' => 'font-normal text-center whitespace-no-wrap align-middle select-none border leading-normal',
 		'select' => 'block w-full p-2 leading-normal border rounded-sm bg-white appearance-none',
-		'textarea' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm h-auto',
+		'textarea' => 'block w-full p-2 text-base leading-normal bg-white border rounded-sm',
 	],
 	'variant_classes' => [
 		'input' => [
