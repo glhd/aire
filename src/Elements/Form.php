@@ -5,6 +5,7 @@ namespace Galahad\Aire\Elements;
 use BadMethodCallException;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\HasJsonValue;
+use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 
-class Form extends \Galahad\Aire\DTD\Form
+class Form extends \Galahad\Aire\DTD\Form implements NonInput
 {
 	use CreatesElements, CreatesInputTypes;
 	
@@ -225,16 +226,17 @@ class Form extends \Galahad\Aire\DTD\Form
 				return null;
 			}
 			
-			return collect($this->json_serializable_elements)
+			$data = [];
+			
+			collect($this->json_serializable_elements)
 				->reject(function(Element $element) {
 					return empty($element->getInputName());
 				})
-				->mapWithKeys(function(Element $element) {
-					$key = $element->getInputName();
-					$value = $element->getJsonValue();
-					return [$key => $value];
-				})
-				->toJson();
+				->each(function(Element $element) use (&$data) {
+					Arr::set($data, $element->getInputName(), $element->getJsonValue());
+				});
+			
+			return json_encode($data);
 		});
 		
 		return $this;

@@ -3,8 +3,9 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 
-class Summary extends Element
+class Summary extends Element implements NonInput
 {
 	public $name = 'summary';
 	

@@ -3,11 +3,12 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Crypt;
 
-class ClientValidation implements Htmlable
+class ClientValidation implements Htmlable, NonInput
 {
 	/**
 	 * Store 'loaded' state so we only inject the Aire scripts once

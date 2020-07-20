@@ -3,9 +3,10 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\Elements\Attributes\ClassNames;
 
-class Label extends \Galahad\Aire\DTD\Label
+class Label extends \Galahad\Aire\DTD\Label implements NonInput
 {
 	/**
 	 * @var \Galahad\Aire\Elements\Group
