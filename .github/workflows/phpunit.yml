@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: [7.4, 7.3, 7.2]
-        laravel: [dev-master, ^8.0, ^7.0, ^6.0, ~5.8.28]
+        laravel: [^8.0, ^7.0, ^6.0, ~5.8.28]
         dependency-version: [lowest, stable]
         include:
 #          - laravel: dev-master
