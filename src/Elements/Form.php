@@ -18,6 +18,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
+use stdClass;
 
 class Form extends \Galahad\Aire\DTD\Form implements NonInput
 {
@@ -290,11 +291,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 			: $this->bound_data;
 		
 		if ($bound_data) {
-			$bound_value = is_object($bound_data)
-				? object_get($bound_data, $name)
-				: Arr::get($bound_data, $name);
+			$not_bound = new stdClass();
 			
-			if ($bound_value) {
+			$bound_value = is_object($bound_data)
+				? object_get($bound_data, $name, $not_bound)
+				: Arr::get($bound_data, $name, $not_bound);
+			
+			if ($bound_value !== $not_bound) {
 				return $bound_value;
 			}
 		}
