@@ -11,8 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.4, 7.3, 7.2]
-        laravel: [^8.0, ^7.0, ^6.0, ~5.8.28]
+        php: [7.4, 7.3]
+        laravel: [^8.0, ^7.0]
         dependency-version: [lowest, stable]
         include:
 #          - laravel: dev-master
@@ -26,17 +26,6 @@ jobs:
             testbench: ^5.0
             coverage: none
             minimum-stability: stable
-          - laravel: ^6.0
-            testbench: ^4.0
-            coverage: none
-            minimum-stability: stable
-          - laravel: ~5.8.28
-            testbench: ~3.8.0
-            coverage: none
-            minimum-stability: stable
-        exclude:
-          - laravel: ^8.0
-            php: 7.2
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
@@ -59,10 +48,6 @@ jobs:
             
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
-
-      - name: Remove optional dependencies that do not work with older versions
-        if: matrix.laravel != '^8.0'
-        run: composer remove --dev bensampo/laravel-enum
 
       - name: Install dependencies
         env:
