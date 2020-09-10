@@ -185,6 +185,11 @@ supports automatic client-side validation—simply pass an array of rules or a `
 object and Aire will automatically apply most rules on the client side (thanks
 to [validatorjs](https://github.com/skaterdav85/validatorjs)!). 
 
+## Laravel Version Support
+
+Aire should run on Laravel 5.8.28 and higher, and PHP 7.1 and higher. Our policy is to test
+the last two major releases of PHP and Laravel, so support below that is not guaranteed.
+
 ## Under Consideration / Feature Ideas
 
 There are a few things that are still either in-the-works or being considered for a 
