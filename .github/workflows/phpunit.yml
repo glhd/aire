@@ -60,6 +60,10 @@ jobs:
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
 
+      - name: Remove optional dependencies that do not work with older versions
+        if: matrix.laravel != '^8.0'
+        run: composer remove --dev bensampo/laravel-enum
+
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
