@@ -28,8 +28,7 @@
     "guzzlehttp/guzzle": "~6.0",
     "symfony/css-selector": "^4.1",
     "symfony/dom-crawler": "^4.1",
-    "barryvdh/reflection-docblock": "^2.0",
-    "bensampo/laravel-enum": "^1.24"
+    "barryvdh/reflection-docblock": "^2.0"
   },
   "suggest": {
     "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"
