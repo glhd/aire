@@ -58,21 +58,15 @@ are fluent, allowing for easy configuration of your form components:
   ->route('users.update')
   ->bind($user) }}
 
-<div class="flex flex-col md:flex-row">
-
-  {{ Aire::input('given_name', 'First/Given Name')
-    ->id('given_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1 mr-2') }}
+{{ Aire::input('given_name', 'First/Given Name')
+    ->id('given_name') }}
     
-  {{ Aire::input('family_name', 'Last/Family Name')
+{{ Aire::input('family_name', 'Last/Family Name')
     ->id('family_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1') }}
+    ->autoComplete('off') }}
   
-</div>
-  
-{{ Aire::email('email', 'Email Address') }}
+{{ Aire::email('email', 'Email Address')
+    ->helpText('Please use your company email address.') }}
   
 {{ Aire::submit('Update User') }}
   
