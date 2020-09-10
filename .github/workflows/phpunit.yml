@@ -14,23 +14,25 @@ jobs:
         php: [7.4, 7.3, 7.2]
         laravel: [^8.0, ^7.0, ^6.0, ~5.8.28]
         dependency-version: [lowest, stable]
+        coverage: none
+        minimum-stability: stable
         include:
+#          - laravel: ^9.0
+#            testbench: ^7.0
+#            minimum-stability: dev
           - laravel: ^8.0
             testbench: ^6.0
-            minimum-stability: stable
-            coverage: none
           - laravel: ^7.0
             testbench: ^5.0
-            minimum-stability: stable
-            coverage: none
           - laravel: ^6.0
             testbench: ^4.0
-            minimum-stability: stable
             coverage: pcov
           - laravel: ~5.8.28
             testbench: ~3.8.0
-            minimum-stability: stable
             coverage: none
+        exclude:
+          - laravel: ^8.0
+            php: 7.2
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
