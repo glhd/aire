@@ -12,13 +12,13 @@ jobs:
     strategy:
       matrix:
         php: [7.4, 7.3, 7.2]
-        laravel: [^7.0, ^6.0, ~5.8.28]
+        laravel: [^8.0, ^7.0, ^6.0, ~5.8.28]
         dependency-version: [lowest, stable]
         include:
-#          - laravel: ^8.0
-#            testbench: ^6.0
-#            minimum-stability: dev
-#            coverage: none
+          - laravel: ^8.0
+            testbench: ^6.0
+            minimum-stability: stable
+            coverage: none
           - laravel: ^7.0
             testbench: ^5.0
             minimum-stability: stable
@@ -53,11 +53,6 @@ jobs:
             
       - name: Set minimum stability
         run: composer config minimum-stability ${{ matrix.minimum-stability }}
-
-      # Remove after a few weeks
-      - if: matrix.laravel == '^8.0'
-        name: Remove not-yet-upgraded packages (Laravel 8 only)
-        run: composer remove --dev bensampo/laravel-enum
 
       - name: Install dependencies
         env:
