@@ -15,9 +15,9 @@
   ],
   "license": "MIT",
   "require": {
-    "illuminate/support": "~5.8.28|^6.0|^7.0",
-    "illuminate/view": "~5.8.0|^6.0|^7.0",
-    "illuminate/events": "~5.8.0|^6.0|^7.0",
+    "illuminate/support": "~5.8.28|^6.0|^7.0|^8.0",
+    "illuminate/view": "~5.8.0|^6.0|^7.0|^8.0",
+    "illuminate/events": "~5.8.0|^6.0|^7.0|^8.0",
     "ext-json": "*",
     "mockery/mockery": "^1.3"
   },
@@ -28,8 +28,7 @@
     "guzzlehttp/guzzle": "~6.0",
     "symfony/css-selector": "^4.1",
     "symfony/dom-crawler": "^4.1",
-    "barryvdh/reflection-docblock": "^2.0",
-    "bensampo/laravel-enum": "^1.24"
+    "barryvdh/reflection-docblock": "^2.0"
   },
   "suggest": {
     "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"

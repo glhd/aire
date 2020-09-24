@@ -58,21 +58,15 @@ are fluent, allowing for easy configuration of your form components:
   ->route('users.update')
   ->bind($user) }}
 
-<div class="flex flex-col md:flex-row">
-
-  {{ Aire::input('given_name', 'First/Given Name')
-    ->id('given_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1 mr-2') }}
+{{ Aire::input('given_name', 'First/Given Name')
+    ->id('given_name') }}
     
-  {{ Aire::input('family_name', 'Last/Family Name')
+{{ Aire::input('family_name', 'Last/Family Name')
     ->id('family_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1') }}
+    ->autoComplete('off') }}
   
-</div>
-  
-{{ Aire::email('email', 'Email Address') }}
+{{ Aire::email('email', 'Email Address')
+    ->helpText('Please use your company email address.') }}
   
 {{ Aire::submit('Update User') }}
   
@@ -190,6 +184,11 @@ Javascript code hasn't had an performance optimizations applied. That said, Aire
 supports automatic client-side validation—simply pass an array of rules or a `FormRequest`
 object and Aire will automatically apply most rules on the client side (thanks
 to [validatorjs](https://github.com/skaterdav85/validatorjs)!). 
+
+## Laravel Version Support
+
+Aire should run on Laravel 5.8.28 and higher, and PHP 7.1 and higher. Our policy is to test
+the last two major releases of PHP and Laravel, so support below that is not guaranteed.
 
 ## Under Consideration / Feature Ideas
 
