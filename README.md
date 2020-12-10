@@ -190,6 +190,15 @@ to [validatorjs](https://github.com/skaterdav85/validatorjs)!).
 Aire should run on Laravel 5.8.28 and higher, and PHP 7.1 and higher. Our policy is to test
 the last two major releases of PHP and Laravel, so support below that is not guaranteed.
 
+## Translations
+
+Aire comes with support for a handful of languages (feel free to submit a PR!). If you would
+like to add your own translations, you can do so by publishing them with:
+
+```bash
+php artisan vendor:publish --tag=aire-translations
+```
+
 ## Under Consideration / Feature Ideas
 
 There are a few things that are still either in-the-works or being considered for a 
