@@ -114,12 +114,25 @@ class AttributesTest extends TestCase
 		
 		$this->assertTrue($attributes->isValue('foo'));
 		$this->assertFalse($attributes->isValue('bar'));
+		$this->assertFalse($attributes->isValue(1));
 		
-		$attributes->set('value', ['foo', 'bar']);
+		$attributes->set('value', ['foo', 'bar', 2]);
 		
 		$this->assertTrue($attributes->isValue('foo'));
 		$this->assertTrue($attributes->isValue('bar'));
+		$this->assertTrue($attributes->isValue(2));
+		$this->assertTrue($attributes->isValue('2'));
 		$this->assertFalse($attributes->isValue('baz'));
+		$this->assertFalse($attributes->isValue(1));
+		
+		$attributes->set('value', collect(['foo', 'bar', 2]));
+		
+		$this->assertTrue($attributes->isValue('foo'));
+		$this->assertTrue($attributes->isValue('bar'));
+		$this->assertTrue($attributes->isValue(2));
+		$this->assertTrue($attributes->isValue('2'));
+		$this->assertFalse($attributes->isValue('baz'));
+		$this->assertFalse($attributes->isValue(1));
 	}
 	
 	public function test_basic_html_rendering() : void
