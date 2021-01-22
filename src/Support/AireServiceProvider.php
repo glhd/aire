@@ -4,7 +4,9 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Form;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AireServiceProvider extends ServiceProvider
@@ -59,6 +61,7 @@ class AireServiceProvider extends ServiceProvider
 		
 		$this->bootConfig();
 		$this->bootViews();
+		$this->bootBladeComponents();
 		$this->bootTranslations();
 		$this->bootPublicAssets();
 	}
@@ -114,6 +117,17 @@ class AireServiceProvider extends ServiceProvider
 			$this->publishes([
 				$this->view_directory => $this->app->resourcePath('views/vendor/aire'),
 			], 'aire-views');
+		}
+		
+		return $this;
+	}
+	
+	protected function bootBladeComponents() : self
+	{
+		$compiler = $this->app['blade.compiler'];
+		
+		if (method_exists($compiler, 'componentNamespace')) {
+			$compiler->componentNamespace('Galahad\\Aire\\Components', 'aire');
 		}
 		
 		return $this;
