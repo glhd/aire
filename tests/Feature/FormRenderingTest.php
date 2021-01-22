@@ -17,7 +17,7 @@ class FormRenderingTest extends TestCase
 	
 	public function test_a_basic_form_using_blade_components_renders_as_expected()
 	{
-		if (version_compare('8.0.0', $this->app->version(), '<')) {
+		if (version_compare($this->app->version(), '8.0.0', '<')) {
 			$this->markTestSkipped('Only applies to Laravel 8 and higher.');
 		}
 		

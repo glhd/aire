@@ -124,7 +124,7 @@ class AireServiceProvider extends ServiceProvider
 	
 	protected function bootBladeComponents() : self
 	{
-		if (version_compare('8.0.0', $this->app->version(), '>=')) {
+		if (version_compare($this->app->version(), '8.0.0', '>=')) {
 			$this->app['blade.compiler']->componentNamespace('Galahad\\Aire\\Components', 'aire');
 		}
 		
