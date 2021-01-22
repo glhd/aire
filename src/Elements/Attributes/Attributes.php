@@ -268,10 +268,16 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 		
 		$current_value = $this->get('value');
 		
+		if ($current_value instanceof Collection) {
+			return $current_value->contains($check_value);
+		}
+		
+		if (is_array($current_value)) {
+			return in_array($check_value, $current_value, false);
+		}
+		
 		/** @noinspection TypeUnsafeComparisonInspection **/
-		return is_array($current_value)
-			? in_array($check_value, $current_value, false)
-			: $check_value == $current_value;
+		return $check_value == $current_value;
 	}
 	
 	/**
