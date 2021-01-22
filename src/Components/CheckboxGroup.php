@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\CheckboxGroup as CheckboxGroupElement; 
+use Galahad\Aire\Elements\CheckboxGroup as CheckboxGroupElement;
 
 class CheckboxGroup extends ElementComponent
 {
@@ -120,7 +120,7 @@ class CheckboxGroup extends ElementComponent
 		$groupAriaOwns = null,
 		$groupAriaRelevant = null,
 		$groupAddClass = null,
-		$groupRemoveClass = null,
+		$groupRemoveClass = null
 	) {
 		$this->createElement(CheckboxGroupElement::class, compact(
 			'accept',
