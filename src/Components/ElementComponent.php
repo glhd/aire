@@ -24,7 +24,9 @@ abstract class ElementComponent extends Component
 		$this->element = $this->getElementInstance($element_class, $parameters);
 		
 		collect($parameters)
-			->filter()
+			->reject(function($arguments) {
+				return null === $arguments; 
+			})
 			->each(function($arguments, $name) {
 				$arguments = Arr::wrap($arguments);
 				$this->element->{$name}(...$arguments);
