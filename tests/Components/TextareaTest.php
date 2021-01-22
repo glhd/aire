@@ -30,10 +30,9 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class TextareaTest extends TestCase
+class TextareaTest extends ComponentTestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{

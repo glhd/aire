@@ -30,10 +30,9 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class FormTest extends TestCase
+class FormTest extends ComponentTestCase
 {
 	public function test_accept_charset_attribute_can_be_set_and_unset() : void
 	{

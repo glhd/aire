@@ -30,11 +30,19 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class ButtonTest extends TestCase
+class ButtonTest extends ComponentTestCase
 {
+	protected function setUp() : void
+	{
+		parent::setUp();
+		
+		if (version_compare($this->app->version(), '8.0.0', '<')) {
+			$this->markTestSkipped('Only applies to Laravel 8 and higher.');
+		}
+	}
+	
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
 		$button = $this->renderBlade('<x-aire::button auto-focus />');
