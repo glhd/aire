@@ -16,7 +16,7 @@ abstract class InputTypeTestCase extends ComponentTestCase
 	protected function inputType()
 	{
 		return Str::of(static::class)
-			->classBasename()
+			->afterLast('\\')
 			->before('Test')
 			->lower();
 	}
