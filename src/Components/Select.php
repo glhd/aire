@@ -2,7 +2,9 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Select as SelectElement; 
+use Galahad\Aire\Elements\Element;
+use Galahad\Aire\Elements\Select as SelectElement;
+use Galahad\Aire\Support\Facades\Aire;
 
 class Select extends ElementComponent
 {
@@ -196,5 +198,16 @@ class Select extends ElementComponent
 			'groupAddClass',
 			'groupRemoveClass'
 		));
+	}
+	
+	protected function getElementInstance(string $element_class, array &$parameters) : Element
+	{
+		$aire = Aire::getFacadeRoot();
+		$form = $aire->form();
+		
+		$options = $parameters['options'];
+		unset($parameters['options']);
+		
+		return new SelectElement($aire, $options, $form);
 	}
 }

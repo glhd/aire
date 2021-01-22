@@ -34,19 +34,7 @@ abstract class ElementComponent extends Component
 	protected function getElementInstance(string $element_class, array &$parameters): Element
 	{
 		$aire = Aire::getFacadeRoot();
-		$form = $aire->form();
 		
-		if (\Galahad\Aire\Elements\Form::class === $element_class) {
-			return $form;
-		}
-		
-		if (\Galahad\Aire\Elements\Select::class === $element_class) {
-			$options = $parameters['options'];
-			unset($parameters['options']);
-			
-			return new \Galahad\Aire\Elements\Select($aire, $options, $form);
-		}
-		
-		return new $element_class($aire, $form);
+		return new $element_class($aire, $aire->form());
 	}
 }

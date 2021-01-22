@@ -2,7 +2,9 @@
 
 namespace Galahad\Aire\Components;
 
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form as FormElement;
+use Galahad\Aire\Support\Facades\Aire;
 
 /**
  * @property \Galahad\Aire\Elements\Form $element
@@ -158,5 +160,10 @@ class Form extends ElementComponent
 			echo $data['slot'];
 			return $this->element->close();
 		};
+	}
+	
+	protected function getElementInstance(string $element_class, array &$parameters) : Element
+	{
+		return Aire::getFacadeRoot()->form();
 	}
 }
