@@ -19,6 +19,26 @@ abstract class ElementComponent extends Component
 		return $this->element;
 	}
 	
+	public function withAttributes(array $attributes)
+	{
+		parent::withAttributes($attributes);
+		
+		collect($this->attributes->getAttributes())
+			->reject(function($arguments) {
+				return null === $arguments;
+			})
+			->each(function($arguments, $name) {
+				if (method_exists($this->element, $name)) {
+					$arguments = Arr::wrap($arguments);
+					$this->element->{$name}(...$arguments);
+				} else {
+					$this->element->setAttribute($name, $arguments);
+				}
+			});
+		
+		return $this;
+	}
+	
 	protected function createElement(string $element_class, array $parameters)
 	{
 		$this->element = $this->getElementInstance($element_class);
