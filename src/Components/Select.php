@@ -8,6 +8,8 @@ use Galahad\Aire\Support\Facades\Aire;
 
 class Select extends ElementComponent
 {
+	use RequiresOptionsAttribute;
+	
 	public function __construct(
 		$options,
 		?bool $autoFocus = null,
@@ -103,8 +105,9 @@ class Select extends ElementComponent
 		$groupAddClass = null,
 		$groupRemoveClass = null
 	) {
+		$this->options = $options;
+		
 		$this->createElement(SelectElement::class, compact(
-			'options',
 			'autoFocus',
 			'disabled',
 			'form',
@@ -198,16 +201,5 @@ class Select extends ElementComponent
 			'groupAddClass',
 			'groupRemoveClass'
 		));
-	}
-	
-	protected function getElementInstance(string $element_class, array &$parameters) : Element
-	{
-		$aire = Aire::getFacadeRoot();
-		$form = $aire->form();
-		
-		$options = $parameters['options'];
-		unset($parameters['options']);
-		
-		return new SelectElement($aire, $options, $form);
 	}
 }

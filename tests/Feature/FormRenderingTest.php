@@ -21,6 +21,9 @@ class FormRenderingTest extends TestCase
 			$this->markTestSkipped('Only applies to Laravel 8 and higher.');
 		}
 		
+		// Needed occasionally to clear the view cache for tests:
+		// $this->artisan('view:clear');
+		
 		$html = View::make('basic-component-form')->render();
 		$this->performBasicFormAssertions($html);
 	}
@@ -89,11 +92,15 @@ class FormRenderingTest extends TestCase
 		$this->assertSelectorAttribute($html, '#checkbox', 'type', 'checkbox');
 		$this->assertSelectorExists($html, 'label[for="checkbox"]');
 		
-		// Radio Button
-		// $this->assertSelectorExists($html, 'input#radio');
-		// $this->assertSelectorAttribute($html, '#radio', 'name', 'radio');
-		// $this->assertSelectorAttribute($html, '#radio', 'type', 'radio');
-		// $this->assertSelectorExists($html, 'label[for="radio"]');
+		// Radio Group
+		$this->assertSelectorExists($html, 'input[name=radio_group]');
+		$this->assertSelectorAttribute($html, 'input[name=radio_group]', 'type', 'radio');
+		$this->assertSelectorExists($html, 'label input[name=radio_group]');
+		
+		// Checkbox Group
+		$this->assertSelectorExists($html, 'input[name^=checkbox_group]');
+		$this->assertSelectorAttribute($html, 'input[name^=checkbox_group]', 'type', 'checkbox');
+		$this->assertSelectorExists($html, 'label input[name^=checkbox_group]');
 		
 		// Submit Button
 		$this->assertSelectorExists($html, 'button#submit');

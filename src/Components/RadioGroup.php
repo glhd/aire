@@ -6,7 +6,10 @@ use Galahad\Aire\Elements\RadioGroup as RadioGroupElement;
 
 class RadioGroup extends ElementComponent
 {
+	use RequiresOptionsAttribute;
+	
 	public function __construct(
+		$options,
 		$accept = null,
 		$alt = null,
 		$autoComplete = null,
@@ -122,6 +125,8 @@ class RadioGroup extends ElementComponent
 		$groupAddClass = null,
 		$groupRemoveClass = null
 	) {
+		$this->options = $options;
+		
 		$this->createElement(RadioGroupElement::class, compact(
 			'accept',
 			'alt',

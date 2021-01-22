@@ -21,7 +21,7 @@ abstract class ElementComponent extends Component
 	
 	protected function createElement(string $element_class, array $parameters)
 	{
-		$this->element = $this->getElementInstance($element_class, $parameters);
+		$this->element = $this->getElementInstance($element_class);
 		
 		collect($parameters)
 			->reject(function($arguments) {
@@ -33,7 +33,7 @@ abstract class ElementComponent extends Component
 			});
 	}
 	
-	protected function getElementInstance(string $element_class, array &$parameters): Element
+	protected function getElementInstance(string $element_class): Element
 	{
 		$aire = Aire::getFacadeRoot();
 		

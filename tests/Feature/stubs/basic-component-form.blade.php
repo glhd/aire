@@ -54,6 +54,20 @@
 		id="checkbox"
 	/>
 	
+	<x-aire::radio-group
+		:options="['a' => 'eh', 'b' => 'bee']"
+		name="radio_group"
+		label="Radio Group"
+		id="radio_group"
+	/>
+	
+	<x-aire::checkbox-group
+		:options="['a' => 'eh', 'b' => 'bee']"
+		name="checkbox_group"
+		label="Checkbox Group"
+		id="checkbox_group"
+	/>
+	
 	<x-aire::submit 
 		label="Submit Button"
 		id="submit"

@@ -6,7 +6,10 @@ use Galahad\Aire\Elements\CheckboxGroup as CheckboxGroupElement;
 
 class CheckboxGroup extends ElementComponent
 {
+	use RequiresOptionsAttribute;
+	
 	public function __construct(
+		$options,
 		$accept = null,
 		$alt = null,
 		$autoComplete = null,
@@ -122,6 +125,8 @@ class CheckboxGroup extends ElementComponent
 		$groupAddClass = null,
 		$groupRemoveClass = null
 	) {
+		$this->options = $options;
+		
 		$this->createElement(CheckboxGroupElement::class, compact(
 			'accept',
 			'alt',
