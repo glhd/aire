@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\DTD\Button;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
@@ -58,7 +57,7 @@ class ButtonTest extends TestCase
 	{
 		$value = Str::random();
 		
-		$button = $this->renderBlade('<x-aire::button form="'.$value.'" />');
+		$button = $this->renderBlade('<x-aire::button :form="$value" />', compact('value'));
 		$this->assertSelectorAttribute($button, 'button', 'form', $value);
 		
 		$button = $this->renderBlade('<x-aire::button :form="null" />');
@@ -69,7 +68,7 @@ class ButtonTest extends TestCase
 	{
 		$value = Str::random();
 		
-		$button = $this->renderBlade('<x-aire::button form-action="'.$value.'" />');
+		$button = $this->renderBlade('<x-aire::button :form-action="$value" />', compact('value'));
 		$this->assertSelectorAttribute($button, 'button', 'formaction', $value);
 		
 		$button = $this->renderBlade('<x-aire::button :form-action="null" />');
@@ -102,4 +101,69 @@ class ButtonTest extends TestCase
 		$button = $this->renderBlade('<x-aire::button :form-method="null" />');
 		$this->assertSelectorAttributeMissing($button, 'button', 'formmethod');
 	}
+	
+	public function test_form_no_validate_flag_can_be_set_on_and_off() : void
+	{
+		$button = $this->renderBlade('<x-aire::button form-no-validate />');
+		$this->assertSelectorAttribute($button, 'button', 'formnovalidate');
+		
+		$button = $this->renderBlade('<x-aire::button :form-no-validate="false" />');
+		$this->assertSelectorAttributeMissing($button, 'button', 'formnovalidate');
+	}
+	
+	public function test_form_target_attribute_can_be_set_and_unset() : void
+	{
+		$button = $this->renderBlade('<x-aire::button form-target="_blank" />');
+		$this->assertSelectorAttribute($button, 'button', 'formtarget', '_blank');
+		
+		$button = $this->renderBlade('<x-aire::button form-target="_parent" />');
+		$this->assertSelectorAttribute($button, 'button', 'formtarget', '_parent');
+		
+		$button = $this->renderBlade('<x-aire::button form-target="_self" />');
+		$this->assertSelectorAttribute($button, 'button', 'formtarget', '_self');
+		
+		$button = $this->renderBlade('<x-aire::button form-target="_top" />');
+		$this->assertSelectorAttribute($button, 'button', 'formtarget', '_top');
+		
+		$button = $this->renderBlade('<x-aire::button :form-target="null" />');
+		$this->assertSelectorAttributeMissing($button, 'button', 'formtarget');
+	}
+	
+	public function test_name_attribute_can_be_set_and_unset() : void
+	{
+		$value = Str::random();
+		
+		$button = $this->renderBlade('<x-aire::button :name="$value" />', compact('value'));
+		$this->assertSelectorAttribute($button, 'button', 'name', $value);
+		
+		$button = $this->renderBlade('<x-aire::button :name="null" />');
+		$this->assertSelectorAttributeMissing($button, 'button', 'name');
+	}
+	
+	public function test_type_attribute_can_be_set_and_unset() : void
+	{
+		$button = $this->renderBlade('<x-aire::button type="button" />');
+		$this->assertSelectorAttribute($button, 'button', 'type', 'button');
+		
+		$button = $this->renderBlade('<x-aire::button type="reset" />');
+		$this->assertSelectorAttribute($button, 'button', 'type', 'reset');
+		
+		$button = $this->renderBlade('<x-aire::button type="submit" />');
+		$this->assertSelectorAttribute($button, 'button', 'type', 'submit');
+		
+		$button = $this->renderBlade('<x-aire::button :type="null" />');
+		$this->assertSelectorAttributeMissing($button, 'button', 'type');
+	}
+	
+	public function test_value_attribute_can_be_set_and_unset() : void
+	{
+		$value = Str::random();
+		
+		$button = $this->renderBlade('<x-aire::button :value="$value" />', compact('value'));
+		$this->assertSelectorAttribute($button, 'button', 'value', $value);
+		
+		$button = $this->renderBlade('<x-aire::button :value="null" />');
+		$this->assertSelectorAttributeMissing($button, 'button', 'value');
+	}
+	
 }

@@ -2,8 +2,11 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Form as FormElement; 
+use Galahad\Aire\Elements\Form as FormElement;
 
+/**
+ * @property \Galahad\Aire\Elements\Form $element
+ */
 class Form extends ElementComponent
 {
 	public function __construct(
@@ -146,5 +149,14 @@ class Form extends ElementComponent
 			'variant',
 			'variants'
 		));
+	}
+	
+	public function resolveView()
+	{
+		return function($data) {
+			$this->element->open();
+			echo $data['slot'];
+			return $this->element->close();
+		};
 	}
 }

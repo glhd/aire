@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\DTD\Textarea;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
@@ -38,150 +37,126 @@ class TextareaTest extends TestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$textarea->autoFocus();
+		$textarea = $this->renderBlade('<x-aire::textarea auto-focus />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'autofocus');
 		
-		$textarea->autoFocus(false);
+		$textarea = $this->renderBlade('<x-aire::textarea :auto-focus="false" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'autofocus');
 	}
 	
 	public function test_cols_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->cols($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :cols="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'cols', $value);
 		
-		$textarea->cols(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :cols="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'cols');
 	}
 	
 	public function test_dir_name_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->dirName($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :dir-name="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'dirname', $value);
 		
-		$textarea->dirName(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :dir-name="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'dirname');
 	}
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$textarea->disabled();
+		$textarea = $this->renderBlade('<x-aire::textarea disabled />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'disabled');
 		
-		$textarea->disabled(false);
+		$textarea = $this->renderBlade('<x-aire::textarea :disabled="false" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'disabled');
 	}
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->form($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :form="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'form', $value);
 		
-		$textarea->form(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :form="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'form');
 	}
 	
 	public function test_max_length_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->maxLength($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :max-length="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'maxlength', $value);
 		
-		$textarea->maxLength(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :max-length="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'maxlength');
 	}
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->name($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :name="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'name', $value);
 		
-		$textarea->name(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :name="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'name');
 	}
 	
 	public function test_placeholder_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->placeholder($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :placeholder="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'placeholder', $value);
 		
-		$textarea->placeholder(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :placeholder="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'placeholder');
 	}
 	
 	public function test_read_only_flag_can_be_set_on_and_off() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$textarea->readOnly();
+		$textarea = $this->renderBlade('<x-aire::textarea read-only />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'readonly');
 		
-		$textarea->readOnly(false);
+		$textarea = $this->renderBlade('<x-aire::textarea :read-only="false" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'readonly');
 	}
 	
 	public function test_required_flag_can_be_set_on_and_off() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$textarea->required();
+		$textarea = $this->renderBlade('<x-aire::textarea required />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'required');
 		
-		$textarea->required(false);
+		$textarea = $this->renderBlade('<x-aire::textarea :required="false" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'required');
 	}
 	
 	public function test_rows_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$textarea->rows($value);
+		$textarea = $this->renderBlade('<x-aire::textarea :rows="$value" />', compact('value'));
 		$this->assertSelectorAttribute($textarea, 'textarea', 'rows', $value);
 		
-		$textarea->rows(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :rows="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'rows');
 	}
 	
 	public function test_wrap_attribute_can_be_set_and_unset() : void
 	{
-		$textarea = new Textarea($this->aire(), $this->aire()->form());
-		
-		$textarea->wrap('hard');
+		$textarea = $this->renderBlade('<x-aire::textarea wrap="hard" />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'wrap', 'hard');
 		
-		$textarea->wrap('soft');
+		$textarea = $this->renderBlade('<x-aire::textarea wrap="soft" />');
 		$this->assertSelectorAttribute($textarea, 'textarea', 'wrap', 'soft');
 		
-		$textarea->wrap(null);
+		$textarea = $this->renderBlade('<x-aire::textarea :wrap="null" />');
 		$this->assertSelectorAttributeMissing($textarea, 'textarea', 'wrap');
 	}
 	

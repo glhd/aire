@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use Illuminate\Support\Str;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 $tag_whitelist = [
@@ -11,8 +13,8 @@ $tag_whitelist = [
 	'select',
 	'option',
 	'textarea',
-	'fieldset',
-	'legend',
+	// 'fieldset',
+	// 'legend',
 ];
 
 $form_element_tags = [
@@ -61,13 +63,13 @@ function attribute_spellings($attribute)
 {
 	global $attribute_methods;
 	
-	$camel = $attribute_methods[$attribute] ?? camel_case($attribute);
+	$camel = $attribute_methods[$attribute] ?? Str::camel($attribute);
 	
 	return (object) [
 		'camel' => $camel,
-		'snake' => snake_case($camel),
-		'hyphen' => snake_case($camel, '-'),
-		'studly' => studly_case($camel),
+		'snake' => Str::snake($camel),
+		'hyphen' => Str::snake($camel, '-'),
+		'studly' => Str::studly($camel),
 	];
 }
 
@@ -175,12 +177,13 @@ function print_setter($attribute, $attribute_config, $parent = 'Element') {
 	}
 }
 
-function print_setter_test($attribute, $attribute_config, $tag = 'form') {
-	$class_name = studly_case($tag);
+function print_setter_test($attribute, $attribute_config, $tag = 'form', $component = false) {
+	$class_name = Str::studly($tag);
 	$is_flag = isset($attribute_config['type']) && 'flag' === $attribute_config['type'];
 	$is_bool = isset($attribute_config['type']) && 'boolean' === $attribute_config['type'];
 	$test_name = $attribute_config['spellings']->snake;
 	$method = $attribute_config['spellings']->camel;
+	$xml_attribute = $attribute_config['spellings']->hyphen;
 	
 	if ($is_flag) {
 		
@@ -199,37 +202,59 @@ function print_setter_test($attribute, $attribute_config, $tag = 'form') {
 		
 	}
 	
-	$target = '$form';
+	$target = '$'.strtolower($class_name);
 	
-	if ('Form' !== $class_name) {
-		$target = '$'.strtolower($class_name);
-		
-		echo "\t\t$target = new $class_name(\$this->aire(), \$this->aire()->form());\n";
-	} else {
-		echo "\t\t\$form = \$this->aire()->form();\n";
+	if (!$component) {
+		if ('Form' !== $class_name) {
+			echo "\t\t$target = new $class_name(\$this->aire(), \$this->aire()->form());\n";
+		} else {
+			echo "\t\t$target = \$this->aire()->form();\n";
+		}
+		echo "\t\t\n";
 	}
-	
-	echo "\t\t\n";
 	
 	if ($is_flag) {
 		
-		echo "\t\t$target->$method();\n";
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag $xml_attribute />');\n";
+		} else {
+			echo "\t\t$target->$method();\n";
+		}
 		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute');\n";
 		echo "\t\t\n";
-		echo "\t\t$target->$method(false);\n";
+		
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag :$xml_attribute=\"false\" />');\n";
+		} else {
+			echo "\t\t$target->$method(false);\n";
+		}
 		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
 		echo "\t}\n";
 		echo "\t\n";
 		
 	} else if ($is_bool) {
 		
-		echo "\t\t$target->$method();\n";
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag $xml_attribute />');\n";
+		} else {
+			echo "\t\t$target->$method();\n";
+		}
 		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', 'true');\n";
 		echo "\t\t\n";
-		echo "\t\t$target->$method(false);\n";
+		
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag :$xml_attribute=\"false\" />');\n";
+		} else {
+			echo "\t\t$target->$method(false);\n";
+		}
 		echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', 'false');\n";
 		echo "\t\t\n";
-		echo "\t\t$target->$method(null);\n";
+		
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag :$xml_attribute=\"null\" />');\n";
+		} else {
+			echo "\t\t$target->$method(null);\n";
+		}
 		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
 		echo "\t}\n";
 		echo "\t\n";
@@ -239,19 +264,33 @@ function print_setter_test($attribute, $attribute_config, $tag = 'form') {
 		if (isset($attribute_config['attribOption'])) {
 			foreach ($attribute_config['attribOption'] as $value) {
 				$value = addslashes($value);
-				echo "\t\t$target->$method('$value');\n";
+				
+				if ($component) {
+					echo "\t\t$target = \$this->renderBlade('<x-aire::$tag $xml_attribute=\"$value\" />');\n";
+				} else {
+					echo "\t\t$target->$method('$value');\n";
+				}
 				echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', '$value');\n";
 				echo "\t\t\n";
 			}
 		} else {
 			echo "\t\t\$value = Str::random();\n";
 			echo "\t\t\n";
-			echo "\t\t$target->$method(\$value);\n";
+			
+			if ($component) {
+				echo "\t\t$target = \$this->renderBlade('<x-aire::$tag :$xml_attribute=\"\$value\" />', compact('value'));\n";
+			} else {
+				echo "\t\t$target->$method(\$value);\n";
+			}
 			echo "\t\t\$this->assertSelectorAttribute($target, '$tag', '$attribute', \$value);\n";
 			echo "\t\t\n";
 		}
 		
-		echo "\t\t$target->$method(null);\n";
+		if ($component) {
+			echo "\t\t$target = \$this->renderBlade('<x-aire::$tag :$xml_attribute=\"null\" />');\n";
+		} else {
+			echo "\t\t$target->$method(null);\n";
+		}
 		echo "\t\t\$this->assertSelectorAttributeMissing($target, '$tag', '$attribute');\n";
 		echo "\t}\n";
 		echo "\t\n";

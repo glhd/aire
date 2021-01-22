@@ -30,7 +30,6 @@
 
 namespace Galahad\Aire\Tests\Components;
 
-use Galahad\Aire\DTD\Select;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
@@ -38,84 +37,70 @@ class SelectTest extends TestCase
 {
 	public function test_auto_focus_flag_can_be_set_on_and_off() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
-		$select->autoFocus();
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" auto-focus />');
 		$this->assertSelectorAttribute($select, 'select', 'autofocus');
 		
-		$select->autoFocus(false);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :auto-focus="false" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'autofocus');
 	}
 	
 	public function test_disabled_flag_can_be_set_on_and_off() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
-		$select->disabled();
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" disabled />');
 		$this->assertSelectorAttribute($select, 'select', 'disabled');
 		
-		$select->disabled(false);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :disabled="false" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'disabled');
 	}
 	
 	public function test_form_attribute_can_be_set_and_unset() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$select->form($value);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :form="$value" />', compact('value'));
 		$this->assertSelectorAttribute($select, 'select', 'form', $value);
 		
-		$select->form(null);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :form="null" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'form');
 	}
 	
 	public function test_multiple_flag_can_be_set_on_and_off() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
-		$select->multiple();
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" multiple />');
 		$this->assertSelectorAttribute($select, 'select', 'multiple');
 		
-		$select->multiple(false);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :multiple="false" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'multiple');
 	}
 	
 	public function test_name_attribute_can_be_set_and_unset() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$select->name($value);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :name="$value" />', compact('value'));
 		$this->assertSelectorAttribute($select, 'select', 'name', $value);
 		
-		$select->name(null);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :name="null" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'name');
 	}
 	
 	public function test_required_flag_can_be_set_on_and_off() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
-		$select->required();
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" required />');
 		$this->assertSelectorAttribute($select, 'select', 'required');
 		
-		$select->required(false);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :required="false" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'required');
 	}
 	
 	public function test_size_attribute_can_be_set_and_unset() : void
 	{
-		$select = new Select($this->aire(), $this->aire()->form());
-		
 		$value = Str::random();
 		
-		$select->size($value);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :size="$value" />', compact('value'));
 		$this->assertSelectorAttribute($select, 'select', 'size', $value);
 		
-		$select->size(null);
+		$select = $this->renderBlade('<x-aire::select :options="[\'a\', \'b\']" :size="null" />');
 		$this->assertSelectorAttributeMissing($select, 'select', 'size');
 	}
 	
