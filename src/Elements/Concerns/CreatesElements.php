@@ -8,13 +8,13 @@ use Galahad\Aire\Elements\Checkbox;
 use Galahad\Aire\Elements\CheckboxGroup;
 use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Elements\Label;
-use Galahad\Aire\Elements\Radio;
 use Galahad\Aire\Elements\RadioGroup;
 use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
 use Galahad\Aire\Elements\Wysiwyg;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 trait CreatesElements
 {
@@ -220,7 +220,11 @@ trait CreatesElements
 	{
 		$checkbox_group = new CheckboxGroup($this->aire, $options, $this);
 		
-		$checkbox_group->name(trim($name, '[]').'[]');
+		if (!Str::endsWith($name, '[]')) {
+			$name .= '[]';
+		}
+		
+		$checkbox_group->name($name);
 		
 		if ($label) {
 			$checkbox_group->label($label);
