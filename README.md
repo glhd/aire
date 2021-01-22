@@ -73,6 +73,36 @@ are fluent, allowing for easy configuration of your form components:
 {{ Aire::close() }}
 ```
 
+### Blade Components
+
+As of Aire 2.4.0, you can also use all Aire elements as [Blade Components](https://laravel.com/docs/8.x/blade#components).
+The above form is identical to:
+
+```html
+<x-aire::form route="users.update" :bind="$user">
+
+    <x-aire::input 
+        name="given_name" 
+        label="First/Given Name" 
+        id="given_name" 
+    />
+    <x-aire::input 
+        name="family_name" 
+        label="Last/Family Name" 
+        id="family_name" 
+        auto-complete="off" 
+    />
+    <x-aire::email 
+        name="email" 
+        label="Email Address" 
+        help-text="Please use your company email address." 
+    />
+    
+    <x-aire::submit label="Update User" />
+    
+</x-aire::form>
+```
+
 ## Installation
 
 Install via composer with:
