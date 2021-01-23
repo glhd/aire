@@ -42,4 +42,23 @@ class ServerValidationTest extends TestCase
 		$this->assertSelectorExists($html, '[data-aire-component="errors"]');
 		$this->assertSelectorContainsText($html, '[data-aire-component="errors"]', 'The generic input field is required');
 	}
+	
+	public function test_it_uses_a_named_error_bag()
+	{
+		Route::get('/aire', function() {
+			return view('custom-error-bag-form');
+		})->middleware('web');
+		
+		Route::post('/aire', function(Request $request) {
+			return redirect()->back()->withErrors(['generic_input' => 'Error message'], 'custom_errors');
+		})->middleware('web');
+		
+		// Post should redirect back to error page
+		$this->post('/aire')->assertRedirect();
+		
+		// Now errors should be set
+		$html = $this->get('/aire')->getContent();
+		$this->assertSelectorContainsText($html, '[data-aire-component="summary"]', 'Error message');
+		$this->assertSelectorContainsText($html, '[data-aire-component="errors"]', 'Error message');
+	}
 }

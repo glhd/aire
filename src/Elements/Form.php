@@ -125,6 +125,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 */
 	protected $json_serializable_elements = [];
 	
+	/**
+	 * The error bag to pull error messages from
+	 * 
+	 * @var string 
+	 */
+	protected $error_bag = 'default';
+	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
@@ -306,6 +313,29 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	}
 	
 	/**
+	 * Set the error bag to pull error messages out of
+	 * 
+	 * @param string $error_bag
+	 * @return $this
+	 */
+	public function withErrorBag(string $error_bag) : self
+	{
+		$this->error_bag = $error_bag;
+		
+		return $this;
+	}
+	
+	/**
+	 * Get the error bag that the form is set to use
+	 * 
+	 * @return string
+	 */
+	public function getErrorBag() : string
+	{
+		return $this->error_bag;
+	}
+	
+	/**
 	 * Get any validation errors associated with an Element
 	 *
 	 * @param string $name
@@ -321,11 +351,11 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 			return [];
 		}
 		
-		if (!$errors->has($name)) {
+		if (!$errors->getBag($this->error_bag)->has($name)) {
 			return [];
 		}
 		
-		return $errors->get($name);
+		return $errors->getBag($this->error_bag)->get($name);
 	}
 	
 	/**
