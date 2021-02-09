@@ -5,6 +5,7 @@ namespace Galahad\Aire;
 use BadMethodCallException;
 use Closure;
 use Galahad\Aire\Elements\Attributes\ClassNames;
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
@@ -15,36 +16,36 @@ use Illuminate\View\Factory;
 // TODO: Aire::scaffold($user) -> generate update form
 
 /**
- * @method static \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
- * @method static \Galahad\Aire\Elements\Form resourceful(\Illuminate\Database\Eloquent\Model $model, $resource_name = null, $prepend_parameters = [])
- * @method static \Galahad\Aire\Elements\Label label(string $label)
- * @method static \Galahad\Aire\Elements\Button button(string $label = null)
- * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
- * @method static \Galahad\Aire\Elements\Input input($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Select select(string|array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Summary summary(?bool $verbose = null)
- * @method static \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
- * @method static \Galahad\Aire\Elements\RadioGroup radioGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
- * @method static \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
- * @method static \Galahad\Aire\Elements\Input color($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input date($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input dateTime($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input dateTimeLocal($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input email($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input file($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input image($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input month($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input number($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input password($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input range($name = null, $label = null, $min = 0, $max = 100)
- * @method static \Galahad\Aire\Elements\Input search($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input tel($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input time($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input url($name = null, $label = null)
- * @method static \Galahad\Aire\Elements\Input week($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
+ * @method \Galahad\Aire\Elements\Form resourceful(\Illuminate\Database\Eloquent\Model $model, $resource_name = null, $prepend_parameters = [])
+ * @method \Galahad\Aire\Elements\Label label(string $label)
+ * @method \Galahad\Aire\Elements\Button button(string $label = null)
+ * @method \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
+ * @method \Galahad\Aire\Elements\Input input($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Select select(string|array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Textarea textArea($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Summary summary(?bool $verbose = null)
+ * @method \Galahad\Aire\Elements\Checkbox checkbox($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\CheckboxGroup checkboxGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
+ * @method \Galahad\Aire\Elements\RadioGroup radioGroup(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name, $label = null)
+ * @method \Galahad\Aire\Elements\Input hidden($name = null, $value = null)
+ * @method \Galahad\Aire\Elements\Input color($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input date($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input dateTime($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input dateTimeLocal($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input email($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input file($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input image($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input month($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input number($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input password($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input range($name = null, $label = null, $min = 0, $max = 100)
+ * @method \Galahad\Aire\Elements\Input search($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input tel($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input time($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input url($name = null, $label = null)
+ * @method \Galahad\Aire\Elements\Input week($name = null, $label = null)
  */
 class Aire
 {
@@ -71,6 +72,14 @@ class Aire
 	 * @var int
 	 */
 	protected $next_element_id = 0;
+	
+	/**
+	 * This will be called to generate an element's ID if auto_id is
+	 * enabled and the element doesn't have an ID set
+	 * 
+	 * @var Closure
+	 */
+	protected $id_generator;
 	
 	/**
 	 * @var \Illuminate\View\Factory
@@ -127,6 +136,14 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->user_config = $config;
 		
+		$this->setIdGenerator(function(Element $element, Form $form = null) {
+			$form_id = $form->element_id ?? null;
+			$element_name = $element->getInputName();
+			$element_id = $element->element_id;
+			
+			return "__aire-{$form_id}-{$element_name}{$element_id}";
+		});
+		
 		$this->resetTheme();
 	}
 	
@@ -146,8 +163,32 @@ class Aire
 		
 		return static::$default_theme_config;
 	}
-
-
+	
+	/**
+	 * Set the method by which IDs are generated
+	 * 
+	 * @param \Closure $id_generator
+	 * @return $this
+	 */
+	public function setIdGenerator(Closure $id_generator) : self 
+	{
+		$this->id_generator = $id_generator;
+		
+		return $this;
+	}
+	
+	/**
+	 * Generate an ID value for an element
+	 * 
+	 * @param \Galahad\Aire\Elements\Element $element
+	 * @param \Galahad\Aire\Elements\Form|null $form
+	 * @return string
+	 */
+	public function generateAutoId(Element $element, Form $form = null) : string
+	{
+		return (string) call_user_func($this->id_generator, $element, $form);
+	}
+	
     /**
      * Set the View Factory that Aire will use to resolve views
      *

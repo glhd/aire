@@ -11,8 +11,7 @@ trait AutoId
 		}
 		
 		$this->attributes->setDefault('id', function() {
-			$name = $this->getInputName();
-			return "__aire-{$this->form->element_id}-{$name}{$this->element_id}";
+			return $this->aire->generateAutoId($this, $this->form);
 		});
 	}
 }

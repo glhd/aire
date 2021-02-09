@@ -1,14 +1,14 @@
 
 <div class="mb-6 float-right inline-flex">
-	<a href="https://circleci.com/gh/glhd/aire" target="_blank" class="mx-1">
+	<a href="https://github.com/glhd/aire/actions" target="_blank" class="mx-1">
 		<img 
-			src="https://circleci.com/gh/glhd/aire.svg?style=svg" 
+			src="https://github.com/glhd/aire/workflows/PHPUnit/badge.svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://coveralls.io/github/glhd/aire?branch=master" target="_blank" class="mx-1">
+	<a href="https://codeclimate.com/github/glhd/aire/test_coverage" target="_blank" class="mx-1">
 		<img 
-			src="https://coveralls.io/repos/github/glhd/aire/badge.svg?branch=master" 
+			src="https://api.codeclimate.com/v1/badges/f597a6e8d9f968a55f03/test_coverage" 
 			alt="Coverage Status" 
 		/>
 	</a>
@@ -30,7 +30,7 @@
             alt="Follow @airephp on Twitter" 
         />
     </a>
-    <a href="https://twitter.com/airephp" target="_blank" class="mx-1">
+    <a href="https://twitter.com/inxilpro" target="_blank" class="mx-1">
         <img 
             src="https://img.shields.io/twitter/follow/inxilpro?style=social" 
             alt="Follow @inxilpro on Twitter" 
@@ -39,12 +39,12 @@
 </div>
 
 <h1>
-	<a href="https://glhd.github.io/aire/">
-		<img src="https://glhd.github.io/aire/logo.svg" width="192" height="181" alt="Aire" border="0" />
+	<a href="https://airephp.com">
+		<img src="https://airephp.com/logo.svg" width="192" height="181" alt="Aire" border="0" />
 	</a>
 </h1>
 
-Aire is a modern Laravel form builder ([demo](https://glhd.github.io/aire/)) with a
+Aire is a modern Laravel form builder ([demo](https://airephp.com)) with a
 focus on the same expressive and beautiful code you expect from the Laravel
 ecosystem.
 
@@ -58,25 +58,49 @@ are fluent, allowing for easy configuration of your form components:
   ->route('users.update')
   ->bind($user) }}
 
-<div class="flex flex-col md:flex-row">
-
-  {{ Aire::input('given_name', 'First/Given Name')
-    ->id('given_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1 mr-2') }}
+{{ Aire::input('given_name', 'First/Given Name')
+    ->id('given_name') }}
     
-  {{ Aire::input('family_name', 'Last/Family Name')
+{{ Aire::input('family_name', 'Last/Family Name')
     ->id('family_name')
-    ->autoComplete('off')
-    ->groupClass('flex-1') }}
+    ->autoComplete('off') }}
   
-</div>
-  
-{{ Aire::email('email', 'Email Address') }}
+{{ Aire::email('email', 'Email Address')
+    ->helpText('Please use your company email address.') }}
   
 {{ Aire::submit('Update User') }}
   
 {{ Aire::close() }}
+```
+
+### Blade Components
+
+As of Aire 2.4.0, you can also use all Aire elements as [Blade Components](https://laravel.com/docs/8.x/blade#components).
+The above form is identical to:
+
+```html
+<x-aire::form route="users.update" :bind="$user">
+
+    <x-aire::input 
+        name="given_name" 
+        label="First/Given Name" 
+        id="given_name" 
+    />
+    <x-aire::input 
+        name="family_name" 
+        label="Last/Family Name" 
+        id="family_name" 
+        auto-complete="off" 
+    />
+    <x-aire::email 
+        name="email" 
+        label="Email Address" 
+        help-text="Please use your company email address." 
+    />
+    
+    <x-aire::submit label="Update User" />
+    
+</x-aire::form>
 ```
 
 ## Installation
@@ -191,13 +215,25 @@ supports automatic client-side validation—simply pass an array of rules or a `
 object and Aire will automatically apply most rules on the client side (thanks
 to [validatorjs](https://github.com/skaterdav85/validatorjs)!). 
 
+## Laravel Version Support
+
+Aire should run on Laravel 5.8.28 and higher, and PHP 7.1 and higher. Our policy is to test
+the last two major releases of PHP and Laravel, so support below that is not guaranteed.
+
+## Translations
+
+Aire comes with support for a handful of languages (feel free to submit a PR!). If you would
+like to add your own translations, you can do so by publishing them with:
+
+```bash
+php artisan vendor:publish --tag=aire-translations
+```
+
 ## Under Consideration / Feature Ideas
 
 There are a few things that are still either in-the-works or being considered for a 
 later release. These include:
 
-  - Integration with [Tailwind forms](https://github.com/tailwindcss/custom-forms)
-  - Sizing option for form controls
   - [Read-only plain text](http://getbootstrap.com/docs/4.1/components/forms/#readonly-plain-text) 
   - Cross-browser support for custom checkboxes and radio buttons via a config option
   - Support for Choices.js or similar `<select>` UI libraries

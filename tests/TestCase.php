@@ -14,6 +14,7 @@ use Galahad\Aire\Tests\Constraints\SelectorExists;
 use Galahad\Aire\Tests\Constraints\SelectorHasClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorMissingClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorTextEquals;
+use Illuminate\Container\Container;
 use Orchestra\Testbench\TestCase as Orchestra;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use Symfony\Component\DomCrawler\Crawler;
@@ -71,6 +72,31 @@ abstract class TestCase extends Orchestra
 		return $html instanceof Crawler
 			? $html
 			: new Crawler((string) $html);
+	}
+	
+	protected function renderBlade($contents, array $data = [])
+	{
+		$factory = $this->app['view'];
+		
+		$factory->addNamespace(
+			'__aire_test_components',
+			$directory = $this->app['config']->get('view.compiled')
+		);
+		
+		$basename = sha1($contents);
+		$filename = "{$directory}/{$basename}.blade.php";
+		
+		if (!is_file($filename)) {
+			if (!is_dir($directory)) {
+				mkdir($directory, 0755, true);
+			}
+			
+			file_put_contents($filename, $contents);
+		}
+		
+		$component_name = "__aire_test_components::{$basename}";
+		
+		return $factory->make($component_name, $data)->render();
 	}
 	
 	protected function assertSelectorExists($html, $selector)

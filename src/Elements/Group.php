@@ -3,9 +3,10 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 use Illuminate\Support\HtmlString;
 
-class Group extends Element
+class Group extends Element implements NonInput
 {
 	/**
 	 * Not valid nor invalid

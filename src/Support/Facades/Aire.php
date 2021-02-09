@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Aire setTheme(string $namespace = NULL, string $prefix = NULL, array $config = [])
  * @method static \Galahad\Aire\Aire resetTheme()
  * @method static string applyTheme(string $view)
+ * @method static \Galahad\Aire\Aire setIdGenerator(\Closure $id_generator)
  * @method static \Galahad\Aire\Elements\Form form($action = NULL, $bound_data = NULL)
  * @method static \Galahad\Aire\Elements\Form open($action = NULL, $bound_data = NULL)
  * @method static mixed config(string $key, $default = NULL)
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Elements\Button button(string $label = NULL)
  * @method static \Galahad\Aire\Elements\Button submit(string $label = 'Submit')
  * @method static \Galahad\Aire\Elements\Input input($name = NULL, $label = NULL)
- * @method static \Galahad\Aire\Elements\Select select(array $options, $name = NULL, $label = NULL)
+ * @method static \Galahad\Aire\Elements\Select select(array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options, $name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Select timezoneSelect($name = null, $label = null)
  * @method static \Galahad\Aire\Elements\Textarea textArea($name = NULL, $label = NULL)
  * @method static \Galahad\Aire\Elements\Summary summary()
@@ -42,6 +43,14 @@ use Illuminate\Support\Facades\Facade;
  */
 class Aire extends Facade
 {
+	/**
+	 * @return \Galahad\Aire\Aire
+	 */
+	public static function getFacadeRoot()
+	{
+		return parent::getFacadeRoot();
+	}
+	
 	/**
 	 * Get the registered name of the component.
 	 *

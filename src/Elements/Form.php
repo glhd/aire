@@ -4,6 +4,9 @@ namespace Galahad\Aire\Elements;
 
 use BadMethodCallException;
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\BindsToForm;
+use Galahad\Aire\Contracts\HasJsonValue;
+use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\Elements\Concerns\CreatesElements;
 use Galahad\Aire\Elements\Concerns\CreatesInputTypes;
 use Illuminate\Database\Eloquent\Model;
@@ -15,8 +18,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
+use stdClass;
 
-class Form extends \Galahad\Aire\DTD\Form
+class Form extends \Galahad\Aire\DTD\Form implements NonInput
 {
 	use CreatesElements, CreatesInputTypes;
 	
@@ -105,6 +109,22 @@ class Form extends \Galahad\Aire\DTD\Form
 	 */
 	protected $dev_mode = false;
 	
+	/**
+	 * If true, we'll set up x-data and x-model attributes for Alpine.js
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @var bool 
+	 */
+	protected $is_alpine_component = false;
+	
+	/**
+	 * We'll store a reference to all the elements created in the form
+	 * so that if we need to serialize them for Alpine we can. 
+	 * 
+	 * @var array 
+	 */
+	protected $json_serializable_elements = [];
+	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
@@ -118,6 +138,15 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		$this->initValidation();
+	}
+	
+	public function registerElement(Element $element) : self 
+	{
+		if ($element instanceof HasJsonValue) {
+			$this->json_serializable_elements[] = $element;
+		}
+		
+		return $this;
 	}
 	
 	/**
@@ -183,6 +212,51 @@ class Form extends \Galahad\Aire\DTD\Form
 	}
 	
 	/**
+	 * Configure the form for use as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @param bool|array $x_data
+	 * @return $this
+	 */
+	public function asAlpineComponent($x_data = []) : self 
+	{
+		$this->is_alpine_component = is_array($x_data) || $x_data;
+		
+		$this->attributes->registerMutator('x-data', function() use ($x_data) {
+			if (!$this->isAlpineComponent()) {
+				return null;
+			}
+			
+			$data = [];
+			
+			collect($this->json_serializable_elements)
+				->reject(function(Element $element) {
+					return empty($element->getInputName());
+				})
+				->each(function(Element $element) use (&$data) {
+					Arr::set($data, $element->getInputName(), $element->getJsonValue());
+				});
+			
+			return json_encode(array_merge($data, $x_data));
+		});
+		
+		return $this;
+	}
+	
+	/**
+	 * Determine whether the form is configured as an Alpine.js component
+	 * 
+	 * @see https://github.com/alpinejs/alpine
+	 * 
+	 * @return bool
+	 */
+	public function isAlpineComponent() : bool 
+	{
+		return $this->is_alpine_component;
+	}
+	
+	/**
 	 * Determine whether the form has any bound data
 	 *
 	 * @return bool
@@ -207,17 +281,23 @@ class Form extends \Galahad\Aire\DTD\Form
 		}
 		
 		// If old input is set, use that
-		if ($this->session_store && $this->session_store->hasOldInput($name)) {
-			return $this->session_store->getOldInput($name);
+		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::has($old, $name)) {
+			return Arr::get($old, $name) ?? '';
 		}
 		
 		// If form has bound data, use that
-		if ($bound_data = $this->bound_data) {
-			$bound_value = is_object($bound_data)
-				? object_get($bound_data, $name)
-				: Arr::get($bound_data, $name);
+		$bound_data = $this->bound_data instanceof BindsToForm
+			? $this->bound_data->getAireFormData()
+			: $this->bound_data;
+		
+		if ($bound_data) {
+			$not_bound = new stdClass();
 			
-			if ($bound_value) {
+			$bound_value = is_object($bound_data)
+				? object_get($bound_data, $name, $not_bound)
+				: Arr::get($bound_data, $name, $not_bound);
+			
+			if ($bound_value !== $not_bound) {
 				return $bound_value;
 			}
 		}

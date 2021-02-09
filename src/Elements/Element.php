@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
+use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
 use Galahad\Aire\Elements\Attributes\Collection;
 use Galahad\Aire\Elements\Concerns\Groupable;
@@ -74,15 +75,13 @@ abstract class Element implements Htmlable
 		
 		if ($form) {
 			$this->form = $form;
+			$form->registerElement($this);
 			$this->initGroup();
 		}
 		
 		$this->attributes = new Collection($aire, $this, $this->default_attributes);
 		
-		if ($form) {
-			$this->registerAttributeMutators();
-		}
-		
+		$this->registerAttributeMutators();
 		$this->applyElementMutators();
 	}
 	
@@ -281,9 +280,19 @@ abstract class Element implements Htmlable
 	 */
 	protected function registerAttributeMutators() : self
 	{
-		if ($this->bind_value) {
-			$this->attributes->setDefault('value', function() {
-				return $this->form->getBoundValue($this->getInputName());
+		// Certain default bindings only should apply to elements that are
+		// inputs bound to a form
+		if ($this->form && !$this instanceof NonInput) {
+			if ($this->bind_value) {
+				$this->attributes->setDefault('value', function() {
+					return $this->form->getBoundValue($this->getInputName());
+				});
+			}
+			
+			$this->attributes->setDefault('x-model', function() {
+				return $this->form->isAlpineComponent()
+					? $this->getInputName()
+					: null;
 			});
 		}
 		

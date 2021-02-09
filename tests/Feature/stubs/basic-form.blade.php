@@ -28,10 +28,11 @@
 {{ Aire::checkbox('checkbox', 'Checkbox')
     ->id('checkbox') }}
 
-{{-- TODO: Radio buttons don't make any sense singularly, so implement as a group
-{{ Aire::radio('radio', 'Radio')
-    ->id('radio') }}
---}}
+{{ Aire::radioGroup(['a' => 'eh', 'b' => 'bee'], 'radio_group', 'Radio Group')
+    ->id('radio_group') }}
+
+{{ Aire::checkboxGroup(['a' => 'eh', 'b' => 'bee'], 'checkbox_group', 'Checkbox Group')
+    ->id('checkbox_group') }}
 
 {{ Aire::submit('Submit Button')->id('submit') }}
 
