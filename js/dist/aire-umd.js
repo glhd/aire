@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (global = global || self, factory(global.Aire = {}));
-}(this, (function (exports) { 'use strict';
+}(this, function (exports) { 'use strict';
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -29,10 +29,6 @@
   }
 
   function _iterableToArrayLimit(arr, i) {
-    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-      return;
-    }
-
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -146,7 +142,7 @@
     'customAttributes': {}
   };
   var configure = function configure(customConfig) {
-    config = customConfig;
+    config = customConfig; // Load in language messages if the locale is not the default english
 
     if (config.locale !== 'en') {
       Validator.setMessages(config.locale, require("./lang/".concat(config.locale)));
@@ -300,7 +296,8 @@
       clearTimeout(debounce);
       debounce = setTimeout(function () {
         var data = getData(form);
-        validator = new Validator(data, rules, messages);
+        validator = new Validator(data, rules, messages); // Let validator use the custom attribute names specified in the config
+
         validator.setAttributeNames(config.customAttributes); // Because some validators may run async, we'll store a reference
         // to the run "id" so that we can cancel the callbacks if another
         // validation started before the callbacks were fired
@@ -385,4 +382,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
