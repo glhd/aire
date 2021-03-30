@@ -11,7 +11,7 @@ class Select extends ElementComponent
 	use RequiresOptionsAttribute;
 	
 	public function __construct(
-		$options,
+		$options = null,
 		?bool $autoFocus = null,
 		?bool $disabled = null,
 		$form = null,
@@ -105,7 +105,7 @@ class Select extends ElementComponent
 		$groupAddClass = null,
 		$groupRemoveClass = null
 	) {
-		$this->options = $options;
+		$this->options = $options ?? [];
 		
 		$this->createElement(SelectElement::class, compact(
 			'autoFocus',

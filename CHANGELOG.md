@@ -6,6 +6,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.4.1] - 2021-03-30
+
+### Added
+
+- Added an `<x-aire::timezone-select />` component
+- Added a few missing annotations to the Aire facade
+
+### Changed
+
+- Updated the way the Blade component namespace is registered for better auto-complete
+
 ## [2.4.0] - 2021-01-22
 
 ### Added
@@ -16,5 +27,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.0...HEAD
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.1...HEAD
+[2.4.1]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/olivierlacan/keep-a-changelog/compare/2.3.4...2.4.0

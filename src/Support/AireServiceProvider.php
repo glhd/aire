@@ -4,7 +4,6 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\Form;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -125,7 +124,7 @@ class AireServiceProvider extends ServiceProvider
 	protected function bootBladeComponents() : self
 	{
 		if (version_compare($this->app->version(), '8.0.0', '>=')) {
-			$this->app['blade.compiler']->componentNamespace('Galahad\\Aire\\Components', 'aire');
+			Blade::componentNamespace('Galahad\\Aire\\Components', 'aire');
 		}
 		
 		return $this;

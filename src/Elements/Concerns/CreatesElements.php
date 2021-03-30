@@ -13,6 +13,7 @@ use Galahad\Aire\Elements\Select;
 use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
 use Galahad\Aire\Elements\Wysiwyg;
+use Galahad\Aire\Support\TimezonesCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -116,13 +117,7 @@ trait CreatesElements
 	 */
 	public function timezoneSelect($name = null, $label = null) : Select
 	{
-		$options = Collection::make(DateTimeZone::listIdentifiers())
-			->mapWithKeys(function($timezone) {
-				$label = str_replace(['/', '_'], [' - ', ' '], $timezone);
-				return [$timezone => $label];
-			});
-		
-		return $this->select($options, $name, $label);
+		return $this->select(new TimezonesCollection(), $name, $label);
 	}
 	
 	/**
