@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added `getBoundValue` annotation to facade
+
 ## [2.4.1] - 2021-03-30
 
 ### Added
