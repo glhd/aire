@@ -6,9 +6,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.4.2] - 2021-04-13
+
 ### Added
 
 - Added `getBoundValue` annotation to facade
+- Added `hidden` attribute to `_token` and `_method` hidden inputs for better Tailwind 2 compatibility
 
 ## [2.4.1] - 2021-03-30
 
@@ -31,6 +34,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.1...HEAD
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.2...HEAD
+[2.4.1]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/olivierlacan/keep-a-changelog/compare/2.3.4...2.4.0

@@ -3,11 +3,11 @@
 <form {{ $attributes }}>
 
 	@if(isset($_token) && 'GET' !== $method)
-		<input type="hidden" name="_token" value="{{ $_token }}" />
+		<input type="hidden" name="_token" value="{{ $_token }}" hidden />
 	@endif
 	
 	@isset($_method)
-		<input type="hidden" name="_method" value="{{ $_method }}" />
+		<input type="hidden" name="_method" value="{{ $_method }}" hidden />
 	@endisset
 	
 	{{ $fields }}
