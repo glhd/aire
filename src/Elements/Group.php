@@ -107,6 +107,13 @@ class Group extends Element implements NonInput
 		return $this;
 	}
 	
+	public function infoText(string $text) : self
+	{
+		$this->view_data['info_text'] = $text;
+		
+		return $this;
+	}
+	
 	public function validated($validation_state = self::VALIDATION_VALID) : self
 	{
 		$this->validation_state = $validation_state;
