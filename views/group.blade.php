@@ -20,7 +20,7 @@
 	<div class="{{ $prepend || $append ? 'flex' : '' }}">
 		@if($prepend)
 			<div {{ $attributes->prepend }}>
-				{{ $prepend }}
+				{!! $prepend !!}
 			</div>
 		@endif
 		
@@ -28,7 +28,7 @@
 			
 		@if($append)
 			<div {{ $attributes->append }}>
-				{{ $append }}
+				{!! $append !!}
 			</div>
 		@endif
 	</div>
