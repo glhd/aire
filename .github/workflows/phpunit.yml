@@ -62,7 +62,9 @@ jobs:
     runs-on: ubuntu-latest
     
     name: Publish code coverage
-    
+
+    needs: php-tests
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
