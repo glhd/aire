@@ -89,7 +89,7 @@ class Aire
 	/**
 	 * @var \Galahad\Aire\Elements\Form
 	 */
-	public $form;
+	protected $form;
 	
 	/**
 	 * @var array
@@ -251,6 +251,10 @@ class Aire
 	public function form($action = null, $bound_data = null) : Form
 	{
 		$this->form = call_user_func($this->form_resolver);
+		
+		$this->form->onClose(function() {
+			$this->form = null;
+		});
 		
 		if ($action) {
 			$this->form->action($action);

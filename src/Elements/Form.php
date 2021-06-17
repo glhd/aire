@@ -125,6 +125,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 */
 	protected $json_serializable_elements = [];
 	
+	/**
+	 * Called when the form is closed
+	 * 
+	 * @var callable
+	 */
+	protected $on_close;
+	
 	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
 	{
 		parent::__construct($aire);
@@ -360,7 +367,9 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
 		
-		$this->aire->form = null;
+		if (is_callable($this->on_close)) {
+			call_user_func($this->on_close, $this);
+		}
 		
 		return $this;
 	}
@@ -537,6 +546,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		if (is_callable([$request, 'messages'])) {
 			$this->messages($request->messages());
 		}
+		
+		return $this;
+	}
+	
+	public function onClose(callable $callback): self
+	{
+		$this->on_close = $callback;
 		
 		return $this;
 	}
