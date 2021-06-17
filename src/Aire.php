@@ -89,7 +89,7 @@ class Aire
 	/**
 	 * @var \Galahad\Aire\Elements\Form
 	 */
-	protected $form;
+	public $form;
 	
 	/**
 	 * @var array
@@ -288,9 +288,7 @@ class Aire
 			throw new BadMethodCallException('Trying to close a form before opening one.');
 		}
 		
-		$this->form->close();
-		
-		return $this->form;
+		return $this->form->close();
 	}
 	
 	/**

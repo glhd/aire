@@ -360,6 +360,8 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		$this->view_data['fields'] = new HtmlString(trim(ob_get_clean()));
 		$this->opened = false;
 		
+		$this->aire->form = null;
+		
 		return $this;
 	}
 	

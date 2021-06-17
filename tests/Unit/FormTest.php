@@ -125,12 +125,32 @@ class FormTest extends TestCase
 		$form->close();
 	}
 	
-	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form() : void
+	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_inline() : void
 	{
 		Route::get('/foo/bar')->name('demo-route');
 		
 		$form_1 = $this->aire()->route('demo-route')->setAttribute('title', 'foo-bar')->addClass('foo-class')->id('foobar-id')->close();
 		$form_2 = $this->aire()->route('demo-route')->close();
+		
+		$this->assertSelectorExists($form_1, 'form[id="foobar-id"]');
+		$this->assertSelectorExists($form_1, 'form[title="foo-bar"]');
+		$this->assertSelectorExists($form_1, 'form[class="foo-class"]');
+		
+		// Form 2 should not get the ID, Class or any other attributes from Form 1
+		$this->assertSelectorDoesNotExist($form_2, 'form[id="foobar-id"]');
+		$this->assertSelectorDoesNotExist($form_2, 'form[title="foo-bar"]');
+		$this->assertSelectorDoesNotExist($form_2, 'form[class="foo-class"]');
+	}
+	
+	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_double_line() : void
+	{
+		Route::get('/foo/bar')->name('demo-route');
+		
+		$this->aire()->route('demo-route')->setAttribute('title', 'foo-bar')->addClass('foo-class')->id('foobar-id');
+		$form_1 = $this->aire()->close();
+		
+		$this->aire()->route('demo-route');
+		$form_2 = $this->aire()->close();
 		
 		$this->assertSelectorExists($form_1, 'form[id="foobar-id"]');
 		$this->assertSelectorExists($form_1, 'form[title="foo-bar"]');
