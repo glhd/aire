@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-class DateTimeLocal extends Input
+class DatetimeLocal extends Input
 {
 	protected function createElement(string $element_class, array $parameters)
 	{
