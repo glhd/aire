@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed casing issue with "datetime" blade components
+- Fixed issue with multiple forms on one page when using implicit opens
+
 ## [2.4.2] - 2021-04-13
 
 ### Added
