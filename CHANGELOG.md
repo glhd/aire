@@ -41,8 +41,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.3...HEAD
-[2.4.3]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.2...2.4.3
-[2.4.2]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.1...2.4.2
-[2.4.1]: https://github.com/olivierlacan/keep-a-changelog/compare/2.4.0...2.4.1
-[2.4.0]: https://github.com/olivierlacan/keep-a-changelog/compare/2.3.4...2.4.0
+[Unreleased]: https://github.com/glhd/aire/compare/2.4.3...HEAD
+[2.4.3]: https://github.com/glhd/aire/compare/2.4.2...2.4.3
+[2.4.2]: https://github.com/glhd/aire/compare/2.4.1...2.4.2
+[2.4.1]: https://github.com/glhd/aire/compare/2.4.0...2.4.1
+[2.4.0]: https://github.com/glhd/aire/compare/2.3.4...2.4.0
