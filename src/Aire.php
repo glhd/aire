@@ -252,6 +252,10 @@ class Aire
 	{
 		$this->form = call_user_func($this->form_resolver);
 		
+		$this->form->onClose(function() {
+			$this->form = null;
+		});
+		
 		if ($action) {
 			$this->form->action($action);
 		}
@@ -288,9 +292,7 @@ class Aire
 			throw new BadMethodCallException('Trying to close a form before opening one.');
 		}
 		
-		$this->form->close();
-		
-		return $this->form;
+		return $this->form->close();
 	}
 	
 	/**
