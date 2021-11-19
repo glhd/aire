@@ -2,6 +2,7 @@ vendor/
 composer.phar
 composer.lock
 .phpunit.result.cache
+.php_cs.cache
 
 .DS_Store
 .idea/
