@@ -17,10 +17,10 @@ jobs:
         dependency-version: [lowest, stable]
         include:
           - laravel: ^7.0
-            testbench: ^5.0
+            testbench: ^5.20
             minimum-stability: stable
           - laravel: ^8.0
-            testbench: ^6.0
+            testbench: ^6.23
             minimum-stability: stable
           - laravel: dev-master
             testbench: dev-master
