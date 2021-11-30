@@ -21,12 +21,12 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.0",
+    "orchestra/testbench": "^6.23",
     "phpunit/phpunit": "^9.5",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0",
-    "symfony/css-selector": "^5.0",
-    "symfony/dom-crawler": "^5.0",
+    "symfony/css-selector": "^5.4",
+    "symfony/dom-crawler": "^5.4",
     "barryvdh/reflection-docblock": "^2.0",
     "mockery/mockery": "^1.4"
   },
