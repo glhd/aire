@@ -12,16 +12,22 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.4, 7.3]
-        laravel: [^8.0, ^7.0]
+        php: [7.4, 8.0, 8.1]
+        laravel: [^7.0, ^8.0, dev-master]
         dependency-version: [lowest, stable]
         include:
-          - laravel: ^8.0
-            testbench: ^6.0
-            minimum-stability: stable
           - laravel: ^7.0
             testbench: ^5.0
             minimum-stability: stable
+          - laravel: ^8.0
+            testbench: ^6.0
+            minimum-stability: stable
+          - laravel: dev-master
+            testbench: dev-master
+            minimum-stability: dev
+        exclude:
+          - laravel: dev-master
+            php: 7.4
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
