@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class CrawlerConstraint extends Constraint
 {
-	public function evaluate($other, string $description = '', bool $returnResult = false)
+	public function evaluate($other, string $description = '', bool $returnResult = false) : ?bool
 	{
 		try {
 			return parent::evaluate($other, $description, $returnResult);
