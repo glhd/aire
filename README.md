@@ -103,6 +103,9 @@ The above form is identical to:
 </x-aire::form>
 ```
 
+Please note that is _not_ possible to mix x-aire blade components with the classical method. Please use either
+the one or the other method inside a single form.
+
 ## Installation
 
 Install via composer with:
