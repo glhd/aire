@@ -122,6 +122,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $key
 	 * @return bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists($key) : bool
 	{
 		if (isset($this->items[$key])) {
@@ -141,6 +142,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $key
 	 * @return mixed|null
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($key)
 	{
 		$value = $this->items[$key] ?? null;
@@ -168,6 +170,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $key
 	 * @param mixed $value
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet($key, $value) : void
 	{
 		if ('class' === $key) {
@@ -182,6 +185,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @param mixed $key
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset($key) : void
 	{
 		unset($this->items[$key]);

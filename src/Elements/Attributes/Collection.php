@@ -124,6 +124,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * Defer array access to primary attributes
 	 * @inheritdoc
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists($key)
 	{
 		return $this->primary()->offsetExists($key);
@@ -133,6 +134,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * Defer array access to primary attributes
 	 * @inheritdoc
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($key)
 	{
 		return $this->primary()->offsetGet($key);
@@ -142,6 +144,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * Defer array access to primary attributes
 	 * @inheritdoc
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet($key, $value)
 	{
 		$this->primary()->offsetSet($key, $value);
@@ -151,6 +154,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * Defer array access to primary attributes
 	 * @inheritdoc
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset($key)
 	{
 		$this->primary()->offsetUnset($key);
