@@ -26,12 +26,10 @@ class OptionsCollection extends Collection
 	protected function getArrayableItems($items)
 	{
 		if (is_string($items) && is_subclass_of($items, '\\BenSampo\\Enum\\Enum')) {
-			if (method_exists($items, 'toSelectArray')) {
-				$items = forward_static_call([$items, 'toSelectArray']);
-			}
-			
 			if (method_exists($items, 'asSelectArray')) {
 				$items = forward_static_call([$items, 'asSelectArray']);
+			} elseif (method_exists($items, 'toSelectArray')) {
+				$items = forward_static_call([$items, 'toSelectArray']);
 			}
 		}
 		
