@@ -6,6 +6,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.4.5] - 2021-12-02
+
+### Fixed
+
+- Fixed bug with [laravel-enum](https://github.com/BenSampo/laravel-enum) integration
+
 ## [2.4.4] - 2021-11-30
 
 ### Fixed
@@ -47,7 +53,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.4.4...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.4.5...HEAD
+[2.4.5]: https://github.com/glhd/aire/compare/2.4.4...2.4.5
 [2.4.4]: https://github.com/glhd/aire/compare/2.4.3...2.4.4
 [2.4.3]: https://github.com/glhd/aire/compare/2.4.2...2.4.3
 [2.4.2]: https://github.com/glhd/aire/compare/2.4.1...2.4.2
