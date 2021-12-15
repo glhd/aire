@@ -112,14 +112,23 @@ class ClientValidation implements Htmlable, NonInput
 				$config_js
 			";
 		}
+
 		// @codeCoverageIgnoreEnd
+
+		// Load in custom validation language if specified in config
+		$lang_script = '';
+		if ($this->aire->config('validation_lang_path', null) !== null) {
+			$lang_script = '<script defer src="'.$this->aire->config('validation_lang_path').'"></script>';
+		}
 		
 		if ($this->aire->config('inline_validation', true)) {
 			$aire_src = file_get_contents(__DIR__.'/../../js/dist/aire.min.js');
-			return "<script defer>\n{$aire_src}\n</script>\n{$config_js}";
+			return "<script defer>\n{$aire_src}\n</script>\n{$config_js}\n{$lang_script}";
 		}
 		
-		return '<script defer src="'.$this->aire->config('validation_script_path').'"></script>'.$config_js;
+		return '<script defer src="' . $this->aire->config('validation_script_path') . '"></script>'
+			. $config_js
+			. $lang_script;
 	}
 	
 	protected function config() : array
@@ -135,7 +144,9 @@ class ClientValidation implements Htmlable, NonInput
 					'suffix' => trim($error_suffix),
 				],
 			],
-			'classnames' => $this->aire->config('validation_classes', []),
+			'classnames'       => $this->aire->config('validation_classes', []),
+			'locale'           => $this->aire->config('validation_lang_locale', 'en'),
+			'customAttributes' => $this->aire->config('validation_custom_attributes', []),
 		];
 	}
 }

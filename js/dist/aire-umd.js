@@ -121,7 +121,6 @@
       Validator.registerMissedRuleValidator(function () {
         return true;
       }, '');
-      Validator.useLang('en'); // TODO: Make configurable
     }
 
     booted = true;
@@ -138,10 +137,18 @@
       'none': {},
       'valid': {},
       'invalid': {}
-    }
+    },
+    'locale': 'en',
+    'customAttributes': {}
   };
   var configure = function configure(customConfig) {
-    config = customConfig;
+    config = customConfig; // Load in language messages if the locale is not the default english
+
+    if (config.locale !== 'en') {
+      Validator.setMessages(config.locale, require("./lang/".concat(config.locale)));
+    }
+
+    Validator.useLang(config.locale);
   }; // FIXME: This still needs major perf work
 
   var defaultRenderer = function defaultRenderer(_ref) {
@@ -289,7 +296,9 @@
       clearTimeout(debounce);
       debounce = setTimeout(function () {
         var data = getData(form);
-        validator = new Validator(data, rules, messages); // Because some validators may run async, we'll store a reference
+        validator = new Validator(data, rules, messages); // Let validator use the custom attribute names specified in the config
+
+        validator.setAttributeNames(config.customAttributes); // Because some validators may run async, we'll store a reference
         // to the run "id" so that we can cancel the callbacks if another
         // validation started before the callbacks were fired
 
