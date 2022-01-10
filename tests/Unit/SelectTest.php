@@ -85,6 +85,29 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
 	}
 	
+	public function test_opt_groups_render_properly_along_side_regular_select_options() : void
+	{
+		$options = [
+			'Language' => [
+				'php' => 'PHP',
+				'js' => 'JavaScript',
+			],
+			1 => 'Philip Roth',
+		];
+		
+		$html = $this->aire()->select($options)->render();
+		
+		$this->assertSelectorAttribute($html, 'select > optgroup', 'label', 'Language');
+
+		$this->assertSelectorTextEquals($html, 'select > optgroup > option:nth-of-type(1)', 'PHP');
+		$this->assertSelectorAttribute($html, 'select > optgroup > option:nth-of-type(1)', 'value', 'php');
+
+		$this->assertSelectorTextEquals($html, 'select > optgroup > option:nth-of-type(2)', 'JavaScript');
+		$this->assertSelectorAttribute($html, 'select > optgroup > option:nth-of-type(2)', 'value', 'js');
+
+		$this->assertSelectorTextEquals($html, 'select > option[value="1"]', 'Philip Roth');
+	}
+	
 	public function test_an_enum_class_name_will_be_converted_to_a_selectable_array() : void
 	{
 		if (!class_exists('BenSampo\Enum\Enum')) {

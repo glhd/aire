@@ -11,9 +11,25 @@
 	
 	@foreach($options->getOptions() as $value => $label)
 		
-		<option value="{{ $value }}" {{ $attributes->isValue($value) ? 'selected' : '' }}>
-			{{ $label }}
-		</option>
+		@if(is_array($label))
+			
+			<optgroup label="{{ $value }}">
+				
+				@foreach($label as $value => $nestedLabel)
+					<option value="{{ $value }}" {{ $attributes->isValue($value) ? 'selected' : '' }}>
+						{{ $nestedLabel }}
+					</option>
+				@endforeach
+			
+			</optgroup>
+		
+		@else
+			
+			<option value="{{ $value }}" {{ $attributes->isValue($value) ? 'selected' : '' }}>
+				{{ $label }}
+			</option>
+		
+		@endif
 	
 	@endforeach
 
