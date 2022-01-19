@@ -54,6 +54,7 @@ class ValidationTest extends TestCase
 		$this->app['config']->set('aire.validation_script_path', $script_path);
 		
 		$form = $this->aire()->form()->rules($rules);
+		$form = $form->render();
 		
 		$this->assertSelectorAttribute($form, 'script:nth-of-type(1)', 'src', $script_path);
 		$this->assertSelectorContainsText($form, 'script:nth-of-type(3)', 'Aire.connect');
