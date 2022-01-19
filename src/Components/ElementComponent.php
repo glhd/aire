@@ -48,7 +48,7 @@ abstract class ElementComponent extends Component
 				return null === $arguments; 
 			})
 			->each(function($arguments, $name) {
-				$arguments = Arr::wrap($arguments);
+				$arguments = Arr::wrap([$arguments]);
 				$this->element->{$name}(...$arguments);
 			});
 	}

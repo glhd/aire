@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
+use Galahad\Aire\Elements\ClientValidation;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
@@ -46,14 +47,17 @@ class ValidationTest extends TestCase
 		$rules = ['foo' => 'required'];
 		$script_path = Str::random().'.js';
 		
+		// Reset Aire - Test fails when running complete suite
+		ClientValidation::$aire_loaded = false;
+
 		$this->app['config']->set('aire.inline_validation', false);
 		$this->app['config']->set('aire.validation_script_path', $script_path);
 		
 		$form = $this->aire()->form()->rules($rules);
 		
-		$this->assertSelectorAttribute($form, 'script', 'src', $script_path);
-		$this->assertSelectorContainsText($form, 'script', 'Aire.connect');
-		$this->assertSelectorContainsText($form, 'script', json_encode($rules));
+		$this->assertSelectorAttribute($form, 'script:nth-of-type(1)', 'src', $script_path);
+		$this->assertSelectorContainsText($form, 'script:nth-of-type(3)', 'Aire.connect');
+		$this->assertSelectorContainsText($form, 'script:nth-of-type(3)', json_encode($rules));
 	}
 	
 	public function test_client_side_validation_can_be_disabled_explicity() : void

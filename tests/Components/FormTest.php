@@ -310,5 +310,16 @@ class FormTest extends ComponentTestCase
 		$form = $this->renderBlade('<x-aire::form :target="null" />');
 		$this->assertSelectorAttributeMissing($form, 'form', 'target');
 	}
+
+    public function test_form_component_supports_rules()
+    {
+        $rules = [
+            'name' => 'required',
+        ];
+
+        $form = $this->renderBlade('<x-aire::form :rules="$rules"/>', compact('rules'));
+
+        $this->assertSelectorContainsText($form, 'script:nth-of-type(3)', json_encode($rules));
+    }
 	
 }

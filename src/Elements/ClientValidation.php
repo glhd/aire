@@ -15,7 +15,7 @@ class ClientValidation implements Htmlable, NonInput
 	 *
 	 * @var bool
 	 */
-	protected static $aire_loaded = false;
+	public static $aire_loaded = false;
 	
 	/**
 	 * @var \Galahad\Aire\Aire
