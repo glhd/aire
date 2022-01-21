@@ -24,7 +24,6 @@ jobs:
             minimum-stability: stable
           - laravel: ^9.0
             testbench: ^7.0
-            minimum-stability: stable
           - laravel: dev-master
             testbench: dev-master
             minimum-stability: dev
