@@ -20,11 +20,8 @@ jobs:
           - laravel: ^9.0
             testbench: ^7.0
             minimum-stability: stable
-          - laravel: dev-master
-            testbench: dev-master
-            minimum-stability: dev
         exclude:
-          - laravel: dev-master
+          - laravel: ^9.0
             php: 7.4
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
