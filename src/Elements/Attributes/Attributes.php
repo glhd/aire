@@ -47,17 +47,19 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * be called. This provides an opportunity to mutate or calculate the value
 	 * of the attribute based on outside data (for example, data binding).
 	 *
-	 * @param string $attribute
+	 * @param string|string[] $attributes
 	 * @param callable $mutator
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function registerMutator(string $attribute, callable $mutator) : self
+	public function registerMutator($attributes, callable $mutator) : self
 	{
-		if (!isset($this->mutators[$attribute])) {
-			$this->mutators[$attribute] = [];
+		foreach((array) $attributes as $attribute) {
+			if (!isset($this->mutators[$attribute])) {
+				$this->mutators[$attribute] = [];
+			}
+			
+			$this->mutators[$attribute][] = $mutator;
 		}
-		
-		$this->mutators[$attribute][] = $mutator;
 		
 		return $this;
 	}
