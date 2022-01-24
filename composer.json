@@ -21,7 +21,7 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.23|~7.0",
+    "orchestra/testbench": "^6.23|^7.0",
     "phpunit/phpunit": "^9.5",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0|~7.0",
