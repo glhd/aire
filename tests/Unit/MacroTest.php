@@ -3,13 +3,12 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Elements\Element;
-use Galahad\Aire\Elements\Input;
 use Galahad\Aire\Tests\TestCase;
 use Illuminate\Support\Str;
 
 class MacroTest extends TestCase
 {
-	public function test_macros_are_applied() : void
+	public function test_macros_are_applied(): void
 	{
 		$test_value = Str::random();
 		
@@ -22,7 +21,7 @@ class MacroTest extends TestCase
 		$this->assertSelectorAttribute($this->aire()->input()->macroTest(), 'input', 'x:macro-test', $test_value);
 	}
 	
-	public function test_group_methods_are_applied_instead_of_macros() : void
+	public function test_group_methods_are_applied_instead_of_macros(): void
 	{
 		$test_class = Str::random();
 		

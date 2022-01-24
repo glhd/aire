@@ -108,7 +108,7 @@ class AireServiceProvider extends ServiceProvider
 	 *
 	 * @return $this
 	 */
-	protected function bootViews() : self
+	protected function bootViews(): self
 	{
 		$this->loadViewsFrom($this->view_directory, 'aire');
 		
@@ -121,7 +121,7 @@ class AireServiceProvider extends ServiceProvider
 		return $this;
 	}
 	
-	protected function bootBladeComponents() : self
+	protected function bootBladeComponents(): self
 	{
 		if (version_compare($this->app->version(), '8.0.0', '>=')) {
 			Blade::componentNamespace('Galahad\\Aire\\Components', 'aire');
@@ -135,7 +135,7 @@ class AireServiceProvider extends ServiceProvider
 	 *
 	 * @return \Galahad\Aire\Support\AireServiceProvider
 	 */
-	protected function bootConfig() : self
+	protected function bootConfig(): self
 	{
 		if (method_exists($this->app, 'configPath')) {
 			$this->publishes([
@@ -151,7 +151,7 @@ class AireServiceProvider extends ServiceProvider
 	 *
 	 * @return \Galahad\Aire\Support\AireServiceProvider
 	 */
-	protected function bootTranslations() : self
+	protected function bootTranslations(): self
 	{
 		$this->loadTranslationsFrom($this->translations_directory, 'aire');
 		
@@ -169,7 +169,7 @@ class AireServiceProvider extends ServiceProvider
 	 *
 	 * @return \Galahad\Aire\Support\AireServiceProvider
 	 */
-	protected function bootPublicAssets() : self
+	protected function bootPublicAssets(): self
 	{
 		if (method_exists($this->app, 'publicPath')) {
 			$this->publishes([

@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 abstract class InputTypeTestCase extends ComponentTestCase
 {
-	public function test_it_sets_input_type() : void
+	public function test_it_sets_input_type(): void
 	{
 		$type = $this->inputType();
 		$input = $this->renderBlade('<x-aire::'.$type.' />');

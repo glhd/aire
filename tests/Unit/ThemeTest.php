@@ -4,7 +4,6 @@ namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Tests\TestCase;
-use Illuminate\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -12,7 +11,7 @@ use Mockery;
 
 class ThemeTest extends TestCase
 {
-	public function test_a_theme_can_be_set() : void
+	public function test_a_theme_can_be_set(): void
 	{
 		$factory_mock = Mockery::mock(Factory::class);
 		$view_mock = Mockery::mock(View::class);
@@ -42,7 +41,7 @@ class ThemeTest extends TestCase
 		$this->assertEquals('hello world', $result);
 	}
 	
-	public function test_themes_can_override_defaults_but_not_user_config() : void
+	public function test_themes_can_override_defaults_but_not_user_config(): void
 	{
 		// Set up Aire with user config overrides
 		$aire = new Aire(

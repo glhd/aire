@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\DTD;
@@ -35,7 +34,6 @@ use Galahad\Aire\Elements\Element;
 /**
  * Used to define an item contained in a select, an optgroup, or a
  * datalist element.
- *
  */
 class Option extends Element
 {
@@ -92,5 +90,4 @@ class Option extends Element
 		
 		return $this;
 	}
-	
 }

@@ -9,7 +9,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class AttributeCollectionTest extends TestCase
 {
-	public function test_it_defers_to_primary_attributes_by_default() : void
+	public function test_it_defers_to_primary_attributes_by_default(): void
 	{
 		$collection = new Collection($this->aire(), new Input($this->aire()));
 		
@@ -18,7 +18,7 @@ class AttributeCollectionTest extends TestCase
 		$this->assertEquals('bar', $collection->get('foo'));
 	}
 	
-	public function test_it_instantiates_attributes_lazily() : void
+	public function test_it_instantiates_attributes_lazily(): void
 	{
 		$collection = new Collection($this->aire(), new Input($this->aire()));
 		

@@ -49,14 +49,14 @@ class Checkbox extends Input implements HasJsonValue
 		return $this->attributes->get('checked');
 	}
 	
-	public function label($text) : self
+	public function label($text): self
 	{
 		$this->view_data['label_text'] = $text;
 		
 		return $this;
 	}
 	
-	public function labelHtml($html) : self
+	public function labelHtml($html): self
 	{
 		return $this->label(new HtmlString($html));
 	}
@@ -70,7 +70,7 @@ class Checkbox extends Input implements HasJsonValue
 		return parent::name($value);
 	}
 	
-	public function defaultChecked(bool $default_checked = true) : self
+	public function defaultChecked(bool $default_checked = true): self
 	{
 		$this->attributes->setDefault('checked', $default_checked);
 		

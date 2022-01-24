@@ -14,12 +14,12 @@ class SelectorDoesNotExist extends CrawlerConstraint
 		$this->selector = $selector;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		return "selector '{$this->selector}' does not exist";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		return 0 === $this->crawl($html)->filter($this->selector)->count();
 	}

@@ -10,7 +10,7 @@ use Illuminate\Support\ViewErrorBag;
 
 class ValidationTest extends TestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		
@@ -21,7 +21,7 @@ class ValidationTest extends TestCase
 		$config->set('aire.validation_classes.invalid.input', 'is-invalid');
 	}
 	
-	public function test_a_group_with_errors_is_marked_as_invalid() : void
+	public function test_a_group_with_errors_is_marked_as_invalid(): void
 	{
 		$errors = new ViewErrorBag();
 		$errors->put('default', new MessageBag([
@@ -41,7 +41,7 @@ class ValidationTest extends TestCase
 		$this->assertSelectorMissingText($input, 'ul li', 'Unexpected error');
 	}
 	
-	public function test_adding_rules_enables_client_side_validation() : void
+	public function test_adding_rules_enables_client_side_validation(): void
 	{
 		$rules = ['foo' => 'required'];
 		$script_path = Str::random().'.js';
@@ -56,7 +56,7 @@ class ValidationTest extends TestCase
 		$this->assertSelectorContainsText($form, 'script', json_encode($rules));
 	}
 	
-	public function test_client_side_validation_can_be_disabled_explicity() : void
+	public function test_client_side_validation_can_be_disabled_explicity(): void
 	{
 		$form = $this->aire()->form()->rules(['foo' => 'required'])->withoutValidation();
 		

@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\DTD;
@@ -35,7 +34,7 @@ use Illuminate\Support\Str;
 
 class GlobalAttributesTest extends TestCase
 {
-	public function test_access_key_attribute_can_be_set_and_unset() : void
+	public function test_access_key_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -48,7 +47,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'accesskey');
 	}
 	
-	public function test_class_attribute_can_be_set() : void
+	public function test_class_attribute_can_be_set(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -58,7 +57,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttribute($form, 'form', 'class', $value);
 	}
 	
-	public function test_content_editable_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_content_editable_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -72,7 +71,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'contenteditable');
 	}
 	
-	public function test_context_menu_attribute_can_be_set_and_unset() : void
+	public function test_context_menu_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -85,7 +84,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'contextmenu');
 	}
 	
-	public function test_dir_attribute_can_be_set_and_unset() : void
+	public function test_dir_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -99,7 +98,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'dir');
 	}
 	
-	public function test_draggable_attribute_can_be_set_and_unset() : void
+	public function test_draggable_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -116,7 +115,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'draggable');
 	}
 	
-	public function test_drop_zone_attribute_can_be_set_and_unset() : void
+	public function test_drop_zone_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -133,7 +132,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'dropzone');
 	}
 	
-	public function test_hidden_flag_can_be_set_on_and_off() : void
+	public function test_hidden_flag_can_be_set_on_and_off(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -144,7 +143,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'hidden');
 	}
 	
-	public function test_id_attribute_can_be_set_and_unset() : void
+	public function test_id_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -157,7 +156,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'id');
 	}
 	
-	public function test_lang_attribute_can_be_set_and_unset() : void
+	public function test_lang_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -600,7 +599,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'lang');
 	}
 	
-	public function test_role_attribute_can_be_set_and_unset() : void
+	public function test_role_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -791,7 +790,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'role');
 	}
 	
-	public function test_spell_check_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_spell_check_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -805,7 +804,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'spellcheck');
 	}
 	
-	public function test_style_attribute_can_be_set_and_unset() : void
+	public function test_style_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -818,7 +817,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'style');
 	}
 	
-	public function test_tab_index_attribute_can_be_set_and_unset() : void
+	public function test_tab_index_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -831,7 +830,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'tabindex');
 	}
 	
-	public function test_title_attribute_can_be_set_and_unset() : void
+	public function test_title_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -844,7 +843,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'title');
 	}
 	
-	public function test_aria_active_descendant_attribute_can_be_set_and_unset() : void
+	public function test_aria_active_descendant_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -857,7 +856,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-activedescendant');
 	}
 	
-	public function test_aria_atomic_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_aria_atomic_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -871,7 +870,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-atomic');
 	}
 	
-	public function test_aria_busy_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_aria_busy_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -885,7 +884,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-busy');
 	}
 	
-	public function test_aria_controls_attribute_can_be_set_and_unset() : void
+	public function test_aria_controls_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -898,7 +897,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-controls');
 	}
 	
-	public function test_aria_described_by_attribute_can_be_set_and_unset() : void
+	public function test_aria_described_by_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -911,7 +910,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-describedby');
 	}
 	
-	public function test_aria_disabled_attribute_can_be_set_and_unset() : void
+	public function test_aria_disabled_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -925,7 +924,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-disabled');
 	}
 	
-	public function test_aria_drop_effect_attribute_can_be_set_and_unset() : void
+	public function test_aria_drop_effect_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -951,7 +950,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-dropeffect');
 	}
 	
-	public function test_aria_flow_to_attribute_can_be_set_and_unset() : void
+	public function test_aria_flow_to_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -964,7 +963,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-flowto');
 	}
 	
-	public function test_aria_grabbed_attribute_can_be_set_and_unset() : void
+	public function test_aria_grabbed_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -981,7 +980,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-grabbed');
 	}
 	
-	public function test_aria_has_popup_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_aria_has_popup_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -995,7 +994,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-haspopup');
 	}
 	
-	public function test_aria_hidden_boolean_can_be_set_to_true_and_false_and_be_unset() : void
+	public function test_aria_hidden_boolean_can_be_set_to_true_and_false_and_be_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1009,7 +1008,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-hidden');
 	}
 	
-	public function test_aria_invalid_attribute_can_be_set_and_unset() : void
+	public function test_aria_invalid_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1029,7 +1028,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-invalid');
 	}
 	
-	public function test_aria_label_attribute_can_be_set_and_unset() : void
+	public function test_aria_label_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1042,7 +1041,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-label');
 	}
 	
-	public function test_aria_labelled_by_attribute_can_be_set_and_unset() : void
+	public function test_aria_labelled_by_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1055,7 +1054,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-labelledby');
 	}
 	
-	public function test_aria_live_attribute_can_be_set_and_unset() : void
+	public function test_aria_live_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1072,7 +1071,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-live');
 	}
 	
-	public function test_aria_owns_attribute_can_be_set_and_unset() : void
+	public function test_aria_owns_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1085,7 +1084,7 @@ class GlobalAttributesTest extends TestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-owns');
 	}
 	
-	public function test_aria_relevant_attribute_can_be_set_and_unset() : void
+	public function test_aria_relevant_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->aire()->form();
 		
@@ -1107,5 +1106,4 @@ class GlobalAttributesTest extends TestCase
 		$form->ariaRelevant(null);
 		$this->assertSelectorAttributeMissing($form, 'form', 'aria-relevant');
 	}
-	
 }

@@ -5,7 +5,6 @@ namespace Galahad\Aire\Elements;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\NonInput;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Crypt;
 
 class ClientValidation implements Htmlable, NonInput
@@ -57,12 +56,12 @@ class ClientValidation implements Htmlable, NonInput
 		$this->dev_mode = $dev_mode;
 	}
 	
-	public function toHtml() : string
+	public function toHtml(): string
 	{
 		return $this->aireHtml().$this->formHtml();
 	}
 	
-	protected function formHtml() : string
+	protected function formHtml(): string
 	{
 		$rules = json_encode($this->rules);
 		$messages = json_encode($this->messages);
@@ -82,7 +81,7 @@ class ClientValidation implements Htmlable, NonInput
 		";
 	}
 	
-	protected function aireHtml() : string
+	protected function aireHtml(): string
 	{
 		if (static::$aire_loaded) {
 			return '';
@@ -122,7 +121,7 @@ class ClientValidation implements Htmlable, NonInput
 		return '<script defer src="'.$this->aire->config('validation_script_path').'"></script>'.$config_js;
 	}
 	
-	protected function config() : array
+	protected function config(): array
 	{
 		$placeholder = '__AIRE_ERROR_PLACEHOLDER__';
 		$html = $this->aire->render('_error', ['error' => $placeholder]);

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SelectableModelTest extends TestCase
 {
-	public function test_a_selectable_model_can_be_used_as_a_select_option() : void
+	public function test_a_selectable_model_can_be_used_as_a_select_option(): void
 	{
 		$collection = collect([
 			new XSelectableModelStub(['id' => 1, 'name' => 'Model One']),
@@ -24,7 +24,7 @@ class SelectableModelTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Model Two');
 	}
 	
-	public function test_a_selectable_model_can_be_used_as_a_radio_group_option() : void
+	public function test_a_selectable_model_can_be_used_as_a_radio_group_option(): void
 	{
 		$collection = collect([
 			new XSelectableModelStub(['id' => 1, 'name' => 'Model One']),
@@ -37,7 +37,7 @@ class SelectableModelTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'input[value="2"] + span', 'Model Two');
 	}
 	
-	public function test_a_selectable_model_can_be_used_as_a_checkbox_group_option() : void
+	public function test_a_selectable_model_can_be_used_as_a_checkbox_group_option(): void
 	{
 		$collection = collect([
 			new XSelectableModelStub(['id' => 1, 'name' => 'Model One']),

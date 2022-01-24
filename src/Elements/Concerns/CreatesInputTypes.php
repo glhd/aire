@@ -6,7 +6,7 @@ use Galahad\Aire\Elements\Input;
 
 trait CreatesInputTypes
 {
-	abstract public function input($name = null, $label = null, $type = null) : Input;
+	abstract public function input($name = null, $label = null, $type = null): Input;
 	
 	/**
 	 * Create <input type="hidden"> element
@@ -15,7 +15,7 @@ trait CreatesInputTypes
 	 * @param mixed $value
 	 * @return \Galahad\Aire\Elements\Input
 	 */
-	public function hidden($name = null, $value = null) : Input
+	public function hidden($name = null, $value = null): Input
 	{
 		$input = $this->input($name);
 		
@@ -28,7 +28,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function color($name = null, $label = null) : Input
+	public function color($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -37,7 +37,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function date($name = null, $label = null) : Input
+	public function date($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -46,7 +46,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function dateTime($name = null, $label = null) : Input
+	public function dateTime($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -55,7 +55,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function dateTimeLocal($name = null, $label = null) : Input
+	public function dateTimeLocal($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -64,7 +64,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function email($name = null, $label = null) : Input
+	public function email($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -73,7 +73,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function file($name = null, $label = null) : Input
+	public function file($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -82,7 +82,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function image($name = null, $label = null) : Input
+	public function image($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -91,7 +91,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function month($name = null, $label = null) : Input
+	public function month($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -100,7 +100,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function number($name = null, $label = null) : Input
+	public function number($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -109,7 +109,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function password($name = null, $label = null) : Input
+	public function password($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -118,7 +118,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function range($name = null, $label = null, $min = 0, $max = 100) : Input
+	public function range($name = null, $label = null, $min = 0, $max = 100): Input
 	{
 		return $this->input($name, $label)
 			->type('range')
@@ -126,7 +126,7 @@ trait CreatesInputTypes
 			->max($max);
 	}
 	
-	public function search($name = null, $label = null) : Input
+	public function search($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -135,7 +135,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function tel($name = null, $label = null) : Input
+	public function tel($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -144,7 +144,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function time($name = null, $label = null) : Input
+	public function time($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -153,7 +153,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function url($name = null, $label = null) : Input
+	public function url($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		
@@ -162,7 +162,7 @@ trait CreatesInputTypes
 		return $input;
 	}
 	
-	public function week($name = null, $label = null) : Input
+	public function week($name = null, $label = null): Input
 	{
 		$input = $this->input($name, $label);
 		

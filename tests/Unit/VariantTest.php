@@ -7,7 +7,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class VariantTest extends TestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		
@@ -19,12 +19,12 @@ class VariantTest extends TestCase
 		$config->set('aire.variant_classes.input.lg', 'input-lg');
 	}
 	
-	public function test_the_default_variant_is_used_by_default_if_it_exists() : void
+	public function test_the_default_variant_is_used_by_default_if_it_exists(): void
 	{
 		$this->assertSelectorClassNames($this->aire()->input(), 'input', ['input', 'input-default']);
 	}
 	
-	public function test_a_variant_overrides_the_default_variant_but_not_default_classes() : void
+	public function test_a_variant_overrides_the_default_variant_but_not_default_classes(): void
 	{
 		$small_input = $this->aire()->input()->variant('sm');
 		$large_input = $this->aire()->input()->variant('lg');
@@ -36,7 +36,7 @@ class VariantTest extends TestCase
 		$this->assertSelectorMissingClassNames($large_input, 'input', ['input-sm']);
 	}
 	
-	public function test_variants_that_are_not_configured_are_ignored() : void
+	public function test_variants_that_are_not_configured_are_ignored(): void
 	{
 		$input = $this->aire()->input()->variant('more cowbell');
 		
@@ -49,7 +49,7 @@ class VariantTest extends TestCase
 		$this->assertSelectorMissingClassNames($input, 'input', ['input-sm', 'input-lg']);
 	}
 	
-	public function test_variants_can_be_set_fluently() : void
+	public function test_variants_can_be_set_fluently(): void
 	{
 		$small_input = $this->aire()->input()->variant()->sm();
 		$large_input = $this->aire()->input()->variant()->lg();
@@ -64,7 +64,7 @@ class VariantTest extends TestCase
 		$this->assertSelectorMissingClassNames($large_input, 'input', 'input-sm');
 	}
 	
-	public function test_variants_are_applied_to_all_attributes_in_the_element() : void
+	public function test_variants_are_applied_to_all_attributes_in_the_element(): void
 	{
 		$this->app['config']->set('aire.variant_classes.group.sm', 'group-sm');
 		$this->app['config']->set('aire.variant_classes.group_help_text.sm', 'help-text-sm');
@@ -77,7 +77,7 @@ class VariantTest extends TestCase
 		$this->assertSelectorClassNames($input, '[data-aire-component=help_text]', 'help-text-sm');
 	}
 	
-	public function test_variants_can_be_combined() : void
+	public function test_variants_can_be_combined(): void
 	{
 		$input = $this->aire()->input()->variant(['default', 'sm']);
 		
@@ -90,7 +90,7 @@ class VariantTest extends TestCase
 		$this->assertSelectorMissingClassNames($input, 'input', 'input-lg');
 	}
 	
-	public function test_variants_can_be_combined_and_partially_merged() : void
+	public function test_variants_can_be_combined_and_partially_merged(): void
 	{
 		$config = $this->app['config'];
 		

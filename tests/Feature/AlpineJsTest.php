@@ -3,13 +3,12 @@
 namespace Galahad\Aire\Tests\Feature;
 
 use Galahad\Aire\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\DomCrawler\Crawler;
 
 class AlpineJsTest extends TestCase
 {
-	public function test_alpine_js_integration() : void
+	public function test_alpine_js_integration(): void
 	{
 		$expected_x_data = [
 			'generic_input' => 'foo',
@@ -78,7 +77,7 @@ class AlpineJsTest extends TestCase
 		$this->assertJsonStringEqualsJsonString(json_encode($expected_x_data), $data);
 	}
 	
-	public function test_explicit_x_data() : void
+	public function test_explicit_x_data(): void
 	{
 		$expected_x_data = [
 			'bound' => 'foo',

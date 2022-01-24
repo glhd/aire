@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class ClassNamesTest extends TestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		
@@ -19,7 +19,7 @@ class ClassNamesTest extends TestCase
 		$config->set('aire.validation_classes.invalid.input', 'is-invalid');
 	}
 	
-	public function test_class_names_can_export_a_final_list_of_classes() : void
+	public function test_class_names_can_export_a_final_list_of_classes(): void
 	{
 		$class_names = $this->aire()->input()->valid()->attributes->primary()->class;
 		
@@ -33,7 +33,7 @@ class ClassNamesTest extends TestCase
 		], $class_names->all()));
 	}
 	
-	public function test_the_has_method_includes_validation_and_respects_removals() : void
+	public function test_the_has_method_includes_validation_and_respects_removals(): void
 	{
 		$class_names = $this->aire()->input()->valid()->attributes->primary()->class;
 		
@@ -49,14 +49,14 @@ class ClassNamesTest extends TestCase
 		$this->assertFalse($class_names->has(Str::random()));
 	}
 	
-	public function test_default_classes_are_applied_by_default() : void
+	public function test_default_classes_are_applied_by_default(): void
 	{
 		$input = $this->aire()->input();
 		
 		$this->assertSelectorClassNames($input, 'input', 'input-default');
 	}
 	
-	public function test_no_validation_classes_are_applied_when_field_is_not_validated() : void
+	public function test_no_validation_classes_are_applied_when_field_is_not_validated(): void
 	{
 		$input = $this->aire()->input();
 		
@@ -65,7 +65,7 @@ class ClassNamesTest extends TestCase
 		$this->assertSelectorMissingClassNames($input, 'input', 'is-invalid');
 	}
 	
-	public function test_valid_classes_are_applied_when_field_is_valid() : void
+	public function test_valid_classes_are_applied_when_field_is_valid(): void
 	{
 		$input = $this->aire()->input()->valid();
 		
@@ -74,7 +74,7 @@ class ClassNamesTest extends TestCase
 		$this->assertSelectorMissingClassNames($input, 'input', 'is-invalid');
 	}
 	
-	public function test_invalid_classes_are_applied_when_field_is_invalid() : void
+	public function test_invalid_classes_are_applied_when_field_is_invalid(): void
 	{
 		$input = $this->aire()->input()->invalid();
 		

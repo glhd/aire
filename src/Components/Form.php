@@ -162,7 +162,7 @@ class Form extends ElementComponent
 		};
 	}
 	
-	protected function getElementInstance(string $element_class) : Element
+	protected function getElementInstance(string $element_class): Element
 	{
 		return Aire::getFacadeRoot()->form();
 	}

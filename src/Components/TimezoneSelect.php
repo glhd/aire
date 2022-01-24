@@ -7,7 +7,7 @@ use Galahad\Aire\Support\TimezonesCollection;
 
 class TimezoneSelect extends Select
 {
-	protected function getElementInstance(string $element_class) : Element
+	protected function getElementInstance(string $element_class): Element
 	{
 		$this->options = new TimezonesCollection();
 		

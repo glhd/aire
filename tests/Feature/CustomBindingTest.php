@@ -30,7 +30,7 @@ class XCustomBindingModel extends Model implements BindsToForm
 	
 	protected $table = 'users';
 	
-	public function getAireFormData() : array
+	public function getAireFormData(): array
 	{
 		return ['a' => 'foo', 'b' => 'bar'];
 	}

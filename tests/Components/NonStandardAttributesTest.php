@@ -4,7 +4,7 @@ namespace Galahad\Aire\Tests\Components;
 
 class NonStandardAttributesTest extends ComponentTestCase
 {
-	public function test_alpine_style_attributes() : void
+	public function test_alpine_style_attributes(): void
 	{
 		$blade = '
 			<x-aire::form 
@@ -41,7 +41,7 @@ class NonStandardAttributesTest extends ComponentTestCase
 		$this->assertStringContainsString('@click.away="open = false"', $form);
 	}
 	
-	public function test_livewire_style_attributes() : void
+	public function test_livewire_style_attributes(): void
 	{
 		$blade = '
 			<x-aire::form 

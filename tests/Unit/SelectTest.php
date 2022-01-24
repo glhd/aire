@@ -7,7 +7,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class SelectTest extends TestCase
 {
-	public function test_an_associative_array_maps_to_value_and_label() : void
+	public function test_an_associative_array_maps_to_value_and_label(): void
 	{
 		$options = [
 			'coates' => 'Ta-Nehisi Coates',
@@ -22,7 +22,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="patchett"]', 'Ann Patchett');
 	}
 	
-	public function test_a_zero_index_non_associative_array_maps_value_index() : void
+	public function test_a_zero_index_non_associative_array_maps_value_index(): void
 	{
 		$options = [
 			0 => 'Ta-Nehisi Coates',
@@ -37,7 +37,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
 	}
 	
-	public function test_an_empty_option_can_be_prepended() : void
+	public function test_an_empty_option_can_be_prepended(): void
 	{
 		$options = [
 			'coates' => 'Ta-Nehisi Coates',
@@ -53,7 +53,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="patchett"]', 'Ann Patchett');
 	}
 	
-	public function test_a_custom_empty_option_can_be_prepended() : void
+	public function test_a_custom_empty_option_can_be_prepended(): void
 	{
 		$options = [
 			'coates' => 'Ta-Nehisi Coates',
@@ -69,7 +69,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="patchett"]', 'Ann Patchett');
 	}
 	
-	public function test_an_empty_option_can_be_prepended_to_a_non_associative_array() : void
+	public function test_an_empty_option_can_be_prepended_to_a_non_associative_array(): void
 	{
 		$options = [
 			0 => 'Ta-Nehisi Coates',
@@ -85,7 +85,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
 	}
 	
-	public function test_opt_groups_render_properly_along_side_regular_select_options() : void
+	public function test_opt_groups_render_properly_along_side_regular_select_options(): void
 	{
 		$options = [
 			'Language' => [
@@ -108,7 +108,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'select > option[value="1"]', 'Philip Roth');
 	}
 	
-	public function test_an_enum_class_name_will_be_converted_to_a_selectable_array() : void
+	public function test_an_enum_class_name_will_be_converted_to_a_selectable_array(): void
 	{
 		if (!class_exists('BenSampo\Enum\Enum')) {
 			$this->markTestSkipped();
@@ -136,7 +136,7 @@ if (class_exists('BenSampo\Enum\Enum')) {
 		
 		public const AnnPatchett = 2;
 		
-		public static function getDescription($value) : string
+		public static function getDescription($value): string
 		{
 			switch ($value) {
 				case static::TaNehisiCoates:

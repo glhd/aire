@@ -51,9 +51,9 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param callable $mutator
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function registerMutator($attributes, callable $mutator) : self
+	public function registerMutator($attributes, callable $mutator): self
 	{
-		foreach((array) $attributes as $attribute) {
+		foreach ((array) $attributes as $attribute) {
 			if (!isset($this->mutators[$attribute])) {
 				$this->mutators[$attribute] = [];
 			}
@@ -86,7 +86,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param $key
 	 * @return bool
 	 */
-	public function has($key) : bool
+	public function has($key): bool
 	{
 		return $this->offsetExists($key);
 	}
@@ -98,7 +98,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param $value
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function set($key, $value) : self
+	public function set($key, $value): self
 	{
 		$this->offsetSet($key, $value);
 		
@@ -111,7 +111,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param $key
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function unset($key) : self
+	public function unset($key): self
 	{
 		$this->offsetUnset($key);
 		
@@ -125,7 +125,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @return bool
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists($key) : bool
+	public function offsetExists($key): bool
 	{
 		if (isset($this->items[$key])) {
 			return true;
@@ -173,7 +173,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $value
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetSet($key, $value) : void
+	public function offsetSet($key, $value): void
 	{
 		if ('class' === $key) {
 			$this->items['class']->set($value);
@@ -188,7 +188,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $key
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetUnset($key) : void
+	public function offsetUnset($key): void
 	{
 		unset($this->items[$key]);
 	}
@@ -243,7 +243,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed|callable $default
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function setDefault(string $attribute, $default) : self
+	public function setDefault(string $attribute, $default): self
 	{
 		// If the default value is a closure, register it as a mutator
 		if ($default instanceof \Closure) {
@@ -266,7 +266,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed $check_value
 	 * @return bool
 	 */
-	public function isValue($check_value) : bool
+	public function isValue($check_value): bool
 	{
 		if (null === $check_value) {
 			return false;
@@ -292,7 +292,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed ...$keys
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function except(...$keys) : self
+	public function except(...$keys): self
 	{
 		$filtered_attributes = new static(Arr::except($this->items, $keys));
 		$filtered_attributes->defaults = Arr::except($this->defaults, $keys);
@@ -307,7 +307,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * @param mixed ...$keys
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function only(...$keys) : self
+	public function only(...$keys): self
 	{
 		$filtered_attributes = new static(Arr::only($this->items, $keys));
 		$filtered_attributes->defaults = Arr::only($this->defaults, $keys);
@@ -321,7 +321,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @return string
 	 */
-	public function toHtml() : string
+	public function toHtml(): string
 	{
 		return $this->toCollection()
 			->filter(function($value, $key) {
@@ -355,7 +355,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @return \Illuminate\Support\Collection
 	 */
-	public function toCollection() : Collection
+	public function toCollection(): Collection
 	{
 		return new Collection($this->toArray());
 	}
@@ -365,7 +365,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 *
 	 * @return array
 	 */
-	public function toArray() : array
+	public function toArray(): array
 	{
 		// We want to get values for keys that are in the attribute list,
 		// but also need to load defaults and anything that has a mutator

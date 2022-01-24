@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Textarea as TextareaElement; 
+use Galahad\Aire\Elements\Textarea as TextareaElement;
 
 class Textarea extends ElementComponent
 {

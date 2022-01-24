@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\URL;
 
 class ResourcefulBindingTest extends TestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		
@@ -41,7 +41,7 @@ class ResourcefulBindingTest extends TestCase
 		$this->assertSelectorAttribute($html, 'input[name="_method"]', 'value', 'PUT');
 	}
 	
-	public function test_provided_name_overrides_inferred_name() : void
+	public function test_provided_name_overrides_inferred_name(): void
 	{
 		Route::post('/foo/bar', function() {})->name('foo.bar.store');
 		
@@ -52,7 +52,7 @@ class ResourcefulBindingTest extends TestCase
 		$this->assertSelectorAttribute($html, 'form', 'action', URL::to('/foo/bar'));
 	}
 	
-	public function test_route_parameters_are_prepended_when_loading_route() : void
+	public function test_route_parameters_are_prepended_when_loading_route(): void
 	{
 		Route::post('/{foo}/users', function() {})->name('foo.users.store');
 		

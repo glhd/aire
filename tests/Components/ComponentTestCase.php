@@ -6,7 +6,7 @@ use Galahad\Aire\Tests\TestCase;
 
 abstract class ComponentTestCase extends TestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		

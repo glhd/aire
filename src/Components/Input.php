@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Input as InputElement; 
+use Galahad\Aire\Elements\Input as InputElement;
 
 class Input extends ElementComponent
 {

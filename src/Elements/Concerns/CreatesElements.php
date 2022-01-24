@@ -14,7 +14,6 @@ use Galahad\Aire\Elements\Summary;
 use Galahad\Aire\Elements\Textarea;
 use Galahad\Aire\Elements\Wysiwyg;
 use Galahad\Aire\Support\TimezonesCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 trait CreatesElements
@@ -25,7 +24,7 @@ trait CreatesElements
 	 * @param string $label
 	 * @return \Galahad\Aire\Elements\Label
 	 */
-	public function label(string $label) : Label
+	public function label(string $label): Label
 	{
 		return (new Label($this->aire))->text($label);
 	}
@@ -36,7 +35,7 @@ trait CreatesElements
 	 * @param string|null $label
 	 * @return \Galahad\Aire\Elements\Button
 	 */
-	public function button(string $label = null) : Button
+	public function button(string $label = null): Button
 	{
 		$button = new Button($this->aire, $this);
 		
@@ -53,7 +52,7 @@ trait CreatesElements
 	 * @param string $label
 	 * @return \Galahad\Aire\Elements\Button
 	 */
-	public function submit(string $label = 'Submit') : Button
+	public function submit(string $label = 'Submit'): Button
 	{
 		return $this->button($label)->type('submit');
 	}
@@ -66,7 +65,7 @@ trait CreatesElements
 	 * @param string|null $type
 	 * @return \Galahad\Aire\Elements\Input
 	 */
-	public function input($name = null, $label = null, $type = null) : Input
+	public function input($name = null, $label = null, $type = null): Input
 	{
 		$input = new Input($this->aire, $this);
 		
@@ -93,7 +92,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\Select
 	 */
-	public function select($options, $name = null, $label = null) : Select
+	public function select($options, $name = null, $label = null): Select
 	{
 		$select = new Select($this->aire, $options, $this);
 		
@@ -115,7 +114,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\Select
 	 */
-	public function timezoneSelect($name = null, $label = null) : Select
+	public function timezoneSelect($name = null, $label = null): Select
 	{
 		return $this->select(new TimezonesCollection(), $name, $label);
 	}
@@ -127,7 +126,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\Textarea
 	 */
-	public function textArea($name = null, $label = null) : Textarea
+	public function textArea($name = null, $label = null): Textarea
 	{
 		$textarea = new Textarea($this->aire, $this);
 		
@@ -149,7 +148,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\Textarea
 	 */
-	public function wysiwyg($name = null, $label = null) : Textarea
+	public function wysiwyg($name = null, $label = null): Textarea
 	{
 		$textarea = new Wysiwyg($this->aire, $this);
 		
@@ -170,7 +169,7 @@ trait CreatesElements
 	 * @param bool $verbose
 	 * @return \Galahad\Aire\Elements\Summary
 	 */
-	public function summary(?bool $verbose = null) : Summary
+	public function summary(?bool $verbose = null): Summary
 	{
 		$summary = new Summary($this->aire, $this);
 		
@@ -188,7 +187,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\Checkbox
 	 */
-	public function checkbox($name = null, $label = null) : Checkbox
+	public function checkbox($name = null, $label = null): Checkbox
 	{
 		$checkbox = new Checkbox($this->aire, $this);
 		
@@ -211,7 +210,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\CheckboxGroup
 	 */
-	public function checkboxGroup($options, $name, $label = null) : CheckboxGroup
+	public function checkboxGroup($options, $name, $label = null): CheckboxGroup
 	{
 		$checkbox_group = new CheckboxGroup($this->aire, $options, $this);
 		
@@ -236,7 +235,7 @@ trait CreatesElements
 	 * @param string|\Illuminate\Contracts\Support\Htmlable|null $label
 	 * @return \Galahad\Aire\Elements\RadioGroup
 	 */
-	public function radioGroup($options, $name, $label = null) : RadioGroup
+	public function radioGroup($options, $name, $label = null): RadioGroup
 	{
 		$radio_group = new RadioGroup($this->aire, $options, $this);
 		

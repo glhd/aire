@@ -14,7 +14,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
-use Traversable;
 
 abstract class Element implements Htmlable
 {
@@ -95,7 +94,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @param callable $mutator
 	 */
-	public static function registerElementMutator(callable $mutator) : void
+	public static function registerElementMutator(callable $mutator): void
 	{
 		self::$element_mutators[static::class][] = $mutator;
 	}
@@ -107,7 +106,7 @@ abstract class Element implements Htmlable
 	 * @param mixed $value
 	 * @return $this
 	 */
-	public function data($data_key, $value) : self
+	public function data($data_key, $value): self
 	{
 		$key = "data-{$data_key}";
 		
@@ -119,11 +118,11 @@ abstract class Element implements Htmlable
 			// JSON encode value if it's not a scalar
 			if ($value instanceof Jsonable) {
 				$value = $value->toJson();
-			} else if ($value instanceof JsonSerializable) {
+			} elseif ($value instanceof JsonSerializable) {
 				$value = json_encode($value->jsonSerialize());
-			} else if (is_array($value)) {
+			} elseif (is_array($value)) {
 				$value = json_encode($value);
-			} else if ($value instanceof Arrayable) {
+			} elseif ($value instanceof Arrayable) {
 				$value = json_encode($value->toArray());
 			}
 			
@@ -133,7 +132,7 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
-	public function getInputName($default = null) : ?string
+	public function getInputName($default = null): ?string
 	{
 		$name = $this->attributes->get('name', $default);
 		
@@ -150,21 +149,21 @@ abstract class Element implements Htmlable
 		return preg_replace('/\[([^\]]+)\]/m', '.$1', $name);
 	}
 	
-	public function setAttribute($key, $value) : self
+	public function setAttribute($key, $value): self
 	{
 		$this->attributes->set($key, $value);
 		
 		return $this;
 	}
 	
-	public function addClass(...$class_name) : self
+	public function addClass(...$class_name): self
 	{
 		$this->attributes['class']->add(...$class_name);
 		
 		return $this;
 	}
 	
-	public function removeClass(...$class_name) : self
+	public function removeClass(...$class_name): self
 	{
 		$this->attributes['class']->remove(...$class_name);
 		
@@ -176,7 +175,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function render() : string
+	public function render(): string
 	{
 		return $this->aire->render(
 			$this->name,
@@ -189,7 +188,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function toHtml() : string
+	public function toHtml(): string
 	{
 		return $this->grouped && $this->group
 			? $this->group->render()
@@ -201,7 +200,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return string
 	 */
-	public function __toString() : string
+	public function __toString(): string
 	{
 		return $this->toHtml();
 	}
@@ -235,7 +234,7 @@ abstract class Element implements Htmlable
 	 * @param string $key
 	 * @return bool
 	 */
-	public function hasViewData(string $key) : bool
+	public function hasViewData(string $key): bool
 	{
 		return Arr::has($this->view_data, $key);
 	}
@@ -245,7 +244,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return array
 	 */
-	protected function viewData() : array
+	protected function viewData(): array
 	{
 		return array_merge(
 			$this->attributes->primary()->toArray(), // Provide shortcuts to all attributes
@@ -262,7 +261,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return \Galahad\Aire\Elements\Element
 	 */
-	protected function applyElementMutators() : self
+	protected function applyElementMutators(): self
 	{
 		if (isset(static::$element_mutators[static::class])) {
 			foreach (static::$element_mutators[static::class] as $mutator) {
@@ -278,7 +277,7 @@ abstract class Element implements Htmlable
 	 *
 	 * @return \Galahad\Aire\Elements\Element
 	 */
-	protected function registerAttributeMutators() : self
+	protected function registerAttributeMutators(): self
 	{
 		// Certain default bindings only should apply to elements that are
 		// inputs bound to a form

@@ -4,7 +4,7 @@ namespace Galahad\Aire\Tests\Components;
 
 class TimezoneSelectTest extends ComponentTestCase
 {
-	public function test_it_renders_timezones_as_expected() : void
+	public function test_it_renders_timezones_as_expected(): void
 	{
 		$html = $this->renderBlade('<x-aire::timezone-select />');
 		
@@ -35,5 +35,4 @@ class TimezoneSelectTest extends ComponentTestCase
 		$this->assertSelectorTextEquals($html, 'option[value="Pacific/Honolulu"]', 'Pacific - Honolulu');
 		$this->assertSelectorTextEquals($html, 'option[value="UTC"]', 'UTC');
 	}
-	
 }

@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Button as ButtonElement; 
+use Galahad\Aire\Elements\Button as ButtonElement;
 
 class Button extends ElementComponent
 {

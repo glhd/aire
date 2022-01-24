@@ -14,12 +14,12 @@ class SelectorExists extends CrawlerConstraint
 		$this->selector = $selector;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		return "selector '{$this->selector}' exists";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		return $this->crawl($html)->filter($this->selector)->count() > 0;
 	}

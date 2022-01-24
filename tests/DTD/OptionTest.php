@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\DTD;
@@ -36,7 +35,7 @@ use Illuminate\Support\Str;
 
 class OptionTest extends TestCase
 {
-	public function test_disabled_flag_can_be_set_on_and_off() : void
+	public function test_disabled_flag_can_be_set_on_and_off(): void
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
@@ -47,7 +46,7 @@ class OptionTest extends TestCase
 		$this->assertSelectorAttributeMissing($option, 'option', 'disabled');
 	}
 	
-	public function test_label_attribute_can_be_set_and_unset() : void
+	public function test_label_attribute_can_be_set_and_unset(): void
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
@@ -60,7 +59,7 @@ class OptionTest extends TestCase
 		$this->assertSelectorAttributeMissing($option, 'option', 'label');
 	}
 	
-	public function test_selected_flag_can_be_set_on_and_off() : void
+	public function test_selected_flag_can_be_set_on_and_off(): void
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
@@ -71,7 +70,7 @@ class OptionTest extends TestCase
 		$this->assertSelectorAttributeMissing($option, 'option', 'selected');
 	}
 	
-	public function test_value_attribute_can_be_set_and_unset() : void
+	public function test_value_attribute_can_be_set_and_unset(): void
 	{
 		$option = new Option($this->aire(), $this->aire()->form());
 		
@@ -83,5 +82,4 @@ class OptionTest extends TestCase
 		$option->value(null);
 		$this->assertSelectorAttributeMissing($option, 'option', 'value');
 	}
-	
 }
