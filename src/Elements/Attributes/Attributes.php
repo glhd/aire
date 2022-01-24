@@ -47,7 +47,7 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	 * be called. This provides an opportunity to mutate or calculate the value
 	 * of the attribute based on outside data (for example, data binding).
 	 *
-	 * @param string|array $attributes
+	 * @param string|string[] $attributes
 	 * @param callable $mutator
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
