@@ -54,7 +54,6 @@ class Attributes implements Htmlable, ArrayAccess, Arrayable
 	public function registerMutator($attributes, callable $mutator) : self
 	{
 		foreach((array) $attributes as $attribute) {
-			
 			if (!isset($this->mutators[$attribute])) {
 				$this->mutators[$attribute] = [];
 			}
