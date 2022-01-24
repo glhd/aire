@@ -26,12 +26,12 @@ class SelectorTextEquals extends CrawlerConstraint
 		$this->trim_actual = $trim_actual;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		return "selector '{$this->selector}' has the text content '$this->expected_text'";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		$actual_text = $this->crawl($html)
 			->filter($this->selector)

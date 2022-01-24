@@ -50,7 +50,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 *
 	 * @return array
 	 */
-	public function toArray() : array
+	public function toArray(): array
 	{
 		return $this->attributes;
 	}
@@ -60,7 +60,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 *
 	 * @return string
 	 */
-	public function toHtml() : string
+	public function toHtml(): string
 	{
 		return $this->primary()->toHtml();
 	}
@@ -70,7 +70,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 *
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function primary() : Attributes
+	public function primary(): Attributes
 	{
 		return $this->instance($this->element->name);
 	}
@@ -93,7 +93,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * @param string $name
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	public function __get($name) : Attributes
+	public function __get($name): Attributes
 	{
 		return $this->instance($name);
 	}
@@ -167,7 +167,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * @param array $defaults
 	 * @return \Galahad\Aire\Elements\Attributes\Attributes
 	 */
-	protected function instance($component, $defaults = []) : Attributes
+	protected function instance($component, $defaults = []): Attributes
 	{
 		$key = $component === $this->element->name
 			? $component

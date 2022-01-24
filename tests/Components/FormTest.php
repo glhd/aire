@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\Components;
@@ -34,7 +33,7 @@ use Illuminate\Support\Str;
 
 class FormTest extends ComponentTestCase
 {
-	public function test_accept_charset_attribute_can_be_set_and_unset() : void
+	public function test_accept_charset_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -45,7 +44,7 @@ class FormTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'accept-charset');
 	}
 	
-	public function test_action_attribute_can_be_set() : void
+	public function test_action_attribute_can_be_set(): void
 	{
 		$value = Str::random();
 		
@@ -55,7 +54,7 @@ class FormTest extends ComponentTestCase
 		// Action is special so it cannot be unset
 	}
 	
-	public function test_auto_complete_attribute_can_be_set_and_unset() : void
+	public function test_auto_complete_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->renderBlade('<x-aire::form auto-complete="additional-name" />');
 		$this->assertSelectorAttribute($form, 'form', 'autocomplete', 'additional-name');
@@ -247,7 +246,7 @@ class FormTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'autocomplete');
 	}
 	
-	public function test_enc_type_attribute_can_be_set_and_unset() : void
+	public function test_enc_type_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->renderBlade('<x-aire::form enc-type="application/x-www-form-urlencoded" />');
 		$this->assertSelectorAttribute($form, 'form', 'enctype', 'application/x-www-form-urlencoded');
@@ -262,7 +261,7 @@ class FormTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'enctype');
 	}
 	
-	public function test_method_attribute_can_be_set() : void
+	public function test_method_attribute_can_be_set(): void
 	{
 		$form = $this->renderBlade('<x-aire::form method="get" />');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'GET');
@@ -273,7 +272,7 @@ class FormTest extends ComponentTestCase
 		// Method cannot be unset
 	}
 	
-	public function test_name_attribute_can_be_set_and_unset() : void
+	public function test_name_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -284,7 +283,7 @@ class FormTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'name');
 	}
 	
-	public function test_no_validate_flag_can_be_set_on_and_off() : void
+	public function test_no_validate_flag_can_be_set_on_and_off(): void
 	{
 		$form = $this->renderBlade('<x-aire::form no-validate />');
 		$this->assertSelectorAttribute($form, 'form', 'novalidate');
@@ -293,7 +292,7 @@ class FormTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($form, 'form', 'novalidate');
 	}
 	
-	public function test_target_attribute_can_be_set_and_unset() : void
+	public function test_target_attribute_can_be_set_and_unset(): void
 	{
 		$form = $this->renderBlade('<x-aire::form target="_blank" />');
 		$this->assertSelectorAttribute($form, 'form', 'target', '_blank');
@@ -310,5 +309,4 @@ class FormTest extends ComponentTestCase
 		$form = $this->renderBlade('<x-aire::form :target="null" />');
 		$this->assertSelectorAttributeMissing($form, 'form', 'target');
 	}
-	
 }

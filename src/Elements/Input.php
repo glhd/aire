@@ -10,7 +10,9 @@ use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
 class Input extends \Galahad\Aire\DTD\Input implements HasJsonValue
 {
-	use HasValue, AutoId, MapsValueToJsonValue;
+	use HasValue;
+	use AutoId;
+	use MapsValueToJsonValue;
 	
 	protected $default_attributes = [
 		'type' => 'text',
@@ -47,7 +49,7 @@ class Input extends \Galahad\Aire\DTD\Input implements HasJsonValue
 		return $this;
 	}
 	
-	public function render() : string
+	public function render(): string
 	{
 		$type = $this->attributes->get('type', 'text');
 		

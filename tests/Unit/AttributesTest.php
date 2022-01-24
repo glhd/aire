@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class AttributesTest extends TestCase
 {
-	public function test_method_based_api() : void
+	public function test_method_based_api(): void
 	{
 		$attributes = new Attributes();
 		
@@ -25,7 +25,7 @@ class AttributesTest extends TestCase
 		$this->assertFalse($attributes->has('foo'));
 	}
 	
-	public function test_array_access_api() : void
+	public function test_array_access_api(): void
 	{
 		$attributes = new Attributes();
 		
@@ -41,7 +41,7 @@ class AttributesTest extends TestCase
 		$this->assertFalse(isset($attributes['foo']));
 	}
 	
-	public function test_magic_api() : void
+	public function test_magic_api(): void
 	{
 		$attributes = new Attributes();
 		
@@ -57,7 +57,7 @@ class AttributesTest extends TestCase
 		$this->assertFalse(isset($attributes->foo));
 	}
 	
-	public function test_default_values() : void
+	public function test_default_values(): void
 	{
 		$attributes = new Attributes();
 		
@@ -77,7 +77,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('default-bar', $attributes->get('foo'));
 	}
 	
-	public function test_mutators() : void
+	public function test_mutators(): void
 	{
 		$attributes = new Attributes();
 		
@@ -92,7 +92,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('BAR', $attributes->get('foo'));
 	}
 	
-	public function test_multiple_mutators() : void
+	public function test_multiple_mutators(): void
 	{
 		$attributes = new Attributes();
 		
@@ -110,7 +110,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('BUZZ', $attributes->get('baz'));
 	}
 	
-	public function test_class_name_mutator_can_return_null() : void
+	public function test_class_name_mutator_can_return_null(): void
 	{
 		$attributes = new Attributes([
 			'class' => new ClassNames(''),
@@ -124,7 +124,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('mutated', $attributes->get('class'));
 	}
 	
-	public function test_value_equality_helper() : void
+	public function test_value_equality_helper(): void
 	{
 		$attributes = new Attributes();
 		
@@ -153,7 +153,7 @@ class AttributesTest extends TestCase
 		$this->assertFalse($attributes->isValue(1));
 	}
 	
-	public function test_basic_html_rendering() : void
+	public function test_basic_html_rendering(): void
 	{
 		$attributes = new Attributes([
 			'hello' => 'world',
@@ -163,7 +163,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="world" quotes="&quot;yes&quot;"', $attributes->toHtml());
 	}
 	
-	public function test_empty_classes_are_excluded_from_attribute_rendering() : void
+	public function test_empty_classes_are_excluded_from_attribute_rendering(): void
 	{
 		$attributes = new Attributes([
 			'hello' => 'world',
@@ -173,7 +173,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="world"', $attributes->toHtml());
 	}
 	
-	public function test_false_and_null_attributes_are_excluded_from_rendering() : void
+	public function test_false_and_null_attributes_are_excluded_from_rendering(): void
 	{
 		$attributes = new Attributes([
 			'hello' => 'world',
@@ -184,7 +184,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="world"', $attributes->toHtml());
 	}
 	
-	public function test_array_attributes_are_excluded_from_rendering() : void
+	public function test_array_attributes_are_excluded_from_rendering(): void
 	{
 		// Arrays need to be handled specially, so they should be
 		// excluded from the HTML string generated for attributes
@@ -197,7 +197,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="world"', $attributes->toHtml());
 	}
 	
-	public function test_attribute_names_are_lowercase() : void
+	public function test_attribute_names_are_lowercase(): void
 	{
 		$attributes = new Attributes([
 			'HELLO' => 'WORLD',
@@ -206,7 +206,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="WORLD"', $attributes->toHtml());
 	}
 	
-	public function test_boolean_value_attributes_are_represented_with_1_and_0() : void
+	public function test_boolean_value_attributes_are_represented_with_1_and_0(): void
 	{
 		$attributes = new Attributes();
 		
@@ -217,7 +217,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('value="0"', $attributes->toHtml());
 	}
 	
-	public function test_boolean_attributes_are_represented_without_a_value() : void
+	public function test_boolean_attributes_are_represented_without_a_value(): void
 	{
 		$attributes = new Attributes([
 			'hello' => 'world',
@@ -228,7 +228,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals('hello="world" bar', $attributes->toHtml());
 	}
 	
-	public function test_casting_attributes_to_an_array() : void
+	public function test_casting_attributes_to_an_array(): void
 	{
 		$attributes = new Attributes([
 			'foo' => 'bar',
@@ -252,7 +252,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals($expected, $attributes->toArray());
 	}
 	
-	public function test_attributes_can_be_excluded_immutably() : void
+	public function test_attributes_can_be_excluded_immutably(): void
 	{
 		$attributes = new Attributes([
 			'foo' => 'bar',
@@ -285,7 +285,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals($expected_in_original, $attributes->toArray());
 	}
 	
-	public function test_attributes_can_be_isolated_immutably() : void
+	public function test_attributes_can_be_isolated_immutably(): void
 	{
 		$attributes = new Attributes([
 			'foo' => 'bar',
@@ -318,7 +318,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals($expected_in_original, $attributes->toArray());
 	}
 	
-	public function test_default_can_be_set_using_a_closure() : void
+	public function test_default_can_be_set_using_a_closure(): void
 	{
 		$random_value = Str::random();
 		
@@ -330,7 +330,7 @@ class AttributesTest extends TestCase
 		$this->assertEquals($random_value, $attributes->get('value'));
 	}
 	
-	public function test_default_value_cannot_be_injected_with_a_global_function_call() : void
+	public function test_default_value_cannot_be_injected_with_a_global_function_call(): void
 	{
 		require_once __DIR__.'/global-function-stub.php';
 		

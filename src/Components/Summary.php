@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Summary as SummaryElement; 
+use Galahad\Aire\Elements\Summary as SummaryElement;
 
 class Summary extends ElementComponent
 {

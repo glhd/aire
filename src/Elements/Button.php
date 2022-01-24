@@ -14,7 +14,7 @@ class Button extends \Galahad\Aire\DTD\Button
 		'slot' => 'Submit',
 	];
 	
-	public function open() : self
+	public function open(): self
 	{
 		ob_start();
 		
@@ -23,7 +23,7 @@ class Button extends \Galahad\Aire\DTD\Button
 		return $this;
 	}
 	
-	public function close() : self
+	public function close(): self
 	{
 		$this->labelHtml(trim(ob_get_clean()));
 		
@@ -32,21 +32,21 @@ class Button extends \Galahad\Aire\DTD\Button
 		return $this;
 	}
 	
-	public function label(string $label) : self
+	public function label(string $label): self
 	{
 		$this->view_data['slot'] = $label;
 		
 		return $this;
 	}
 	
-	public function labelHtml(string $html) : self
+	public function labelHtml(string $html): self
 	{
 		$this->view_data['slot'] = new HtmlString($html);
 		
 		return $this;
 	}
 	
-	public function render() : string
+	public function render(): string
 	{
 		return $this->opened
 			? ''

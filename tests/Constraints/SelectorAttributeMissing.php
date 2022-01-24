@@ -20,12 +20,12 @@ class SelectorAttributeMissing extends CrawlerConstraint
 		$this->attribute = $attribute;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		return "selector '{$this->selector}' does not have the attribute '{$this->attribute}'";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		$attribute = $this->crawl($html)
 			->filter($this->selector)

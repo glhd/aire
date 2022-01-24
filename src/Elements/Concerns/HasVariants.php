@@ -42,7 +42,7 @@ trait HasVariants
 	/**
 	 * @param array|string $variant
 	 */
-	protected function applyVariantToGroup($variant) : void
+	protected function applyVariantToGroup($variant): void
 	{
 		if ($this->group instanceof Group) {
 			$this->group->variant($variant);

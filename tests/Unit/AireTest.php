@@ -7,7 +7,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class AireTest extends TestCase
 {
-	public function test_a_form_can_be_opened_and_closed() : void
+	public function test_a_form_can_be_opened_and_closed(): void
 	{
 		$form = $this->aire()->open();
 		
@@ -21,7 +21,7 @@ class AireTest extends TestCase
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
-	public function test_data_can_be_bound_when_form_is_instantiated() : void
+	public function test_data_can_be_bound_when_form_is_instantiated(): void
 	{
 		$form = $this->aire()->form('/', ['foo' => 'bar']);
 		

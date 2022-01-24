@@ -18,21 +18,21 @@ class FormTest extends TestCase
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
-	public function test_forms_have_an_action_set_automatically() : void
+	public function test_forms_have_an_action_set_automatically(): void
 	{
 		$form = $this->aire()->form();
 		
 		$this->assertSelectorAttribute($form, 'form', 'action', '');
 	}
 	
-	public function test_form_actions_can_be_set() : void
+	public function test_form_actions_can_be_set(): void
 	{
 		$form = $this->aire()->form('/foo/bar');
 		
 		$this->assertSelectorAttribute($form, 'form', 'action', '/foo/bar');
 	}
 	
-	public function test_form_actions_can_be_set_using_routes() : void
+	public function test_form_actions_can_be_set_using_routes(): void
 	{
 		Route::get('/foo/bar')->name('demo-route');
 		$expected = URL::route('demo-route');
@@ -93,7 +93,7 @@ class FormTest extends TestCase
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
 	}
 	
-	public function test_calling_route_implicitly_opens_the_form() : void
+	public function test_calling_route_implicitly_opens_the_form(): void
 	{
 		Route::get('/foo/bar')->name('demo-route');
 		
@@ -108,7 +108,7 @@ class FormTest extends TestCase
 		$form->close();
 	}
 	
-	public function test_calling_resourceful_implicitly_opens_the_form() : void
+	public function test_calling_resourceful_implicitly_opens_the_form(): void
 	{
 		Route::post('/tests')->name('tests.store');
 		
@@ -116,7 +116,7 @@ class FormTest extends TestCase
 		
 		$this->assertFalse($form->isOpened());
 		
-		$this->aire()->resourceful(new class extends Model {
+		$this->aire()->resourceful(new class() extends Model {
 			protected $table = 'test';
 		});
 		
@@ -125,7 +125,7 @@ class FormTest extends TestCase
 		$form->close();
 	}
 	
-	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_inline() : void
+	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_inline(): void
 	{
 		Route::get('/foo/bar')->name('demo-route');
 		
@@ -142,7 +142,7 @@ class FormTest extends TestCase
 		$this->assertSelectorDoesNotExist($form_2, 'form[class="foo-class"]');
 	}
 	
-	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_double_line() : void
+	public function test_when_opening_two_forms_the_second_form_does_not_inherit_attributes_and_classes_from_the_first_form_double_line(): void
 	{
 		Route::get('/foo/bar')->name('demo-route');
 		

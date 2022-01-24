@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class ElementMutatorTest extends TestCase
 {
-	public function test_an_element_can_have_defaults_changed_through_initializers() : void
+	public function test_an_element_can_have_defaults_changed_through_initializers(): void
 	{
 		$test_value = Str::random();
 		

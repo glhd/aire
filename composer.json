@@ -28,7 +28,8 @@
     "symfony/css-selector": "^5.4",
     "symfony/dom-crawler": "^5.4",
     "barryvdh/reflection-docblock": "^2.0",
-    "mockery/mockery": "^1.4"
+    "mockery/mockery": "^1.4",
+    "friendsofphp/php-cs-fixer": "^3.5"
   },
   "suggest": {
     "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"
@@ -48,6 +49,10 @@
   },
 	"minimum-stability": "dev",
 	"prefer-stable": true,
+	"scripts": {
+		"fix-style": "vendor/bin/php-cs-fixer fix",
+		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
+	},
   "extra": {
     "laravel": {
       "providers": [

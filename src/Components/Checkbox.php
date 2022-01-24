@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Checkbox as CheckboxElement; 
+use Galahad\Aire\Elements\Checkbox as CheckboxElement;
 
 class Checkbox extends ElementComponent
 {

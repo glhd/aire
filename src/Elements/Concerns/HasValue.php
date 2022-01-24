@@ -10,7 +10,7 @@ trait HasValue
 	 * @param $value
 	 * @return \Galahad\Aire\Elements\Input
 	 */
-	public function defaultValue($value) : self
+	public function defaultValue($value): self
 	{
 		$this->attributes->setDefault('value', $value);
 		
@@ -21,7 +21,7 @@ trait HasValue
 	 * @param $value
 	 * @return $this
 	 */
-	public function value($value = null) : self
+	public function value($value = null): self
 	{
 		$this->attributes->set('value', $value);
 		

@@ -2,9 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Select as SelectElement;
-use Galahad\Aire\Support\Facades\Aire;
 
 class Select extends ElementComponent
 {

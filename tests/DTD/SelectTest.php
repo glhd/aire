@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\DTD;
@@ -36,7 +35,7 @@ use Illuminate\Support\Str;
 
 class SelectTest extends TestCase
 {
-	public function test_auto_focus_flag_can_be_set_on_and_off() : void
+	public function test_auto_focus_flag_can_be_set_on_and_off(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -47,7 +46,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'autofocus');
 	}
 	
-	public function test_disabled_flag_can_be_set_on_and_off() : void
+	public function test_disabled_flag_can_be_set_on_and_off(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -58,7 +57,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'disabled');
 	}
 	
-	public function test_form_attribute_can_be_set_and_unset() : void
+	public function test_form_attribute_can_be_set_and_unset(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -71,7 +70,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'form');
 	}
 	
-	public function test_multiple_flag_can_be_set_on_and_off() : void
+	public function test_multiple_flag_can_be_set_on_and_off(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -82,7 +81,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'multiple');
 	}
 	
-	public function test_name_attribute_can_be_set_and_unset() : void
+	public function test_name_attribute_can_be_set_and_unset(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -95,7 +94,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'name');
 	}
 	
-	public function test_required_flag_can_be_set_on_and_off() : void
+	public function test_required_flag_can_be_set_on_and_off(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -106,7 +105,7 @@ class SelectTest extends TestCase
 		$this->assertSelectorAttributeMissing($select, 'select', 'required');
 	}
 	
-	public function test_size_attribute_can_be_set_and_unset() : void
+	public function test_size_attribute_can_be_set_and_unset(): void
 	{
 		$select = new Select($this->aire(), $this->aire()->form());
 		
@@ -118,5 +117,4 @@ class SelectTest extends TestCase
 		$select->size(null);
 		$this->assertSelectorAttributeMissing($select, 'select', 'size');
 	}
-	
 }

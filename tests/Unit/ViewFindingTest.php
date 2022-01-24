@@ -9,7 +9,7 @@ use Mockery;
 
 class ViewFindingTest extends TestCase
 {
-	public function test_group_and_element_view_finder_tries_most_specific_view_first() : void
+	public function test_group_and_element_view_finder_tries_most_specific_view_first(): void
 	{
 		$this->aire()->setViewFactory(
 			$mock = Mockery::mock(Factory::class)

@@ -20,14 +20,14 @@ class SelectorHasClassNames extends CrawlerConstraint
 		$this->class_names = (array) $class_names;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		$class_names = implode(' ', $this->class_names);
 		
 		return "selector '{$this->selector}' has the class names '$class_names'";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		$nodes = $this->crawl($html)->filter($this->selector);
 		

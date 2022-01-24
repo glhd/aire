@@ -26,12 +26,12 @@ class SelectorContainsText extends CrawlerConstraint
 		$this->match_case = $match_case;
 	}
 	
-	public function toString() : string
+	public function toString(): string
 	{
 		return "selector '{$this->selector}' contains the text content '$this->expected_text'";
 	}
 	
-	protected function matches($html) : bool
+	protected function matches($html): bool
 	{
 		$nodes = $this->crawl($html, $this->selector);
 		

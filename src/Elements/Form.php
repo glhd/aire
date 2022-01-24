@@ -22,7 +22,8 @@ use stdClass;
 
 class Form extends \Galahad\Aire\DTD\Form implements NonInput
 {
-	use CreatesElements, CreatesInputTypes;
+	use CreatesElements;
+	use CreatesInputTypes;
 	
 	/**
 	 * Data that's bound to the form
@@ -112,22 +113,22 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	/**
 	 * If true, we'll set up x-data and x-model attributes for Alpine.js
 	 * @see https://github.com/alpinejs/alpine
-	 * 
-	 * @var bool 
+	 *
+	 * @var bool
 	 */
 	protected $is_alpine_component = false;
 	
 	/**
 	 * We'll store a reference to all the elements created in the form
-	 * so that if we need to serialize them for Alpine we can. 
-	 * 
-	 * @var array 
+	 * so that if we need to serialize them for Alpine we can.
+	 *
+	 * @var array
 	 */
 	protected $json_serializable_elements = [];
 	
 	/**
 	 * Called when the form is closed
-	 * 
+	 *
 	 * @var callable
 	 */
 	protected $on_close;
@@ -147,7 +148,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		$this->initValidation();
 	}
 	
-	public function registerElement(Element $element) : self 
+	public function registerElement(Element $element): self
 	{
 		if ($element instanceof HasJsonValue) {
 			$this->json_serializable_elements[] = $element;
@@ -162,7 +163,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param bool $dev_mode
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function dev(bool $dev_mode = true) : self
+	public function dev(bool $dev_mode = true): self
 	{
 		$this->dev_mode = $dev_mode;
 		
@@ -178,7 +179,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param $bound_data
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function bind($bound_data) : self
+	public function bind($bound_data): self
 	{
 		$this->bound_data = $bound_data;
 		
@@ -196,7 +197,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param array $prepend_parameters
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function resourceful(Model $model, $resource_name = null, $prepend_parameters = []) : self
+	public function resourceful(Model $model, $resource_name = null, $prepend_parameters = []): self
 	{
 		$this->bind($model);
 		
@@ -220,13 +221,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	
 	/**
 	 * Configure the form for use as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @param bool|array $x_data
 	 * @return $this
 	 */
-	public function asAlpineComponent($x_data = []) : self 
+	public function asAlpineComponent($x_data = []): self
 	{
 		$this->is_alpine_component = is_array($x_data) || $x_data;
 		
@@ -253,12 +254,12 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	
 	/**
 	 * Determine whether the form is configured as an Alpine.js component
-	 * 
+	 *
 	 * @see https://github.com/alpinejs/alpine
-	 * 
+	 *
 	 * @return bool
 	 */
-	public function isAlpineComponent() : bool 
+	public function isAlpineComponent(): bool
 	{
 		return $this->is_alpine_component;
 	}
@@ -268,7 +269,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 *
 	 * @return bool
 	 */
-	public function hasBoundData() : bool
+	public function hasBoundData(): bool
 	{
 		return null !== $this->bound_data
 			or ($this->session_store && $this->session_store->hasOldInput());
@@ -318,7 +319,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param string $name
 	 * @return array
 	 */
-	public function getErrors(string $name) : array
+	public function getErrors(string $name): array
 	{
 		if (!$errors = $this->session_store->get('errors')) {
 			return [];
@@ -342,7 +343,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 *
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function open() : self
+	public function open(): self
 	{
 		ob_start();
 		$this->opened = true;
@@ -358,7 +359,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 *
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function close() : self
+	public function close(): self
 	{
 		if (!$this->isOpened()) {
 			throw new BadMethodCallException('Trying to close a form that hasn\'t been opened.');
@@ -374,19 +375,19 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function isOpened() : bool
+	public function isOpened(): bool
 	{
 		return true === $this->opened;
 	}
 	
-	public function openButton() : Button
+	public function openButton(): Button
 	{
 		$this->pending_button = new Button($this->aire, $this);
 		
 		return $this->pending_button->open();
 	}
 	
-	public function closeButton() : Button
+	public function closeButton(): Button
 	{
 		if (!$this->pending_button) {
 			throw new BadMethodCallException('Trying to close a button that hasn\'t been opened.');
@@ -407,7 +408,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param bool $absolute
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function route(string $route_name, $parameters = [], bool $absolute = true) : self
+	public function route(string $route_name, $parameters = [], bool $absolute = true): self
 	{
 		$action = $this->url->route($route_name, $parameters, $absolute);
 		$this->action($action);
@@ -417,7 +418,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function get() : self
+	public function get(): self
 	{
 		$this->attributes->set('method', 'GET');
 		unset($this->view_data['_method']);
@@ -425,7 +426,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function post() : self
+	public function post(): self
 	{
 		$this->attributes->set('method', 'POST');
 		unset($this->view_data['_method']);
@@ -433,7 +434,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function put() : self
+	public function put(): self
 	{
 		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PUT';
@@ -441,7 +442,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function patch() : self
+	public function patch(): self
 	{
 		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'PATCH';
@@ -449,7 +450,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function delete() : self
+	public function delete(): self
 	{
 		$this->attributes->set('method', 'POST');
 		$this->view_data['_method'] = 'DELETE';
@@ -466,12 +467,12 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return parent::method($method);
 	}
 	
-	public function urlEncoded() : self
+	public function urlEncoded(): self
 	{
 		return $this->encType('application/x-www-form-urlencoded');
 	}
 	
-	public function multipart() : self
+	public function multipart(): self
 	{
 		return $this->encType('multipart/form-data');
 	}
@@ -483,7 +484,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param array $custom_messages
 	 * @return $this
 	 */
-	public function validate($rule_source = null, array $custom_messages = null) : self
+	public function validate($rule_source = null, array $custom_messages = null): self
 	{
 		$this->validate = true;
 		
@@ -509,21 +510,21 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 *
 	 * @return $this
 	 */
-	public function withoutValidation() : self
+	public function withoutValidation(): self
 	{
 		$this->validate = false;
 		
 		return $this;
 	}
 	
-	public function rules(array $rules = []) : self
+	public function rules(array $rules = []): self
 	{
 		$this->validation_rules = $rules;
 		
 		return $this;
 	}
 	
-	public function messages(array $messages = [], bool $overwrite = false) : self
+	public function messages(array $messages = [], bool $overwrite = false): self
 	{
 		if ($overwrite) {
 			$this->validation_messages = [];
@@ -534,7 +535,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function formRequest(string $class_name) : self
+	public function formRequest(string $class_name): self
 	{
 		$this->form_request = $class_name;
 		$request = new $class_name();
@@ -557,7 +558,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return $this;
 	}
 	
-	public function render() : string
+	public function render(): string
 	{
 		if ($this->isOpened()) {
 			return '';
@@ -566,17 +567,17 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		return parent::render();
 	}
 	
-	protected function viewData() : array
+	protected function viewData(): array
 	{
 		return array_merge(parent::viewData(), $this->validationData());
 	}
 	
-	protected function initGroup() : ?Group
+	protected function initGroup(): ?Group
 	{
 		return null; // Ignore for Form
 	}
 	
-	protected function inferMethodFromRoute($route_name) : void
+	protected function inferMethodFromRoute($route_name): void
 	{
 		if ($this->attributes['method'] !== $this->default_attributes['method']) {
 			return;
@@ -605,7 +606,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		}
 	}
 	
-	protected function initValidation() : void
+	protected function initValidation(): void
 	{
 		$this->validate = $this->aire->config('validate_by_default', true);
 		
@@ -616,7 +617,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		});
 	}
 	
-	protected function validationData() : array
+	protected function validationData(): array
 	{
 		// TODO: FormRequest
 		

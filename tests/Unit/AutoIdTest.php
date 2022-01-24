@@ -8,7 +8,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class AutoIdTest extends TestCase
 {
-	public function test_ids_are_not_applied_when_auto_id_is_off() : void
+	public function test_ids_are_not_applied_when_auto_id_is_off(): void
 	{
 		// Set config and clear instance
 		$this->app['config']->set('aire.auto_id', false);
@@ -19,7 +19,7 @@ class AutoIdTest extends TestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'id');
 	}
 	
-	public function test_auto_ids_are_incremented() : void
+	public function test_auto_ids_are_incremented(): void
 	{
 		// Create 2 inputs with the same name
 		$input1 = $this->aire()->input('test');
@@ -31,7 +31,7 @@ class AutoIdTest extends TestCase
 		);
 	}
 	
-	public function test_auto_id_can_be_user_defined() : void
+	public function test_auto_id_can_be_user_defined(): void
 	{
 		$this->aire()->setIdGenerator(function(Element $element, Form $form = null) {
 			return "foo-{$element->getInputName()}";

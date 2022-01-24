@@ -10,7 +10,9 @@ use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
 class Textarea extends \Galahad\Aire\DTD\Textarea implements HasJsonValue
 {
-	use HasValue, AutoId, MapsValueToJsonValue;
+	use HasValue;
+	use AutoId;
+	use MapsValueToJsonValue;
 	
 	protected $view_data = [
 		'auto_size' => false,
@@ -23,7 +25,7 @@ class Textarea extends \Galahad\Aire\DTD\Textarea implements HasJsonValue
 		$this->registerAutoId();
 	}
 	
-	public function autoSize(bool $auto_size = true) : self 
+	public function autoSize(bool $auto_size = true): self
 	{
 		$this->view_data['auto_size'] = $auto_size;
 		

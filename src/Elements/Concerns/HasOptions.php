@@ -12,7 +12,7 @@ trait HasOptions
 	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
 	 * @return $this
 	 */
-	public function setOptions($options) : self
+	public function setOptions($options): self
 	{
 		$this->view_data['options'] = new OptionsCollection($options);
 		
@@ -25,7 +25,7 @@ trait HasOptions
 	 * @param array $values
 	 * @return $this
 	 */
-	public function setOptionList(array $values) : self
+	public function setOptionList(array $values): self
 	{
 		return $this->setOptions(array_combine($values, $values));
 	}
@@ -37,7 +37,7 @@ trait HasOptions
 	 * @param mixed $empty_value
 	 * @return \Galahad\Aire\Elements\Concerns\HasOptions
 	 */
-	public function prependEmptyOption($label, $empty_value = '') : self
+	public function prependEmptyOption($label, $empty_value = ''): self
 	{
 		$this->view_data['prepend_empty_option'] = (object) [
 			'value' => $empty_value,

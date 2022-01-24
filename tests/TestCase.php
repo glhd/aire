@@ -14,14 +14,13 @@ use Galahad\Aire\Tests\Constraints\SelectorExists;
 use Galahad\Aire\Tests\Constraints\SelectorHasClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorMissingClassNames;
 use Galahad\Aire\Tests\Constraints\SelectorTextEquals;
-use Illuminate\Container\Container;
 use Orchestra\Testbench\TestCase as Orchestra;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use Symfony\Component\DomCrawler\Crawler;
 
 abstract class TestCase extends Orchestra
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		
@@ -62,12 +61,12 @@ abstract class TestCase extends Orchestra
 		];
 	}
 	
-	protected function aire() : Aire
+	protected function aire(): Aire
 	{
 		return $this->app['galahad.aire'];
 	}
 	
-	protected function crawl($html) : Crawler
+	protected function crawl($html): Crawler
 	{
 		return $html instanceof Crawler
 			? $html

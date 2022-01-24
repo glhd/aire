@@ -82,7 +82,7 @@ class ClassNames
 	 *
 	 * @param array $default_classes
 	 */
-	public static function setDefaultClasses(array $default_classes) : void
+	public static function setDefaultClasses(array $default_classes): void
 	{
 		static::$default_classes = $default_classes;
 	}
@@ -92,7 +92,7 @@ class ClassNames
 	 *
 	 * @param array $variant_classes
 	 */
-	public static function setVariantClasses(array $variant_classes) : void
+	public static function setVariantClasses(array $variant_classes): void
 	{
 		static::$variant_classes = $variant_classes;
 	}
@@ -102,7 +102,7 @@ class ClassNames
 	 *
 	 * @param array $validation_classes
 	 */
-	public static function setValidationClasses(array $validation_classes) : void
+	public static function setValidationClasses(array $validation_classes): void
 	{
 		static::$validation_classes = $validation_classes;
 	}
@@ -113,11 +113,11 @@ class ClassNames
 	 * @param null|string|array $class_names
 	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
 	 */
-	public function set($class_names) : self
+	public function set($class_names): self
 	{
 		if (null === $class_names) {
 			$class_names = [];
-		} else if (is_string($class_names)) {
+		} elseif (is_string($class_names)) {
 			$class_names = explode(' ', $class_names);
 		}
 		
@@ -132,7 +132,7 @@ class ClassNames
 	 * @param mixed ...$class_names
 	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
 	 */
-	public function add(...$class_names) : self
+	public function add(...$class_names): self
 	{
 		$this->class_names = array_unique(array_merge($this->class_names, $class_names));
 		
@@ -145,7 +145,7 @@ class ClassNames
 	 * @param string[] ...$class_names
 	 * @return \Galahad\Aire\Elements\Attributes\ClassNames
 	 */
-	public function remove(...$class_names) : self
+	public function remove(...$class_names): self
 	{
 		$this->removed_class_names = array_unique(array_merge($this->removed_class_names, $class_names));
 		
@@ -157,7 +157,7 @@ class ClassNames
 	 *
 	 * @return array
 	 */
-	public function all() : array
+	public function all(): array
 	{
 		$computed_class_names = array_unique(array_merge(
 			$this->class_names,
@@ -174,7 +174,7 @@ class ClassNames
 	 * @param string ...$class_names
 	 * @return bool
 	 */
-	public function has(string ...$class_names) : bool
+	public function has(string ...$class_names): bool
 	{
 		$all = $this->all();
 		
@@ -202,7 +202,7 @@ class ClassNames
 	 *
 	 * @return null|string
 	 */
-	protected function defaults() : array
+	protected function defaults(): array
 	{
 		$element_name = $this->element_name;
 		
@@ -224,7 +224,7 @@ class ClassNames
 	 *
 	 * @return array
 	 */
-	protected function variantClassNames() : array
+	protected function variantClassNames(): array
 	{
 		if (null === $this->element) {
 			return [];
@@ -277,7 +277,7 @@ class ClassNames
 	 *
 	 * @return array
 	 */
-	protected function validationClassNames() : array
+	protected function validationClassNames(): array
 	{
 		if (null === $this->group) {
 			return [];

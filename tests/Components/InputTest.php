@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\Components;
@@ -34,7 +33,7 @@ use Illuminate\Support\Str;
 
 class InputTest extends ComponentTestCase
 {
-	public function test_accept_attribute_can_be_set_and_unset() : void
+	public function test_accept_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input accept="text/html" />');
 		$this->assertSelectorAttribute($input, 'input', 'accept', 'text/html');
@@ -118,7 +117,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'accept');
 	}
 	
-	public function test_alt_attribute_can_be_set_and_unset() : void
+	public function test_alt_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -129,7 +128,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'alt');
 	}
 	
-	public function test_auto_complete_attribute_can_be_set_and_unset() : void
+	public function test_auto_complete_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input auto-complete="additional-name" />');
 		$this->assertSelectorAttribute($input, 'input', 'autocomplete', 'additional-name');
@@ -321,7 +320,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'autocomplete');
 	}
 	
-	public function test_auto_focus_flag_can_be_set_on_and_off() : void
+	public function test_auto_focus_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input auto-focus />');
 		$this->assertSelectorAttribute($input, 'input', 'autofocus');
@@ -330,7 +329,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'autofocus');
 	}
 	
-	public function test_checked_flag_can_be_set_on_and_off() : void
+	public function test_checked_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input checked />');
 		$this->assertSelectorAttribute($input, 'input', 'checked');
@@ -339,7 +338,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'checked');
 	}
 	
-	public function test_dir_name_attribute_can_be_set_and_unset() : void
+	public function test_dir_name_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -350,7 +349,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'dirname');
 	}
 	
-	public function test_disabled_flag_can_be_set_on_and_off() : void
+	public function test_disabled_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input disabled />');
 		$this->assertSelectorAttribute($input, 'input', 'disabled');
@@ -359,7 +358,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'disabled');
 	}
 	
-	public function test_form_attribute_can_be_set_and_unset() : void
+	public function test_form_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -370,7 +369,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'form');
 	}
 	
-	public function test_form_action_attribute_can_be_set_and_unset() : void
+	public function test_form_action_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -381,7 +380,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'formaction');
 	}
 	
-	public function test_form_enc_type_attribute_can_be_set_and_unset() : void
+	public function test_form_enc_type_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input form-enc-type="application/x-www-form-urlencoded" />');
 		$this->assertSelectorAttribute($input, 'input', 'formenctype', 'application/x-www-form-urlencoded');
@@ -396,7 +395,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'formenctype');
 	}
 	
-	public function test_form_method_attribute_can_be_set_and_unset() : void
+	public function test_form_method_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input form-method="get" />');
 		$this->assertSelectorAttribute($input, 'input', 'formmethod', 'get');
@@ -408,7 +407,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'formmethod');
 	}
 	
-	public function test_form_no_validate_flag_can_be_set_on_and_off() : void
+	public function test_form_no_validate_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input form-no-validate />');
 		$this->assertSelectorAttribute($input, 'input', 'formnovalidate');
@@ -417,7 +416,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'formnovalidate');
 	}
 	
-	public function test_form_target_attribute_can_be_set_and_unset() : void
+	public function test_form_target_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input form-target="_blank" />');
 		$this->assertSelectorAttribute($input, 'input', 'formtarget', '_blank');
@@ -435,7 +434,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'formtarget');
 	}
 	
-	public function test_height_attribute_can_be_set_and_unset() : void
+	public function test_height_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -446,7 +445,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'height');
 	}
 	
-	public function test_list_attribute_can_be_set_and_unset() : void
+	public function test_list_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -457,7 +456,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'list');
 	}
 	
-	public function test_max_attribute_can_be_set_and_unset() : void
+	public function test_max_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -468,7 +467,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'max');
 	}
 	
-	public function test_max_length_attribute_can_be_set_and_unset() : void
+	public function test_max_length_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -479,7 +478,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'maxlength');
 	}
 	
-	public function test_min_attribute_can_be_set_and_unset() : void
+	public function test_min_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -490,7 +489,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'min');
 	}
 	
-	public function test_multiple_flag_can_be_set_on_and_off() : void
+	public function test_multiple_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input multiple />');
 		$this->assertSelectorAttribute($input, 'input', 'multiple');
@@ -499,7 +498,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'multiple');
 	}
 	
-	public function test_name_attribute_can_be_set_and_unset() : void
+	public function test_name_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -510,7 +509,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'name');
 	}
 	
-	public function test_pattern_attribute_can_be_set_and_unset() : void
+	public function test_pattern_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -521,7 +520,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'pattern');
 	}
 	
-	public function test_placeholder_attribute_can_be_set_and_unset() : void
+	public function test_placeholder_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -532,7 +531,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'placeholder');
 	}
 	
-	public function test_read_only_flag_can_be_set_on_and_off() : void
+	public function test_read_only_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input read-only />');
 		$this->assertSelectorAttribute($input, 'input', 'readonly');
@@ -541,7 +540,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'readonly');
 	}
 	
-	public function test_required_flag_can_be_set_on_and_off() : void
+	public function test_required_flag_can_be_set_on_and_off(): void
 	{
 		$input = $this->renderBlade('<x-aire::input required />');
 		$this->assertSelectorAttribute($input, 'input', 'required');
@@ -550,7 +549,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'required');
 	}
 	
-	public function test_size_attribute_can_be_set_and_unset() : void
+	public function test_size_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -561,7 +560,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'size');
 	}
 	
-	public function test_src_attribute_can_be_set_and_unset() : void
+	public function test_src_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -572,7 +571,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'src');
 	}
 	
-	public function test_step_attribute_can_be_set_and_unset() : void
+	public function test_step_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -583,7 +582,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'step');
 	}
 	
-	public function test_type_attribute_can_be_set_and_unset() : void
+	public function test_type_attribute_can_be_set_and_unset(): void
 	{
 		$input = $this->renderBlade('<x-aire::input type="button" />');
 		$this->assertSelectorAttribute($input, 'input', 'type', 'button');
@@ -655,7 +654,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttribute($input, 'input', 'type', 'week');
 	}
 	
-	public function test_value_attribute_can_be_set_and_unset() : void
+	public function test_value_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -666,7 +665,7 @@ class InputTest extends ComponentTestCase
 		$this->assertSelectorAttributeMissing($input, 'input', 'value');
 	}
 	
-	public function test_width_attribute_can_be_set_and_unset() : void
+	public function test_width_attribute_can_be_set_and_unset(): void
 	{
 		$value = Str::random();
 		
@@ -676,5 +675,4 @@ class InputTest extends ComponentTestCase
 		$input = $this->renderBlade('<x-aire::input :width="null" />');
 		$this->assertSelectorAttributeMissing($input, 'input', 'width');
 	}
-	
 }

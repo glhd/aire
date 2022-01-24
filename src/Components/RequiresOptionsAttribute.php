@@ -9,7 +9,7 @@ trait RequiresOptionsAttribute
 {
 	protected $options;
 	
-	protected function getElementInstance(string $element_class) : Element
+	protected function getElementInstance(string $element_class): Element
 	{
 		$aire = Aire::getFacadeRoot();
 		

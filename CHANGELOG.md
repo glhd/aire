@@ -11,6 +11,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added Laravel 9 support
 - Added support for registering a single mutator on multiple attributes
 - Added support for option groups
+
+### Changed
+
+- Applied PHP-CS-Fixer code styles
+
 ## [2.4.5] - 2021-12-02
 
 ### Fixed

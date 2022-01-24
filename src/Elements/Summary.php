@@ -22,14 +22,14 @@ class Summary extends Element implements NonInput
 		$this->view_data['verbose'] = $aire->config('verbose_summaries_by_default', false);
 	}
 	
-	public function verbose(bool $verbose = true) : self
+	public function verbose(bool $verbose = true): self
 	{
 		$this->view_data['verbose'] = $verbose;
 		
 		return $this;
 	}
 	
-	public function simple() : self
+	public function simple(): self
 	{
 		return $this->verbose(false);
 	}

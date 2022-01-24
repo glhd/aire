@@ -76,7 +76,7 @@ class Aire
 	/**
 	 * This will be called to generate an element's ID if auto_id is
 	 * enabled and the element doesn't have an ID set
-	 * 
+	 *
 	 * @var Closure
 	 */
 	protected $id_generator;
@@ -155,7 +155,7 @@ class Aire
 	 *
 	 * @return array
 	 */
-	public static function getDefaultThemeConfig() : array
+	public static function getDefaultThemeConfig(): array
 	{
 		if (null === static::$default_theme_config) {
 			static::$default_theme_config = require dirname(__DIR__).'/config/default-theme.php';
@@ -166,11 +166,11 @@ class Aire
 	
 	/**
 	 * Set the method by which IDs are generated
-	 * 
+	 *
 	 * @param \Closure $id_generator
 	 * @return $this
 	 */
-	public function setIdGenerator(Closure $id_generator) : self 
+	public function setIdGenerator(Closure $id_generator): self
 	{
 		$this->id_generator = $id_generator;
 		
@@ -179,29 +179,29 @@ class Aire
 	
 	/**
 	 * Generate an ID value for an element
-	 * 
+	 *
 	 * @param \Galahad\Aire\Elements\Element $element
 	 * @param \Galahad\Aire\Elements\Form|null $form
 	 * @return string
 	 */
-	public function generateAutoId(Element $element, Form $form = null) : string
+	public function generateAutoId(Element $element, Form $form = null): string
 	{
 		return (string) call_user_func($this->id_generator, $element, $form);
 	}
 	
-    /**
-     * Set the View Factory that Aire will use to resolve views
-     *
-     * @param Factory $view_factory
-     *
-     * @return Aire
-     */
-	public function setViewFactory(Factory $view_factory) : self
-    {
-        $this->view_factory = $view_factory;
+	/**
+	 * Set the View Factory that Aire will use to resolve views
+	 *
+	 * @param Factory $view_factory
+	 *
+	 * @return Aire
+	 */
+	public function setViewFactory(Factory $view_factory): self
+	{
+		$this->view_factory = $view_factory;
 
-        return $this;
-    }
+		return $this;
+	}
 	
 	/**
 	 * Set where Aire looks for view files + any config overrides
@@ -218,7 +218,7 @@ class Aire
 	 * @param array|null $config
 	 * @return \Galahad\Aire\Aire
 	 */
-	public function setTheme($namespace = null, $prefix = null, array $config = []) : self
+	public function setTheme($namespace = null, $prefix = null, array $config = []): self
 	{
 		$this->view_namespace = $namespace;
 		$this->view_prefix = $prefix;
@@ -234,7 +234,7 @@ class Aire
 	 *
 	 * @return \Galahad\Aire\Aire
 	 */
-	public function resetTheme() : self
+	public function resetTheme(): self
 	{
 		$this->setTheme('aire', null, static::getDefaultThemeConfig());
 		
@@ -248,7 +248,7 @@ class Aire
 	 * @param \Illuminate\Database\Eloquent\Model|object|array $bound_data
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function form($action = null, $bound_data = null) : Form
+	public function form($action = null, $bound_data = null): Form
 	{
 		$this->form = call_user_func($this->form_resolver);
 		
@@ -274,7 +274,7 @@ class Aire
 	 * @param null $bound_data
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function open($action = null, $bound_data = null) : Form
+	public function open($action = null, $bound_data = null): Form
 	{
 		$this->form($action, $bound_data)->open();
 		
@@ -286,7 +286,7 @@ class Aire
 	 *
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function close() : Form
+	public function close(): Form
 	{
 		if (!($this->form instanceof Form)) {
 			throw new BadMethodCallException('Trying to close a form before opening one.');
@@ -313,7 +313,7 @@ class Aire
 	 * @param string $view
 	 * @return string
 	 */
-	public function applyTheme(string $view) : string
+	public function applyTheme(string $view): string
 	{
 		if ($this->view_prefix) {
 			$view = "{$this->view_prefix}.{$view}";
@@ -334,32 +334,31 @@ class Aire
 	 * @param array $merge_data
 	 * @return string
 	 */
-	public function render($view, array $data = [], array $merge_data = []) : string
+	public function render($view, array $data = [], array $merge_data = []): string
 	{
 		return $this->view_factory->make($this->applyTheme($view), $data, $merge_data)->render();
 	}
 
-
-    /**
-     * Render the first view that exists
-     *
-     * @param array $views
-     * @param array $data
-     * @param array $merge_data
-     *
-     * @return string
-     */
-    public function renderFirst(array $views, array $data = [], array $merge_data = []) : string
-    {
-        return $this->view_factory->first(array_map([$this, 'applyTheme'], $views), $data, $merge_data)->render();
-    }
+	/**
+	 * Render the first view that exists
+	 *
+	 * @param array $views
+	 * @param array $data
+	 * @param array $merge_data
+	 *
+	 * @return string
+	 */
+	public function renderFirst(array $views, array $data = [], array $merge_data = []): string
+	{
+		return $this->view_factory->first(array_map([$this, 'applyTheme'], $views), $data, $merge_data)->render();
+	}
 	
 	/**
 	 * Get the next globally unique element ID
 	 *
 	 * @return int
 	 */
-	public function generateElementId() : int
+	public function generateElementId(): int
 	{
 		return $this->next_element_id++;
 	}
@@ -382,7 +381,9 @@ class Aire
 		// @codeCoverageIgnoreStart
 		if (!method_exists($form, $method_name)) {
 			throw new BadMethodCallException(sprintf(
-				'Method %s::%s does not exist.', static::class, $method_name
+				'Method %s::%s does not exist.',
+				static::class,
+				$method_name
 			));
 		}
 		// @codeCoverageIgnoreEnd
@@ -395,7 +396,7 @@ class Aire
 	 *
 	 * @return \Galahad\Aire\Aire
 	 */
-	protected function registerClasses() : self
+	protected function registerClasses(): self
 	{
 		ClassNames::setDefaultClasses($this->config('default_classes', []));
 		ClassNames::setVariantClasses($this->config('variant_classes', []));

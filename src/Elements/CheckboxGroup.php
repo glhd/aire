@@ -11,7 +11,10 @@ use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
 class CheckboxGroup extends \Galahad\Aire\DTD\Input implements HasJsonValue
 {
-	use HasValue, HasOptions, AppliesIdToWrapper, MapsValueToJsonValue;
+	use HasValue;
+	use HasOptions;
+	use AppliesIdToWrapper;
+	use MapsValueToJsonValue;
 	
 	public $name = 'checkbox-group';
 	

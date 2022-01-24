@@ -11,7 +11,10 @@ use Galahad\Aire\Elements\Concerns\MapsValueToJsonValue;
 
 class Select extends \Galahad\Aire\DTD\Select implements HasJsonValue
 {
-	use HasValue, HasOptions, AutoId, MapsValueToJsonValue;
+	use HasValue;
+	use HasOptions;
+	use AutoId;
+	use MapsValueToJsonValue;
 	
 	public function __construct(Aire $aire, $options, Form $form = null)
 	{

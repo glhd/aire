@@ -45,7 +45,7 @@ abstract class ElementComponent extends Component
 		
 		collect($parameters)
 			->reject(function($arguments) {
-				return null === $arguments; 
+				return null === $arguments;
 			})
 			->each(function($arguments, $name) {
 				$arguments = Arr::wrap($arguments);

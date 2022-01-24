@@ -6,7 +6,7 @@
  * @see https://github.com/atom/autocomplete-html
  *
  * Copyright (c) 2015 GitHub Inc.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,6 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 
 namespace Galahad\Aire\Tests\DTD;
@@ -36,7 +35,7 @@ use Illuminate\Support\Str;
 
 class ButtonTest extends TestCase
 {
-	public function test_auto_focus_flag_can_be_set_on_and_off() : void
+	public function test_auto_focus_flag_can_be_set_on_and_off(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -47,7 +46,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'autofocus');
 	}
 	
-	public function test_disabled_flag_can_be_set_on_and_off() : void
+	public function test_disabled_flag_can_be_set_on_and_off(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -58,7 +57,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'disabled');
 	}
 	
-	public function test_form_attribute_can_be_set_and_unset() : void
+	public function test_form_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -71,7 +70,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'form');
 	}
 	
-	public function test_form_action_attribute_can_be_set_and_unset() : void
+	public function test_form_action_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -84,7 +83,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'formaction');
 	}
 	
-	public function test_form_enc_type_attribute_can_be_set_and_unset() : void
+	public function test_form_enc_type_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -101,7 +100,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'formenctype');
 	}
 	
-	public function test_form_method_attribute_can_be_set_and_unset() : void
+	public function test_form_method_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -115,7 +114,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'formmethod');
 	}
 	
-	public function test_form_no_validate_flag_can_be_set_on_and_off() : void
+	public function test_form_no_validate_flag_can_be_set_on_and_off(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -126,7 +125,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'formnovalidate');
 	}
 	
-	public function test_form_target_attribute_can_be_set_and_unset() : void
+	public function test_form_target_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -146,7 +145,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'formtarget');
 	}
 	
-	public function test_name_attribute_can_be_set_and_unset() : void
+	public function test_name_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -159,7 +158,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'name');
 	}
 	
-	public function test_type_attribute_can_be_set_and_unset() : void
+	public function test_type_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -176,7 +175,7 @@ class ButtonTest extends TestCase
 		$this->assertSelectorAttributeMissing($button, 'button', 'type');
 	}
 	
-	public function test_value_attribute_can_be_set_and_unset() : void
+	public function test_value_attribute_can_be_set_and_unset(): void
 	{
 		$button = new Button($this->aire(), $this->aire()->form());
 		
@@ -188,5 +187,4 @@ class ButtonTest extends TestCase
 		$button->value(null);
 		$this->assertSelectorAttributeMissing($button, 'button', 'value');
 	}
-	
 }

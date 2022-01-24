@@ -2,7 +2,7 @@
 
 namespace Galahad\Aire\Components;
 
-use Galahad\Aire\Elements\RadioGroup as RadioGroupElement; 
+use Galahad\Aire\Elements\RadioGroup as RadioGroupElement;
 
 class RadioGroup extends ElementComponent
 {

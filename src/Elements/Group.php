@@ -80,7 +80,7 @@ class Group extends Element implements NonInput
 	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
 	 * @return \Galahad\Aire\Elements\Group
 	 */
-	public function label($text) : self
+	public function label($text): self
 	{
 		// TODO: Is this necessary any more or can we just use attributes?
 		// TODO: Might make sense to have a special innerHTML attribute that doesn't get rendered to the key=value list
@@ -100,31 +100,31 @@ class Group extends Element implements NonInput
 		return parent::variant($variant);
 	}
 	
-	public function helpText(string $text) : self
+	public function helpText(string $text): self
 	{
 		$this->view_data['help_text'] = $text;
 		
 		return $this;
 	}
 	
-	public function validated($validation_state = self::VALIDATION_VALID) : self
+	public function validated($validation_state = self::VALIDATION_VALID): self
 	{
 		$this->validation_state = $validation_state;
 		
 		return $this;
 	}
 	
-	public function valid() : self
+	public function valid(): self
 	{
 		return $this->validated(self::VALIDATION_VALID);
 	}
 	
-	public function invalid() : self
+	public function invalid(): self
 	{
 		return $this->validated(self::VALIDATION_INVALID);
 	}
 	
-	public function errors($message) : self
+	public function errors($message): self
 	{
 		$this->view_data['errors'] = (array) $message;
 		
@@ -133,26 +133,26 @@ class Group extends Element implements NonInput
 		return $this;
 	}
 	
-	public function prepend(string $text) : self
+	public function prepend(string $text): self
 	{
 		$this->view_data['prepend'] = $text;
 		
 		return $this;
 	}
 	
-	public function append(string $text) : self
+	public function append(string $text): self
 	{
 		$this->view_data['append'] = $text;
 		
 		return $this;
 	}
 	
-	public function getInputName($default = null) : ?string
+	public function getInputName($default = null): ?string
 	{
 		return $this->element->getInputName($default);
 	}
 	
-	public function render() : string
+	public function render(): string
 	{
 		$element_name = $this->element->name;
 		
@@ -172,12 +172,12 @@ class Group extends Element implements NonInput
 		);
 	}
 	
-	protected function applyVariantToGroup($variant) : void
+	protected function applyVariantToGroup($variant): void
 	{
 		// Skip recursion
 	}
 	
-	protected function viewData() : array
+	protected function viewData(): array
 	{
 		if ($name = $this->element->getInputName()) {
 			if (!empty($session_errors = $this->form->getErrors($name))) {
@@ -193,7 +193,7 @@ class Group extends Element implements NonInput
 		]);
 	}
 	
-	protected function initGroup() : ?Group
+	protected function initGroup(): ?Group
 	{
 		$this->group = $this;
 		

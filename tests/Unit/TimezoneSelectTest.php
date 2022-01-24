@@ -6,7 +6,7 @@ use Galahad\Aire\Tests\TestCase;
 
 class TimezoneSelectTest extends TestCase
 {
-	public function test_common_timezones_are_included_in_select() : void
+	public function test_common_timezones_are_included_in_select(): void
 	{
 		$html = $this->aire()->timezoneSelect()->render();
 		
