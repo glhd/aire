@@ -92,6 +92,24 @@ class AttributesTest extends TestCase
 		$this->assertEquals('BAR', $attributes->get('foo'));
 	}
 	
+	public function test_multiple_mutators() : void
+	{
+		$attributes = new Attributes();
+		
+		$attributes->set('foo', 'bar');
+		$attributes->set('baz', 'buzz');
+		
+		$this->assertEquals('bar', $attributes->get('foo'));
+		$this->assertEquals('buzz', $attributes->get('baz'));
+		
+		$attributes->registerMutator(['foo', 'baz'], function($foo) {
+			return strtoupper($foo);
+		});
+		
+		$this->assertEquals('BAR', $attributes->get('foo'));
+		$this->assertEquals('BUZZ', $attributes->get('baz'));
+	}
+	
 	public function test_class_name_mutator_can_return_null() : void
 	{
 		$attributes = new Attributes([
