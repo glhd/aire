@@ -22,7 +22,7 @@ class Input extends \Galahad\Aire\DTD\Input implements HasJsonValue
 	{
 		parent::__construct($aire, $form);
 		
-		$this->attributes->registerMutator('value', function($value) {
+		$this->attributes->registerMutator(['min', 'max', 'value'], function($value) {
 			if ($value instanceof \DateTime) {
 				switch ($this->attributes->get('type')) {
 					case 'date':

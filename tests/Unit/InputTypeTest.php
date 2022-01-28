@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Tests\Unit;
 
+use Carbon\Carbon;
 use Galahad\Aire\Tests\TestCase;
 
 class InputTypeTest extends TestCase
@@ -27,6 +28,23 @@ class InputTypeTest extends TestCase
 		$this->assertSelectorAttribute($date, 'input', 'type', 'date');
 	}
 	
+	public function test_date_time_input_properly_formats_min_max_value_when_given_carbon_date(): void
+	{
+		$min = new Carbon('2022-01-01 00:00:00');
+		$max = new Carbon('2022-12-31 23:59:59');
+		$value = new Carbon('2022-05-10 22:25:12');
+		
+		$datetime = $this->aire()->form()
+			->date()
+			->min($min)
+			->max($max)
+			->value($value);
+		
+		$this->assertSelectorAttribute($datetime, 'input', 'min', $min->format('Y-m-d'));
+		$this->assertSelectorAttribute($datetime, 'input', 'max', $max->format('Y-m-d'));
+		$this->assertSelectorAttribute($datetime, 'input', 'value', $value->format('Y-m-d'));
+	}
+	
 	public function test_datetime_input_type_helper(): void
 	{
 		$datetime = $this->aire()->form()->dateTime();
@@ -39,6 +57,23 @@ class InputTypeTest extends TestCase
 		$datetime = $this->aire()->form()->dateTimeLocal();
 		
 		$this->assertSelectorAttribute($datetime, 'input', 'type', 'datetime-local');
+	}
+	
+	public function test_date_time_local_input_properly_formats_min_max_value_when_given_carbon_date(): void
+	{
+		$min = new Carbon('2022-01-01 00:00:00');
+		$max = new Carbon('2022-12-31 23:59:59');
+		$value = new Carbon('2022-05-10 22:25:12');
+		
+		$datetime = $this->aire()->form()
+			->dateTimeLocal()
+			->min($min)
+			->max($max)
+			->value($value);
+		
+		$this->assertSelectorAttribute($datetime, 'input', 'min', $min->format('Y-m-d\TH:i'));
+		$this->assertSelectorAttribute($datetime, 'input', 'max', $max->format('Y-m-d\TH:i'));
+		$this->assertSelectorAttribute($datetime, 'input', 'value', $value->format('Y-m-d\TH:i'));
 	}
 	
 	public function test_email_input_type_helper(): void
