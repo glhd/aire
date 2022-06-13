@@ -321,7 +321,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 */
 	public function getErrors(string $name): array
 	{
-		if (!$errors = $this->session_store->get('errors')) {
+		if (!$errors = $this->session_store->get('errors', app('view')->getShared()['errors'] ?? [])) {
 			return [];
 		}
 		
