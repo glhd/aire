@@ -6,9 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.6.0] - 2022-08-08
+
 ### Added
 
-- Added support for bound attributes that are cast to an enum
+-   Added support for bound attributes that are cast to an enum
 
 ## [2.5.0] - 2022-01-24
 
@@ -69,7 +71,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.5.0...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.6.0...HEAD
+
+[2.6.0]: https://github.com/glhd/aire/compare/2.5.0...2.6.0
 
 [2.5.0]: https://github.com/glhd/aire/compare/2.4.5...2.5.0
 
