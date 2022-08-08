@@ -100,7 +100,7 @@ class DataBindingTest extends TestCase
 			$this->markTestSkipped('Only applies to PHP 8.1 and higher.');
 		}
 		
-		$model = new EnumModelStub(['name' => Names::CM]);
+		$model = new EnumModelStub(['name' => 'Chris']);
 		
 		$this->aire()->form()->bind($model);
 		
