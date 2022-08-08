@@ -96,8 +96,11 @@ class DataBindingTest extends TestCase
 	
 	public function test_backed_enums_are_bound_propery(): void
 	{
-		if (version_compare(PHP_VERSION, '8.1.0', '<')) {
-			$this->markTestSkipped('Only applies to PHP 8.1 and higher.');
+		if (
+			version_compare(PHP_VERSION, '8.1.0', '<')
+			|| version_compare($this->app->version(), '8.69.0', '<')
+		) {
+			$this->markTestSkipped('Only applies to PHP 8.1/Laravel 8.69 and higher.');
 		}
 		
 		require_once __DIR__.'/enum-stubs.php';
