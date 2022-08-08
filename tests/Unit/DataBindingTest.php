@@ -93,9 +93,40 @@ class DataBindingTest extends TestCase
 		$this->assertSelectorAttribute($select, 'option[value="bar"]', 'selected');
 		$this->assertSelectorAttribute($select, 'option[value="baz"]', 'selected');
 	}
+	
+	public function test_backed_enums_are_bound_propery(): void
+	{
+		if (version_compare(PHP_VERSION, '8.1.0', '<')) {
+			$this->markTestSkipped('Only applies to PHP 8.1 and higher.');
+		}
+		
+		$model = new EnumModelStub(['name' => Names::CM]);
+		
+		$this->aire()->form()->bind($model);
+		
+		$input = $this->aire()->input('name');
+		
+		$this->assertSelectorAttribute($input, 'input', 'value', 'Chris');
+	}
 }
 
 class ModelStub extends Model
 {
 	protected $guarded = [];
+}
+
+if (version_compare(PHP_VERSION, '8.1.0', '>=')) {
+	class EnumModelStub extends Model
+	{
+		protected $guarded = [];
+		protected $casts = [
+			'name' => Names::class,
+		];
+	}
+	
+	enum Names: string
+	{
+		case CM = 'Chris';
+		case TE = 'Tim';
+	}
 }
