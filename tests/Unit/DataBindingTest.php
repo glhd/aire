@@ -119,6 +119,7 @@ if (version_compare(PHP_VERSION, '8.1.0', '>=')) {
 	class EnumModelStub extends Model
 	{
 		protected $guarded = [];
+
 		protected $casts = [
 			'name' => Names::class,
 		];
