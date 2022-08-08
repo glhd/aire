@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added support for bound attributes that are cast to an enum
+
 ## [2.5.0] - 2022-01-24
 
 ### Added
