@@ -305,6 +305,10 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 				? object_get($bound_data, $name, $not_bound)
 				: Arr::get($bound_data, $name, $not_bound);
 			
+			if (function_exists('enum_exists') && $bound_value instanceof \BackedEnum) {
+				$bound_value = $bound_value->value;
+			}
+			
 			if ($bound_value !== $not_bound) {
 				return $bound_value;
 			}
