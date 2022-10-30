@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Galahad\Aire\Aire setIdGenerator(\Closure $id_generator)
  * @method static \Galahad\Aire\Elements\Form form($action = NULL, $bound_data = NULL)
  * @method static \Galahad\Aire\Elements\Form open($action = NULL, $bound_data = NULL)
+ * @method static \Galahad\Aire\Elements\Form close()
  * @method static \Galahad\Aire\Elements\Form route(string $route_name, $parameters = [], bool $absolute = true)
  * @method static \Galahad\Aire\Elements\Form resourceful(\Illuminate\Database\Eloquent\Model $model, $resource_name = null, $prepend_parameters = [])
  * @method static mixed config(string $key, $default = NULL)
