@@ -15,13 +15,13 @@
   ],
   "license": "MIT",
   "require": {
-    "illuminate/support": "~5.8.28|^6.0|^7.0|^8.0|^9.0|dev-master",
-    "illuminate/view": "~5.8.0|^6.0|^7.0|^8.0|^9.0|dev-master",
-    "illuminate/events": "~5.8.0|^6.0|^7.0|^8.0|^9.0|dev-master",
+    "illuminate/support": "~5.8.28|^6.0|^7.0|^8.0|^9.0|^10.0|dev-master",
+    "illuminate/view": "~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|dev-master",
+    "illuminate/events": "~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|dev-master",
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.23|^7.0",
+    "orchestra/testbench": "^6.23|^7.0|^8.0",
     "phpunit/phpunit": "^9.5",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0|~7.0",
@@ -47,12 +47,12 @@
       "Galahad\\Aire\\Tests\\": "tests/"
     }
   },
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"scripts": {
-		"fix-style": "vendor/bin/php-cs-fixer fix",
-		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
-	},
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "fix-style": "vendor/bin/php-cs-fixer fix",
+    "check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
+  },
   "extra": {
     "laravel": {
       "providers": [
