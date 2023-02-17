@@ -13,15 +13,16 @@
       "homepage": "http://www.cmorrell.com"
     }
   ],
+  "type": "library",
   "license": "MIT",
   "require": {
-    "illuminate/support": "~5.8.28|^6.0|^7.0|^8.0|^9.0|dev-master",
-    "illuminate/view": "~5.8.0|^6.0|^7.0|^8.0|^9.0|dev-master",
-    "illuminate/events": "~5.8.0|^6.0|^7.0|^8.0|^9.0|dev-master",
+    "illuminate/support": "~5.8.28|^6|^7|^8|^9|^10|11.x-dev|dev-master",
+    "illuminate/view": "~5.8.28|^6|^7|^8|^9|^10|11.x-dev|dev-master",
+    "illuminate/events": "~5.8.28|^6|^7|^8|^9|^10|11.x-dev|dev-master",
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.23|^7.0",
+    "orchestra/testbench": "^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
     "phpunit/phpunit": "^9.5",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0|~7.0",

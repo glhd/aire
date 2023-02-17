@@ -12,34 +12,44 @@ jobs:
     
     strategy:
       matrix:
-        php: [ 7.4, 8.0, 8.1 ]
-        laravel: [ ^8.0, ^9.0 ]
-        dependency-version: [ lowest, stable ]
+        dependency-version: [ stable, lowest ]
+        laravel: [ ^8.79, ^9.50.2, 10.* ]
+        php: [ 8.0, 8.1, 8.2 ]
+        include:
+          - laravel: ^8.79
+            testbench: ^6.24
+          - laravel: ^9.50.2
+            testbench: ^7.22
+          - laravel: 10.*
+            testbench: 8.*
         exclude:
-          - php: 7.4
-            laravel: ^9.0
-          - laravel: ^9.0
-            dependency-version: lowest
+          - php: 8.2
+            laravel: ^8.79
+          - php: 8.0
+            laravel: 10.*
+          
+    timeout-minutes: 10
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
-          coverage: none
+          tools: composer:v2
       
       - name: Register composer cache directory
         id: composer-cache-files-dir
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT  
+
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             vendor
@@ -49,14 +59,10 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        env:
-          COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies --prefer-${{ matrix.dependency-version }} "laravel/framework:${{ matrix.laravel }}"
-
+        run: composer require --no-interaction --prefer-dist --no-update "illuminate/support:${{ matrix.laravel }}" "illuminate/event:${{ matrix.laravel }}" "illuminate/view:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+      
       - name: Set dependency version
-        env:
-          COMPOSER_DISCARD_CHANGES: true
-        run: composer update --no-progress --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+        run: composer update --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit -v
