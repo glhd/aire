@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added Laravel 10 support
+
 ## [2.6.0] - 2022-08-08
 
 ### Added
