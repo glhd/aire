@@ -251,7 +251,7 @@ abstract class Element implements Htmlable
 			? $value($this)
 			: $value;
 		
-		if (version_compare(App::version(), '8.46.0', '>=')) {
+		if (version_compare(App::version(), '9.0.0', '>=')) {
 			if (func_num_args() === 0) {
 				return new HigherOrderWhenProxy($this);
 			}
@@ -276,7 +276,7 @@ abstract class Element implements Htmlable
 			? $value($this)
 			: $value;
 		
-		if (version_compare(App::version(), '8.46.0', '>=')) {
+		if (version_compare(App::version(), '9.0.0', '>=')) {
 			if (func_num_args() === 0) {
 				return (new HigherOrderWhenProxy($this))->negateConditionOnCapture();
 			}

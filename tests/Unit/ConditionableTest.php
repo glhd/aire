@@ -45,8 +45,8 @@ class ConditionableTest extends TestCase
 	
 	protected function requiresHigherOrderProxies()
 	{
-		if (version_compare($this->app->version(), '8.46.0', '<')) {
-			$this->markTestSkipped('Requires Laravel 8.46 or higher.');
+		if (version_compare($this->app->version(), '9.0.0', '<')) {
+			$this->markTestSkipped('Requires Laravel 9 or higher.');
 		}
 	}
 }
