@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added backwards-compatible version of `Conditionable` helper to elements
+
 ## [2.7.0] - 2023-02-17
 
 ### Added
