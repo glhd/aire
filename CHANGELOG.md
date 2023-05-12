@@ -6,9 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.8.0] - 2023-05-12
+
 ### Added
 
-- Added backwards-compatible version of `Conditionable` helper to elements
+-   Added backwards-compatible version of `Conditionable` helper to elements
 
 ## [2.7.0] - 2023-02-17
 
@@ -81,7 +83,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.7.0...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.8.0...HEAD
+
+[2.8.0]: https://github.com/glhd/aire/compare/2.7.0...2.8.0
 
 [2.7.0]: https://github.com/glhd/aire/compare/2.6.0...2.7.0
 
