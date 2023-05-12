@@ -13,6 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\HigherOrderWhenProxy;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
@@ -250,7 +251,7 @@ abstract class Element implements Htmlable
 			? $value($this)
 			: $value;
 		
-		if (class_exists(HigherOrderWhenProxy::class)) {
+		if (version_compare(App::version(), '8.46.0', '>=')) {
 			if (func_num_args() === 0) {
 				return new HigherOrderWhenProxy($this);
 			}
@@ -275,7 +276,7 @@ abstract class Element implements Htmlable
 			? $value($this)
 			: $value;
 		
-		if (class_exists(HigherOrderWhenProxy::class)) {
+		if (version_compare(App::version(), '8.46.0', '>=')) {
 			if (func_num_args() === 0) {
 				return (new HigherOrderWhenProxy($this))->negateConditionOnCapture();
 			}
