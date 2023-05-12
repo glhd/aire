@@ -2,6 +2,7 @@
 
 namespace Galahad\Aire\Elements;
 
+use Closure;
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\NonInput;
 use Galahad\Aire\DTD\Concerns\HasGlobalAttributes;
@@ -12,12 +13,16 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\HigherOrderWhenProxy;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 
 abstract class Element implements Htmlable
 {
-	use HasGlobalAttributes, Groupable, HasVariants, Macroable {
+	use Groupable;
+	use HasGlobalAttributes;
+	use HasVariants; 
+	use Macroable {
 		Groupable::__call insteadof Macroable;
 		Macroable::__call as callMacro;
 		Macroable::__callStatic as callStaticMacro;
@@ -237,6 +242,56 @@ abstract class Element implements Htmlable
 	public function hasViewData(string $key): bool
 	{
 		return Arr::has($this->view_data, $key);
+	}
+	
+	public function when($value = null, callable $callback = null, callable $default = null)
+	{
+		$value = $value instanceof Closure
+			? $value($this)
+			: $value;
+		
+		if (class_exists(HigherOrderWhenProxy::class)) {
+			if (func_num_args() === 0) {
+				return new HigherOrderWhenProxy($this);
+			}
+			
+			if (func_num_args() === 1) {
+				return (new HigherOrderWhenProxy($this))->condition($value);
+			}
+		}
+		
+		if ($value) {
+			return $callback($this, $value) ?? $this;
+		} elseif ($default) {
+			return $default($this, $value) ?? $this;
+		}
+		
+		return $this;
+	}
+	
+	public function unless($value = null, callable $callback = null, callable $default = null)
+	{
+		$value = $value instanceof Closure
+			? $value($this)
+			: $value;
+		
+		if (class_exists(HigherOrderWhenProxy::class)) {
+			if (func_num_args() === 0) {
+				return (new HigherOrderWhenProxy($this))->negateConditionOnCapture();
+			}
+			
+			if (func_num_args() === 1) {
+				return (new HigherOrderWhenProxy($this))->condition(! $value);
+			}
+		}
+		
+		if (! $value) {
+			return $callback($this, $value) ?? $this;
+		} elseif ($default) {
+			return $default($this, $value) ?? $this;
+		}
+		
+		return $this;
 	}
 	
 	/**
