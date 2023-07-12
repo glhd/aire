@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+-   Added support for calling `isOpened()` on Aire to determine if any form is open
+
 ## [2.8.0] - 2023-05-12
 
 ### Added

@@ -328,4 +328,21 @@ class FormTest extends TestCase
 		$form->target(null);
 		$this->assertSelectorAttributeMissing($form, 'form', 'target');
 	}
+	
+	public function test_you_can_check_whether_a_form_has_been_opened(): void
+	{
+		$this->assertFalse($this->aire()->isOpened());
+		
+		$form = $this->aire()->form();
+		
+		$this->assertFalse($this->aire()->isOpened());
+		
+		$form->open();
+		
+		$this->assertTrue($this->aire()->isOpened());
+		
+		$this->aire()->close();
+		
+		$this->assertFalse($this->aire()->isOpened());
+	}
 }

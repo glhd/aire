@@ -296,6 +296,17 @@ class Aire
 	}
 	
 	/**
+	 * Check whether a form has been opened.
+	 * 
+	 * @return bool
+	 */
+	public function isOpened(): bool
+	{
+		return $this->form instanceof Form
+			&& $this->form->isOpened();
+	}
+	
+	/**
 	 * Get a configuration value
 	 *
 	 * @param string $key
