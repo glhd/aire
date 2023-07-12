@@ -297,7 +297,7 @@ class Aire
 	
 	/**
 	 * Check whether a form has been opened.
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function isOpened(): bool
