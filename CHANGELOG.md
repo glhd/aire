@@ -6,6 +6,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.8.1] - 2023-07-12
+
 ### Added
 
 -   Added support for calling `isOpened()` on Aire to determine if any form is open
@@ -87,7 +89,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.8.0...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.8.1...HEAD
+
+[2.8.1]: https://github.com/glhd/aire/compare/2.8.0...2.8.1
 
 [2.8.0]: https://github.com/glhd/aire/compare/2.7.0...2.8.0
 
