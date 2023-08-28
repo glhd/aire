@@ -412,9 +412,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param bool $absolute
 	 * @return \Galahad\Aire\Elements\Form
 	 */
-	public function route(string $route_name, $parameters = [], bool $absolute = true): self
+	public function route(string $route_name, $parameters = [], bool $absolute = true, bool $signed = false): self
 	{
-		$action = $this->url->route($route_name, $parameters, $absolute);
+		if ($signed) {
+			$action = $this->url->signedRoute($route_name, $parameters, $absolute);
+		} else { 
+			$action = $this->url->route($route_name, $parameters, $absolute);
+		}
 		$this->action($action);
 		
 		$this->inferMethodFromRoute($route_name);
