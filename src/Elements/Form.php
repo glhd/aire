@@ -415,7 +415,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	public function route(string $route_name, $parameters = [], bool $absolute = true, bool $signed = false): self
 	{
 		if ($signed) {
-			$action = $this->url->signedRoute($route_name, $parameters, $absolute);
+			$action = $this->url->signedRoute($route_name, $parameters, null, $absolute);
 		} else { 
 			$action = $this->url->route($route_name, $parameters, $absolute);
 		}
