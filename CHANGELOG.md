@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated Aire’s client-side validation JS to be less aggressive with marking errors 
+
 ## [2.8.1] - 2023-07-12
 
 ### Added
