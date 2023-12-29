@@ -2099,7 +2099,7 @@
         return;
       }
 
-      var fails = touched.has(name) && name in errors;
+      var fails = touched.has(name) && document.activeElement !== refs[name].input[0] && name in errors;
       var passes = touched.has(name) && !fails && name in data;
 
       if ('errors' in refs[name]) {
@@ -2276,7 +2276,7 @@
 
     form.addEventListener('change', run, true);
     form.addEventListener('keyup', run, true);
-    form.addEventListener('focus', touch, true);
+    form.addEventListener('blur', touch, true);
     run();
 
     var disconnect = function disconnect() {
@@ -2284,7 +2284,7 @@
       clearTimeout(debounce);
       form.removeEventListener('change', run);
       form.removeEventListener('keyup', run);
-      form.removeEventListener('focus', touch);
+      form.removeEventListener('blur', touch);
     };
 
     return {

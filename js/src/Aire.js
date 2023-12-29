@@ -65,8 +65,13 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 			return;
 		}
 		
-		const fails = touched.has(name) && (name in errors);
-		const passes = touched.has(name) && !fails && (name in data);
+		const fails = touched.has(name) 
+			&& document.activeElement !== refs[name].input[0] 
+			&& (name in errors);
+		
+		const passes = touched.has(name) 
+			&& !fails 
+			&& (name in data);
 		
 		if ('errors' in refs[name]) {
 			if (passes) {
@@ -223,7 +228,7 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 	
 	form.addEventListener('change', run, true);
 	form.addEventListener('keyup', run, true);
-	form.addEventListener('focus', touch, true);
+	form.addEventListener('blur', touch, true);
 	
 	run();
 	
@@ -232,7 +237,7 @@ export const connect = (target, rules = {}, messages = {}, form_request = null) 
 		clearTimeout(debounce);
 		form.removeEventListener('change', run);
 		form.removeEventListener('keyup', run);
-		form.removeEventListener('focus', touch);
+		form.removeEventListener('blur', touch);
 	};
 	
 	return {
