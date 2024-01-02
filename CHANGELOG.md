@@ -6,6 +6,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed small bug in new JS validation logic
+
 ## [2.9.0] - 2023-12-29
 
 ### Changed
