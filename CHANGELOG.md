@@ -6,9 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.9.1] - 2024-01-02
+
 ### Fixed
 
-- Fixed small bug in new JS validation logic
+-   Fixed small bug in new JS validation logic
 
 ## [2.9.0] - 2023-12-29
 
@@ -99,7 +101,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.9.0...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.9.1...HEAD
+
+[2.9.1]: https://github.com/glhd/aire/compare/2.9.0...2.9.1
 
 [2.9.0]: https://github.com/glhd/aire/compare/2.8.1...2.9.0
 
