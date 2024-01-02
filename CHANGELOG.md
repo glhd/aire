@@ -6,9 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.9.0] - 2023-12-29
+
 ### Changed
 
-- Updated Aire’s client-side validation JS to be less aggressive with marking errors 
+-   Updated Aire’s client-side validation JS to be less aggressive with marking errors 
 
 ## [2.8.1] - 2023-07-12
 
@@ -93,7 +95,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.8.1...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.9.0...HEAD
+
+[2.9.0]: https://github.com/glhd/aire/compare/2.8.1...2.9.0
 
 [2.8.1]: https://github.com/glhd/aire/compare/2.8.0...2.8.1
 
