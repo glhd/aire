@@ -2099,7 +2099,7 @@
         return;
       }
 
-      var fails = touched.has(name) && document.activeElement !== refs[name].input[0] && name in errors;
+      var fails = touched.has(name) && 'input' in refs[name] && document.activeElement !== refs[name].input[0] && name in errors;
       var passes = touched.has(name) && !fails && name in data;
 
       if ('errors' in refs[name]) {

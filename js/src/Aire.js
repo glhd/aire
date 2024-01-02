@@ -66,6 +66,7 @@ const defaultRenderer = ({ form, errors, data, rules, refs, touched }) => {
 		}
 		
 		const fails = touched.has(name) 
+			&& ('input' in refs[name])
 			&& document.activeElement !== refs[name].input[0] 
 			&& (name in errors);
 		
