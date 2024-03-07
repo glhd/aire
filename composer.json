@@ -23,7 +23,7 @@
   },
   "require-dev": {
     "orchestra/testbench": "^6.24|^7.10|^8|^9|10.x-dev|dev-master",
-    "phpunit/phpunit": "^9.5",
+    "phpunit/phpunit": "^9.5|^10|^11",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0|~7.0",
     "symfony/css-selector": "^5.4",
