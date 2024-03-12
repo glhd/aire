@@ -16,9 +16,9 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "illuminate/support": "~5.8.28|^6|^7|^8|^9|^10|^11|12.x-dev|dev-master",
-    "illuminate/view": "~5.8.28|^6|^7|^8|^9|^10|^11|12.x-dev|dev-master",
-    "illuminate/events": "~5.8.28|^6|^7|^8|^9|^10|^11|12.x-dev|dev-master",
+    "illuminate/support": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
+    "illuminate/view": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
+    "illuminate/events": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
     "ext-json": "*"
   },
   "require-dev": {
