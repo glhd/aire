@@ -3,13 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	bootstrap="vendor/autoload.php"
 	colors="true"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+	cacheDirectory=".phpunit.cache"
 >
-	<coverage processUncoveredFiles="true">
-		<include>
-			<directory suffix=".php">./src</directory>
-		</include>
-	</coverage>
 	<testsuites>
 		<testsuite name="Tests">
 			<directory>./tests</directory>
@@ -23,4 +19,9 @@
 		<env name="QUEUE_DRIVER" value="sync"/>
 		<env name="MAIL_DRIVER" value="array"/>
 	</php>
+	<source>
+		<include>
+			<directory suffix=".php">./src</directory>
+		</include>
+	</source>
 </phpunit>
