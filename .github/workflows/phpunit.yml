@@ -20,7 +20,7 @@ jobs:
             testbench: ^6.24
           - laravel: ^9.50.2
             testbench: ^7.22
-          - laravel: 10.*
+          - laravel: '>10.0.0 <10.48.0 || >10.48.1 <11.0.0'
             testbench: 8.*
           - laravel: 11.*
             testbench: 9.x-dev
@@ -34,7 +34,7 @@ jobs:
           - php: 8.0
             laravel: 11.*
           - php: 8.0
-            laravel: 10.*
+            laravel: '>10.0.0 <10.48.0 || >10.48.1 <11.0.0'
           
     timeout-minutes: 10
 
