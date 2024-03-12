@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         dependency-version: [ stable, lowest ]
-        laravel: [ ^8.79, ^9.50.2, 10.*, 11.* ]
+        laravel: [ ^8.79, ^9.50.2, '>10.0.0 <10.48.0 || >10.48.1 <11.0.0', 11.* ]
         php: [ 8.0, 8.1, 8.2, 8.3 ]
         include:
           - laravel: ^8.79
