@@ -13,14 +13,14 @@ jobs:
     strategy:
       matrix:
         dependency-version: [ stable, lowest ]
-        laravel: [ ^8.79, ^9.50.2, '>10.0.0 <10.48.0 || >10.48.1 <11.0.0', 11.* ]
+        laravel: [ ^8.79, ^9.50.2, 10.*, 11.* ]
         php: [ 8.0, 8.1, 8.2, 8.3 ]
         include:
           - laravel: ^8.79
             testbench: ^6.24
           - laravel: ^9.50.2
             testbench: ^7.22
-          - laravel: '>10.0.0 <10.48.0 || >10.48.1 <11.0.0'
+          - laravel: 10.*
             testbench: 8.*
           - laravel: 11.*
             testbench: 9.x-dev
@@ -34,8 +34,8 @@ jobs:
           - php: 8.0
             laravel: 11.*
           - php: 8.0
-            laravel: '>10.0.0 <10.48.0 || >10.48.1 <11.0.0'
-          
+            laravel: 10.*
+    
     timeout-minutes: 10
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
@@ -50,7 +50,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           tools: composer:v2
-      
+
       - name: Register composer cache directory
         id: composer-cache-files-dir
         run: |
@@ -67,8 +67,8 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer require --no-interaction --prefer-dist --no-update "illuminate/support:${{ matrix.laravel }}" "illuminate/events:${{ matrix.laravel }}" "illuminate/view:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
-      
+        run: composer require --no-interaction --prefer-dist --no-update "illuminate/support:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+
       - name: Set dependency version
         run: composer update --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 

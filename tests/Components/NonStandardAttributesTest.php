@@ -4,6 +4,25 @@ namespace Galahad\Aire\Tests\Components;
 
 class NonStandardAttributesTest extends ComponentTestCase
 {
+	protected function setUp(): void
+	{
+		parent::setUp();
+		
+		if (
+			version_compare($this->app->version(), '11.0.0', '>=')
+			&& version_compare($this->app->version(), '11.0.1', '<')
+		) {
+			$this->markTestSkipped('There is a bug in Laravel 11.0.0 that breaks this test.');
+		}
+		
+		if (
+			version_compare($this->app->version(), '10.48.0', '>=')
+			&& version_compare($this->app->version(), '10.48.2', '<')
+		) {
+			$this->markTestSkipped('There is a bug in Laravel 10.48.0-10.48.1 that breaks this test.');
+		}
+	}
+	
 	public function test_alpine_style_attributes(): void
 	{
 		$blade = '
