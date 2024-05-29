@@ -288,6 +288,9 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 			return value($default);
 		}
 		
+		// Convert bracket-notation to dot-notation
+		$name = preg_replace('/\[([^]]+)]/', '.$1', $name);
+		
 		// If old input is set, use that
 		if ($this->session_store && ($old = $this->session_store->getOldInput()) && Arr::has($old, $name)) {
 			return Arr::get($old, $name) ?? '';

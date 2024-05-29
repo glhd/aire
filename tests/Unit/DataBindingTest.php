@@ -113,6 +113,16 @@ class DataBindingTest extends TestCase
 		
 		$this->assertSelectorAttribute($input, 'input', 'value', 'Chris');
 	}
+	
+	public function test_bound_data_with_square_brackets_is_supported(): void
+	{
+		$form = $this->aire()->form();
+		
+		$form->bind(['foo' => ['bar' => 'baz']]);
+		
+		$this->assertEquals('baz', $form->getBoundValue('foo[bar]'));
+		$this->assertEquals('baz', $form->getBoundValue('foo.bar'));
+	}
 }
 
 class ModelStub extends Model
