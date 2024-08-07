@@ -102,6 +102,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @var string
 	 */
 	protected $form_request;
+
+	/**
+	 * Custom error bag
+	 *
+	 * @var string
+	 */
+	protected $error_bag = null;
 	
 	/**
 	 * Set to true to load development versions of JS
@@ -335,6 +342,10 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		if (!$errors instanceof ViewErrorBag) {
 			return [];
 		}
+
+		if ($this->error_bag) {
+			$errors = $errors->{$this->error_bag};
+		}
 		
 		if (!$errors->has($name)) {
 			return [];
@@ -405,6 +416,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		$this->pending_button = null;
 		
 		return $button;
+	}
+
+	public function errorBag($name): self
+	{
+		$this->error_bag = $name;
+
+		return $this;
 	}
 	
 	/**
