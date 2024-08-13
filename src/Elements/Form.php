@@ -344,7 +344,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		}
 
 		if ($this->error_bag) {
-			$errors = $errors->{$this->error_bag};
+			$errors = $errors->getBag($this->error_bag);
 		}
 		
 		if (!$errors->has($name)) {
