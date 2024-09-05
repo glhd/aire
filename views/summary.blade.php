@@ -2,7 +2,7 @@
 <?php /** @var \Illuminate\Support\ViewErrorBag $errors */ ?>
 @php
     if (isset($error_bag) && isset($errors)) {
-		$errors = $errors->{$error_bag};
+		$errors = $errors->getBag($error_bag);
     }
 @endphp
 

@@ -13,7 +13,7 @@ class Summary extends Element implements NonInput
 	
 	protected $view_data = [
 		'verbose' => false,
-		'error_bag' => null
+		'error_bag' => null,
 	];
 	
 	public function __construct(Aire $aire, Form $form = null)
