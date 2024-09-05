@@ -13,6 +13,7 @@ class Summary extends Element implements NonInput
 	
 	protected $view_data = [
 		'verbose' => false,
+		'error_bag' => null
 	];
 	
 	public function __construct(Aire $aire, Form $form = null)
@@ -20,6 +21,7 @@ class Summary extends Element implements NonInput
 		parent::__construct($aire, $form);
 		
 		$this->view_data['verbose'] = $aire->config('verbose_summaries_by_default', false);
+		$this->view_data['error_bag'] = $form->error_bag;
 	}
 	
 	public function verbose(bool $verbose = true): self

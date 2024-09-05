@@ -1,5 +1,10 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
 <?php /** @var \Illuminate\Support\ViewErrorBag $errors */ ?>
+@php
+    if (isset($error_bag) && isset($errors)) {
+		$errors = $errors->{$error_bag};
+    }
+@endphp
 
 @if (isset($errors) && $errors->any())
 	
