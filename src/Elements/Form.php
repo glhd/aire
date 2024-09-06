@@ -54,13 +54,6 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	public $validation_messages = [];
 	
 	/**
-	 * Custom error bag
-	 *
-	 * @var string
-	 */
-	public $error_bag = 'default';
-	
-	/**
 	 * @inheritdoc
 	 */
 	protected $default_attributes = [
@@ -109,6 +102,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @var string
 	 */
 	protected $form_request;
+	
+	/**
+	 * Custom error bag
+	 *
+	 * @var string
+	 */
+	protected $error_bag = 'default';
 	
 	/**
 	 * Set to true to load development versions of JS
