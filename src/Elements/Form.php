@@ -16,6 +16,7 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 use stdClass;
@@ -330,10 +331,10 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	/**
 	 * Get any validation errors associated with an Element
 	 *
-	 * @param string $name
-	 * @return array
+	 * @param ?string $name
+	 * @return MessageBag|array
 	 */
-	public function getErrors(string $name = null): array
+	public function getErrors(string $name = null)
 	{
 		$errors = $this->session_store
 			->get('errors', new ViewErrorBag())
