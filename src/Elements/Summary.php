@@ -4,8 +4,6 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\NonInput;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\ViewErrorBag;
 
 class Summary extends Element implements NonInput
 {

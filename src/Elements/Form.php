@@ -16,7 +16,6 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 use stdClass;
@@ -409,7 +408,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	
 	/**
 	 * Set the name of the error bag to use for error messages
-	 * 
+	 *
 	 * @param string $name
 	 * @return $this
 	 */
