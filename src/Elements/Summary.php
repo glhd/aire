@@ -20,6 +20,7 @@ class Summary extends Element implements NonInput
 		parent::__construct($aire, $form);
 		
 		$this->view_data['verbose'] = $aire->config('verbose_summaries_by_default', false);
+		$this->view_data['errors'] = $form->getErrors();
 	}
 	
 	public function verbose(bool $verbose = true): self
