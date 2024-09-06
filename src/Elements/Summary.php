@@ -4,6 +4,8 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\NonInput;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\ViewErrorBag;
 
 class Summary extends Element implements NonInput
 {
@@ -13,7 +15,6 @@ class Summary extends Element implements NonInput
 	
 	protected $view_data = [
 		'verbose' => false,
-		'error_bag' => null,
 	];
 	
 	public function __construct(Aire $aire, Form $form = null)
@@ -21,7 +22,7 @@ class Summary extends Element implements NonInput
 		parent::__construct($aire, $form);
 		
 		$this->view_data['verbose'] = $aire->config('verbose_summaries_by_default', false);
-		$this->view_data['error_bag'] = $form->error_bag;
+		$this->view_data['errors'] = $form->getErrors();
 	}
 	
 	public function verbose(bool $verbose = true): self

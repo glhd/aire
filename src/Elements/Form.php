@@ -16,6 +16,7 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 use stdClass;
@@ -58,7 +59,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 *
 	 * @var string
 	 */
-	public $error_bag = null;
+	public $error_bag = 'default';
 	
 	/**
 	 * @inheritdoc
@@ -333,25 +334,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param string $name
 	 * @return array
 	 */
-	public function getErrors(string $name): array
+	public function getErrors(string $name = null): array
 	{
-		if (!$errors = $this->session_store->get('errors')) {
-			return [];
-		}
+		$errors = $this->session_store
+			->get('errors', new ViewErrorBag())
+			->getBag($this->error_bag);
 		
-		if (!$errors instanceof ViewErrorBag) {
-			return [];
-		}
-
-		if ($this->error_bag) {
-			$errors = $errors->getBag($this->error_bag);
-		}
-		
-		if (!$errors->has($name)) {
-			return [];
-		}
-		
-		return $errors->get($name);
+		return $name ? $errors->get($name) : $errors;
 	}
 	
 	/**
@@ -417,7 +406,13 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 		
 		return $button;
 	}
-
+	
+	/**
+	 * Set the name of the error bag to use for error messages
+	 * 
+	 * @param string $name
+	 * @return $this
+	 */
 	public function errorBag($name): self
 	{
 		$this->error_bag = $name;

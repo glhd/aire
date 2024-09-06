@@ -1,10 +1,5 @@
 <?php /** @var \Galahad\Aire\Elements\Attributes\Attributes $attributes */ ?>
-<?php /** @var \Illuminate\Support\ViewErrorBag $errors */ ?>
-@php
-    if (isset($error_bag) && isset($errors)) {
-		$errors = $errors->getBag($error_bag);
-    }
-@endphp
+<?php /** @var \Illuminate\Support\MessageBag $errors */ ?>
 
 @if (isset($errors) && $errors->any())
 	
