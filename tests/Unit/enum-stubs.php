@@ -15,7 +15,7 @@ class EnumModelStub extends Model
 
 enum Names: string
 {
-	case CM = 'Chris';
+	case ChrisMorrell = 'inxilpro';
 	
-	case TE = 'Tim';
+	case BogdanKharchenko = 'boggybot';
 }

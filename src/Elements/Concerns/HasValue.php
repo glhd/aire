@@ -2,6 +2,9 @@
 
 namespace Galahad\Aire\Elements\Concerns;
 
+use BackedEnum;
+use UnitEnum;
+
 trait HasValue
 {
 	/**
@@ -12,6 +15,12 @@ trait HasValue
 	 */
 	public function defaultValue($value): self
 	{
+		if ($value instanceof BackedEnum) {
+			$value = $value->value;
+		} elseif ($value instanceof UnitEnum) {
+			$value = $value->name;
+		}
+		
 		$this->attributes->setDefault('value', $value);
 		
 		return $this;
