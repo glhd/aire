@@ -6,6 +6,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.13.0] - 2024-09-18
+
 ## [2.12.1] - 2024-09-06
 
 ## [2.12.0] - 2024-08-13
@@ -109,7 +111,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For all releases from 2.3.4 and below, see the [Github Releases](https://github.com/glhd/aire/releases).
 
-[Unreleased]: https://github.com/glhd/aire/compare/2.12.1...HEAD
+[Unreleased]: https://github.com/glhd/aire/compare/2.13.0...HEAD
+
+[2.13.0]: https://github.com/glhd/aire/compare/2.12.1...2.13.0
 
 [2.12.1]: https://github.com/glhd/aire/compare/2.12.0...2.12.1
 
