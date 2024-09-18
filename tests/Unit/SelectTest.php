@@ -125,6 +125,24 @@ class SelectTest extends TestCase
 		$this->assertSelectorTextEquals($html, 'option[value="2"]', 'Ann Patchett');
 		$this->assertSelectorTextEquals($html, 'option[selected]', 'Ann Patchett');
 	}
+	
+	public function test_a_native_enum_is_supported(): void
+	{
+		if (version_compare(PHP_VERSION, '8.1.0', '<')) {
+			$this->markTestSkipped('Only applies to PHP 8.1 and higher.');
+		}
+		
+		require_once __DIR__.'/enum-stubs.php';
+		
+		$html = $this->aire()
+			->select(Names::class)
+			->defaultValue(Names::BogdanKharchenko)
+			->render();
+		
+		$this->assertSelectorTextEquals($html, 'option[value="inxilpro"]', 'Chris Morrell');
+		$this->assertSelectorTextEquals($html, 'option[value="boggybot"]', 'Bogdan Kharchenko');
+		$this->assertSelectorTextEquals($html, 'option[selected]', 'Bogdan Kharchenko');
+	}
 }
 
 if (class_exists('BenSampo\Enum\Enum')) {
