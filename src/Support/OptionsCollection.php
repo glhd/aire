@@ -35,7 +35,7 @@ class OptionsCollection extends Collection
 				$items = collect($items::cases())->mapWithKeys(function(UnitEnum $case) {
 					$label = method_exists($case, 'description')
 						? $case->description()
-						: Str::apa(Str::headline($case->name));
+						: Str::headline($case->name);
 					
 					if ($case instanceof BackedEnum) {
 						return [$case->value => $label];
