@@ -4,6 +4,7 @@ namespace Galahad\Aire\Elements;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Contracts\NonInput;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
 
 class Group extends Element implements NonInput
@@ -77,7 +78,7 @@ class Group extends Element implements NonInput
 	/**
 	 * Set the group's label
 	 *
-	 * @param string|\Illuminate\Contracts\Support\Htmlable $text
+	 * @param string|Htmlable $text
 	 * @return \Galahad\Aire\Elements\Group
 	 */
 	public function label($text): self
@@ -99,8 +100,11 @@ class Group extends Element implements NonInput
 		
 		return parent::variant($variant);
 	}
-	
-	public function helpText(string $text): self
+
+    /**
+     * @param string|Htmlable $text
+     */
+	public function helpText($text): self
 	{
 		$this->view_data['help_text'] = $text;
 		
