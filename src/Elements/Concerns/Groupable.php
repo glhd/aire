@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 /**
  * @method \Galahad\Aire\Elements\Element label(string|Htmlable $text)
- * @method \Galahad\Aire\Elements\Element helpText(string $text)
+ * @method \Galahad\Aire\Elements\Element helpText(string|Htmlable $text)
  * @method \Galahad\Aire\Elements\Element validated($validation_state = 'valid')
  * @method \Galahad\Aire\Elements\Element valid()
  * @method \Galahad\Aire\Elements\Element invalid()
