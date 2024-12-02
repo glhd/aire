@@ -9,33 +9,25 @@ on:
 jobs:
   php-tests:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         dependency-version: [ stable, lowest ]
-        laravel: [ ^8.79, ^9.50.2, 10.*, 11.* ]
-        php: [ 8.0, 8.1, 8.2, 8.3 ]
+        laravel: [ ^9.50.2, 10.*, 11.* ]
+        php: [ 8.1, 8.2, 8.3, 8.4 ]
         include:
-          - laravel: ^8.79
-            testbench: ^6.24
           - laravel: ^9.50.2
             testbench: ^7.22
           - laravel: 10.*
             testbench: 8.*
           - laravel: 11.*
-            testbench: 9.x-dev
+            testbench: 9.*
         exclude:
-          - php: 8.3
-            laravel: ^8.79
-          - php: 8.2
-            laravel: ^8.79
+          - php: 8.4
+            laravel: ^9.50.2
           - php: 8.1
             laravel: 11.*
-          - php: 8.0
-            laravel: 11.*
-          - php: 8.0
-            laravel: 10.*
-    
+
     timeout-minutes: 10
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
@@ -54,7 +46,7 @@ jobs:
       - name: Register composer cache directory
         id: composer-cache-files-dir
         run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT  
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v3

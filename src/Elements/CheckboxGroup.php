@@ -22,7 +22,7 @@ class CheckboxGroup extends \Galahad\Aire\DTD\Input implements HasJsonValue
 		'type' => 'checkbox',
 	];
 	
-	public function __construct(Aire $aire, $options, Form $form = null)
+	public function __construct(Aire $aire, $options, ?Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

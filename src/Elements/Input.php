@@ -18,7 +18,7 @@ class Input extends \Galahad\Aire\DTD\Input implements HasJsonValue
 		'type' => 'text',
 	];
 	
-	public function __construct(Aire $aire, Form $form = null)
+	public function __construct(Aire $aire, ?Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

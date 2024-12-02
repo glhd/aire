@@ -141,7 +141,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 */
 	protected $on_close;
 	
-	public function __construct(Aire $aire, UrlGenerator $url, Router $router = null, Store $session_store = null)
+	public function __construct(Aire $aire, UrlGenerator $url, ?Router $router = null, ?Store $session_store = null)
 	{
 		parent::__construct($aire);
 		
@@ -334,7 +334,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param ?string $name
 	 * @return MessageBag|array
 	 */
-	public function getErrors(string $name = null)
+	public function getErrors(?string $name = null)
 	{
 		$errors = $this->session_store
 			->get('errors', new ViewErrorBag())
@@ -504,7 +504,7 @@ class Form extends \Galahad\Aire\DTD\Form implements NonInput
 	 * @param array $custom_messages
 	 * @return $this
 	 */
-	public function validate($rule_source = null, array $custom_messages = null): self
+	public function validate($rule_source = null, ?array $custom_messages = null): self
 	{
 		$this->validate = true;
 		

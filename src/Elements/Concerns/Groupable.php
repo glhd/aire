@@ -102,17 +102,17 @@ trait Groupable
 		$group_method = 0 === strpos($method_name, 'group')
 			? Str::camel(substr($method_name, 5))
 			: $method_name;
-		
+
 		if ($this->grouped && method_exists($this->group, $group_method)) {
 			$this->group->$group_method(...$arguments);
-			
+
 			return $this;
 		}
-		
+
 		if (static::hasMacro($method_name)) {
 			return $this->callMacro($method_name, $arguments);
 		}
-		
+
 		// @codeCoverageIgnoreStart
 		throw new BadMethodCallException(sprintf(
 			'Method %s::%s does not exist on the Element or Group.',

@@ -73,7 +73,7 @@ abstract class Element implements Htmlable
 	 */
 	protected $bind_value = true;
 	
-	public function __construct(Aire $aire, Form $form = null)
+	public function __construct(Aire $aire, ?Form $form = null)
 	{
 		$this->aire = $aire;
 		$this->element_id = $aire->generateElementId();
@@ -221,7 +221,7 @@ abstract class Element implements Htmlable
 	 * @param string|null $key
 	 * @return array|mixed
 	 */
-	public function getViewData(string $key = null)
+	public function getViewData(?string $key = null)
 	{
 		if (null === $key) {
 			return $this->view_data;
@@ -245,7 +245,7 @@ abstract class Element implements Htmlable
 		return Arr::has($this->view_data, $key);
 	}
 	
-	public function when($value = null, callable $callback = null, callable $default = null)
+	public function when($value = null, ?callable $callback = null, ?callable $default = null)
 	{
 		$value = $value instanceof Closure
 			? $value($this)
@@ -270,7 +270,7 @@ abstract class Element implements Htmlable
 		return $this;
 	}
 	
-	public function unless($value = null, callable $callback = null, callable $default = null)
+	public function unless($value = null, ?callable $callback = null, ?callable $default = null)
 	{
 		$value = $value instanceof Closure
 			? $value($this)
