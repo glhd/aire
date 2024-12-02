@@ -13,7 +13,7 @@ class Label extends \Galahad\Aire\DTD\Label implements NonInput
 	 */
 	public $group;
 	
-	public function __construct(Aire $aire, Group $group = null)
+	public function __construct(Aire $aire, ?Group $group = null)
 	{
 		$this->group = $group;
 		

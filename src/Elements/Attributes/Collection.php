@@ -35,7 +35,7 @@ class Collection implements Htmlable, Arrayable, ArrayAccess
 	 * @param \Galahad\Aire\Elements\Element $element
 	 * @param array|null $default_attributes
 	 */
-	public function __construct(Aire $aire, Element $element, array $default_attributes = null)
+	public function __construct(Aire $aire, Element $element, ?array $default_attributes = null)
 	{
 		$this->aire = $aire;
 		$this->element = $element;

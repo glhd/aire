@@ -68,7 +68,7 @@ class ClassNames
 	 * @param string $element_name
 	 * @param \Galahad\Aire\Elements\Element|null $element
 	 */
-	public function __construct($element_name, Element $element = null)
+	public function __construct($element_name, ?Element $element = null)
 	{
 		$this->element_name = $element_name;
 		$this->element = $element;

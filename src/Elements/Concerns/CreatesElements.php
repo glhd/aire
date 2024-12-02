@@ -35,7 +35,7 @@ trait CreatesElements
 	 * @param string|null $label
 	 * @return \Galahad\Aire\Elements\Button
 	 */
-	public function button(string $label = null): Button
+	public function button(?string $label = null): Button
 	{
 		$button = new Button($this->aire, $this);
 		

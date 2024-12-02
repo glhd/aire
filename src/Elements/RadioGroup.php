@@ -29,7 +29,7 @@ class RadioGroup extends \Galahad\Aire\DTD\Input implements HasJsonValue
 	 * @param array|\Illuminate\Support\Collection|\Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\JsonSerializable|\Traversable $options
 	 * @param \Galahad\Aire\Elements\Form|null $form
 	 */
-	public function __construct(Aire $aire, $options, Form $form = null)
+	public function __construct(Aire $aire, $options, ?Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

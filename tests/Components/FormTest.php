@@ -47,10 +47,10 @@ class FormTest extends ComponentTestCase
 	public function test_action_attribute_can_be_set(): void
 	{
 		$value = Str::random();
-		
+
 		$form = $this->renderBlade('<x-aire::form :action="$value" />', compact('value'));
 		$this->assertSelectorAttribute($form, 'form', 'action', $value);
-		
+
 		// Action is special so it cannot be unset
 	}
 	
@@ -265,10 +265,10 @@ class FormTest extends ComponentTestCase
 	{
 		$form = $this->renderBlade('<x-aire::form method="get" />');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'GET');
-		
+
 		$form = $this->renderBlade('<x-aire::form method="post" />');
 		$this->assertSelectorAttribute($form, 'form', 'method', 'POST');
-		
+
 		// Method cannot be unset
 	}
 	

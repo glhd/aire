@@ -46,7 +46,7 @@ class ClientValidation implements Htmlable, NonInput
 	 */
 	protected $dev_mode = false;
 	
-	public function __construct(Aire $aire, $element_id, array $rules = [], array $messages = [], string $form_request = null, $dev_mode = false)
+	public function __construct(Aire $aire, $element_id, array $rules = [], array $messages = [], ?string $form_request = null, $dev_mode = false)
 	{
 		$this->aire = $aire;
 		$this->element_id = $element_id;

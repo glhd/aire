@@ -19,7 +19,7 @@ class SelectorAttribute extends CrawlerConstraint
 	 */
 	protected $value;
 	
-	public function __construct(string $selector, string $attribute, string $value = null)
+	public function __construct(string $selector, string $attribute, ?string $value = null)
 	{
 		$this->selector = $selector;
 		$this->attribute = $attribute;
