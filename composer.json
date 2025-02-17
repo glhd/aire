@@ -1,67 +1,67 @@
 {
-  "name": "glhd/aire",
-  "description": "Modern Laravel form builder. Remembers old input, retrieves error messages and comes with beautiful Tailwind-based markup out of the box.",
-  "keywords": [
-    "laravel",
-    "forms",
-    "tailwind",
-    "aire"
-  ],
-  "authors": [
-    {
-      "name": "Chris Morrell",
-      "homepage": "http://www.cmorrell.com"
-    }
-  ],
-  "type": "library",
-  "license": "MIT",
-  "require": {
-    "illuminate/support": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
-    "illuminate/view": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
-    "illuminate/events": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
-    "ext-json": "*"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^6.24|^7.10|^8|^9|9.x-dev|10.x-dev|dev-master",
-    "phpunit/phpunit": "^9|^10.5",
-    "php-coveralls/php-coveralls": "^2.1",
-    "guzzlehttp/guzzle": "~6.0|~7.0",
-    "symfony/css-selector": "^5.4",
-    "symfony/dom-crawler": "^5.4",
-    "barryvdh/reflection-docblock": "^2.0",
-    "mockery/mockery": "^1.4",
-    "friendsofphp/php-cs-fixer": "^3.5"
-  },
-  "suggest": {
-    "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"
-  },
-  "autoload": {
-    "psr-4": {
-      "Galahad\\Aire\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "classmap": [
-      "tests/TestCase.php"
+    "name": "glhd/aire",
+    "description": "Modern Laravel form builder. Remembers old input, retrieves error messages and comes with beautiful Tailwind-based markup out of the box.",
+    "keywords": [
+        "laravel",
+        "forms",
+        "tailwind",
+        "aire"
     ],
-    "psr-4": {
-      "Galahad\\Aire\\Tests\\": "tests/"
+    "authors": [
+        {
+            "name": "Chris Morrell",
+            "homepage": "http://www.cmorrell.com"
+        }
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "illuminate/support": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0 ^12.0",
+        "illuminate/view": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0 ^12.0",
+        "illuminate/events": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0 ^12.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.24|^7.10|^8|^9|9.x-dev|10.x-dev|dev-master",
+        "phpunit/phpunit": "^9|^10.5 ^11.5.3",
+        "php-coveralls/php-coveralls": "^2.1",
+        "guzzlehttp/guzzle": "~6.0|~7.0",
+        "symfony/css-selector": "^5.4 ^7.2",
+        "symfony/dom-crawler": "^5.4 ^7.2",
+        "barryvdh/reflection-docblock": "^2.0",
+        "mockery/mockery": "^1.4",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "suggest": {
+        "glhd/aire-tailwind-custom-forms": "Use the Tailwind custom forms plugin for even nicer looking forms"
+    },
+    "autoload": {
+        "psr-4": {
+            "Galahad\\Aire\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Galahad\\Aire\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "fix-style": "vendor/bin/php-cs-fixer fix",
+        "check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Galahad\\Aire\\Support\\AireServiceProvider"
+            ],
+            "aliases": {
+                "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
+            }
+        }
     }
-  },
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"scripts": {
-		"fix-style": "vendor/bin/php-cs-fixer fix",
-		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
-	},
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Galahad\\Aire\\Support\\AireServiceProvider"
-      ],
-      "aliases": {
-        "Aire": "Galahad\\Aire\\Support\\Facades\\Aire"
-      }
-    }
-  }
 }
