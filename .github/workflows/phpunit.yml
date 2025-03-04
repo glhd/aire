@@ -2,6 +2,8 @@ name: PHPUnit
 
 on:
   push:
+    branches:
+      - main
   pull_request:
   schedule:
     - cron: '0 14 * * 3' # Run Wednesdays at 2pm EST
@@ -12,20 +14,9 @@ jobs:
     
     strategy:
       matrix:
-        dependency-version: [ stable, lowest ]
-        laravel: [ ^8.79, ^9.50.2, 10.*, 11.*, 12.* ]
         php: [ 8.0, 8.1, 8.2, 8.3, 8.4 ]
-        include:
-          - laravel: ^8.79
-            testbench: ^6.24
-          - laravel: ^9.50.2
-            testbench: ^7.22
-          - laravel: 10.*
-            testbench: 8.*
-          - laravel: 11.*
-            testbench: 9.*
-          - laravel: 12.*
-            testbench: 10.*
+        laravel: [ ^8.79, ^9.50.2, 10.*, 11.*, 12.* ]
+        dependency-version: [ stable, lowest ]
         exclude:
           - php: 8.4
             laravel: ^8.79
@@ -60,25 +51,21 @@ jobs:
           tools: composer:v2
 
       - name: Register composer cache directory
-        id: composer-cache-files-dir
+        id: composer-cache
         run: |
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT  
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
-          path: |
-            vendor
-            ${{ steps.composer-cache-files-dir.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer require --no-interaction --prefer-dist --no-update "illuminate/support:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
-
-      - name: Set dependency version
-        run: composer update --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
+        run: |
+          composer require --no-interaction --prefer-dist --prefer-${{ matrix.dependency-version }} --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
 
       - name: Execute tests
         run: vendor/bin/phpunit
