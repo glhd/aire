@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-suggest --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:^11.0" "orchestra/testbench:9.*"
+        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:^11.0"
 
       - name: Run and publish code coverage
         uses: paambaati/codeclimate-action@v9.0
