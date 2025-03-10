@@ -3,6 +3,7 @@
 namespace Galahad\Aire\Tests\Unit;
 
 use Galahad\Aire\Tests\TestCase;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class GroupTest extends TestCase
@@ -64,6 +65,16 @@ class GroupTest extends TestCase
 		
 		$this->assertSelectorTextEquals($input, 'div > small', 'Help text');
 	}
+
+    public function test_a_group_can_have_html_help_text(): void
+    {
+        $input = $this->aire()
+            ->input()
+            ->helpText(new HtmlString('Help <strong>text</strong>'))
+            ->toHtml();
+
+        $this->assertSelectorTextEquals($input, 'div > small', 'Help text');
+    }
 	
 	public function test_a_group_can_have_errors(): void
 	{
