@@ -16,14 +16,14 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "illuminate/support": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
-    "illuminate/view": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
-    "illuminate/events": ">=5.8.28 <10.48.0 || >10.48.1 <12.0.0",
+    "illuminate/support": ">=5.8.28 <10.48.0 || >10.48.1 <13.0.0",
+    "illuminate/view": ">=5.8.28 <10.48.0 || >10.48.1 <13.0.0",
+    "illuminate/events": ">=5.8.28 <10.48.0 || >10.48.1 <13.0.0",
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.24|^7.10|^8|^9|9.x-dev|10.x-dev|dev-master",
-    "phpunit/phpunit": "^9|^10.5",
+    "orchestra/testbench": "^6.24|^7.10|^8|^9|^10|11.x-dev|dev-master|dev-main",
+    "phpunit/phpunit": "^9|^10.5|^11.5",
     "php-coveralls/php-coveralls": "^2.1",
     "guzzlehttp/guzzle": "~6.0|~7.0",
     "symfony/css-selector": "^5.4",
