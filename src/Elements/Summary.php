@@ -15,7 +15,7 @@ class Summary extends Element implements NonInput
 		'verbose' => false,
 	];
 	
-	public function __construct(Aire $aire, Form $form = null)
+	public function __construct(Aire $aire, ?Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

@@ -27,7 +27,7 @@ class Checkbox extends Input implements HasJsonValue
 	 */
 	protected $bind_value = false;
 	
-	public function __construct(Aire $aire, Form $form = null)
+	public function __construct(Aire $aire, ?Form $form = null)
 	{
 		parent::__construct($aire, $form);
 		

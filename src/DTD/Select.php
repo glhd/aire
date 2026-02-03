@@ -41,7 +41,7 @@ class Select extends Element
 {
 	public $name = 'select';
 	
-	public function __construct(Aire $aire, Form $form = null)
+	public function __construct(Aire $aire, ?Form $form = null)
 	{
 		$this->view_data['options'] = new OptionsCollection();
 		

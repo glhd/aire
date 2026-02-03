@@ -136,7 +136,7 @@ class Aire
 		$this->form_resolver = $form_resolver;
 		$this->user_config = $config;
 		
-		$this->setIdGenerator(function(Element $element, Form $form = null) {
+		$this->setIdGenerator(function(Element $element, ?Form $form = null) {
 			$form_id = $form->element_id ?? null;
 			$element_name = $element->getInputName();
 			$element_id = $element->element_id;
@@ -184,7 +184,7 @@ class Aire
 	 * @param \Galahad\Aire\Elements\Form|null $form
 	 * @return string
 	 */
-	public function generateAutoId(Element $element, Form $form = null): string
+	public function generateAutoId(Element $element, ?Form $form = null): string
 	{
 		return (string) call_user_func($this->id_generator, $element, $form);
 	}

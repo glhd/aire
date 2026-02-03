@@ -33,7 +33,7 @@ class AutoIdTest extends TestCase
 	
 	public function test_auto_id_can_be_user_defined(): void
 	{
-		$this->aire()->setIdGenerator(function(Element $element, Form $form = null) {
+		$this->aire()->setIdGenerator(function(Element $element, ?Form $form = null) {
 			return "foo-{$element->getInputName()}";
 		});
 		
