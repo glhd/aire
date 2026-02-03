@@ -17,30 +17,30 @@ use Illuminate\Support\Str;
  * @method \Galahad\Aire\Elements\Element prepend(string $text)
  * @method \Galahad\Aire\Elements\Element append(string $text)
  * @method \Galahad\Aire\Elements\Element groupData($key, $value)
- * @method \Galahad\Aire\Elements\Element groupAccessKey($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupClass($value = NULL)
+ * @method \Galahad\Aire\Elements\Element groupAccessKey($value = null)
+ * @method \Galahad\Aire\Elements\Element groupClass($value = null)
  * @method \Galahad\Aire\Elements\Element groupContentEditable(bool $content_editable = true)
- * @method \Galahad\Aire\Elements\Element groupContextMenu($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupDir($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupDraggable($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupDropZone($value = NULL)
+ * @method \Galahad\Aire\Elements\Element groupContextMenu($value = null)
+ * @method \Galahad\Aire\Elements\Element groupDir($value = null)
+ * @method \Galahad\Aire\Elements\Element groupDraggable($value = null)
+ * @method \Galahad\Aire\Elements\Element groupDropZone($value = null)
  * @method \Galahad\Aire\Elements\Element groupHide(bool $hidden = true)
- * @method \Galahad\Aire\Elements\Element groupId($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupLang($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupRole($value = NULL)
+ * @method \Galahad\Aire\Elements\Element groupId($value = null)
+ * @method \Galahad\Aire\Elements\Element groupLang($value = null)
+ * @method \Galahad\Aire\Elements\Element groupRole($value = null)
  * @method \Galahad\Aire\Elements\Element groupSpellCheck(bool $spell_check = true)
- * @method \Galahad\Aire\Elements\Element groupStyle($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupTabIndex($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupTitle($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaActiveDescendant($value = NULL)
+ * @method \Galahad\Aire\Elements\Element groupStyle($value = null)
+ * @method \Galahad\Aire\Elements\Element groupTabIndex($value = null)
+ * @method \Galahad\Aire\Elements\Element groupTitle($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaActiveDescendant($value = null)
  * @method \Galahad\Aire\Elements\Element groupAriaAtomic(bool $aria_atomic = true)
  * @method \Galahad\Aire\Elements\Element groupAriaBusy(bool $aria_busy = true)
- * @method \Galahad\Aire\Elements\Element groupAriaControls($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaDescribedBy($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaDisabled($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaDropEffect($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaFlowTo($value = NULL)
- * @method \Galahad\Aire\Elements\Element groupAriaGrabbed($value = NULL)
+ * @method \Galahad\Aire\Elements\Element groupAriaControls($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaDescribedBy($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaDisabled($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaDropEffect($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaFlowTo($value = null)
+ * @method \Galahad\Aire\Elements\Element groupAriaGrabbed($value = null)
  * @method \Galahad\Aire\Elements\Element groupAriaHasPopup(bool $aria_has_popup = true)
  * @method \Galahad\Aire\Elements\Element groupAriaHidden(bool $aria_hidden = true)
  * @method \Galahad\Aire\Elements\Element groupAriaInvalid($value = NULL)
@@ -102,17 +102,17 @@ trait Groupable
 		$group_method = 0 === strpos($method_name, 'group')
 			? Str::camel(substr($method_name, 5))
 			: $method_name;
-
+		
 		if ($this->grouped && method_exists($this->group, $group_method)) {
 			$this->group->$group_method(...$arguments);
-
+			
 			return $this;
 		}
-
+		
 		if (static::hasMacro($method_name)) {
 			return $this->callMacro($method_name, $arguments);
 		}
-
+		
 		// @codeCoverageIgnoreStart
 		throw new BadMethodCallException(sprintf(
 			'Method %s::%s does not exist on the Element or Group.',
