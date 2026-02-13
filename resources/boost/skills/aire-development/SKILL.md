@@ -1,36 +1,26 @@
 ---
 name: aire-development
-description: Build and work with Aire forms in Laravel, including the fluent PHP API, Blade components, data binding, validation, and theming.
+description: Build and work with Aire forms in Laravel, including the fluent PHP API, data binding, validation, and customization.
 ---
 
 # Aire Form Development
 
 ## When to use this skill
 
-Use this skill when creating, modifying, debugging, or styling HTML forms in a Laravel application that uses the `glhd/aire` package. This includes any work involving form elements, data binding, validation, or form theming.
+Use this skill when creating, modifying, debugging, or styling HTML forms in a Laravel application that uses the `glhd/aire` package. This includes any work involving form elements, data binding, validation, or form customization.
 
 ## Overview
 
-Aire is a Laravel form builder with a fluent API. It is accessed via the `Aire` facade (`Galahad\Aire\Support\Facades\Aire`) or via `<x-aire::*>` Blade components. Aire automatically handles CSRF tokens, HTTP method spoofing, old input repopulation, and server-side validation error display.
+Aire is a Laravel form builder with a fluent API. It is accessed via the `Aire` facade (`Galahad\Aire\Support\Facades\Aire`). Always use the `Aire::` facade calls — do not use `<x-aire::*>` Blade components. Aire automatically handles CSRF tokens, HTTP method spoofing, old input repopulation, and server-side validation error display.
 
 ## Opening and Closing Forms
 
 Every form must be opened and closed. Aire uses output buffering between open and close to capture form fields.
 
-### Facade API
-
 ```php
 {{ Aire::open()->route('users.store') }}
     {{-- form fields --}}
 {{ Aire::close() }}
-```
-
-### Blade Component API
-
-```html
-<x-aire::form route="users.store">
-    {{-- form fields --}}
-</x-aire::form>
 ```
 
 ### Setting the Action
@@ -173,23 +163,6 @@ Aire::summary()            // Shows error count
 Aire::summary()->verbose() // Shows itemized error list
 ```
 
-## Blade Component Syntax
-
-All elements are available as `<x-aire::*>` Blade components. Method names become kebab-case attributes:
-
-```html
-<x-aire::form route="users.store" :bind="$user">
-    <x-aire::input name="name" label="Full Name" required />
-    <x-aire::email name="email" label="Email Address" />
-    <x-aire::select name="role" label="Role" :options="['admin' => 'Admin', 'user' => 'User']" />
-    <x-aire::text-area name="bio" label="Biography" />
-    <x-aire::checkbox name="active" label="Active" />
-    <x-aire::radio-group name="plan" label="Plan" :options="['free' => 'Free', 'pro' => 'Pro']" />
-    <x-aire::summary />
-    <x-aire::submit label="Create User" />
-</x-aire::form>
-```
-
 ## Fluent Element Methods
 
 All elements support chaining. Common methods available on every input element:
@@ -272,9 +245,9 @@ Aire::open()->asAlpineComponent(['extra_key' => 'value'])
 
 When enabled, each input element will get an `x-model` attribute matching its name, and the form gets an `x-data` attribute with JSON-serialized initial values.
 
-## Theming and Customization
+## Configuration
 
-### Publishing Configuration
+Publish the config file to customize Aire's behavior:
 
 ```bash
 php artisan vendor:publish --tag=aire-config
@@ -288,19 +261,10 @@ This publishes `config/aire.php` where you can set:
 - `group_by_default`: Whether elements are grouped by default
 - `validate_by_default`: Whether client-side validation is on by default
 
-### Publishing Views
+You can also publish and override Blade templates:
 
 ```bash
 php artisan vendor:publish --tag=aire-views
-```
-
-Override any Blade template in `resources/views/vendor/aire/`.
-
-### Custom Themes
-
-```php
-// In a service provider:
-$aire->setTheme('my-theme-namespace', 'optional-prefix', $configArray);
 ```
 
 ## Complete Form Examples
@@ -359,15 +323,3 @@ $aire->setTheme('my-theme-namespace', 'optional-prefix', $configArray);
 {{ Aire::close() }}
 ```
 
-### Blade Component Form
-
-```html
-<x-aire::form :resourceful="$user">
-    <x-aire::summary />
-    <x-aire::input name="name" label="Name" required />
-    <x-aire::email name="email" label="Email" required />
-    <x-aire::select name="role" label="Role" :options="$roles" />
-    <x-aire::checkbox name="is_admin" label="Administrator" />
-    <x-aire::submit label="Save" />
-</x-aire::form>
-```
