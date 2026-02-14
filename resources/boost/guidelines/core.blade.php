@@ -1,0 +1,1 @@
+This project uses **Aire** (`glhd/aire`) for all HTML form rendering. Always use Aire for forms — never write raw `<form>` or `<input>` tags. When doing any work related to forms, activate the `aire-development` skill.
