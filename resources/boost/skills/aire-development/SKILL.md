@@ -11,7 +11,7 @@ Use this skill when creating, modifying, debugging, or styling HTML forms in a L
 
 ## Overview
 
-Aire is a Laravel form builder with a fluent API. It is accessed via the `Aire` facade (`Galahad\Aire\Support\Facades\Aire`). Always use the `Aire::` facade calls — do not use `<x-aire::*>` Blade components. Aire automatically handles CSRF tokens, HTTP method spoofing, old input repopulation, and server-side validation error display.
+Aire is a Laravel form builder with a fluent API. It is accessed via the `Aire` facade (`Galahad\Aire\Support\Facades\Aire`). Aire automatically handles CSRF tokens, HTTP method spoofing, old input repopulation, and server-side validation error display.
 
 ## Opening and Closing Forms
 
@@ -275,7 +275,7 @@ php artisan vendor:publish --tag=aire-views
 {{ Aire::open()->route('posts.store') }}
     {{ Aire::summary() }}
     {{ Aire::input('title', 'Title')->required() }}
-    {{ Aire::textArea('body', 'Content') }}
+    {{ Aire::textArea('body', 'Content')->autoSize() }}
     {{ Aire::select(['draft' => 'Draft', 'published' => 'Published'], 'status', 'Status') }}
     {{ Aire::submit('Create Post') }}
 {{ Aire::close() }}
@@ -287,7 +287,7 @@ php artisan vendor:publish --tag=aire-views
 {{ Aire::open()->resourceful($post) }}
     {{ Aire::summary() }}
     {{ Aire::input('title', 'Title')->required() }}
-    {{ Aire::textArea('body', 'Content') }}
+    {{ Aire::textArea('body', 'Content')->autoSize() }}
     {{ Aire::select(['draft' => 'Draft', 'published' => 'Published'], 'status', 'Status') }}
     {{ Aire::submit('Update Post') }}
 {{ Aire::close() }}
