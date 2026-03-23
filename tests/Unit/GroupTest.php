@@ -66,15 +66,15 @@ class GroupTest extends TestCase
 		$this->assertSelectorTextEquals($input, 'div > small', 'Help text');
 	}
 
-    public function test_a_group_can_have_html_help_text(): void
-    {
-        $input = $this->aire()
-            ->input()
-            ->helpText(new HtmlString('Help <strong>text</strong>'))
-            ->toHtml();
+	public function test_a_group_can_have_html_help_text(): void
+	{
+		$input = $this->aire()
+			->input()
+			->helpText(new HtmlString('Help <strong>text</strong>'))
+			->toHtml();
 
-        $this->assertSelectorTextEquals($input, 'div > small', 'Help text');
-    }
+		$this->assertSelectorTextEquals($input, 'div > small', 'Help text');
+	}
 	
 	public function test_a_group_can_have_errors(): void
 	{

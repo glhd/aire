@@ -101,9 +101,9 @@ class Group extends Element implements NonInput
 		return parent::variant($variant);
 	}
 
-    /**
-     * @param string|Htmlable $text
-     */
+	/**
+	 * @param string|Htmlable $text
+	 */
 	public function helpText($text): self
 	{
 		$this->view_data['help_text'] = $text;
