@@ -8,18 +8,18 @@ jobs:
   update-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           repository: ${{ github.event.repository.full_name }}
           ref: 'main'
       
       - name: Update changelog
-        uses: thomaseizinger/keep-a-changelog-new-release@v1
+        uses: thomaseizinger/keep-a-changelog-new-release@v2
         with:
           version: ${{ github.event.release.tag_name }}
       
       - name: Commit changelog back to repo
-        uses: EndBug/add-and-commit@v8
+        uses: EndBug/add-and-commit@v9
         with:
           add: 'CHANGELOG.md'
           message: ${{ github.event.release.tag_name }}
