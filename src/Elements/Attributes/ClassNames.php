@@ -238,6 +238,19 @@ class ClassNames
 			$variants = $variants->merge((array) $variant);
 		}
 		
+		// Apply implicit variants
+		$implicit = [
+			'disabled',
+			'readonly',
+			'required',
+		];
+		
+		foreach ($implicit as $attribute) {
+			if ($this->element->attributes->get($attribute, false)) {
+				$variants->push($attribute);
+			}
+		}
+		
 		$element_name = $this->element_name;
 		
 		if ('textarea' === $element_name && !isset(static::$validation_classes[$element_name])) {

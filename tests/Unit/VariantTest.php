@@ -153,4 +153,76 @@ class VariantTest extends TestCase
 			'input-not-nested-variant',
 		]);
 	}
+	
+	public function test_disabled_variant_is_applied_dynamically(): void
+	{
+		$this->app['config']->set('aire.variant_classes', [
+			'input' => [
+				'default' => [
+					'base' => 'input-default',
+				],
+				'disabled' => [
+					'base' => 'input-disabled',
+					'color' => 'input-disabled-color',
+				],
+			],
+		]);
+		
+		$disabled = $this->aire()->input()->disabled();
+		$enabled = $this->aire()->input()->disabled()->disabled(false); // set then unset
+		
+		$this->assertSelectorClassNames($disabled, 'input', ['input', 'input-disabled', 'input-disabled-color']);
+		$this->assertSelectorMissingClassNames($disabled, 'input', ['input-default']);
+		
+		$this->assertSelectorClassNames($enabled, 'input', ['input', 'input-default']);
+		$this->assertSelectorMissingClassNames($enabled, 'input', ['input-disabled', 'input-disabled-color']);
+	}
+	
+	public function test_readonly_variant_is_applied_dynamically(): void
+	{
+		$this->app['config']->set('aire.variant_classes', [
+			'input' => [
+				'default' => [
+					'base' => 'input-default',
+				],
+				'readonly' => [
+					'base' => 'input-readonly',
+					'color' => 'input-readonly-color',
+				],
+			],
+		]);
+		
+		$read_only = $this->aire()->input()->readOnly();
+		$read_write = $this->aire()->input()->readOnly()->readOnly(false); // set then unset
+		
+		$this->assertSelectorClassNames($read_only, 'input', ['input', 'input-readonly', 'input-readonly-color']);
+		$this->assertSelectorMissingClassNames($read_only, 'input', ['input-default']);
+		
+		$this->assertSelectorClassNames($read_write, 'input', ['input', 'input-default']);
+		$this->assertSelectorMissingClassNames($read_write, 'input', ['input-readonly', 'input-readonly-color']);
+	}
+	
+	public function test_required_variant_is_applied_dynamically(): void
+	{
+		$this->app['config']->set('aire.variant_classes', [
+			'input' => [
+				'default' => [
+					'base' => 'input-default',
+				],
+				'required' => [
+					'base' => 'input-required',
+					'color' => 'input-required-color',
+				],
+			],
+		]);
+		
+		$required = $this->aire()->input()->required();
+		$optional = $this->aire()->input()->required()->required(false); // set then unset
+		
+		$this->assertSelectorClassNames($required, 'input', ['input', 'input-required', 'input-required-color']);
+		$this->assertSelectorMissingClassNames($required, 'input', ['input-default']);
+		
+		$this->assertSelectorClassNames($optional, 'input', ['input', 'input-default']);
+		$this->assertSelectorMissingClassNames($optional, 'input', ['input-required', 'input-required-color']);
+	}
 }
