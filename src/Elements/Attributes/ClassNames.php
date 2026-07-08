@@ -233,7 +233,15 @@ class ClassNames
 		// Start with default always
 		$variants = new BaseCollection('default');
 		
-		// Merge in other variants if they're set
+		// Apply implicit variants
+		$implicit = ['disabled', 'readonly', 'required'];
+		foreach ($implicit as $attribute) {
+			if ($this->element->attributes->get($attribute, false)) {
+				$variants->push($attribute);
+			}
+		}
+		
+		// Merge in other variants if they're set (last, so that they take precedence)
 		if ($variant = $this->element->getViewData('variant')) {
 			$variants = $variants->merge((array) $variant);
 		}
