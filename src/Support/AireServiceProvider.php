@@ -4,6 +4,7 @@ namespace Galahad\Aire\Support;
 
 use Galahad\Aire\Aire;
 use Galahad\Aire\Elements\ClientValidation;
+use Galahad\Aire\Elements\Element;
 use Galahad\Aire\Elements\Form;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
@@ -67,6 +68,7 @@ class AireServiceProvider extends ServiceProvider
 		
 		$this->app->terminating(function() {
 			ClientValidation::reset();
+			Element::resetElementMutators();
 		});
 	}
 	
