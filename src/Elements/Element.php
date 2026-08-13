@@ -106,6 +106,16 @@ abstract class Element implements Htmlable
 	}
 	
 	/**
+	 * Reset element mutators
+	 *
+	 * Resets all element mutators. Useful for testing.
+	 */
+	public static function resetElementMutators(): void
+	{
+		self::$element_mutators = []; 
+	}
+	
+	/**
 	 * Set a data attribute
 	 *
 	 * @param string $data_key
